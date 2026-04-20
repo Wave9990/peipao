@@ -1,0 +1,5201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>点石家装 · 陪跑数据看板</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blue:#3B82F6;--orange:#F59E0B;--green:#10B981;--red:#EF4444;--purple:#8B5CF6;--gray:#6B7280;--bg:#FEFCE8;--card:#FFFDE7}
+body{font-family:'Caveat',cursive,'Microsoft YaHei',sans-serif;background:var(--bg);background-image:radial-gradient(#E5E7EB 1px,transparent 1px);background-size:20px 20px;color:#1F2937;padding:16px}
+h1,h2,h3,h4{font-family:'Caveat',cursive;font-weight:600}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:#FFF;border:2px dashed #D1D5DB;border-radius:8px;cursor:pointer;font-family:'Caveat',cursive;font-size:18px;transition:all .2s}
+.tab.active{border-color:var(--blue);background:#EFF6FF;color:var(--blue)}
+.tab:hover{border-color:var(--blue);transform:rotate(-1deg)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.metric{background:var(--card);border:2px dashed #D1D5DB;border-radius:12px;padding:16px;text-align:center}
+.metric .label{font-size:14px;color:var(--gray);margin-bottom:4px}
+.metric .val{font-size:28px;font-weight:700}
+.metric .unit{font-size:14px;color:var(--gray)}
+.section{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:20px}
+.card{background:#FFF;border:2px dashed #D1D5DB;border-radius:12px;padding:16px}
+.card-title{font-size:20px;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:#F3F4F6;padding:8px;text-align:left;font-weight:600;border-bottom:2px dashed #D1D5DB}
+td{padding:8px;border-bottom:1px dashed #E5E7EB}
+tr:hover{background:#FEF3C7}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600}
+.tag-cs{background:#DBEAFE;color:#1D4ED8}.tag-d1{background:#E0E7FF;color:#4338CA}.tag-d2{background:#FCE7F3;color:#DB2777}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:700}
+.rank-1{background:#FCD34D;color:#78350F}.rank-2{background:#E5E7EB;color:#374151}.rank-3{background:#FED7AA;color:#9A3412}
+.rank-other{background:#F3F4F6;color:#6B7280}
+.filter-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+select,button.filter{padding:6px 12px;border:2px dashed #D1D5DB;border-radius:8px;font-family:'Caveat',cursive;font-size:16px;background:#FFF}
+.progress-bar{height:20px;background:#F3F4F6;border-radius:10px;overflow:hidden;display:flex}
+.seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#FFF;font-weight:600}
+.fade-in{animation:fadeIn .3s}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.grid2{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
+.pk-card{display:flex;align-items:center;gap:12px;padding:12px;border:2px dashed #D1D5DB;border-radius:8px;margin-bottom:8px}
+.pk-bar{height:6px;background:#F3F4F6;border-radius:3px;overflow:hidden;margin-top:4px}
+.pk-bar .fill{height:100%;border-radius:3px}
+.timestamp{background:#F3F4F6;padding:8px 16px;border-radius:8px;font-size:13px;color:var(--gray);text-align:center;margin-bottom:16px}
+.total-row{background:#FEF3C7;font-weight:700}
+.team-note{font-size:12px;color:var(--gray);line-height:1.6}
+.team-status{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.team-status.status-good{background:rgba(16,185,129,.12);color:var(--green)}
+.team-status.status-warn{background:rgba(245,158,11,.14);color:var(--orange)}
+.team-status.status-bad{background:rgba(239,68,68,.12);color:var(--red)}
+.team-gap{font-size:12px;color:var(--gray);line-height:1.5}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="timestamp">🕐 数据更新时间: 2026/4/20 14:15:48</div>
+<div style="text-align:center;margin-bottom:20px"><h1 style="font-size:32px;color:var(--blue)">📊 点石家装 · 陪跑数据看板</h1></div>
+
+<div class="tabs">
+<button class="tab" :class="{active:tab==='overview'}" @click="tab='overview'">📈 年度总览</button>
+<button class="tab" :class="{active:tab==='quarter'}" @click="tab='quarter'">📋 季度汇总</button>
+<button class="tab" :class="{active:tab==='monthly'}" @click="tab='monthly'">📋 月度明细</button>
+<button class="tab" :class="{active:tab==='analysis'}" @click="tab='analysis'">🏆 对比分析</button>
+<button class="tab" :class="{active:tab==='team'}" @click="tab='team'">👥 团队成员业绩</button>
+</div>
+
+<!-- ========== 年度总览 ========== -->
+<div v-show="tab==='overview'" class="fade-in">
+<div class="metrics">
+<div class="metric"><div class="label">设计单数</div><div class="val" style="color:var(--orange)">{{totalDesign}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">施工单数</div><div class="val" style="color:var(--blue)">{{totalConstr}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">设计金额</div><div class="val" style="color:var(--orange)">{{fmtW(totalDesAmount)}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">施工金额</div><div class="val" style="color:var(--blue)">{{fmtW(totalConAmount)}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">转化率</div><div class="val" style="color:var(--green)">{{conversionRate}}%</div><div class="unit">设计→施工</div></div>
+<div class="metric"><div class="label">施工均值</div><div class="val" style="color:var(--purple)">{{avgConValue}}</div><div class="unit">万元</div></div>
+</div>
+
+<div class="section">
+<div class="card">
+<div class="card-title">📌 各大区施工</div>
+<div class="filter-row">
+<div style="flex:1;text-align:center">
+<div style="font-size:14px;color:var(--gray)">长沙大区</div>
+<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(csConAmount)}}万</div>
+<div style="font-size:13px;color:var(--gray)">{{csConstr}}单 · 设计{{csDesign}}单</div>
+</div>
+<div style="flex:1;text-align:center">
+<div style="font-size:14px;color:var(--gray)">地市一区</div>
+<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(dsConAmount)}}万</div>
+<div style="font-size:13px;color:var(--gray)">{{dsConstr}}单 · 设计{{dsDesign}}单</div>
+</div>
+<div style="flex:1;text-align:center">
+<div style="font-size:14px;color:var(--gray)">地市二区</div>
+<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(ds2ConAmount)}}万</div>
+<div style="font-size:13px;color:var(--gray)">{{ds2Constr}}单 · 设计{{ds2Design}}单</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 月度趋势 -->
+<div class="section">
+<div class="card" style="grid-column:1/-1">
+<div class="card-title">📈 月度趋势</div>
+<div id="trendChart" style="height:280px"></div>
+</div>
+</div>
+
+<!-- 门店排名 -->
+<div class="section">
+<div class="card">
+<div class="card-title">🏪 门店排名</div>
+<div class="filter-row">
+<button class="tab" :class="{active:storeRankTab==='con'}" @click="storeRankTab='con'">按施工金额</button>
+<button class="tab" :class="{active:storeRankTab==='des'}" @click="storeRankTab='des'">按设计单数</button>
+</div>
+<div v-show="storeRankTab==='con'">
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
+<tr v-for="(s,i) in storeConTop15" :key="s.store">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
+<td style="font-weight:600">{{s.store}}</td><td>{{s.count}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(s.amount)}}</td>
+</tr></tbody></table>
+</div>
+<div v-show="storeRankTab==='des'">
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
+<tr v-for="(s,i) in storeDesTop15" :key="s.store">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
+<td style="font-weight:600">{{s.store}}</td><td style="color:var(--orange);font-weight:600">{{s.count}}</td>
+<td style="color:var(--orange)">{{fmtW(s.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+
+<!-- 家顾施工排名 -->
+<div class="section">
+<div class="card" style="grid-column:1/-1">
+<div class="card-title">👨‍💼 家顾施工排名 TOP15</div>
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
+<tr v-for="(a,i) in advisorConTop15" :key="a.key">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(a.district)">{{a.district}}</span></td>
+<td>{{a.store}}</td>
+<td style="font-weight:700">{{a.advisor}}</td>
+<td>{{a.count}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(a.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+<!-- 家顾设计排名 -->
+<div class="section">
+<div class="card" style="grid-column:1/-1">
+<div class="card-title">🎨 家顾设计排名 TOP15</div>
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
+<tr v-for="(a,i) in advisorDesTop15" :key="a.key">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(a.district)">{{a.district}}</span></td>
+<td>{{a.store}}</td>
+<td style="font-weight:700">{{a.advisor}}</td>
+<td style="color:var(--orange);font-weight:600">{{a.count}}</td>
+<td style="color:var(--orange)">{{fmtW(a.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+</div>
+</div><!-- /overview -->
+
+<!-- ========== 季度汇总 ========== -->
+<div v-show="tab==='quarter'" class="fade-in">
+<div class="section">
+<div class="card">
+<div class="card-title">📋 {{quarterSel}} 汇总</div>
+<div class="metrics">
+<div class="metric"><div class="label">设计单数</div><div class="val" style="color:var(--orange)">{{qStats.design}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">施工单数</div><div class="val" style="color:var(--blue)">{{qStats.constr}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">设计金额</div><div class="val" style="color:var(--orange)">{{fmtW(qStats.desAmount)}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">施工金额</div><div class="val" style="color:var(--blue)">{{fmtW(qStats.conAmount)}}</div><div class="unit">万元</div></div>
+</div>
+<div style="text-align:center">
+<button v-for="q in ['Q1','Q2','Q3','Q4']" :key="q" :class="{active:quarterSel===q}" @click="quarterSel=q" class="tab" style="margin:0 4px">{{q}}</button>
+</div>
+</div>
+<div class="card">
+<div class="card-title">🥧 {{quarterSel}} 设计/施工占比</div>
+<div id="qDonutChart" style="height:220px"></div>
+</div>
+</div>
+
+<!-- 季度门店排名 -->
+<div class="section">
+<div class="card">
+<div class="card-title">🏪 {{quarterSel}} 门店排名</div>
+<div class="filter-row">
+<button class="tab" :class="{active:qStoreRankTab==='con'}" @click="qStoreRankTab='con'">按施工金额</button>
+<button class="tab" :class="{active:qStoreRankTab==='des'}" @click="qStoreRankTab='des'">按设计单数</button>
+</div>
+<div v-show="qStoreRankTab==='con'">
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
+<tr v-for="(s,i) in qStoreTop" :key="s.store">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
+<td style="font-weight:600">{{s.store}}</td><td>{{s.count}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(s.amount)}}</td>
+</tr></tbody></table>
+</div>
+<div v-show="qStoreRankTab==='des'">
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
+<tr v-for="(s,i) in qStoreDesignTop" :key="s.store">
+<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
+<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
+<td style="font-weight:600">{{s.store}}</td><td style="color:var(--orange);font-weight:600">{{s.count}}</td>
+<td style="color:var(--orange)">{{fmtW(s.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+</div>
+</div><!-- /quarter -->
+
+<!-- ========== 月度明细 ========== -->
+<div v-show="tab==='monthly'" class="fade-in">
+<div class="filter-row">
+<select v-model="monthSel"><option v-for="m in monthList" :key="m" :value="m">{{m}}</option></select>
+<select v-model="monthDist">
+<option value="全部">全部大区</option>
+<option value="长沙大区">长沙大区</option>
+<option value="地市一区">地市一区</option>
+<option value="地市二区">地市二区</option>
+</select>
+<select v-model="monthType">
+<option value="全部">全部类型</option>
+<option value="设计">设计</option>
+<option value="施工">施工</option>
+</select>
+</div>
+<div class="metrics">
+<div class="metric"><div class="label">设计单数</div><div class="val" style="color:var(--orange)">{{mFiltered.filter(r=>r.type==='设计').length}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">施工单数</div><div class="val" style="color:var(--blue)">{{mFiltered.filter(r=>r.type==='施工').length}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">总金额</div><div class="val">{{fmtW(mFiltered.reduce((s,r)=>s+r.amount,0))}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">施工平均单值</div><div class="val">{{mConCount?fmtW(mConAmount/mConCount):'-'}}</div><div class="unit">万元</div></div>
+</div>
+<!-- 三大区图表 -->
+<div class="section">
+<div class="card" style="grid-column:1/-1">
+<div class="card-title">📊 {{monthSel}} 三大区数据对比</div>
+<div id="monthlyDistChart" style="height:300px"></div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">📋 {{monthSel}} 合同明细 ({{monthDist}})</div>
+<div style="overflow-x:auto">
+<table><thead><tr><th>类型</th><th>大区</th><th>门店</th><th>家装顾问</th><th>客户</th><th>金额(万)</th><th>日期</th></tr></thead><tbody>
+<tr v-for="(r,i) in mFiltered" :key="i">
+<td><span class="tag" :class="r.type==='施工'?'tag-cs':'tag-d1'">{{r.type}}</span></td>
+<td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
+<td>{{r.store}}</td><td>{{r.advisor}}</td><td>{{r.customer}}</td>
+<td :style="{color:r.type==='施工'?'var(--blue)':'var(--orange)','font-weight':'600'}">{{fmtW(r.amount)}}</td>
+<td>{{r.date}}</td>
+</tr>
+<tr class="total-row"><td colspan="5" style="text-align:right">合计</td><td style="font-weight:700">{{fmtW(mFiltered.reduce((s,r)=>s+r.amount,0))}}</td><td></td></tr>
+</tbody></table>
+</div>
+</div>
+</div><!-- /monthly -->
+
+<!-- ========== 对比分析 ========== -->
+<div v-show="tab==='analysis'" class="fade-in">
+<div class="section">
+<div class="card">
+<div class="card-title">🏆 大区 PK</div>
+<div v-for="d in distPKList" :key="d.name" style="margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-weight:600">{{d.name}}</span><span style="font-size:13px;color:var(--gray)">设计{{d.design}}单 · 施工{{d.constr}}单 · {{fmtW(d.conAmount)}}万</span></div>
+<div class="progress-bar">
+<div class="seg" :style="{width:d.designPct+'%',background:'var(--orange)'}">{{d.design}}单</div>
+<div class="seg" :style="{width:d.constrPct+'%',background:'var(--blue)'}">{{d.constr}}单</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">🏆 TOP3 vs 需关注门店（施工金额）</div>
+<div class="grid2">
+<div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 3 门店</div>
+<div v-for="(s,i) in storeConTop3" :key="s.store" class="pk-card">
+<div class="rank-badge" :class="'rank-'+(i+1)" style="min-width:30px">{{i+1}}</div>
+<div class="pk-side">
+<div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
+<div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万 · 均值{{fmtW(s.amount/s.count)}}万</div>
+<div class="pk-bar"><div class="fill" :style="{width:(s.amount/storeConTop3[0].amount*100)+'%',background:'var(--green)'}"></div></div>
+</div>
+</div>
+</div>
+<div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（金额末3）</div>
+<div v-for="(s,i) in storeConBottom3" :key="s.store" class="pk-card">
+<div class="rank-badge rank-other" style="min-width:30px">{{storeConAll.length-2+i}}</div>
+<div class="pk-side">
+<div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
+<div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万</div>
+<div class="pk-bar"><div class="fill" :style="{width:Math.max(s.amount/storeConTop3[0].amount*100,5)+'%',background:'var(--red)'}"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /analysis -->
+
+
+<!-- ========== 团队成员业绩 ========== -->
+<div v-show="tab==='team'" class="fade-in">
+<div class="filter-row" style="justify-content:space-between;align-items:center">
+<div style="font-family:'Caveat',cursive;font-size:24px;font-weight:700;color:var(--blue)">👥 团队成员业绩</div>
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+<label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray)">
+<span>查看当月明细</span>
+<select id="teamMonthSelect" v-model="teamMonthSel" @change="$nextTick(()=>initTeamCharts())">
+<option v-for="m in teamMonthOptions" :key="m" :value="m">{{m}}</option>
+</select>
+</label>
+<span id="teamSourceBadge" class="team-status" :class="teamSourceInfo.badgeClass">数据来源：{{teamSourceInfo.label}}</span>
+<span style="font-size:12px;color:var(--gray)">KPI口径：施工 7500W · 设计 550 单</span>
+<span v-if="teamSourceInfo.updatedAt" style="font-size:12px;color:var(--gray)">最近同步：{{teamSourceInfo.updatedAt}}</span>
+</div>
+</div>
+<div class="team-note" style="margin-bottom:12px">{{teamSourceInfo.note}}</div>
+<div class="metrics">
+<div class="metric"><div class="label">施工累计</div><div id="teamConstructionActualMetric" class="val" style="color:var(--blue)">{{teamKpiSummary.constructionActualDisplay}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">施工 KPI</div><div class="val" style="color:var(--blue)">{{fmtW(teamKpiSummary.constructionTarget)}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">施工达成率</div><div class="val" style="color:var(--blue)">{{teamKpiSummary.constructionRateDisplay}}</div><div class="unit">目标完成</div></div>
+<div class="metric"><div class="label">设计累计</div><div id="teamDesignActualMetric" class="val" style="color:var(--orange)">{{teamKpiSummary.designActualDisplay}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">设计 KPI</div><div class="val" style="color:var(--orange)">{{teamKpiSummary.designTarget}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">设计达成率</div><div class="val" style="color:var(--orange)">{{teamKpiSummary.designRateDisplay}}</div><div class="unit">目标完成</div></div>
+<div class="metric"><div class="label">时间进度</div><div class="val" style="color:var(--purple, #8B5CF6)">{{teamKpiSummary.timeProgress}}%</div><div class="unit">年度进度</div></div>
+<div class="metric"><div class="label">偏差</div><div class="val" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div><div class="unit">短板 vs 时间</div></div>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">🏅 个人 KPI 排名表（年度累计：1-3月人工月报汇总）</div>
+<div class="filter-row">
+<button :class="{active:teamRankMode==='construction'}" @click="teamRankMode='construction';$nextTick(()=>initTeamCharts())">🔨 按施工金额排序</button>
+<button :class="{active:teamRankMode==='design'}" @click="teamRankMode='design';$nextTick(()=>initTeamCharts())">🎨 按设计单数排序</button>
+<div id="teamSyncedCountLabel" style="margin-left:auto;font-size:12px;color:var(--gray)">已同步成员 {{teamSyncedCount}} / {{teamMembers.length}}</div>
+</div>
+<div style="overflow-x:auto">
+<table id="teamKpiTable"><thead><tr><th>姓名</th><th>施工累计</th><th>施工KPI</th><th>施工达成率</th><th>设计累计</th><th>设计KPI</th><th>设计达成率</th><th>缺口/状态</th></tr></thead><tbody>
+<tr v-for="member in memberPerformanceRanked" :key="member.name">
+<td style="font-weight:700">{{member.name}}</td>
+<td style="color:var(--blue);font-weight:600">{{member.constructionActualDisplay}}</td>
+<td>{{fmtW(member.constructionTarget)}}万</td>
+<td style="color:var(--blue);font-weight:600">{{member.constructionRateDisplay}}</td>
+<td style="color:var(--orange);font-weight:600">{{member.designActualDisplay}}</td>
+<td>{{member.designTarget}}</td>
+<td style="color:var(--orange);font-weight:600">{{member.designRateDisplay}}</td>
+<td>
+<div class="team-gap">{{member.gapDisplay}}</div>
+<span class="team-status" :class="member.statusClass">{{member.status}}</span>
+</td>
+</tr>
+</tbody></table>
+</div>
+<!-- 当月明细数据（由月份筛选器控制） -->
+<div style="margin-top:16px;padding:16px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
+<div style="font-weight:700;color:#334155;margin-bottom:12px">📅 {{teamMonthSel}} 当月明细数据</div>
+<div style="overflow-x:auto">
+<table style="width:100%;font-size:13px">
+<thead>
+<tr style="background:#f1f5f9">
+<th style="padding:8px;text-align:left">成员</th>
+<th style="padding:8px;text-align:right">施工金额</th>
+<th style="padding:8px;text-align:right">设计单数</th>
+<th style="padding:8px;text-align:center">状态</th>
+</tr>
+</thead>
+<tbody>
+<tr v-for="m in monthlyMemberDetail" :key="m.name" style="border-bottom:1px solid #e2e8f0">
+<td style="padding:8px;font-weight:600">{{m.name}}</td>
+<td style="padding:8px;text-align:right" :style="{color: m.hasConstructionData ? 'var(--blue)' : 'var(--gray)'}">{{m.constructionDisplay}}</td>
+<td style="padding:8px;text-align:right" :style="{color: m.hasDesignData ? 'var(--orange)' : 'var(--gray)'}">{{m.designDisplay}}</td>
+<td style="padding:8px;text-align:center">
+<span v-if="m.hasAllData" class="team-status status-good">已同步</span>
+<span v-else-if="m.hasPartialData" class="team-status status-warn">部分缺失</span>
+<span v-else class="team-status status-bad">待同步</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="team-note" style="margin-top:8px">提示：上方排名表为<strong>年度累计</strong>数据（固定1-3月汇总），此区域显示选中月份的当月数据供参考。</div>
+</div>
+</div>
+</div>
+<div class="grid2">
+<div class="card">
+<div class="card-title">🔨 个人施工达成率条形图</div>
+<div id="teamConstructionChart" class="chart-box" style="height:360px"></div>
+</div>
+<div class="card">
+<div class="card-title">🎨 个人设计达成率条形图</div>
+<div id="teamDesignChart" class="chart-box" style="height:360px"></div>
+</div>
+</div>
+<div id="teamRiskTips" class="card" style="margin-top:16px" v-if="teamRiskTips.length">
+<div class="card-title">⚠️ 数据提醒</div>
+<div v-for="(tip,idx) in teamRiskTips" :key="idx" class="team-note">• {{tip}}</div>
+</div>
+</div><!-- /team -->
+
+
+
+
+</div><!-- /app -->
+
+<script>
+const { createApp, ref, computed, onMounted, nextTick, watch } = Vue;
+
+const TEAM_KPI = {
+  "constructionAmount": 75000000,
+  "designCount": 550
+};
+const MEMBER_KPI = {
+  "周国平": {
+    "constructionAmount": 17000000,
+    "designCount": 150
+  },
+  "向勇": {
+    "constructionAmount": 17000000,
+    "designCount": 150
+  },
+  "钟海燕": {
+    "constructionAmount": 15000000,
+    "designCount": 100
+  },
+  "宁章娜": {
+    "constructionAmount": 15000000,
+    "designCount": 100
+  },
+  "黄诗宇": {
+    "constructionAmount": 11000000,
+    "designCount": 50
+  }
+};
+const rawData = [
+  {
+    "type": "设计",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "张晓",
+    "amount": 5800,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "廖元香"
+  },
+  {
+    "type": "设计",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "张彪",
+    "amount": 8000,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "刘丹"
+  },
+  {
+    "type": "设计",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "朱莉",
+    "amount": 5800,
+    "date": "2026-02-25",
+    "month": "2026-02",
+    "customer": "王寒"
+  },
+  {
+    "type": "设计",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "朱莉",
+    "amount": 3800,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "尹惟宇"
+  },
+  {
+    "type": "设计",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "张晓",
+    "amount": 6800,
+    "date": "2026-04-07",
+    "month": "2026-04",
+    "customer": "曾参"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "宋斌",
+    "amount": 6080,
+    "date": "2026-04-17",
+    "month": "2026-04",
+    "customer": "蒋栋"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "罗芳",
+    "amount": 7600,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "兰卫涛"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "杨恒超",
+    "amount": 4000,
+    "date": "2026-01-04",
+    "month": "2026-01",
+    "customer": "李航"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "姚锋",
+    "amount": 4978,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "王海燕"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "朱莉",
+    "amount": 5900,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "吴珊"
+  },
+  {
+    "type": "设计",
+    "store": "龙湖店",
+    "district": "长沙大区",
+    "advisor": "陈琳",
+    "amount": 7500,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "梁圣"
+  },
+  {
+    "type": "设计",
+    "store": "龙湖店",
+    "district": "长沙大区",
+    "advisor": "陈琳",
+    "amount": 5800,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "万贤邦"
+  },
+  {
+    "type": "设计",
+    "store": "龙湖店",
+    "district": "长沙大区",
+    "advisor": "陈琳",
+    "amount": 5800,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "肖晨"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 7200,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "贺桂春"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 2900,
+    "date": "2026-02-05",
+    "month": "2026-02",
+    "customer": "胡蓉"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 8988,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "黄伟"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 7000,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "黄小航"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 3400,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "江玲"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "蒋钟信"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 5800,
+    "date": "2026-02-25",
+    "month": "2026-02",
+    "customer": "李茜"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "李雁"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 9200,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "刘卉"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 5800,
+    "date": "2026-03-17",
+    "month": "2026-03",
+    "customer": "莫博锴"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "彭羽婷"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "齐港"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 7600,
+    "date": "2026-04-02",
+    "month": "2026-04",
+    "customer": "任朝华"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-02-04",
+    "month": "2026-02",
+    "customer": "申凯宇"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 9000,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "唐焕东"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "王浩"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "向凤桥"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 10000,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "肖应霞"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-01-17",
+    "month": "2026-01",
+    "customer": "谢新宇"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "李明",
+    "amount": 9780,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "熊文渲"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 6000,
+    "date": "2026-02-25",
+    "month": "2026-02",
+    "customer": "严茜"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 7800,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "袁丹"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 8800,
+    "date": "2026-03-04",
+    "month": "2026-03",
+    "customer": "曾绍广"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-01-31",
+    "month": "2026-01",
+    "customer": "赵兴政"
+  },
+  {
+    "type": "设计",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 6800,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "郑昱晨"
+  },
+  {
+    "type": "设计",
+    "store": "望城店",
+    "district": "长沙大区",
+    "advisor": "龙敏",
+    "amount": 9700,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "廖文阳"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 11600,
+    "date": "2026-02-01",
+    "month": "2026-02",
+    "customer": "范红东"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 9800,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "胡跃红"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 7600,
+    "date": "2026-04-16",
+    "month": "2026-04",
+    "customer": "扈宗虎"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "李春梅",
+    "amount": 7700,
+    "date": "2026-01-23",
+    "month": "2026-01",
+    "customer": "黄辉"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "吴丹颖",
+    "amount": 3000,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "黄奕"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "王道航",
+    "amount": 8800,
+    "date": "2026-02-01",
+    "month": "2026-02",
+    "customer": "敬滔"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "周维",
+    "amount": 3800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "雷丹"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 7700,
+    "date": "2026-03-27",
+    "month": "2026-03",
+    "customer": "李晶"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 11800,
+    "date": "2026-03-07",
+    "month": "2026-03",
+    "customer": "柳添"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "李春梅",
+    "amount": 7100,
+    "date": "2026-03-27",
+    "month": "2026-03",
+    "customer": "罗奕"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 12888,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "彭露"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 7600,
+    "date": "2026-02-26",
+    "month": "2026-02",
+    "customer": "田皓"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 5888,
+    "date": "2026-02-06",
+    "month": "2026-02",
+    "customer": "文娜"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "邓可思",
+    "amount": 12200,
+    "date": "2026-04-08",
+    "month": "2026-04",
+    "customer": "肖进"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "李春梅",
+    "amount": 7700,
+    "date": "2026-03-11",
+    "month": "2026-03",
+    "customer": "晏学华"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 7700,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "杨鑫"
+  },
+  {
+    "type": "设计",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "于赣焘",
+    "amount": 7700,
+    "date": "2026-04-20",
+    "month": "2026-04",
+    "customer": "周剑芳"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 10489,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "陈江涛"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 7800,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "陈瑶"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 6500,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "戴姣凤"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 6800,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "戴丽"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 6779,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "董晨骐"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "杨紫航",
+    "amount": 6800,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "何龙飞"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 8100,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "何迁"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈婉毅",
+    "amount": 7779,
+    "date": "2026-03-03",
+    "month": "2026-03",
+    "customer": "何强"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 8800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "何姿颖"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 9000,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "贺炬"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 9000,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "黄欣"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "胡峰",
+    "amount": 14080,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "李浩"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 5800,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "李坤锭"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "龙杰",
+    "amount": 6800,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "李艺"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 10616,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "梁文"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "彭振华",
+    "amount": 5800,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "刘鑫莲"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 10000,
+    "date": "2026-01-15",
+    "month": "2026-01",
+    "customer": "刘艳雄"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 12000,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "刘赞"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "胡峰",
+    "amount": 7600,
+    "date": "2026-04-17",
+    "month": "2026-04",
+    "customer": "龙惠东"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "吴双飞",
+    "amount": 8000,
+    "date": "2026-01-31",
+    "month": "2026-01",
+    "customer": "罗鑫彪"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 6779,
+    "date": "2026-03-18",
+    "month": "2026-03",
+    "customer": "梅珊"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 10880,
+    "date": "2026-03-18",
+    "month": "2026-03",
+    "customer": "莫勇真"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "杨紫航",
+    "amount": 6800,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "彭祎"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 10600,
+    "date": "2026-03-18",
+    "month": "2026-03",
+    "customer": "邱佳"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 9999,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "吴锦花"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "周学范",
+    "amount": 8870,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "肖诗语"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 5800,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "谢文宇"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈婉毅",
+    "amount": 6800,
+    "date": "2026-01-17",
+    "month": "2026-01",
+    "customer": "徐慧"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 6500,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "曾杰"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 6800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "张林"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "胡峰",
+    "amount": 7700,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "张巡嗣"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈婉毅",
+    "amount": 5800,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "章景怡"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 7780,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "朱汁彬"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 6800,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "陈明慧"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "彭斌",
+    "amount": 7800,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "陈少锋"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "周维",
+    "amount": 8900,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "冯桂红"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "王海波",
+    "amount": 10000,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "何觅"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "王海波",
+    "amount": 5800,
+    "date": "2026-04-17",
+    "month": "2026-04",
+    "customer": "黄身德"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 5800,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "李明亮"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "周维",
+    "amount": 11000,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "刘恒彬"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "邱婷",
+    "amount": 7100,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "全玲晓"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "吴丹颖",
+    "amount": 8600,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "吴宇航"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 12000,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "肖遥"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "邱婷",
+    "amount": 7700,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "杨艳"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "张良文",
+    "amount": 6700,
+    "date": "2026-02-09",
+    "month": "2026-02",
+    "customer": "尹阳律"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "张芬",
+    "amount": 5800,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "曾三连"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 9900,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "张怀煜"
+  },
+  {
+    "type": "设计",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "王海波",
+    "amount": 12000,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "张裔承"
+  },
+  {
+    "type": "设计",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 21800,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "李韩仪"
+  },
+  {
+    "type": "设计",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 10800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "刘卓林"
+  },
+  {
+    "type": "设计",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 12800,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "谭龙"
+  },
+  {
+    "type": "设计",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 50000,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "杨渌"
+  },
+  {
+    "type": "设计",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 32000,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "李玉慈"
+  },
+  {
+    "type": "设计",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "梁赛",
+    "amount": 15800,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "谢志红"
+  },
+  {
+    "type": "设计",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "梁赛",
+    "amount": 12960,
+    "date": "2026-04-07",
+    "month": "2026-04",
+    "customer": "邹一诺"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 7600,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "陈琦"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 7600,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "陈杨玲"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6800,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "邓继涛"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "喻柳英",
+    "amount": 7600,
+    "date": "2026-02-13",
+    "month": "2026-02",
+    "customer": "房学械"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 10000,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "冯运华"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 10000,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "兰检军"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "李嫦娥"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 10900,
+    "date": "2026-02-05",
+    "month": "2026-02",
+    "customer": "李丹"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6900,
+    "date": "2026-01-17",
+    "month": "2026-01",
+    "customer": "李焘"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6800,
+    "date": "2026-03-07",
+    "month": "2026-03",
+    "customer": "童毅芳"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 7600,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "万东成"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 7680,
+    "date": "2026-03-04",
+    "month": "2026-03",
+    "customer": "王伶燕"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6800,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "张伴华"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 8000,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "章丽娟"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 9500,
+    "date": "2026-01-27",
+    "month": "2026-01",
+    "customer": "章雪蕾"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 6800,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "邹沁妤"
+  },
+  {
+    "type": "设计",
+    "store": "优改家马王堆店",
+    "district": "长沙大区",
+    "advisor": "彭振华",
+    "amount": 3800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "陈雨欣"
+  },
+  {
+    "type": "设计",
+    "store": "优改家马王堆店",
+    "district": "长沙大区",
+    "advisor": "姜权",
+    "amount": 3800,
+    "date": "2026-01-18",
+    "month": "2026-01",
+    "customer": "张碧林"
+  },
+  {
+    "type": "施工",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "朱莉",
+    "amount": 113081,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "尹惟宇"
+  },
+  {
+    "type": "施工",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "宋斌",
+    "amount": 90000,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "张晋"
+  },
+  {
+    "type": "施工",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "张晓",
+    "amount": 132158,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "廖元香"
+  },
+  {
+    "type": "施工",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "朱莉",
+    "amount": 127441,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "王寒"
+  },
+  {
+    "type": "施工",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "张晓",
+    "amount": 162601,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "黄鲤萍"
+  },
+  {
+    "type": "施工",
+    "store": "龙湖店",
+    "district": "长沙大区",
+    "advisor": "陈琳",
+    "amount": 206042,
+    "date": "2026-03-05",
+    "month": "2026-03",
+    "customer": "梁圣"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 92702,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "胡蓉"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 174112,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "黄小航"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "卢彪",
+    "amount": 115732,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "李成林"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 147363,
+    "date": "2026-03-18",
+    "month": "2026-03",
+    "customer": "李茜"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 140912,
+    "date": "2026-04-14",
+    "month": "2026-04",
+    "customer": "莫博锴"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 133551,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "田宇康"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "徐利民",
+    "amount": 274679,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "吴霏湘"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 158761,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "向凤桥"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "杨磊",
+    "amount": 153969,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "肖应霞"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 150620,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "谢新宇"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 199544,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "曾绍广"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 131786,
+    "date": "2026-01-11",
+    "month": "2026-01",
+    "customer": "张艳"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 167606,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "赵兴政"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "amount": 182480,
+    "date": "2026-01-21",
+    "month": "2026-01",
+    "customer": "周金"
+  },
+  {
+    "type": "施工",
+    "store": "望城店",
+    "district": "长沙大区",
+    "advisor": "龙敏",
+    "amount": 176294,
+    "date": "2026-02-25",
+    "month": "2026-02",
+    "customer": "段幽思"
+  },
+  {
+    "type": "施工",
+    "store": "望城店",
+    "district": "长沙大区",
+    "advisor": "邵义",
+    "amount": 126426,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "郭卉卉"
+  },
+  {
+    "type": "施工",
+    "store": "望城店",
+    "district": "长沙大区",
+    "advisor": "王军",
+    "amount": 162520,
+    "date": "2026-01-09",
+    "month": "2026-01",
+    "customer": "王三红"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 221259,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "范红东"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "吴丹颖",
+    "amount": 66510,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "黄奕"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "周维",
+    "amount": 133930,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "雷丹"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 247658,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "柳添"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 279592,
+    "date": "2026-04-16",
+    "month": "2026-04",
+    "customer": "彭露"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 212252,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "田皓"
+  },
+  {
+    "type": "施工",
+    "store": "湘府店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 127729,
+    "date": "2026-02-25",
+    "month": "2026-02",
+    "customer": "文娜"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 214721,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "陈江涛"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 202329,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "戴丽"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈婉毅",
+    "amount": 193095,
+    "date": "2026-03-20",
+    "month": "2026-03",
+    "customer": "何强"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 206510,
+    "date": "2026-03-24",
+    "month": "2026-03",
+    "customer": "何姿颖"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "彭振华",
+    "amount": 133401,
+    "date": "2026-03-27",
+    "month": "2026-03",
+    "customer": "刘鑫莲"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 185400,
+    "date": "2026-02-01",
+    "month": "2026-02",
+    "customer": "刘艳雄"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 171651,
+    "date": "2026-04-03",
+    "month": "2026-04",
+    "customer": "梅珊"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 197618,
+    "date": "2026-01-19",
+    "month": "2026-01",
+    "customer": "王继敏"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 231541,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "王秋雨"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈湘",
+    "amount": 222749,
+    "date": "2026-01-31",
+    "month": "2026-01",
+    "customer": "吴锦花"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "胡峰",
+    "amount": 204090,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "肖荣"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "卢泽川",
+    "amount": 177990,
+    "date": "2026-04-07",
+    "month": "2026-04",
+    "customer": "张林"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "胡峰",
+    "amount": 169324,
+    "date": "2026-01-15",
+    "month": "2026-01",
+    "customer": "张巡嗣"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 190674,
+    "date": "2026-04-06",
+    "month": "2026-04",
+    "customer": "陈瑶"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "杨紫航",
+    "amount": 228225,
+    "date": "2026-04-10",
+    "month": "2026-04",
+    "customer": "何龙飞"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 198540,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "黄欣"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 255767,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "莫勇真"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "amount": 195662,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "吴静萱"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "陈婉毅",
+    "amount": 153456,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "章景怡"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 125946,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "陈明慧"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "彭斌",
+    "amount": 222996,
+    "date": "2026-04-10",
+    "month": "2026-04",
+    "customer": "陈少锋"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "陈文波",
+    "amount": 175817,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "李明亮"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "邱婷",
+    "amount": 164167,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "全玲晓"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "冯淑燕",
+    "amount": 251920,
+    "date": "2026-04-16",
+    "month": "2026-04",
+    "customer": "肖遥"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "邱婷",
+    "amount": 173237,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "杨艳"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "张良文",
+    "amount": 179067,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "尹阳律"
+  },
+  {
+    "type": "施工",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 297450,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "李韩仪"
+  },
+  {
+    "type": "施工",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "王樱",
+    "amount": 216052,
+    "date": "2026-03-20",
+    "month": "2026-03",
+    "customer": "李凤兰"
+  },
+  {
+    "type": "施工",
+    "store": "马王堆大宅店",
+    "district": "长沙大区",
+    "advisor": "张嘉辉",
+    "amount": 220641,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "刘卓林"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖大宅店",
+    "district": "长沙大区",
+    "advisor": "刘小朋",
+    "amount": 305174,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "傅莎"
+  },
+  {
+    "type": "施工",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "梁赛",
+    "amount": 228045,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "谢志红"
+  },
+  {
+    "type": "施工",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "王道航",
+    "amount": 218252,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "简润琪"
+  },
+  {
+    "type": "施工",
+    "store": "湘府大宅店",
+    "district": "长沙大区",
+    "advisor": "龙浇苗",
+    "amount": 233642,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "周文"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 185469,
+    "date": "2026-02-07",
+    "month": "2026-02",
+    "customer": "邓继涛"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "喻柳英",
+    "amount": 216485,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "房学械"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 202134,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "李嫦娥"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 233252,
+    "date": "2026-03-11",
+    "month": "2026-03",
+    "customer": "李丹"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 210430,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "李焘"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 236193,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "万东成"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 180600,
+    "date": "2026-02-11",
+    "month": "2026-02",
+    "customer": "张伴华"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 276327,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "章丽娟"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 181500,
+    "date": "2026-02-10",
+    "month": "2026-02",
+    "customer": "邹沁妤"
+  },
+  {
+    "type": "施工",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "amount": 220788,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "童亿平"
+  },
+  {
+    "type": "施工",
+    "store": "优改家马王堆店",
+    "district": "长沙大区",
+    "advisor": "姜权",
+    "amount": 21569,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "张碧林"
+  },
+  {
+    "type": "设计",
+    "store": "常德柳城店",
+    "district": "地市一区",
+    "advisor": "张振华",
+    "amount": 5800,
+    "date": "2026-01-04",
+    "month": "2026-01",
+    "customer": "邓哲妮"
+  },
+  {
+    "type": "设计",
+    "store": "常德柳城店",
+    "district": "地市一区",
+    "advisor": "李芳",
+    "amount": 10000,
+    "date": "2026-01-23",
+    "month": "2026-01",
+    "customer": "吴敏"
+  },
+  {
+    "type": "设计",
+    "store": "常德柳城店",
+    "district": "地市一区",
+    "advisor": "李芳",
+    "amount": 6800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "袁先进"
+  },
+  {
+    "type": "设计",
+    "store": "郴州城东店",
+    "district": "地市一区",
+    "advisor": "陈丹",
+    "amount": 5800,
+    "date": "2026-04-16",
+    "month": "2026-04",
+    "customer": "郭媛"
+  },
+  {
+    "type": "设计",
+    "store": "郴州城东店",
+    "district": "地市一区",
+    "advisor": "陈丹",
+    "amount": 12800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "薛华"
+  },
+  {
+    "type": "设计",
+    "store": "郴州城东店",
+    "district": "地市一区",
+    "advisor": "谢百莲",
+    "amount": 7000,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "曾郴"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "邱菊",
+    "amount": 8888,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "陈三花"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "邱菊",
+    "amount": 8568,
+    "date": "2026-02-26",
+    "month": "2026-02",
+    "customer": "吴向杰"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "段黎明",
+    "amount": 8888,
+    "date": "2026-04-03",
+    "month": "2026-04",
+    "customer": "袁青越"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "陈婷",
+    "amount": 8800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "周桂华"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳华新店",
+    "district": "地市二区",
+    "advisor": "陈辉",
+    "amount": 5800,
+    "date": "2026-02-12",
+    "month": "2026-02",
+    "customer": "杨超"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "邓玉秀",
+    "amount": 7208,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "何洋"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "徐亚利",
+    "amount": 11000,
+    "date": "2026-02-26",
+    "month": "2026-02",
+    "customer": "黄茜"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "邓敏",
+    "amount": 6800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "刘健"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "谢利婷",
+    "amount": 6200,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "刘少华"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "谢利婷",
+    "amount": 5800,
+    "date": "2026-04-09",
+    "month": "2026-04",
+    "customer": "肖斯映"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "谢利婷",
+    "amount": 9520,
+    "date": "2026-02-12",
+    "month": "2026-02",
+    "customer": "颜克清"
+  },
+  {
+    "type": "设计",
+    "store": "衡阳蒸湘店",
+    "district": "地市二区",
+    "advisor": "廖斌",
+    "amount": 8800,
+    "date": "2026-04-17",
+    "month": "2026-04",
+    "customer": "郭云忠"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 5800,
+    "date": "2026-02-23",
+    "month": "2026-02",
+    "customer": "董朝阳"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 5800,
+    "date": "2026-04-03",
+    "month": "2026-04",
+    "customer": "向建银"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 5800,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "杨军发"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 5800,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "杨开雄"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "黄秀秀",
+    "amount": 5800,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "杨永顺"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "黄秀秀",
+    "amount": 5800,
+    "date": "2026-03-12",
+    "month": "2026-03",
+    "customer": "张琳"
+  },
+  {
+    "type": "设计",
+    "store": "怀化芷江店",
+    "district": "地市一区",
+    "advisor": "米宝云",
+    "amount": 5800,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "胡文庭"
+  },
+  {
+    "type": "设计",
+    "store": "怀化芷江店",
+    "district": "地市一区",
+    "advisor": "杨涛",
+    "amount": 5800,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "杨凯"
+  },
+  {
+    "type": "设计",
+    "store": "惠州惠城店",
+    "district": "地市二区",
+    "advisor": "唐美娟",
+    "amount": 7800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "黄小如"
+  },
+  {
+    "type": "设计",
+    "store": "惠州仲恺店",
+    "district": "地市二区",
+    "advisor": "冯倩",
+    "amount": 6800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "黄志伟"
+  },
+  {
+    "type": "设计",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "彭爽",
+    "amount": 6800,
+    "date": "2026-03-05",
+    "month": "2026-03",
+    "customer": "胡贤奎"
+  },
+  {
+    "type": "设计",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "贾程",
+    "amount": 5800,
+    "date": "2026-02-22",
+    "month": "2026-02",
+    "customer": "黄金凤"
+  },
+  {
+    "type": "设计",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "叶成芳",
+    "amount": 5800,
+    "date": "2026-02-05",
+    "month": "2026-02",
+    "customer": "彭红燕"
+  },
+  {
+    "type": "设计",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "彭爽",
+    "amount": 5800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "杨敏"
+  },
+  {
+    "type": "设计",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "彭爽",
+    "amount": 5800,
+    "date": "2026-04-13",
+    "month": "2026-04",
+    "customer": "钟若兰"
+  },
+  {
+    "type": "设计",
+    "store": "浏阳点石",
+    "district": "地市一区",
+    "advisor": "田滔",
+    "amount": 9600,
+    "date": "2026-02-13",
+    "month": "2026-02",
+    "customer": "黄升贤"
+  },
+  {
+    "type": "设计",
+    "store": "浏阳点石",
+    "district": "地市一区",
+    "advisor": "江纹",
+    "amount": 8800,
+    "date": "2026-02-23",
+    "month": "2026-02",
+    "customer": "沈婷辉"
+  },
+  {
+    "type": "设计",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 11000,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "盘增豪"
+  },
+  {
+    "type": "设计",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 20000,
+    "date": "2026-01-02",
+    "month": "2026-01",
+    "customer": "吴顺成"
+  },
+  {
+    "type": "设计",
+    "store": "娄底扶青店",
+    "district": "地市一区",
+    "advisor": "梁俊",
+    "amount": 6800,
+    "date": "2026-03-25",
+    "month": "2026-03",
+    "customer": "刘冠成"
+  },
+  {
+    "type": "设计",
+    "store": "娄底扶青店",
+    "district": "地市一区",
+    "advisor": "梁俊",
+    "amount": 6800,
+    "date": "2026-04-09",
+    "month": "2026-04",
+    "customer": "童韬"
+  },
+  {
+    "type": "设计",
+    "store": "娄底吉星店",
+    "district": "地市一区",
+    "advisor": "李方",
+    "amount": 10000,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "贺晓南"
+  },
+  {
+    "type": "设计",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 7800,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "陈松龄"
+  },
+  {
+    "type": "设计",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 10000,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "刘颖"
+  },
+  {
+    "type": "设计",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 5800,
+    "date": "2026-01-14",
+    "month": "2026-01",
+    "customer": "唐欣玥"
+  },
+  {
+    "type": "设计",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 11000,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "伍英"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "邝晓亮",
+    "amount": 6800,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "班哲华"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "amount": 9644,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "陈畅通"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "苏春梅",
+    "amount": 8800,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "陈政明"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 8700,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "甘晓莹"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "钟长发",
+    "amount": 8800,
+    "date": "2026-04-09",
+    "month": "2026-04",
+    "customer": "侯家银"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "amount": 9996,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "华思晔"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "尕藏卓玛",
+    "amount": 7800,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "黄尚琛"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "苏春梅",
+    "amount": 8800,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "黄昕熠"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "肖浩轩",
+    "amount": 8800,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "黄业斯"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 5800,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "黄艺玲"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "杨树朋",
+    "amount": 5800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "蒋媚"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 7800,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "蒋芊"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "李陈梅",
+    "amount": 5500,
+    "date": "2026-01-05",
+    "month": "2026-01",
+    "customer": "康富"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "钟长发",
+    "amount": 5800,
+    "date": "2026-03-04",
+    "month": "2026-03",
+    "customer": "黎芷妍"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 6800,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "李佳晓"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "白爱秋",
+    "amount": 5800,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "李派禹"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 6800,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "李趣"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "amount": 8800,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "梁世鹏"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "杨树朋",
+    "amount": 8800,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "梁晓红"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 8800,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "林振华"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 6800,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "刘同成"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "肖浩轩",
+    "amount": 8264,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "卢伟艺"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "覃进军",
+    "amount": 6800,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "陆丽湘"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "钟长发",
+    "amount": 8800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "陆伟"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "苏春梅",
+    "amount": 4800,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "马文迪"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 8800,
+    "date": "2026-04-01",
+    "month": "2026-04",
+    "customer": "马晓娟"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 4800,
+    "date": "2026-04-09",
+    "month": "2026-04",
+    "customer": "蒙煜涵"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 8800,
+    "date": "2026-01-01",
+    "month": "2026-01",
+    "customer": "莫毅毅"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 16000,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "莫钰姿"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 5000,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "农都成"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "苏春梅",
+    "amount": 8800,
+    "date": "2026-01-28",
+    "month": "2026-01",
+    "customer": "王超波"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 6800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "王菊新"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 6800,
+    "date": "2026-04-17",
+    "month": "2026-04",
+    "customer": "王君婷"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 5800,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "王妍"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 30000,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "韦怡吉"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 8800,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "杨晓华"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 5800,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "郑锋"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "李陈梅",
+    "amount": 4800,
+    "date": "2026-01-31",
+    "month": "2026-01",
+    "customer": "郑琳"
+  },
+  {
+    "type": "设计",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "曹肖锋",
+    "amount": 5800,
+    "date": "2026-01-18",
+    "month": "2026-01",
+    "customer": "金学工"
+  },
+  {
+    "type": "设计",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "周圣明",
+    "amount": 6800,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "尹志骁"
+  },
+  {
+    "type": "设计",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "王选",
+    "amount": 5800,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "喻博"
+  },
+  {
+    "type": "设计",
+    "store": "邵阳宝庆店",
+    "district": "地市二区",
+    "advisor": "康再华",
+    "amount": 5800,
+    "date": "2026-01-04",
+    "month": "2026-01",
+    "customer": "陈爱华"
+  },
+  {
+    "type": "设计",
+    "store": "邵阳宝庆店",
+    "district": "地市二区",
+    "advisor": "廖戍华",
+    "amount": 9800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "贺元华"
+  },
+  {
+    "type": "设计",
+    "store": "邵阳宝庆店",
+    "district": "地市二区",
+    "advisor": "廖戍华",
+    "amount": 9099,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "石聪"
+  },
+  {
+    "type": "设计",
+    "store": "邵阳宝庆店",
+    "district": "地市二区",
+    "advisor": "康再华",
+    "amount": 15000,
+    "date": "2026-01-18",
+    "month": "2026-01",
+    "customer": "朱蓉"
+  },
+  {
+    "type": "设计",
+    "store": "邵阳邵东店",
+    "district": "地市二区",
+    "advisor": "郑超",
+    "amount": 7830,
+    "date": "2026-03-16",
+    "month": "2026-03",
+    "customer": "蒋丽萍"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 10000,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "高忠静"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 6000,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "胡微微"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 8000,
+    "date": "2026-04-10",
+    "month": "2026-04",
+    "customer": "胡晓林"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 4800,
+    "date": "2026-01-18",
+    "month": "2026-01",
+    "customer": "谭亮"
+  },
+  {
+    "type": "设计",
+    "store": "永州高标店",
+    "district": "地市二区",
+    "advisor": "唐奥州",
+    "amount": 7796,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "黄银銮"
+  },
+  {
+    "type": "设计",
+    "store": "永州潇湘店",
+    "district": "地市二区",
+    "advisor": "叶小菊",
+    "amount": 7800,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "邓利芳"
+  },
+  {
+    "type": "设计",
+    "store": "永州潇湘店",
+    "district": "地市二区",
+    "advisor": "唐奥州",
+    "amount": 6956,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "蒋双成"
+  },
+  {
+    "type": "设计",
+    "store": "永州潇湘店",
+    "district": "地市二区",
+    "advisor": "唐奥州",
+    "amount": 9222,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "周红亮"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 20000,
+    "date": "2026-01-23",
+    "month": "2026-01",
+    "customer": "高晓静"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 9000,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "蒋思盾"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "罗岩",
+    "amount": 5800,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "李鼎"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 5800,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "刘岸雄"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 5800,
+    "date": "2026-01-10",
+    "month": "2026-01",
+    "customer": "刘睿"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 4800,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "王勇军"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 4800,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "肖玲"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "伍朋",
+    "amount": 6000,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "熊梅"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "罗岩",
+    "amount": 8000,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "杨国良"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 8000,
+    "date": "2026-03-30",
+    "month": "2026-03",
+    "customer": "李家楣"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "闵媚"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-04-14",
+    "month": "2026-04",
+    "customer": "彭涵"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-02-24",
+    "month": "2026-02",
+    "customer": "宋链"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 8400,
+    "date": "2026-01-08",
+    "month": "2026-01",
+    "customer": "王彦"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-04-06",
+    "month": "2026-04",
+    "customer": "熊子钧"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-03-05",
+    "month": "2026-03",
+    "customer": "邹君锦"
+  },
+  {
+    "type": "设计",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 5800,
+    "date": "2026-01-14",
+    "month": "2026-01",
+    "customer": "邹潞易"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈冰纯",
+    "amount": 5800,
+    "date": "2026-01-16",
+    "month": "2026-01",
+    "customer": "何畅"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "詹媛媛",
+    "amount": 6800,
+    "date": "2026-04-06",
+    "month": "2026-04",
+    "customer": "刘晓勇"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 7800,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "彭世雄"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "高泱",
+    "amount": 5800,
+    "date": "2026-04-04",
+    "month": "2026-04",
+    "customer": "肖嘉雯"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈旭辉",
+    "amount": 10000,
+    "date": "2026-01-03",
+    "month": "2026-01",
+    "customer": "熊欣"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 13200,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "薛飞"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "詹媛媛",
+    "amount": 7100,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "颜阳"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 5800,
+    "date": "2026-03-20",
+    "month": "2026-03",
+    "customer": "周斌"
+  },
+  {
+    "type": "设计",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 9800,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "周锐"
+  },
+  {
+    "type": "施工",
+    "store": "常德柳城店",
+    "district": "地市一区",
+    "advisor": "徐家发",
+    "amount": 264720,
+    "date": "2026-02-09",
+    "month": "2026-02",
+    "customer": "高念"
+  },
+  {
+    "type": "施工",
+    "store": "郴州城东店",
+    "district": "地市一区",
+    "advisor": "谢百莲",
+    "amount": 195901,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "曾郴"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "邱菊",
+    "amount": 166272,
+    "date": "2026-03-05",
+    "month": "2026-03",
+    "customer": "陈三花"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "邱菊",
+    "amount": 218463,
+    "date": "2026-03-13",
+    "month": "2026-03",
+    "customer": "吴向杰"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "陈婷",
+    "amount": 231314,
+    "date": "2026-03-06",
+    "month": "2026-03",
+    "customer": "周桂华"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "邓玉秀",
+    "amount": 182004,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "何洋"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "徐亚利",
+    "amount": 222658,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "黄茜"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "邓敏",
+    "amount": 196481,
+    "date": "2026-03-01",
+    "month": "2026-03",
+    "customer": "刘健"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "谢利婷",
+    "amount": 181910,
+    "date": "2026-04-05",
+    "month": "2026-04",
+    "customer": "刘少华"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳蒸湘店",
+    "district": "地市二区",
+    "advisor": "汤利军",
+    "amount": 226940,
+    "date": "2026-01-17",
+    "month": "2026-01",
+    "customer": "李均"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 178637,
+    "date": "2026-03-03",
+    "month": "2026-03",
+    "customer": "董朝阳"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 245107,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "唐倩"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 225286,
+    "date": "2026-04-14",
+    "month": "2026-04",
+    "customer": "向建银"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 169741,
+    "date": "2026-03-04",
+    "month": "2026-03",
+    "customer": "杨军发"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "amount": 235197,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "杨开雄"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "黄秀秀",
+    "amount": 199624,
+    "date": "2026-04-09",
+    "month": "2026-04",
+    "customer": "杨永顺"
+  },
+  {
+    "type": "施工",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "黄秀秀",
+    "amount": 206642,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "张琳"
+  },
+  {
+    "type": "施工",
+    "store": "怀化芷江店",
+    "district": "地市一区",
+    "advisor": "米宝云",
+    "amount": 184860,
+    "date": "2026-02-09",
+    "month": "2026-02",
+    "customer": "胡文庭"
+  },
+  {
+    "type": "施工",
+    "store": "惠州惠城店",
+    "district": "地市二区",
+    "advisor": "游建和",
+    "amount": 193962,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "黄秋灵"
+  },
+  {
+    "type": "施工",
+    "store": "惠州惠城店",
+    "district": "地市二区",
+    "advisor": "唐美娟",
+    "amount": 316126,
+    "date": "2026-03-28",
+    "month": "2026-03",
+    "customer": "黄小如"
+  },
+  {
+    "type": "施工",
+    "store": "惠州仲恺店",
+    "district": "地市二区",
+    "advisor": "冯倩",
+    "amount": 213819,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "黄志伟"
+  },
+  {
+    "type": "施工",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "彭爽",
+    "amount": 227560,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "胡贤奎"
+  },
+  {
+    "type": "施工",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "叶成芳",
+    "amount": 165800,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "彭红燕"
+  },
+  {
+    "type": "施工",
+    "store": "吉首武陵店",
+    "district": "地市一区",
+    "advisor": "彭爽",
+    "amount": 165060,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "杨敏"
+  },
+  {
+    "type": "施工",
+    "store": "浏阳点石",
+    "district": "地市一区",
+    "advisor": "田滔",
+    "amount": 236708,
+    "date": "2026-04-03",
+    "month": "2026-04",
+    "customer": "赖台俊"
+  },
+  {
+    "type": "施工",
+    "store": "浏阳点石",
+    "district": "地市一区",
+    "advisor": "江纹",
+    "amount": 199780,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "沈婷辉"
+  },
+  {
+    "type": "施工",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 256569,
+    "date": "2026-02-08",
+    "month": "2026-02",
+    "customer": "白纯冰"
+  },
+  {
+    "type": "施工",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 191164,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "兰恬恬"
+  },
+  {
+    "type": "施工",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 240000,
+    "date": "2026-03-19",
+    "month": "2026-03",
+    "customer": "李帆"
+  },
+  {
+    "type": "施工",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 259128,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "盘增豪"
+  },
+  {
+    "type": "施工",
+    "store": "柳州店",
+    "district": "地市一区",
+    "advisor": "许鸿",
+    "amount": 285001,
+    "date": "2026-03-24",
+    "month": "2026-03",
+    "customer": "吴顺成"
+  },
+  {
+    "type": "施工",
+    "store": "娄底扶青店",
+    "district": "地市一区",
+    "advisor": "梁俊",
+    "amount": 178109,
+    "date": "2026-04-13",
+    "month": "2026-04",
+    "customer": "刘冠成"
+  },
+  {
+    "type": "施工",
+    "store": "娄底吉星店",
+    "district": "地市一区",
+    "advisor": "李方",
+    "amount": 526972,
+    "date": "2026-04-11",
+    "month": "2026-04",
+    "customer": "贺晓南"
+  },
+  {
+    "type": "施工",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 185000,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "陈松龄"
+  },
+  {
+    "type": "施工",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 138800,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "唐欣玥"
+  },
+  {
+    "type": "施工",
+    "store": "娄底新化店",
+    "district": "地市一区",
+    "advisor": "梅兰芳",
+    "amount": 240181,
+    "date": "2026-03-21",
+    "month": "2026-03",
+    "customer": "伍英"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "钟长发",
+    "amount": 134000,
+    "date": "2026-01-11",
+    "month": "2026-01",
+    "customer": "董文馨"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "amount": 158000,
+    "date": "2026-01-31",
+    "month": "2026-01",
+    "customer": "杜冰"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 161636,
+    "date": "2026-03-03",
+    "month": "2026-03",
+    "customer": "黄小芳"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "白爱秋",
+    "amount": 146516,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "李派禹"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 163800,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "梁春春"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 84541,
+    "date": "2026-03-24",
+    "month": "2026-03",
+    "customer": "林均华"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 128000,
+    "date": "2026-01-17",
+    "month": "2026-01",
+    "customer": "林文宇"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 140260,
+    "date": "2026-01-13",
+    "month": "2026-01",
+    "customer": "陆远昌"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 165920,
+    "date": "2026-01-09",
+    "month": "2026-01",
+    "customer": "骆圆"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 187825,
+    "date": "2026-01-24",
+    "month": "2026-01",
+    "customer": "莫毅毅"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "肖浩轩",
+    "amount": 124601,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "孙菲菲"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "尕藏卓玛",
+    "amount": 117119,
+    "date": "2026-01-09",
+    "month": "2026-01",
+    "customer": "汤茜"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 207301,
+    "date": "2026-01-21",
+    "month": "2026-01",
+    "customer": "唐相冬"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "苏春梅",
+    "amount": 167939,
+    "date": "2026-02-27",
+    "month": "2026-02",
+    "customer": "王超波"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 176880,
+    "date": "2026-01-13",
+    "month": "2026-01",
+    "customer": "韦东强"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 152822,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "文祖渊"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 222103,
+    "date": "2026-01-25",
+    "month": "2026-01",
+    "customer": "徐莹影"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 137156,
+    "date": "2026-03-27",
+    "month": "2026-03",
+    "customer": "杨晓华"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "李陈梅",
+    "amount": 112370,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "郑琳"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "梁国生",
+    "amount": 154946,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "周晨熙"
+  },
+  {
+    "type": "施工",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "王传龙",
+    "amount": 188154,
+    "date": "2026-02-10",
+    "month": "2026-02",
+    "customer": "周信杉"
+  },
+  {
+    "type": "施工",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "周圣明",
+    "amount": 157760,
+    "date": "2026-02-06",
+    "month": "2026-02",
+    "customer": "杜骞"
+  },
+  {
+    "type": "施工",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "周圣明",
+    "amount": 163100,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "尹志骁"
+  },
+  {
+    "type": "施工",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "王选",
+    "amount": 199168,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "喻博"
+  },
+  {
+    "type": "施工",
+    "store": "宁乡玉兴店",
+    "district": "地市二区",
+    "advisor": "刘学文",
+    "amount": 227989,
+    "date": "2026-01-22",
+    "month": "2026-01",
+    "customer": "张诚"
+  },
+  {
+    "type": "施工",
+    "store": "邵阳宝庆店",
+    "district": "地市二区",
+    "advisor": "廖戍华",
+    "amount": 345680,
+    "date": "2026-04-18",
+    "month": "2026-04",
+    "customer": "贺元华"
+  },
+  {
+    "type": "施工",
+    "store": "邵阳邵东店",
+    "district": "地市二区",
+    "advisor": "郑超",
+    "amount": 226281,
+    "date": "2026-04-16",
+    "month": "2026-04",
+    "customer": "蒋丽萍"
+  },
+  {
+    "type": "施工",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 158813,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "陈国华"
+  },
+  {
+    "type": "施工",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 163186,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "胡微微"
+  },
+  {
+    "type": "施工",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 207551,
+    "date": "2026-04-12",
+    "month": "2026-04",
+    "customer": "齐栋"
+  },
+  {
+    "type": "施工",
+    "store": "湘潭双拥店",
+    "district": "地市一区",
+    "advisor": "王永",
+    "amount": 162517,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "谭亮"
+  },
+  {
+    "type": "施工",
+    "store": "永州潇湘店",
+    "district": "地市二区",
+    "advisor": "唐奥州",
+    "amount": 200182,
+    "date": "2026-02-28",
+    "month": "2026-02",
+    "customer": "蒋双成"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 420859,
+    "date": "2026-02-01",
+    "month": "2026-02",
+    "customer": "高晓静"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 190383,
+    "date": "2026-03-14",
+    "month": "2026-03",
+    "customer": "刘睿"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 215364,
+    "date": "2026-03-29",
+    "month": "2026-03",
+    "customer": "王勇军"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "amount": 182940,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "肖玲"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "伍朋",
+    "amount": 192833,
+    "date": "2026-03-17",
+    "month": "2026-03",
+    "customer": "熊梅"
+  },
+  {
+    "type": "施工",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "罗岩",
+    "amount": 181934,
+    "date": "2026-03-08",
+    "month": "2026-03",
+    "customer": "杨国良"
+  },
+  {
+    "type": "施工",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 203919,
+    "date": "2026-03-26",
+    "month": "2026-03",
+    "customer": "闵媚"
+  },
+  {
+    "type": "施工",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 188416,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "宋链"
+  },
+  {
+    "type": "施工",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 314815,
+    "date": "2026-03-22",
+    "month": "2026-03",
+    "customer": "王彦"
+  },
+  {
+    "type": "施工",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "朱钏",
+    "amount": 131600,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "张建新"
+  },
+  {
+    "type": "施工",
+    "store": "张家界店",
+    "district": "地市一区",
+    "advisor": "伍显微",
+    "amount": 195948,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "邹君锦"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈旭辉",
+    "amount": 150632,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "曹海林"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 139065,
+    "date": "2026-03-10",
+    "month": "2026-03",
+    "customer": "丁宜"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈冰纯",
+    "amount": 198800,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "何畅"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "詹媛媛",
+    "amount": 232944,
+    "date": "2026-01-29",
+    "month": "2026-01",
+    "customer": "权方凯"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 196147,
+    "date": "2026-02-26",
+    "month": "2026-02",
+    "customer": "汤崇颖"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "丁杨",
+    "amount": 292474,
+    "date": "2026-03-27",
+    "month": "2026-03",
+    "customer": "王琳"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈旭辉",
+    "amount": 166960,
+    "date": "2026-03-15",
+    "month": "2026-03",
+    "customer": "谢芳"
+  },
+  {
+    "type": "施工",
+    "store": "株洲神农店",
+    "district": "地市二区",
+    "advisor": "陈旭辉",
+    "amount": 250907,
+    "date": "2026-03-31",
+    "month": "2026-03",
+    "customer": "熊欣"
+  }
+];
+const manualTeamMonthlyData = {
+  "version": 1,
+  "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
+  "dashboardMonth": "2026-03",
+  "defaultMonth": "2026-03",
+  "activeMonth": "2026-03",
+  "sourceStatus": "ready",
+  "monthOptions": [
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04"
+  ],
+  "months": [
+    {
+      "month": "2026-01",
+      "source": "2026年Q1陪跑绩效综合汇总.xlsx",
+      "updatedAt": "2026-04-19 15:28:25 CST",
+      "members": [
+        {
+          "name": "周国平",
+          "constructionAmount": 1364168,
+          "designCount": 21,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "向勇",
+          "constructionAmount": 220755,
+          "designCount": 14,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "钟海燕",
+          "constructionAmount": 486443,
+          "designCount": 17,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "宁章娜",
+          "constructionAmount": 1750906,
+          "designCount": 11,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "黄诗宇",
+          "constructionAmount": 219988,
+          "designCount": 3,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        }
+      ],
+      "missingFields": [],
+      "sourceStatus": "ready"
+    },
+    {
+      "month": "2026-02",
+      "source": "2026年Q1陪跑绩效综合汇总.xlsx",
+      "updatedAt": "2026-04-19 15:28:25 CST",
+      "members": [
+        {
+          "name": "周国平",
+          "constructionAmount": 1505376,
+          "designCount": 8,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "向勇",
+          "constructionAmount": 313829,
+          "designCount": 9,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "钟海燕",
+          "constructionAmount": 1741568,
+          "designCount": 6,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "宁章娜",
+          "constructionAmount": 659514,
+          "designCount": 10,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "黄诗宇",
+          "constructionAmount": 346226,
+          "designCount": 3,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        }
+      ],
+      "missingFields": [],
+      "sourceStatus": "ready"
+    },
+    {
+      "month": "2026-03",
+      "source": "2026年Q1陪跑绩效综合汇总.xlsx",
+      "updatedAt": "2026-04-19 15:28:25 CST",
+      "members": [
+        {
+          "name": "周国平",
+          "constructionAmount": 2909834,
+          "designCount": 23,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "向勇",
+          "constructionAmount": 3578010,
+          "designCount": 18,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "钟海燕",
+          "constructionAmount": 4689392,
+          "designCount": 18,
+          "note": "Q1总览表施工合计 6917403 优先；3月金额按合计反算并与长沙/地市3月明细复核一致"
+        },
+        {
+          "name": "宁章娜",
+          "constructionAmount": 3215459,
+          "designCount": 29,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        },
+        {
+          "name": "黄诗宇",
+          "constructionAmount": 602791,
+          "designCount": 2,
+          "note": "按Q1总览表+长沙/地市施工明细回填"
+        }
+      ],
+      "missingFields": [],
+      "sourceStatus": "ready"
+    },
+    {
+      "month": "2026-04",
+      "source": "人工同步月报",
+      "updatedAt": "",
+      "members": [
+        {
+          "name": "周国平",
+          "constructionAmount": null,
+          "designCount": null,
+          "note": "待同步"
+        },
+        {
+          "name": "向勇",
+          "constructionAmount": null,
+          "designCount": null,
+          "note": "待同步"
+        },
+        {
+          "name": "钟海燕",
+          "constructionAmount": null,
+          "designCount": null,
+          "note": "待同步"
+        },
+        {
+          "name": "宁章娜",
+          "constructionAmount": null,
+          "designCount": null,
+          "note": "待同步"
+        },
+        {
+          "name": "黄诗宇",
+          "constructionAmount": null,
+          "designCount": null,
+          "note": "待同步"
+        }
+      ],
+      "missingFields": [
+        "周国平 施工累计金额",
+        "周国平 设计累计单数",
+        "向勇 施工累计金额",
+        "向勇 设计累计单数",
+        "钟海燕 施工累计金额",
+        "钟海燕 设计累计单数",
+        "宁章娜 施工累计金额",
+        "宁章娜 设计累计单数",
+        "黄诗宇 施工累计金额",
+        "黄诗宇 设计累计单数"
+      ],
+      "sourceStatus": "pending"
+    }
+  ],
+  "activeData": {
+    "month": "2026-03",
+    "source": "2026年Q1陪跑绩效综合汇总.xlsx",
+    "updatedAt": "2026-04-19 15:28:25 CST",
+    "members": [
+      {
+        "name": "周国平",
+        "constructionAmount": 2909834,
+        "designCount": 23,
+        "note": "按Q1总览表+长沙/地市施工明细回填"
+      },
+      {
+        "name": "向勇",
+        "constructionAmount": 3578010,
+        "designCount": 18,
+        "note": "按Q1总览表+长沙/地市施工明细回填"
+      },
+      {
+        "name": "钟海燕",
+        "constructionAmount": 4689392,
+        "designCount": 18,
+        "note": "Q1总览表施工合计 6917403 优先；3月金额按合计反算并与长沙/地市3月明细复核一致"
+      },
+      {
+        "name": "宁章娜",
+        "constructionAmount": 3215459,
+        "designCount": 29,
+        "note": "按Q1总览表+长沙/地市施工明细回填"
+      },
+      {
+        "name": "黄诗宇",
+        "constructionAmount": 602791,
+        "designCount": 2,
+        "note": "按Q1总览表+长沙/地市施工明细回填"
+      }
+    ],
+    "missingFields": [],
+    "sourceStatus": "ready"
+  },
+  "warnings": []
+};
+
+createApp({
+setup(){
+const tab = ref('overview');
+const storeRankTab = ref('con');
+const quarterSel = ref('Q1');
+const qStoreRankTab = ref('con');
+const teamRankMode = ref('construction');
+const monthSel = ref('2026-03');
+const teamMonthSel = ref(manualTeamMonthlyData.defaultMonth || manualTeamMonthlyData.activeMonth || '2026-03');
+const monthDist = ref('全部');
+const monthType = ref('全部');
+
+const months = ['2026-01','2026-02','2026-03','2026-04'];
+const qMonths = {Q1:['2026-01','2026-02','2026-03'],Q2:['2026-04'],Q3:['2026-07','2026-08','2026-09'],Q4:['2026-10','2026-11','2026-12']};
+const teamMembers = Object.keys(MEMBER_KPI);
+const teamMonthOptions = (Array.isArray(manualTeamMonthlyData.monthOptions) && manualTeamMonthlyData.monthOptions.length ? manualTeamMonthlyData.monthOptions : months).filter((month, index, list) => list.indexOf(month) === index);
+const teamTimeProgress = (()=>{ const now=new Date(); const start=new Date(2026,0,1); const end=new Date(2026,11,31,23,59,59,999); const clamped=now<start?start:now>end?end:now; return Number((((clamped-start)/(end-start))*100).toFixed(1)); })();
+function calcRate(actual,target){ return target!==null && actual!==null ? Number(((actual/target)*100).toFixed(1)) : null; }
+function formatAmountOrPending(value){ return value===null ? '待同步' : fmtW(value) + '万'; }
+function formatCountOrPending(value){ return value===null ? '待同步' : String(value); }
+function formatRateOrPending(value){ return value===null ? '待同步' : value + '%'; }
+function statusClass(status){ if(status==='已达标' || status==='超前') return 'status-good'; if(status==='正常') return 'status-warn'; return 'status-bad'; }
+function getMemberStatus(constructionRate,designRate,missingFields){ if(missingFields.length) return '数据缺失'; const shortBoard=Math.min(constructionRate,designRate); if(constructionRate>=100&&designRate>=100)return '已达标'; if(shortBoard>=teamTimeProgress)return '超前'; if(Math.max(constructionRate,designRate)>=teamTimeProgress)return '正常'; return '滞后'; }
+function getTeamMonthPayload(month){
+  const entries = Array.isArray(manualTeamMonthlyData.months) ? manualTeamMonthlyData.months : [];
+  const selected = entries.find(item=>item && item.month===month) || entries[0] || { month, source:'人工同步月报', updatedAt:'', members:[], missingFields:['人工同步月报缺失'], sourceStatus:'pending' };
+  return {
+    month: selected.month || month,
+    source: selected.source || '人工同步月报',
+    updatedAt: selected.updatedAt || '',
+    members: Array.isArray(selected.members) ? selected.members : [],
+    missingFields: Array.isArray(selected.missingFields) ? selected.missingFields : [],
+    sourceStatus: selected.sourceStatus || 'pending',
+  };
+}
+
+const totalDesign = rawData.filter(r=>r.type==='设计').length;
+const totalConstr = rawData.filter(r=>r.type==='施工').length;
+const totalDesAmount = rawData.filter(r=>r.type==='设计').reduce((s,r)=>s+r.amount,0);
+const totalConAmount = rawData.filter(r=>r.type==='施工').reduce((s,r)=>s+r.amount,0);
+const conversionRate = totalDesign ? Math.round(totalConstr/totalDesign*100) : 0;
+const avgConValue = totalConstr ? (totalConAmount/totalConstr/10000).toFixed(1) : '0';
+const totalStores = new Set(rawData.map(r=>r.store)).size;
+
+const csDesign = rawData.filter(r=>r.type==='设计'&&r.district==='长沙大区').length;
+const dsDesign = rawData.filter(r=>r.type==='设计'&&r.district==='地市一区').length;
+const ds2Design = rawData.filter(r=>r.type==='设计'&&r.district==='地市二区').length;
+const csConstr = rawData.filter(r=>r.type==='施工'&&r.district==='长沙大区').length;
+const dsConstr = rawData.filter(r=>r.type==='施工'&&r.district==='地市一区').length;
+const ds2Constr = rawData.filter(r=>r.type==='施工'&&r.district==='地市二区').length;
+const csConAmount = rawData.filter(r=>r.type==='施工'&&r.district==='长沙大区').reduce((s,r)=>s+r.amount,0);
+const dsConAmount = rawData.filter(r=>r.type==='施工'&&r.district==='地市一区').reduce((s,r)=>s+r.amount,0);
+const ds2ConAmount = rawData.filter(r=>r.type==='施工'&&r.district==='地市二区').reduce((s,r)=>s+r.amount,0);
+
+const storeConAll = computed(()=>{
+  const map={};rawData.filter(r=>r.type==='施工').forEach(r=>{if(!map[r.store])map[r.store]={store:r.store,count:0,amount:0,district:r.district};map[r.store].count++;map[r.store].amount+=r.amount;});
+  return Object.values(map).sort((a,b)=>b.amount-a.amount);
+});
+const storeConTop15 = computed(()=>storeConAll.value.slice(0,15));
+const storeConTop3 = computed(()=>storeConAll.value.slice(0,3));
+const storeConBottom3 = computed(()=>storeConAll.value.slice(-3).reverse());
+const storeDesTop15 = computed(()=>{
+  const map={};rawData.filter(r=>r.type==='设计').forEach(r=>{if(!map[r.store])map[r.store]={store:r.store,count:0,amount:0,district:r.district};map[r.store].count++;map[r.store].amount+=r.amount;});
+  return Object.values(map).sort((a,b)=>b.count-a.count).slice(0,15);
+});
+const advisorRankAll = computed(()=>{
+  const map={};
+  rawData.forEach(r=>{
+    const advisor = String(r.advisor || '').trim();
+    const store = String(r.store || '').trim();
+    const district = String(r.district || '').trim();
+    if(!advisor || !store || !district) return;
+    const key = advisor + '|' + store + '|' + district;
+    if(!map[key]) map[key] = { key, advisor, store, district, designCount:0, designAmount:0, constructionCount:0, constructionAmount:0 };
+    if(r.type==='设计'){
+      map[key].designCount++;
+      map[key].designAmount += r.amount;
+    } else if(r.type==='施工'){
+      map[key].constructionCount++;
+      map[key].constructionAmount += r.amount;
+    }
+  });
+  return Object.values(map);
+});
+const advisorConTop15 = computed(()=>advisorRankAll.value
+  .filter(item=>item.constructionCount>0)
+  .sort((a,b)=>b.constructionAmount-a.constructionAmount || b.constructionCount-a.constructionCount || a.key.localeCompare(b.key,'zh-CN'))
+  .slice(0,15)
+  .map(item=>({ ...item, count:item.constructionCount, amount:item.constructionAmount }))
+);
+const advisorDesTop15 = computed(()=>advisorRankAll.value
+  .filter(item=>item.designCount>0)
+  .sort((a,b)=>b.designCount-a.designCount || b.designAmount-a.designAmount || a.key.localeCompare(b.key,'zh-CN'))
+  .slice(0,15)
+  .map(item=>({ ...item, count:item.designCount, amount:item.designAmount }))
+);
+
+const qStats = computed(()=>{
+  const ms = qMonths[quarterSel.value]||[];
+  const items = rawData.filter(r=>ms.includes(r.month));
+  const d = items.filter(r=>r.type==='设计');
+  const c = items.filter(r=>r.type==='施工');
+  return {design:d.length,constr:c.length,conAmount:c.reduce((s,r)=>s+r.amount,0),desAmount:d.reduce((s,r)=>s+r.amount,0)};
+});
+const qStoreTop = computed(()=>{
+  const ms = qMonths[quarterSel.value]||[];
+  const items = rawData.filter(r=>r.type==='施工'&&ms.includes(r.month));
+  const map={};items.forEach(r=>{if(!map[r.store])map[r.store]={store:r.store,count:0,amount:0,district:r.district};map[r.store].count++;map[r.store].amount+=r.amount;});
+  return Object.values(map).sort((a,b)=>b.amount-a.amount).slice(0,10);
+});
+const qStoreDesignTop = computed(()=>{
+  const ms = qMonths[quarterSel.value]||[];
+  const items = rawData.filter(r=>r.type==='设计'&&ms.includes(r.month));
+  const map={};items.forEach(r=>{if(!map[r.store])map[r.store]={store:r.store,count:0,amount:0,district:r.district};map[r.store].count++;map[r.store].amount+=r.amount;});
+  return Object.values(map).sort((a,b)=>b.count-a.count).slice(0,10);
+});
+
+const mFiltered = computed(()=>{
+  let items = rawData.filter(r=>r.month===monthSel.value);
+  if(monthDist.value!=='全部')items=items.filter(r=>r.district===monthDist.value);
+  if(monthType.value!=='全部')items=items.filter(r=>r.type===monthType.value);
+  return items;
+});
+const mConCount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').length);
+const mConAmount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').reduce((s,r)=>s+r.amount,0));
+
+const activeTeamMonthData = computed(()=>getTeamMonthPayload(teamMonthSel.value));
+const activeManualMonth = computed(()=>activeTeamMonthData.value.month || manualTeamMonthlyData.activeMonth || manualTeamMonthlyData.dashboardMonth || teamMonthSel.value);
+const manualMemberMap = computed(()=>{
+  const map={};
+  const members=Array.isArray(activeTeamMonthData.value.members)?activeTeamMonthData.value.members:[];
+  members.forEach(item=>{ if(item&&item.name) map[item.name]=item; });
+  return map;
+});
+// 年度累计数据：汇总2026年所有月份数据
+const annualMemberMap = computed(()=>{
+  const map={};
+  teamMembers.forEach(name=>{
+    let totalConstruction = 0;
+    let totalDesign = 0;
+    let hasData = false;
+    const allMonths = manualTeamMonthlyData.months || [];
+    allMonths.forEach(monthEntry=>{
+      if(monthEntry && monthEntry.month && monthEntry.month.startsWith('2026')){
+        const member = (monthEntry.members || []).find(m=>m&&m.name===name);
+        if(member){
+          const cVal = member.constructionAmount;
+          const dVal = member.designCount;
+          if(cVal!==null && cVal!==undefined && cVal!==''){
+            const n = Number(String(cVal).replace(/,/g,''));
+            if(Number.isFinite(n)){
+              totalConstruction += n;
+              hasData = true;
+            }
+          }
+          if(dVal!==null && dVal!==undefined && dVal!==''){
+            const n = Number(String(dVal).replace(/,/g,''));
+            if(Number.isFinite(n)){
+              totalDesign += n;
+              hasData = true;
+            }
+          }
+        }
+      }
+    });
+    map[name] = {
+      name,
+      constructionAmount: hasData ? Math.round(totalConstruction) : null,
+      designCount: hasData ? Math.round(totalDesign) : null,
+    };
+  });
+  return map;
+});
+const teamSourceInfo = computed(()=>{
+  // 顶部显示年度累计信息，固定1-3月汇总
+  return { label:'年度累计（1-3月汇总）', note:'顶部KPI为年度累计数据（固定1-3月汇总）；月份筛选器仅控制下方当月明细表格。', updatedAt: '', badgeClass:'status-good' };
+});
+const memberPerformance = computed(()=>teamMembers.map(name=>{
+  // 表格显示：年度累计数据（1-3月人工月报汇总）
+  const annual = annualMemberMap.value[name] || {};
+  const constructionActual = annual.constructionAmount;
+  const designActual = annual.designCount;
+  const constructionTarget = MEMBER_KPI[name].constructionAmount;
+  const designTarget = MEMBER_KPI[name].designCount;
+  const missingFields = [];
+  if (constructionActual === null) missingFields.push('施工累计金额');
+  if (designActual === null) missingFields.push('设计累计单数');
+  // 排名依据：年度累计金额/单数
+  const rankConstruction = constructionActual;
+  const rankDesign = designActual;
+  const constructionRate = calcRate(constructionActual, constructionTarget);
+  const designRate = calcRate(designActual, designTarget);
+  const status = getMemberStatus(constructionRate, designRate, missingFields);
+  const constructionGap = constructionActual === null ? null : Math.max(constructionTarget - constructionActual, 0);
+  const designGap = designActual === null ? null : Math.max(designTarget - designActual, 0);
+  const gapDisplay = missingFields.length ? ('缺失：' + missingFields.join('、')) : ('施工差 ' + fmtW(constructionGap) + '万 · 设计差 ' + designGap + '单');
+  return {
+    name,
+    constructionActual, constructionTarget, constructionRate, constructionGap,
+    designActual, designTarget, designRate, designGap,
+    rankConstruction, rankDesign,
+    constructionActualDisplay: formatAmountOrPending(constructionActual),
+    designActualDisplay: formatCountOrPending(designActual),
+    constructionRateDisplay: formatRateOrPending(constructionRate),
+    designRateDisplay: formatRateOrPending(designRate),
+    gapDisplay,
+    missingFields,
+    status,
+    statusClass: statusClass(status),
+  };
+}));
+const memberPerformanceRanked = computed(()=>{ const sortKey=teamRankMode.value==='design'?'rankDesign':'rankConstruction'; return [...memberPerformance.value].sort((a,b)=>{ const av = a[sortKey]===null||a[sortKey]===undefined?-1:a[sortKey]; const bv = b[sortKey]===null||b[sortKey]===undefined?-1:b[sortKey]; return bv-av || (b.rankConstruction===null||b.rankConstruction===undefined?-1:b.rankConstruction)-(a.rankConstruction===null||a.rankConstruction===undefined?-1:a.rankConstruction) || (b.rankDesign===null||b.rankDesign===undefined?-1:b.rankDesign)-(a.rankDesign===null||a.rankDesign===undefined?-1:a.rankDesign) || a.name.localeCompare(b.name,'zh-CN'); }); });
+// 当月成员明细数据（由teamMonthSel筛选器控制）
+const monthlyMemberDetail = computed(()=>teamMembers.map(name=>{
+  const manual = manualMemberMap.value[name] || {};
+  const cVal = manual.constructionAmount;
+  const dVal = manual.designCount;
+  const hasConstructionData = cVal!==null && cVal!==undefined && cVal!=='';
+  const hasDesignData = dVal!==null && dVal!==undefined && dVal!=='';
+  const hasAllData = hasConstructionData && hasDesignData;
+  const hasPartialData = (hasConstructionData && !hasDesignData) || (!hasConstructionData && hasDesignData);
+  const constructionActual = hasConstructionData ? Math.round(Number(String(cVal).replace(/,/g,''))) : null;
+  const designActual = hasDesignData ? Math.round(Number(String(dVal).replace(/,/g,''))) : null;
+  const constructionDisplay = hasConstructionData ? fmtW(constructionActual) : '待同步';
+  const designDisplay = hasDesignData ? String(designActual) : '待同步';
+  return {
+    name,
+    hasConstructionData,
+    hasDesignData,
+    hasAllData,
+    hasPartialData,
+    constructionActual,
+    designActual,
+    constructionDisplay,
+    designDisplay,
+  };
+}));
+const teamSyncedCount = computed(()=>memberPerformance.value.filter(item=>item.missingFields.length===0).length);
+// 顶部KPI汇总使用年度累计数据（1-3月汇总，固定不变）
+const teamKpiSummary = computed(()=>{
+  const hasConstructionGap = memberPerformance.value.some(item=>item.constructionActual===null);
+  const hasDesignGap = memberPerformance.value.some(item=>item.designActual===null);
+  const constructionActual = hasConstructionGap ? null : memberPerformance.value.reduce((acc,item)=>acc+item.constructionActual,0);
+  const designActual = hasDesignGap ? null : memberPerformance.value.reduce((acc,item)=>acc+item.designActual,0);
+  const constructionRate = calcRate(constructionActual, TEAM_KPI.constructionAmount);
+  const designRate = calcRate(designActual, TEAM_KPI.designCount);
+  const shortBoard = constructionRate===null || designRate===null ? null : Math.min(constructionRate, designRate);
+  const deviationValue = shortBoard===null ? null : Number((shortBoard-teamTimeProgress).toFixed(1));
+  return {
+    constructionActual,
+    constructionTarget: TEAM_KPI.constructionAmount,
+    constructionRate,
+    designActual,
+    designTarget: TEAM_KPI.designCount,
+    designRate,
+    timeProgress: teamTimeProgress,
+    deviationValue,
+    constructionActualDisplay: constructionActual===null ? '待同步' : fmtW(constructionActual),
+    constructionRateDisplay: formatRateOrPending(constructionRate),
+    designActualDisplay: designActual===null ? '待同步' : String(designActual),
+    designRateDisplay: formatRateOrPending(designRate),
+    deviationDisplay: deviationValue===null ? '待同步' : deviationValue + '%',
+  };
+});
+const teamRiskTips = computed(()=>{
+  const tips=[];
+  if (activeTeamMonthData.value.sourceStatus === 'pending') {
+    tips.push(activeManualMonth.value + ' 月人工同步月报尚未录入，请编辑数据文件后重新运行更新脚本。');
+  }
+  activeTeamMonthData.value.missingFields.filter(Boolean).forEach(field=>{
+    tips.push('缺失字段：' + field + '。');
+  });
+  memberPerformance.value.filter(item=>item.missingFields.length).forEach(item=>{
+    tips.push(item.name + ' 缺失字段：' + item.missingFields.join('、') + '。');
+  });
+  if (manualTeamMonthlyData.filePath) {
+    tips.push('维护文件：' + manualTeamMonthlyData.filePath);
+  }
+  return [...new Set(tips)];
+});
+
+const distPKList = computed(()=>{
+  const map={};rawData.forEach(r=>{
+    if(!map[r.district])map[r.district]={name:r.district,design:0,constr:0,desAmount:0,conAmount:0};
+    if(r.type==='设计'){map[r.district].design++;map[r.district].desAmount+=r.amount;}
+    else{map[r.district].constr++;map[r.district].conAmount+=r.amount;}
+  });
+  const list=Object.values(map);
+  const maxDesign=Math.max(...list.map(d=>d.design));
+  const maxConstr=Math.max(...list.map(d=>d.constr));
+  list.forEach(d=>{d.designPct=Math.round(d.design/maxDesign*100);d.constrPct=Math.round(d.constr/maxConstr*100);});
+  return list.sort((a,b)=>b.conAmount-a.conAmount);
+});
+
+
+function fmtW(v){return(v/10000).toFixed(1);}
+function distClass(d){return d==='长沙大区'?'tag-cs':d==='地市一区'?'tag-d1':'tag-d2';}
+const monthList = months;
+
+let charts={};
+function initTrendChart(){
+  if(charts.trend)charts.trend.dispose();
+  const el=document.getElementById('trendChart');if(!el)return;
+  charts.trend=echarts.init(el);
+  const desData=months.map(m=>rawData.filter(r=>r.type==='设计'&&r.month===m).length);
+  const conData=months.map(m=>rawData.filter(r=>r.type==='施工'&&r.month===m).length);
+  const conAmount=months.map(m=>rawData.filter(r=>r.type==='施工'&&r.month===m).reduce((s,r)=>s+r.amount,0)/10000);
+  charts.trend.setOption({tooltip:{trigger:'axis'},legend:{data:['设计单数','施工单数','施工金额(万)']},grid:{left:60,right:60,top:40,bottom:30},xAxis:{type:'category',data:months},yAxis:[{type:'value',name:'单数',position:'left'},{type:'value',name:'万元',position:'right'}],series:[{name:'设计单数',type:'line',data:desData,itemStyle:{color:'#F59E0B'},smooth:true,symbol:'circle',symbolSize:8,lineStyle:{width:3}},{name:'施工单数',type:'line',data:conData,itemStyle:{color:'#3B82F6'},smooth:true,symbol:'circle',symbolSize:8,lineStyle:{width:3}},{name:'施工金额(万)',type:'bar',data:conAmount,yAxisIndex:1,itemStyle:{color:'rgba(59,130,246,.2)',borderColor:'#3B82F6',borderWidth:1},barWidth:30}]});
+}
+
+    function initTeamCharts(){
+      if(charts.teamConstruction)charts.teamConstruction.dispose();
+      if(charts.teamDesign)charts.teamDesign.dispose();
+      const constructionEl = document.getElementById('teamConstructionChart');
+      const designEl = document.getElementById('teamDesignChart');
+      const rows = memberPerformanceRanked.value;
+      const constructionMax = Math.max(120,...rows.map(item=>(item.constructionRate===null?0:item.constructionRate)+10));
+      const designMax = Math.max(120,...rows.map(item=>(item.designRate===null?0:item.designRate)+10));
+      if(constructionEl){
+        charts.teamConstruction = echarts.init(constructionEl);
+        charts.teamConstruction.setOption({
+          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];if(row.constructionRate===null){return row.name + '<br/>施工达成率：数据缺失<br/>请先补录人工同步月报';}return row.name + '<br/>施工达成率：' + row.constructionRate + '%<br/>累计：' + fmtW(row.constructionActual) + '万 / KPI：' + fmtW(row.constructionTarget) + '万'; }},
+          grid:{left:80,right:50,top:30,bottom:20},
+          xAxis:{type:'value',name:'%',max:constructionMax},
+          yAxis:{type:'category',data:rows.map(item=>item.name),axisTick:{show:false}},
+          series:[{type:'bar',data:rows.map(item=>item.constructionRate===null?{value:0,missing:true,itemStyle:{color:'#D1D5DB'},label:{show:true,position:'right',formatter:'缺失',color:'#6B7280'}}:item.constructionRate),label:{show:true,position:'right',formatter:(p)=>p.data&&p.data.missing?'缺失':(p.value + '%')},itemStyle:{color:'#3B82F6',borderRadius:[0,6,6,0]},markLine:{symbol:'none',label:{formatter:'100%'},lineStyle:{type:'dashed',color:'#EF4444'},data:[{xAxis:100}]}}]
+        });
+      }
+      if(designEl){
+        charts.teamDesign = echarts.init(designEl);
+        charts.teamDesign.setOption({
+          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];if(row.designRate===null){return row.name + '<br/>设计达成率：数据缺失<br/>请先补录人工同步月报';}return row.name + '<br/>设计达成率：' + row.designRate + '%<br/>累计：' + row.designActual + '单 / KPI：' + row.designTarget + '单'; }},
+          grid:{left:80,right:50,top:30,bottom:20},
+          xAxis:{type:'value',name:'%',max:designMax},
+          yAxis:{type:'category',data:rows.map(item=>item.name),axisTick:{show:false}},
+          series:[{type:'bar',data:rows.map(item=>item.designRate===null?{value:0,itemStyle:{color:'#FDE68A'},label:{show:true,position:'right',formatter:'缺失',color:'#92400E'}}:item.designRate),label:{show:true,position:'right',formatter:(p)=>p.value&&typeof p.value==='object'?'缺失':'{c}%'},itemStyle:{color:'#F59E0B',borderRadius:[0,6,6,0]},markLine:{symbol:'none',label:{formatter:'100%'},lineStyle:{type:'dashed',color:'#EF4444'},data:[{xAxis:100}]}}]
+        });
+      }
+    }
+
+function initQCharts(){
+  if(charts.qDonut)charts.qDonut.dispose();
+  const el=document.getElementById('qDonutChart');if(!el)return;
+  charts.qDonut=echarts.init(el);
+  charts.qDonut.setOption({tooltip:{trigger:'item'},series:[{type:'pie',radius:['50%','75%'],data:[{value:qStats.value.design,name:'设计'},{value:qStats.value.constr,name:'施工'}],itemStyle:{borderRadius:6},label:{show:true,formatter:'{b}: {c}单 ({d}%)'}}],color:['#F59E0B','#3B82F6']});
+}
+
+// 月度明细-三大区图表
+function initMonthlyDistChart(){
+  if(charts.monthlyDist)charts.monthlyDist.dispose();
+  const el=document.getElementById('monthlyDistChart');if(!el)return;
+  charts.monthlyDist=echarts.init(el);
+  const districts=['长沙大区','地市一区','地市二区'];
+  const desData=districts.map(d=>rawData.filter(r=>r.type==='设计'&&r.district===d&&r.month===monthSel.value).length);
+  const conData=districts.map(d=>rawData.filter(r=>r.type==='施工'&&r.district===d&&r.month===monthSel.value).length);
+  charts.monthlyDist.setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    legend:{data:['设计单数','施工单数']},
+    grid:{left:60,right:40,top:40,bottom:30},
+    xAxis:{type:'category',data:districts},
+    yAxis:{type:'value',name:'单数'},
+    series:[
+      {name:'设计单数',type:'bar',data:desData,itemStyle:{color:'#F59E0B',borderRadius:[4,4,0,0]}},
+      {name:'施工单数',type:'bar',data:conData,itemStyle:{color:'#3B82F6',borderRadius:[4,4,0,0]}}
+    ]
+  });
+}
+
+onMounted(()=>nextTick(()=>initTrendChart()));
+watch(quarterSel,()=>nextTick(()=>initQCharts()));
+watch(tab,(v)=>{if(v==='overview')nextTick(()=>initTrendChart());if(v==='quarter')nextTick(()=>initQCharts());if(v==='monthly')nextTick(()=>initMonthlyDistChart());if(v==='team')nextTick(()=>initTeamCharts());});
+watch(monthSel,()=>nextTick(()=>initMonthlyDistChart()));
+watch(teamRankMode,()=>nextTick(()=>initTeamCharts()));
+watch(teamMonthSel,()=>nextTick(()=>initTeamCharts()));
+
+return {
+  tab,storeRankTab,quarterSel,qStoreRankTab,teamRankMode,qStoreDesignTop,monthSel,teamMonthSel,teamMonthOptions,monthDist,monthType,months,monthList,
+  totalRecords:rawData.length,totalDesign,totalConstr,totalConAmount,totalDesAmount,
+  conversionRate,avgConValue,totalStores,
+  csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
+  storeConAll,storeConTop15,storeConTop3,storeConBottom3,storeDesTop15,advisorConTop15,advisorDesTop15,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,teamRiskTips,fmtW,distClass,
+};
+}
+}).mount('#app');
+</script>
+</body>
+</html>
