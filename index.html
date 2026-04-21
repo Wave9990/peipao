@@ -140,8 +140,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/21 16:33:01</div></div>
-<div style="display:none">数据更新时间: 2026/4/21 16:33:01</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/21 17:35:10</div></div>
+<div style="display:none">数据更新时间: 2026/4/21 17:35:10</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">目标月份</div><div class="value">2026-03</div></div>
 </div>
@@ -153,6 +153,7 @@ th:last-child{border-top-right-radius:14px}
 <button class="tab" :class="{active:tab==='monthly'}" @click="tab='monthly'">📋 月度明细</button>
 <button class="tab" :class="{active:tab==='analysis'}" @click="tab='analysis'">🏆 对比分析</button>
 <button class="tab" :class="{active:tab==='team'}" @click="tab='team'">👥 团队成员业绩</button>
+<button class="tab" :class="{active:tab==='news'}" @click="tab='news'">🆕 新增信息</button>
 </div>
 
 <!-- ========== 年度总览 ========== -->
@@ -685,6 +686,41 @@ th:last-child{border-top-right-radius:14px}
 
 
 
+
+<!-- 新增信息 -->
+<div v-show="tab==='news'" class="fade-in">
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">📋 今日新增 {{newsRecords.length}} 条记录</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/21 17:35:10</div>
+</div>
+<div v-if="newsRecords.length===0" class="card" style="text-align:center;padding:36px 20px">
+<div class="card-title">🗂️ 今日暂无新增</div>
+<div style="color:var(--gray);font-size:14px;line-height:1.8">当前批次未检测到新增设计或施工记录，保留该页签用于稳定展示新增动态与空态提示。</div>
+</div>
+<div v-else class="section">
+<div class="card">
+<div class="card-title">🎨 设计新增 {{newsDes.length}} 单</div>
+<div v-if="newsDes.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增设计</div>
+<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
+<tr v-for="(r,i) in newsDes" :key="i">
+<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
+<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
+<td style="color:var(--orange);font-weight:600">{{fmtW(r.amount)}}</td>
+</tr></tbody></table>
+</div>
+<div class="card">
+<div class="card-title">🔨 施工新增 {{newsCon.length}} 单</div>
+<div v-if="newsCon.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增施工</div>
+<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
+<tr v-for="(r,i) in newsCon" :key="i">
+<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
+<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(r.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+</div>
+</div>
 </div><!-- /app -->
 </div><!-- /page-shell -->
 
@@ -717,6 +753,7 @@ const MEMBER_KPI = {
     "designCount": 50
   }
 };
+const newsData = [];
 const rawData = [
   {
     "type": "设计",
@@ -5415,6 +5452,9 @@ function jumpToSection(sectionId){
     target.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 }
+const newsRecords = Vue.computed(()=>newsData);
+const newsDes = Vue.computed(()=>newsData.filter(r=>r.type==='设计'));
+const newsCon = Vue.computed(()=>newsData.filter(r=>r.type==='施工'));
 function fmtW(v){return(v/10000).toFixed(1);}
 function distClass(d){return d==='长沙大区'?'tag-cs':d==='地市一区'?'tag-d1':'tag-d2';}
 const monthList = months;
@@ -5501,7 +5541,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop3,storeConBottom3,storeDesTop15,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,fmtW,distClass,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,fmtW,distClass,newsRecords,newsDes,newsCon,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
