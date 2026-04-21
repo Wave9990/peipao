@@ -175,8 +175,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/22 00:18:41</div></div>
-<div style="display:none">数据更新时间: 2026/4/22 00:18:41</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/22 01:31:20</div></div>
+<div style="display:none">数据更新时间: 2026/4/22 01:31:20</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -193,7 +193,7 @@ th:last-child{border-top-right-radius:14px}
 
 <!-- ========== 年度总览 ========== -->
 <div v-show="tab==='overview'" class="fade-in">
-<section id="overviewResult" class="cockpit-section section-anchor">
+<!-- <section id="overviewResult" class="cockpit-section section-anchor">
 <div class="section-heading">
 <div><h2>结果总览</h2><p>顶部总控栏之后，先看核心经营结果与年度累计产出。</p></div>
 </div>
@@ -205,17 +205,17 @@ th:last-child{border-top-right-radius:14px}
 <div class="kpi-card"><div class="eyebrow">转化率</div><div class="value" style="color:var(--green)">{{conversionRate}}%</div><div class="desc">设计 → 施工转化</div></div>
 <div class="kpi-card"><div class="eyebrow">施工均值</div><div class="value" style="color:var(--purple)">{{avgConValue}}</div><div class="desc">施工客单均值（万）</div></div>
 </div>
-</section>
+</section> -->
 
-<section id="overviewProgress" class="cockpit-section section-anchor">
+<!-- <section id="overviewProgress" class="cockpit-section section-anchor">
 <div class="section-heading">
-<div><h2>年度进度</h2><p>直接对 KPI 做进度判断，聚焦完成度与偏差。</p></div>
+<div><h2>年度进度</h2><p>用全年累计结果直接判断目标进度。</p></div>
 </div>
 <div class="progress-summary-grid">
 <div class="progress-mini-card">
 <div class="eyebrow">时间进度</div>
 <div class="value" style="color:var(--purple)">{{teamKpiSummary.timeProgress}}%</div>
-<div class="desc">年度时间基线</div>
+<div class="desc">按 2026 自然年时间进度计算</div>
 </div>
 <div class="progress-mini-card">
 <div class="eyebrow">施工目标完成</div>
@@ -230,15 +230,15 @@ th:last-child{border-top-right-radius:14px}
 <div class="progress-mini-card">
 <div class="eyebrow">短板偏差</div>
 <div class="value" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div>
-<div class="desc">看当前短板是否跑赢时间</div>
+<div class="desc">以施工/设计较低完成率对比时间进度</div>
 </div>
 </div>
 <div class="progress-footnote">口径：施工按累计施工金额 ÷ 7500 万，设计按累计设计单数 ÷ 550 单。</div>
-</section>
+</section> -->
 
-<section id="overviewTrend" class="cockpit-section section-anchor">
+<!-- <section id="overviewTrend" class="cockpit-section section-anchor">
 <div class="section-heading">
-<div><h2>月度趋势区</h2><p>先看趋势，再看区域结构与大区 PK。</p></div>
+<div><h2>月度趋势区</h2><p>看年度结果之后，再看月度节奏、大区 PK 与门店贡献结构。</p></div>
 </div>
 <div class="overview-toolbar">
 <div>
@@ -274,55 +274,35 @@ th:last-child{border-top-right-radius:14px}
 <div v-for="d in distPKList" :key="d.name" style="margin-bottom:16px">
 <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-weight:600">{{d.name}}</span><span style="font-size:13px;color:var(--gray)">设计{{d.design}}单 · 施工{{d.constr}}单 · {{fmtW(d.conAmount)}}万</span></div>
 <div class="progress-bar">
-<div class="seg" :style="{width:d.designPct+'%',background:'var(--orange)'}">{{d.design}}单</div>
-<div class="seg" :style="{width:d.constrPct+'%',background:'var(--blue)'}">{{d.constr}}单</div>
+<div class="seg" style="background:#F59E0B" :style="{width:(d.design/Math.max(...distPKList.map(x=>x.design||0),1)*100)+'%'}">{{d.design}}</div>
+<div class="seg" style="background:#3B82F6" :style="{width:(d.constr/Math.max(...distPKList.map(x=>x.constr||0),1)*100)+'%'}">{{d.constr}}</div>
 </div>
 </div>
 </div>
-<div class="card table-panel" :class="tableDensityClass">
+<div class="card table-panel">
 <div class="table-panel-head">
 <div>
 <div class="card-title">🏪 门店排名</div>
-<div class="helper-text">统一卡片边距与表格密度，补充模式切换反馈，提升榜单区与趋势图的协调感。</div>
-</div>
-<div class="table-density-toggle">
-<button type="button" class="control-chip" :class="{active:tableDensity==='compact'}" @click="tableDensity='compact'">紧凑视图</button>
-<button type="button" class="control-chip" :class="{active:tableDensity==='spacious'}" @click="tableDensity='spacious'">舒展视图</button>
-</div>
-</div>
-<div class="filter-panel">
-<div class="filter-panel-main">
-<div class="filter-panel-title">榜单模式</div>
-<div class="filter-panel-subtitle">按金额或按单数切换，保持同一张卡内完成筛选与查看。</div>
+<div class="helper-text">年度累计榜单保留门店经营对比，按施工/设计切换观察头部与长尾。</div>
 </div>
 <div class="toolbar-group view-toggle">
-<button class="tab" :class="{active:storeRankTab==='con'}" @click="storeRankTab='con'">按施工金额</button>
-<button class="tab" :class="{active:storeRankTab==='des'}" @click="storeRankTab='des'">按设计单数</button>
-<span class="inline-stat">当前展示 {{storeRankTab==='con' ? '施工金额 TOP15' : '设计单数 TOP15'}}</span>
+<button type="button" class="control-chip" :class="{active:storeRankTab==='con'}" @click="storeRankTab='con'">🔨 施工榜单</button>
+<button type="button" class="control-chip" :class="{active:storeRankTab==='des'}" @click="storeRankTab='des'">🎨 设计榜单</button>
 </div>
 </div>
 <div v-show="storeRankTab==='con'" class="table-scroll">
 <table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
-<tr v-for="(s,i) in storeConTop15" :key="s.store">
-<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
-<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
-<td style="font-weight:600">{{s.store}}</td><td>{{s.count}}</td>
-<td style="color:var(--blue);font-weight:600">{{fmtW(s.amount)}}</td>
-</tr></tbody></table>
+<tr v-for="(s,i) in storeConTop15" :key="s.store"><td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td><td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td><td>{{s.store}}</td><td>{{s.count}}</td><td style="font-weight:700;color:var(--blue)">{{fmtW(s.amount)}}</td></tr>
+</tbody></table>
 </div>
 <div v-show="storeRankTab==='des'" class="table-scroll">
 <table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
-<tr v-for="(s,i) in storeDesTop15" :key="s.store">
-<td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
-<td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td>
-<td style="font-weight:600">{{s.store}}</td><td style="color:var(--orange);font-weight:600">{{s.count}}</td>
-<td style="color:var(--orange)">{{fmtW(s.amount)}}</td>
-</tr></tbody></table>
+<tr v-for="(s,i) in storeDesTop15" :key="s.store"><td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td><td><span class="tag" :class="distClass(s.district)">{{s.district}}</span></td><td>{{s.store}}</td><td>{{s.count}}</td><td style="font-weight:700;color:var(--orange)">{{fmtW(s.amount)}}</td></tr>
+</tbody></table>
 </div>
 </div>
 </div>
-</div>
-</section>
+</section> -->
 
 <section id="overviewReplay" class="cockpit-section section-anchor">
 <div class="section-heading">
@@ -469,8 +449,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 <div class="summary-tile">
 <div class="label">筛选后记录</div>
-<div class="value">{{mFiltered.length}}</div>
-<div class="meta">设计 {{mFiltered.filter(r=>r.type==='设计').length}} / 施工 {{mFiltered.filter(r=>r.type==='施工').length}}</div>
+<div class="value">{{(mFiltered || []).length}}</div>
+<div class="meta">设计 {{(mFiltered || []).filter(r=>r.type==='设计').length}} / 施工 {{(mFiltered || []).filter(r=>r.type==='施工').length}}</div>
 </div>
 <div class="summary-tile">
 <div class="label">筛选后金额</div>
@@ -479,9 +459,9 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="metrics">
-<div class="metric"><div class="label">设计单数</div><div class="val" style="color:var(--orange)">{{mFiltered.filter(r=>r.type==='设计').length}}</div><div class="unit">单</div></div>
-<div class="metric"><div class="label">施工单数</div><div class="val" style="color:var(--blue)">{{mFiltered.filter(r=>r.type==='施工').length}}</div><div class="unit">单</div></div>
-<div class="metric"><div class="label">总金额</div><div class="val">{{fmtW(mFiltered.reduce((s,r)=>s+r.amount,0))}}</div><div class="unit">万元</div></div>
+<div class="metric"><div class="label">设计单数</div><div class="val" style="color:var(--orange)">{{(mFiltered || []).filter(r=>r.type==='设计').length}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">施工单数</div><div class="val" style="color:var(--blue)">{{(mFiltered || []).filter(r=>r.type==='施工').length}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">总金额</div><div class="val">{{fmtW((mFiltered || []).reduce((s,r)=>s+r.amount,0))}}</div><div class="unit">万元</div></div>
 <div class="metric"><div class="label">施工平均单值</div><div class="val">{{mConCount?fmtW(mConAmount/mConCount):'-'}}</div><div class="unit">万元</div></div>
 </div>
 <!-- 三大区图表 -->
@@ -540,7 +520,7 @@ th:last-child{border-top-right-radius:14px}
 <div>
 <div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（金额末3）</div>
 <div v-for="(s,i) in storeConBottom3" :key="s.store" class="pk-card">
-<div class="rank-badge rank-other" style="min-width:30px">{{storeConAll.length-2+i}}</div>
+<div class="rank-badge rank-other" style="min-width:30px">{{((storeConAll || []).length)-2+i}}</div>
 <div class="pk-side">
 <div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
 <div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万</div>
@@ -592,7 +572,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="summary-strip">
 <div class="summary-tile">
 <div class="label">年度已更新成员</div>
-<div class="value">{{teamSyncedCount}} / {{teamMembers.length}}</div>
+<div class="value">{{teamSyncedCount}} / {{(teamMembers || []).length}}</div>
 <div class="meta">排名按年度累计展示</div>
 </div>
 <div class="summary-tile">
@@ -641,7 +621,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="filter-row">
 <button :class="{active:teamRankMode==='construction'}" @click="teamRankMode='construction';$nextTick(()=>initTeamCharts())">🔨 按施工金额排序</button>
 <button :class="{active:teamRankMode==='design'}" @click="teamRankMode='design';$nextTick(()=>initTeamCharts())">🎨 按设计单数排序</button>
-<div id="teamSyncedCountLabel" style="margin-left:auto;font-size:12px;color:var(--gray)">已同步成员 {{teamSyncedCount}} / {{teamMembers.length}}</div>
+<div id="teamSyncedCountLabel" style="margin-left:auto;font-size:12px;color:var(--gray)">已同步成员 {{teamSyncedCount}} / {{(teamMembers || []).length}}</div>
 </div>
 <div style="overflow-x:auto">
 <table id="teamKpiTable"><thead><tr><th>姓名</th><th>施工累计</th><th>施工KPI</th><th>施工达成率</th><th>设计累计</th><th>设计KPI</th><th>设计达成率</th><th>缺口/状态</th></tr></thead><tbody>
@@ -717,7 +697,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="card" style="padding:16px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);box-shadow:none">
 <div class="card-title" style="font-size:18px;margin-bottom:12px">📌 本月跟进摘要</div>
 <div class="alert-list">
-<div class="business-alert"><strong>已更新：</strong>{{monthlyMemberStats.completeCount}} 人；当前筛选展示 {{filteredMonthlyMemberDetail.length}} 人。</div>
+<div class="business-alert"><strong>已更新：</strong>{{monthlyMemberStats.completeCount}} 人；当前筛选展示 {{(filteredMonthlyMemberDetail || []).length}} 人。</div>
 <div class="business-alert"><strong>待跟进：</strong>{{monthlyMemberStats.partialCount + monthlyMemberStats.pendingCount}} 人，优先处理待补充与未更新成员。</div>
 <div class="business-alert"><strong>阅读方式：</strong>上方看年度累计表现，下方看 {{teamMonthSel}} 的当月跟进情况。</div>
 </div>
@@ -727,7 +707,7 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 
-<section id="overviewRegionSummary" class="cockpit-section section-anchor">
+<!-- <section id="regionStoreSummary" class="cockpit-section section-anchor">
 <div class="section-heading">
 <div><h2>区域门店年度汇总</h2><p>先看长沙 / 地市一区 / 地市二区的年度结构，再看各区域门店年度累计表现。</p></div>
 </div>
@@ -736,36 +716,36 @@ th:last-child{border-top-right-radius:14px}
 <div class="region-card-head">
 <div>
 <h3>{{item.shortName}}</h3>
-<p>年度累计门店经营摘要</p>
+<p>年度累计门店经营概况</p>
 </div>
-<span class="tag" :class="distClass(item.name)">{{item.shortName}}</span>
+<span class="team-status status-good">{{item.storeCount}} 家门店</span>
 </div>
 <div class="region-metric-grid">
-<div class="region-metric"><div class="label">门店数</div><div class="value">{{item.storeCount}}</div></div>
-<div class="region-metric"><div class="label">年度设计单数</div><div class="value">{{item.designCount}}</div></div>
-<div class="region-metric"><div class="label">年度施工单数</div><div class="value">{{item.constructionCount}}</div></div>
-<div class="region-metric"><div class="label">年度施工金额</div><div class="value">{{fmtW(item.constructionAmount)}}万</div></div>
+<div class="region-metric"><div class="label">设计单数</div><div class="value" style="color:var(--orange)">{{item.designCount}}</div></div>
+<div class="region-metric"><div class="label">施工单数</div><div class="value" style="color:var(--blue)">{{item.constructionCount}}</div></div>
+<div class="region-metric"><div class="label">施工金额</div><div class="value" style="color:var(--blue)">{{fmtW(item.constructionAmount)}}万</div></div>
+<div class="region-metric"><div class="label">设计金额</div><div class="value" style="color:var(--orange)">{{fmtW(item.designAmount)}}万</div></div>
 </div>
 </div>
 </div>
 <div class="region-chart-grid">
 <div class="card">
-<div class="card-title">🧩 施工金额区域占比</div>
-<div id="regionAmountShareChart" class="chart-box" style="height:320px"></div>
+<div class="card-title">🧿 施工金额区域占比</div>
+<div id="regionConstructionShareChart" class="chart-box" style="height:320px"></div>
 </div>
 <div class="card">
-<div class="card-title">🧩 设计单数区域占比</div>
+<div class="card-title">🧿 设计单数区域占比</div>
 <div id="regionDesignShareChart" class="chart-box" style="height:320px"></div>
 </div>
 </div>
 <div class="card">
 <div class="region-ranking-head">
 <div>
-<div class="card-title" style="margin-bottom:6px">🏪 区域门店年度榜单</div>
-<div class="region-ranking-meta">当前按区域切换查看门店年度累计设计、施工与施工金额表现。</div>
+<div class="card-title">🏪 区域门店年度榜单</div>
+<div class="region-ranking-meta">按区域切换查看门店年度累计设计 / 施工表现。</div>
 </div>
-<div class="toolbar-group">
-<button type="button" class="control-chip" v-for="name in ['长沙大区','地市一区','地市二区']" :key="name" :class="{active:regionRankTab===name}" @click="regionRankTab=name">{{name==='长沙大区'?'长沙区域':name}}</button>
+<div class="toolbar-group view-toggle">
+<button type="button" class="control-chip" v-for="item in regionSummaryList" :key="item.name" :class="{active:regionRankTab===item.name}" @click="regionRankTab=item.name">{{item.shortName}}</button>
 </div>
 </div>
 <div class="table-scroll">
@@ -779,13 +759,13 @@ th:last-child{border-top-right-radius:14px}
 <td style="color:var(--blue);font-weight:600">{{fmtW(row.constructionAmount)}}万</td>
 <td style="color:var(--orange);font-weight:600">{{fmtW(row.designAmount)}}万</td>
 </tr>
-<tr v-if="!regionStoreRanking.length"><td colspan="5" style="text-align:center;color:var(--gray)">当前区域暂无年度门店累计数据</td></tr>
+<tr v-if="!(regionStoreRanking || []).length"><td colspan="5" style="text-align:center;color:var(--gray)">当前区域暂无年度门店累计数据</td></tr>
 </tbody>
 </table>
 </div>
 </div>
-
-<div id="teamRiskTips" class="card" style="margin-top:16px" v-if="teamRiskTips.length">
+</section> -->
+<div id="teamRiskTips" class="card" style="margin-top:16px" v-if="(teamRiskTips || []).length">
 <div class="card-title">⚠️ 跟进提醒</div>
 <div v-for="(tip,idx) in teamRiskTips" :key="idx" class="team-note">• {{tip}}</div>
 </div><!-- /team -->
@@ -797,10 +777,10 @@ th:last-child{border-top-right-radius:14px}
 <!-- 新增信息 -->
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
-<div class="card-title">📋 今日新增 {{newsRecords.length}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/22 00:18:41</div>
+<div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/22 01:31:20</div>
 </div>
-<div v-if="newsRecords.length===0" class="card" style="text-align:center;padding:36px 20px">
+<div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
 <div style="color:var(--gray);font-size:14px;line-height:1.8">当前批次未检测到新增设计或施工记录，保留该页签用于稳定展示新增动态与空态提示。</div>
 </div>
@@ -860,7 +840,6 @@ const MEMBER_KPI = {
     "designCount": 50
   }
 };
-const newsData = [];
 const rawData = [
   {
     "type": "设计",
@@ -5013,6 +4992,7 @@ const rawData = [
     "customer": "熊欣"
   }
 ];
+const newsData = [];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -5030,7 +5010,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:18:41 CST",
+      "updatedAt": "2026-04-22 01:31:20 CST",
       "members": [
         {
           "name": "周国平",
@@ -5069,7 +5049,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:18:41 CST",
+      "updatedAt": "2026-04-22 01:31:20 CST",
       "members": [
         {
           "name": "周国平",
@@ -5108,7 +5088,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:18:41 CST",
+      "updatedAt": "2026-04-22 01:31:20 CST",
       "members": [
         {
           "name": "周国平",
@@ -5147,7 +5127,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:18:41 CST",
+      "updatedAt": "2026-04-22 01:31:20 CST",
       "members": [
         {
           "name": "周国平",
@@ -5187,7 +5167,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-22 00:18:41 CST",
+    "updatedAt": "2026-04-22 01:31:20 CST",
     "members": [
       {
         "name": "周国平",
@@ -5243,7 +5223,7 @@ const tableDensity = ref('compact');
 
 const months = ['2026-01','2026-02','2026-03','2026-04'];
 const qMonths = {Q1:['2026-01','2026-02','2026-03'],Q2:['2026-04'],Q3:['2026-07','2026-08','2026-09'],Q4:['2026-10','2026-11','2026-12']};
-const teamMembers = Object.keys(MEMBER_KPI);
+const teamMembers = Object.keys(MEMBER_KPI || {});
 const teamMonthOptions = (Array.isArray(manualTeamMonthlyData.monthOptions) && manualTeamMonthlyData.monthOptions.length ? manualTeamMonthlyData.monthOptions : months).filter((month, index, list) => list.indexOf(month) === index);
 const teamTimeProgress = (()=>{ const now=new Date(); const start=new Date(2026,0,1); const end=new Date(2026,11,31,23,59,59,999); const clamped=now<start?start:now>end?end:now; return Number((((clamped-start)/(end-start))*100).toFixed(1)); })();
 function calcRate(actual,target){ return target!==null && actual!==null ? Number(((actual/target)*100).toFixed(1)) : null; }
@@ -5251,7 +5231,7 @@ function formatAmountOrPending(value){ return value===null ? '待补充' : fmtW(
 function formatCountOrPending(value){ return value===null ? '待补充' : String(value); }
 function formatRateOrPending(value){ return value===null ? '待补充' : value + '%'; }
 function statusClass(status){ if(status==='已达标' || status==='超前') return 'status-good'; if(status==='正常') return 'status-warn'; return 'status-bad'; }
-function getMemberStatus(constructionRate,designRate,missingFields){ if(missingFields.length) return '待补齐'; const shortBoard=Math.min(constructionRate,designRate); if(constructionRate>=100&&designRate>=100)return '已达标'; if(shortBoard>=teamTimeProgress)return '超前'; if(Math.max(constructionRate,designRate)>=teamTimeProgress)return '正常'; return '滞后'; }
+function getMemberStatus(constructionRate,designRate,missingFields){ const safeMissingFields = Array.isArray(missingFields) ? missingFields : []; if(safeMissingFields.length) return '待补齐'; const shortBoard=Math.min(constructionRate,designRate); if(constructionRate>=100&&designRate>=100)return '已达标'; if(shortBoard>=teamTimeProgress)return '超前'; if(Math.max(constructionRate,designRate)>=teamTimeProgress)return '正常'; return '滞后'; }
 function getTeamMonthPayload(month){
   const entries = Array.isArray(manualTeamMonthlyData.months) ? manualTeamMonthlyData.months : [];
   const selected = entries.find(item=>item && item.month===month) || entries[0] || { month, source:'人工同步月报', updatedAt:'', members:[], missingFields:['人工同步月报缺失'], sourceStatus:'pending' };
@@ -5358,8 +5338,9 @@ const mConAmount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').red
 const activeTeamMonthData = computed(()=>getTeamMonthPayload(teamMonthSel.value));
 const activeManualMonth = computed(()=>activeTeamMonthData.value.month || manualTeamMonthlyData.activeMonth || manualTeamMonthlyData.dashboardMonth || teamMonthSel.value);
 const monthlyMemberStats = computed(()=>{
+  const detailList = Array.isArray(monthlyMemberDetail.value) ? monthlyMemberDetail.value : [];
   const stats = { completeCount:0, partialCount:0, pendingCount:0 };
-  monthlyMemberDetail.value.forEach(item=>{
+  detailList.forEach(item=>{
     if(item.hasAllData) stats.completeCount += 1;
     else if(item.hasPartialData) stats.partialCount += 1;
     else stats.pendingCount += 1;
@@ -5367,9 +5348,10 @@ const monthlyMemberStats = computed(()=>{
   return stats;
 });
 const filteredMonthlyMemberDetail = computed(()=>{
-  if(teamDetailFilter.value==='complete') return monthlyMemberDetail.value.filter(item=>item.hasAllData);
-  if(teamDetailFilter.value==='risk') return monthlyMemberDetail.value.filter(item=>!item.hasAllData);
-  return monthlyMemberDetail.value;
+  const detailList = Array.isArray(monthlyMemberDetail.value) ? monthlyMemberDetail.value : [];
+  if(teamDetailFilter.value==='complete') return detailList.filter(item=>item.hasAllData);
+  if(teamDetailFilter.value==='risk') return detailList.filter(item=>!item.hasAllData);
+  return detailList;
 });
 const tableDensityClass = computed(()=>tableDensity.value==='spacious' ? 'table-spacious' : 'table-compact');
 const regionOrder = ['长沙大区','地市一区','地市二区'];
@@ -5474,7 +5456,8 @@ const memberPerformance = computed(()=>teamMembers.map(name=>{
   const status = getMemberStatus(constructionRate, designRate, missingFields);
   const constructionGap = constructionActual === null ? null : Math.max(constructionTarget - constructionActual, 0);
   const designGap = designActual === null ? null : Math.max(designTarget - designActual, 0);
-  const gapDisplay = missingFields.length ? ('待补项：' + missingFields.join('、')) : ('施工差 ' + fmtW(constructionGap) + '万 · 设计差 ' + designGap + '单');
+  const safeMissingFields = Array.isArray(missingFields) ? missingFields : [];
+  const gapDisplay = safeMissingFields.length ? ('待补项：' + safeMissingFields.join('、')) : ('施工差 ' + fmtW(constructionGap) + '万 · 设计差 ' + designGap + '单');
   return {
     name,
     constructionActual, constructionTarget, constructionRate, constructionGap,
@@ -5516,7 +5499,7 @@ const monthlyMemberDetail = computed(()=>teamMembers.map(name=>{
     designDisplay,
   };
 }));
-const teamSyncedCount = computed(()=>memberPerformance.value.filter(item=>item.missingFields.length===0).length);
+const teamSyncedCount = computed(()=>memberPerformance.value.filter(item=>Array.isArray(item.missingFields) ? item.missingFields.length===0 : true).length);
 // 顶部KPI汇总使用年度累计数据（1-3月汇总，固定不变）
 const teamKpiSummary = computed(()=>{
   const constructionActual = totalConAmount;
@@ -5545,12 +5528,13 @@ const teamKpiSummary = computed(()=>{
 });
 const teamDataStatusTips = computed(()=>{
   const tips = [];
+  const missingFields = Array.isArray(activeTeamMonthData.value?.missingFields) ? activeTeamMonthData.value.missingFields : [];
   tips.push('当前月份：' + teamMonthSel.value + '，用于查看成员当月更新与跟进情况。');
   if (activeTeamMonthData.value.sourceStatus === 'pending') {
     tips.push(teamMonthSel.value + ' 数据暂未更新，建议优先补齐后再查看当月对比。');
   }
-  if (activeTeamMonthData.value.missingFields.filter(Boolean).length) {
-    tips.push('待补项：' + activeTeamMonthData.value.missingFields.filter(Boolean).join('、') + '。');
+  if (missingFields.filter(Boolean).length) {
+    tips.push('待补项：' + missingFields.filter(Boolean).join('、') + '。');
   }
   if (!tips.length) {
     tips.push('当前月份数据已准备完成，可直接用于成员跟进。');
@@ -5559,13 +5543,15 @@ const teamDataStatusTips = computed(()=>{
 });
 const teamRiskTips = computed(()=>{
   const tips=[];
+  const missingFields = Array.isArray(activeTeamMonthData.value?.missingFields) ? activeTeamMonthData.value.missingFields : [];
+  const pendingMembers = memberPerformance.value.filter(item=>Array.isArray(item.missingFields) && item.missingFields.length);
   if (activeTeamMonthData.value.sourceStatus === 'pending') {
     tips.push(activeManualMonth.value + ' 数据暂未更新，建议优先补齐后再查看当月表现。');
   }
-  activeTeamMonthData.value.missingFields.filter(Boolean).forEach(field=>{
+  missingFields.filter(Boolean).forEach(field=>{
     tips.push('当前月份待补项：' + field + '。');
   });
-  memberPerformance.value.filter(item=>item.missingFields.length).forEach(item=>{
+  pendingMembers.forEach(item=>{
     tips.push(item.name + ' 仍有待补项：' + item.missingFields.join('、') + '。');
   });
   return [...new Set(tips)];
@@ -5595,6 +5581,8 @@ function jumpToSection(sectionId){
     target.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 }
+function safeLen(value){ return Array.isArray(value) ? value.length : 0; }
+function safeLen(value){ return Array.isArray(value) ? value.length : 0; }
 const newsRecords = Vue.computed(()=>newsData);
 const newsDes = Vue.computed(()=>newsData.filter(r=>r.type==='设计'));
 const newsCon = Vue.computed(()=>newsData.filter(r=>r.type==='施工'));
@@ -5723,7 +5711,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop3,storeConBottom3,storeDesTop15,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,fmtW,distClass,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
