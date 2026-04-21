@@ -71,12 +71,12 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .kpi-card .eyebrow{font-size:12px;color:var(--gray);margin-bottom:8px}
 .kpi-card .value{font-size:30px;font-weight:700;margin-bottom:6px}
 .kpi-card .desc{font-size:12px;color:var(--gray);line-height:1.6}
-.progress-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(320px,1fr);gap:16px}
-.main-progress-card{padding:22px;border-radius:22px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FBFF 100%)}
-.spotlight-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
-.spotlight-item{padding:14px;border-radius:16px;background:#F8FAFC;border:1px solid #D9E4F2;box-shadow:inset 0 1px 0 #FFF}
-.spotlight-item .label{font-size:12px;color:var(--gray);margin-bottom:6px}
-.spotlight-item .value{font-size:24px;font-weight:700}
+.progress-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.progress-mini-card{padding:18px;border-radius:18px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FBFF 100%);border:1px solid var(--line);box-shadow:var(--card-shadow-soft)}
+.progress-mini-card .eyebrow{font-size:12px;color:var(--gray);margin-bottom:8px}
+.progress-mini-card .value{font-size:28px;font-weight:700;margin-bottom:6px}
+.progress-mini-card .desc{font-size:12px;color:var(--gray);line-height:1.6}
+.progress-footnote{font-size:12px;color:var(--gray);line-height:1.7;margin-top:10px}
 .alert-list{display:flex;flex-direction:column;gap:10px}
 .alert-item{padding:14px 16px;border-radius:16px;background:var(--warm);border:1px solid var(--warm-line);font-size:13px;line-height:1.7;color:#9A3412}
 .dual-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,1fr);gap:16px}
@@ -142,7 +142,7 @@ tbody tr:nth-child(even){background:rgba(248,250,252,.78)}
 tbody tr:hover{background:#EEF4FF}
 th:first-child{border-top-left-radius:14px}
 th:last-child{border-top-right-radius:14px}
-@media(max-width:1100px){.hero-bar,.progress-layout,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid{grid-template-columns:1fr}.hero-meta,.kpi-grid,.spotlight-metrics,.summary-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.hero-bar,.progress-summary-grid,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid{grid-template-columns:1fr}.hero-meta,.kpi-grid,.summary-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:768px){body{padding:12px}.tabs{top:8px;padding:10px}.card,.metric,.kpi-card{padding:16px}.hero-bar,.team-hero{padding:20px}.hero-title,.team-hero-title{font-size:28px}.table-scroll{max-height:none}}
 @media(max-width:640px){.hero-meta,.kpi-grid,.spotlight-metrics,.summary-strip{grid-template-columns:1fr}.tab{flex:1 1 calc(50% - 10px);justify-content:center;text-align:center}.hero-meta{min-width:0}.overview-toolbar,.monthly-detail-head,.team-hero{flex-direction:column;align-items:stretch}.toolbar-group,.view-toggle,.team-hero-actions{width:100%}.control-chip,select,.data-status-toggle{justify-content:center}.section-heading{align-items:flex-start}}
 </style>
@@ -161,8 +161,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/21 20:18:01</div></div>
-<div style="display:none">数据更新时间: 2026/4/21 20:18:01</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/21 21:48:37</div></div>
+<div style="display:none">数据更新时间: 2026/4/21 21:48:37</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">目标月份</div><div class="value">2026-03</div></div>
 </div>
@@ -195,50 +195,31 @@ th:last-child{border-top-right-radius:14px}
 
 <section id="overviewProgress" class="cockpit-section section-anchor">
 <div class="section-heading">
-<div><h2>年度进度主卡</h2><p>第二屏聚焦时间进度、年度目标与关键提醒。</p></div>
+<div><h2>年度进度</h2><p>和结果总览并排展示，按全年累计结果直接对 KPI 做进度判断。</p></div>
 </div>
-<div class="progress-layout">
-<div class="card main-progress-card">
-<div class="card-title">🎯 年度进度主卡</div>
-<div class="spotlight-metrics">
-<div class="spotlight-item"><div class="label">时间进度</div><div class="value" style="color:var(--purple)">{{teamKpiSummary.timeProgress}}%</div></div>
-<div class="spotlight-item"><div class="label">施工目标完成</div><div class="value" style="color:var(--blue)">{{teamKpiSummary.constructionRateDisplay}}</div></div>
-<div class="spotlight-item"><div class="label">设计目标完成</div><div class="value" style="color:var(--orange)">{{teamKpiSummary.designRateDisplay}}</div></div>
-<div class="spotlight-item"><div class="label">短板偏差</div><div class="value" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div></div>
+<div class="progress-summary-grid">
+<div class="progress-mini-card">
+<div class="eyebrow">时间进度</div>
+<div class="value" style="color:var(--purple)">{{teamKpiSummary.timeProgress}}%</div>
+<div class="desc">按 2026 自然年时间进度计算</div>
 </div>
-<div class="panel-note">口径保持不变：年度累计排名逻辑仍基于 2026 年人工月报汇总；月份切换不影响本区顶部年度累计。</div>
+<div class="progress-mini-card">
+<div class="eyebrow">施工目标完成</div>
+<div class="value" style="color:var(--blue)">{{teamKpiSummary.constructionRateDisplay}}</div>
+<div class="desc">{{teamKpiSummary.constructionActualDisplay}} / {{teamKpiSummary.constructionTargetDisplay}}</div>
 </div>
-<div class="stack-card">
-<div class="card">
-<div class="card-title">📌 各大区施工</div>
-<div class="filter-row">
-<div style="flex:1;text-align:center">
-<div style="font-size:14px;color:var(--gray)">长沙大区</div>
-<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(csConAmount)}}万</div>
-<div style="font-size:13px;color:var(--gray)">{{csConstr}}单 · 设计{{csDesign}}单</div>
+<div class="progress-mini-card">
+<div class="eyebrow">设计目标完成</div>
+<div class="value" style="color:var(--orange)">{{teamKpiSummary.designRateDisplay}}</div>
+<div class="desc">{{teamKpiSummary.designActualDisplay}} / {{teamKpiSummary.designTargetDisplay}}</div>
 </div>
-<div style="flex:1;text-align:center">
-<div style="font-size:14px;color:var(--gray)">地市一区</div>
-<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(dsConAmount)}}万</div>
-<div style="font-size:13px;color:var(--gray)">{{dsConstr}}单 · 设计{{dsDesign}}单</div>
-</div>
-<div style="flex:1;text-align:center">
-<div style="font-size:14px;color:var(--gray)">地市二区</div>
-<div style="font-size:22px;font-weight:700;color:var(--blue)">{{fmtW(ds2ConAmount)}}万</div>
-<div style="font-size:13px;color:var(--gray)">{{ds2Constr}}单 · 设计{{ds2Design}}单</div>
+<div class="progress-mini-card">
+<div class="eyebrow">短板偏差</div>
+<div class="value" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div>
+<div class="desc">以施工/设计较低完成率对比时间进度</div>
 </div>
 </div>
-</div>
-<div class="card">
-<div class="card-title">🚨 关键提醒区</div>
-<div class="alert-list">
-<div class="alert-item">年度累计数据保持固定口径，月份切换仅作用于当月明细区。</div>
-<div class="alert-item">2026-04 人工月报仍保留“待同步”占位，不能被本轮结构升级破坏。</div>
-<div class="alert-item">本轮已完成视觉精修与交互收口，后续如需追加仅建议做文案与动效微调。</div>
-</div>
-</div>
-</div>
-</div>
+<div class="progress-footnote">说明：年度进度主卡改为直接读取结果总览的全年累计数据。施工按累计施工金额 ÷ 7500 万，设计按累计设计单数 ÷ 550 单。</div>
 </section>
 
 <section id="overviewTrend" class="cockpit-section section-anchor">
@@ -744,7 +725,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{newsRecords.length}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/21 20:18:01</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/21 21:48:37</div>
 </div>
 <div v-if="newsRecords.length===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -5448,10 +5429,8 @@ const monthlyMemberDetail = computed(()=>teamMembers.map(name=>{
 const teamSyncedCount = computed(()=>memberPerformance.value.filter(item=>item.missingFields.length===0).length);
 // 顶部KPI汇总使用年度累计数据（1-3月汇总，固定不变）
 const teamKpiSummary = computed(()=>{
-  const hasConstructionGap = memberPerformance.value.some(item=>item.constructionActual===null);
-  const hasDesignGap = memberPerformance.value.some(item=>item.designActual===null);
-  const constructionActual = hasConstructionGap ? null : memberPerformance.value.reduce((acc,item)=>acc+item.constructionActual,0);
-  const designActual = hasDesignGap ? null : memberPerformance.value.reduce((acc,item)=>acc+item.designActual,0);
+  const constructionActual = totalConAmount;
+  const designActual = totalDesign;
   const constructionRate = calcRate(constructionActual, TEAM_KPI.constructionAmount);
   const designRate = calcRate(designActual, TEAM_KPI.designCount);
   const shortBoard = constructionRate===null || designRate===null ? null : Math.min(constructionRate, designRate);
@@ -5465,9 +5444,11 @@ const teamKpiSummary = computed(()=>{
     designRate,
     timeProgress: teamTimeProgress,
     deviationValue,
-    constructionActualDisplay: constructionActual===null ? '待补充' : fmtW(constructionActual),
+    constructionActualDisplay: fmtW(constructionActual) + '万',
+    constructionTargetDisplay: fmtW(TEAM_KPI.constructionAmount) + '万',
     constructionRateDisplay: formatRateOrPending(constructionRate),
-    designActualDisplay: designActual===null ? '待补充' : String(designActual),
+    designActualDisplay: String(designActual) + '单',
+    designTargetDisplay: String(TEAM_KPI.designCount) + '单',
     designRateDisplay: formatRateOrPending(designRate),
     deviationDisplay: deviationValue===null ? '待补充' : deviationValue + '%',
   };
