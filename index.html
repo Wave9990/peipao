@@ -62,7 +62,21 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .hero-chip .value{font-size:24px;font-weight:700}
 .hero-status-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .hero-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;color:rgba(248,250,252,.88)}
+.hero-pill strong{font-weight:700;color:#FFFFFF}
 .cockpit-section{margin-bottom:24px}
+.region-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.region-card{padding:18px;border-radius:18px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);border:1px solid var(--line);box-shadow:var(--card-shadow-soft)}
+.region-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.region-card-head h3{font-size:20px;color:#0F172A}
+.region-card-head p{font-size:12px;color:var(--gray)}
+.region-metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.region-metric{padding:12px 14px;border-radius:14px;background:#F8FAFC;border:1px solid var(--line-soft)}
+.region-metric .label{font-size:12px;color:var(--gray);margin-bottom:6px}
+.region-metric .value{font-size:20px;font-weight:700;color:var(--ink)}
+.region-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
+.region-ranking-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.region-ranking-meta{font-size:12px;color:var(--gray);line-height:1.6}
+@media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.progress-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.region-summary-grid,.region-chart-grid{grid-template-columns:1fr}.hero-bar{flex-direction:column}.hero-meta{width:100%;min-width:0}}
 .section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
 .section-heading h2{font-size:26px;color:#0F172A}
 .section-heading p{font-size:13px;color:var(--gray);line-height:1.6}
@@ -153,18 +167,18 @@ th:last-child{border-top-right-radius:14px}
 <div class="hero-bar">
 <div>
 <div class="hero-title">📊 点石家装 · 陪跑经营驾驶舱</div>
-<div class="hero-subtitle">第二轮聚焦视觉细修与交互提效：压缩信息噪音、强化层级对比、提升筛选/切换反馈，并补足窄屏浏览时的可读性与连续操作体验。</div>
+<div class="hero-subtitle">从年度累计结果判断经营节奏：先看签约、转化与施工兑现，再快速定位区域结构、门店贡献与团队达成短板。</div>
 <div class="hero-status-row">
-<span class="hero-pill">✅ 第二轮：视觉细修</span>
-<span class="hero-pill">🧭 交互反馈增强</span>
-<span class="hero-pill">📱 窄屏可读性优化</span>
+<span class="hero-pill">🟢 经营状态：<strong>年度结果已汇总</strong></span>
+<span class="hero-pill">📍 判断重点：<strong>区域结构 + 门店贡献</strong></span>
+<span class="hero-pill">⏱️ 当前进度：<strong>{{teamKpiSummary.timeProgress}}%</strong></span>
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/22 00:02:09</div></div>
-<div style="display:none">数据更新时间: 2026/4/22 00:02:09</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/22 00:18:41</div></div>
+<div style="display:none">数据更新时间: 2026/4/22 00:18:41</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
-<div class="hero-chip"><div class="label">目标月份</div><div class="value">2026-03</div></div>
+<div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
 </div>
 
@@ -195,13 +209,13 @@ th:last-child{border-top-right-radius:14px}
 
 <section id="overviewProgress" class="cockpit-section section-anchor">
 <div class="section-heading">
-<div><h2>年度进度</h2><p>和结果总览并排展示，按全年累计结果直接对 KPI 做进度判断。</p></div>
+<div><h2>年度进度</h2><p>直接对 KPI 做进度判断，聚焦完成度与偏差。</p></div>
 </div>
 <div class="progress-summary-grid">
 <div class="progress-mini-card">
 <div class="eyebrow">时间进度</div>
 <div class="value" style="color:var(--purple)">{{teamKpiSummary.timeProgress}}%</div>
-<div class="desc">按 2026 自然年时间进度计算</div>
+<div class="desc">年度时间基线</div>
 </div>
 <div class="progress-mini-card">
 <div class="eyebrow">施工目标完成</div>
@@ -216,10 +230,10 @@ th:last-child{border-top-right-radius:14px}
 <div class="progress-mini-card">
 <div class="eyebrow">短板偏差</div>
 <div class="value" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div>
-<div class="desc">以施工/设计较低完成率对比时间进度</div>
+<div class="desc">看当前短板是否跑赢时间</div>
 </div>
 </div>
-<div class="progress-footnote">说明：年度进度主卡改为直接读取结果总览的全年累计数据。施工按累计施工金额 ÷ 7500 万，设计按累计设计单数 ÷ 550 单。</div>
+<div class="progress-footnote">口径：施工按累计施工金额 ÷ 7500 万，设计按累计设计单数 ÷ 550 单。</div>
 </section>
 
 <section id="overviewTrend" class="cockpit-section section-anchor">
@@ -646,7 +660,7 @@ th:last-child{border-top-right-radius:14px}
 </tr>
 </tbody></table>
 </div>
-<div class="panel-note">排名按年度累计展示，便于稳定查看成员长期表现。</div>
+<div class="panel-note">口径：按年度累计展示成员长期达成表现。</div>
 </div>
 <div class="stack-card">
 <div class="card">
@@ -709,9 +723,68 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 </div>
-<div class="team-note" style="margin-top:8px">说明：年度累计与当月跟进分开展示，避免长期表现与当月更新状态混在一起。</div>
+<div class="team-note" style="margin-top:8px">口径：上方看年度累计，下方看 {{teamMonthSel}} 当月跟进。</div>
 </div>
 </div>
+
+<section id="overviewRegionSummary" class="cockpit-section section-anchor">
+<div class="section-heading">
+<div><h2>区域门店年度汇总</h2><p>先看长沙 / 地市一区 / 地市二区的年度结构，再看各区域门店年度累计表现。</p></div>
+</div>
+<div class="region-summary-grid">
+<div class="region-card" v-for="item in regionSummaryList" :key="item.name">
+<div class="region-card-head">
+<div>
+<h3>{{item.shortName}}</h3>
+<p>年度累计门店经营摘要</p>
+</div>
+<span class="tag" :class="distClass(item.name)">{{item.shortName}}</span>
+</div>
+<div class="region-metric-grid">
+<div class="region-metric"><div class="label">门店数</div><div class="value">{{item.storeCount}}</div></div>
+<div class="region-metric"><div class="label">年度设计单数</div><div class="value">{{item.designCount}}</div></div>
+<div class="region-metric"><div class="label">年度施工单数</div><div class="value">{{item.constructionCount}}</div></div>
+<div class="region-metric"><div class="label">年度施工金额</div><div class="value">{{fmtW(item.constructionAmount)}}万</div></div>
+</div>
+</div>
+</div>
+<div class="region-chart-grid">
+<div class="card">
+<div class="card-title">🧩 施工金额区域占比</div>
+<div id="regionAmountShareChart" class="chart-box" style="height:320px"></div>
+</div>
+<div class="card">
+<div class="card-title">🧩 设计单数区域占比</div>
+<div id="regionDesignShareChart" class="chart-box" style="height:320px"></div>
+</div>
+</div>
+<div class="card">
+<div class="region-ranking-head">
+<div>
+<div class="card-title" style="margin-bottom:6px">🏪 区域门店年度榜单</div>
+<div class="region-ranking-meta">当前按区域切换查看门店年度累计设计、施工与施工金额表现。</div>
+</div>
+<div class="toolbar-group">
+<button type="button" class="control-chip" v-for="name in ['长沙大区','地市一区','地市二区']" :key="name" :class="{active:regionRankTab===name}" @click="regionRankTab=name">{{name==='长沙大区'?'长沙区域':name}}</button>
+</div>
+</div>
+<div class="table-scroll">
+<table>
+<thead><tr><th>门店名称</th><th>年度设计单数</th><th>年度施工单数</th><th>年度施工金额</th><th>年度设计金额</th></tr></thead>
+<tbody>
+<tr v-for="row in regionStoreRanking" :key="regionRankTab + row.store">
+<td style="font-weight:700">{{row.store}}</td>
+<td>{{row.designCount}}</td>
+<td>{{row.constructionCount}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(row.constructionAmount)}}万</td>
+<td style="color:var(--orange);font-weight:600">{{fmtW(row.designAmount)}}万</td>
+</tr>
+<tr v-if="!regionStoreRanking.length"><td colspan="5" style="text-align:center;color:var(--gray)">当前区域暂无年度门店累计数据</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
 <div id="teamRiskTips" class="card" style="margin-top:16px" v-if="teamRiskTips.length">
 <div class="card-title">⚠️ 跟进提醒</div>
 <div v-for="(tip,idx) in teamRiskTips" :key="idx" class="team-note">• {{tip}}</div>
@@ -725,7 +798,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{newsRecords.length}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/22 00:02:09</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/22 00:18:41</div>
 </div>
 <div v-if="newsRecords.length===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -4957,7 +5030,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:02:09 CST",
+      "updatedAt": "2026-04-22 00:18:41 CST",
       "members": [
         {
           "name": "周国平",
@@ -4996,7 +5069,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:02:09 CST",
+      "updatedAt": "2026-04-22 00:18:41 CST",
       "members": [
         {
           "name": "周国平",
@@ -5035,7 +5108,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:02:09 CST",
+      "updatedAt": "2026-04-22 00:18:41 CST",
       "members": [
         {
           "name": "周国平",
@@ -5074,7 +5147,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-22 00:02:09 CST",
+      "updatedAt": "2026-04-22 00:18:41 CST",
       "members": [
         {
           "name": "周国平",
@@ -5114,7 +5187,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-22 00:02:09 CST",
+    "updatedAt": "2026-04-22 00:18:41 CST",
     "members": [
       {
         "name": "周国平",
@@ -5299,6 +5372,34 @@ const filteredMonthlyMemberDetail = computed(()=>{
   return monthlyMemberDetail.value;
 });
 const tableDensityClass = computed(()=>tableDensity.value==='spacious' ? 'table-spacious' : 'table-compact');
+const regionOrder = ['长沙大区','地市一区','地市二区'];
+const regionSummaryList = computed(()=>regionOrder.map(name=>{
+  const designRecords = rawData.filter(r=>r.type==='设计' && r.district===name);
+  const constructionRecords = rawData.filter(r=>r.type==='施工' && r.district===name);
+  const stores = new Set([...designRecords, ...constructionRecords].map(item=>item.store).filter(Boolean));
+  return {
+    name,
+    shortName: name==='长沙大区' ? '长沙区域' : name,
+    storeCount: stores.size,
+    designCount: designRecords.length,
+    constructionCount: constructionRecords.length,
+    constructionAmount: constructionRecords.reduce((sum,item)=>sum+item.amount,0),
+    designAmount: designRecords.reduce((sum,item)=>sum+item.amount,0),
+  };
+}));
+const regionRankTab = ref(regionOrder[0]);
+const regionAmountShareData = computed(()=>regionSummaryList.value.map(item=>({value:item.constructionAmount,name:item.shortName})).filter(item=>item.value>0));
+const regionDesignShareData = computed(()=>regionSummaryList.value.map(item=>({value:item.designCount,name:item.shortName})).filter(item=>item.value>0));
+const regionStoreRanking = computed(()=>{
+  const rows = {};
+  rawData.forEach(item=>{
+    if(item.district!==regionRankTab.value || !item.store) return;
+    if(!rows[item.store]) rows[item.store] = {store:item.store, designCount:0, constructionCount:0, constructionAmount:0, designAmount:0};
+    if(item.type==='设计'){ rows[item.store].designCount += 1; rows[item.store].designAmount += item.amount; }
+    if(item.type==='施工'){ rows[item.store].constructionCount += 1; rows[item.store].constructionAmount += item.amount; }
+  });
+  return Object.values(rows).sort((a,b)=>b.constructionAmount-a.constructionAmount || b.designCount-a.designCount || b.constructionCount-a.constructionCount || a.store.localeCompare(b.store,'zh-CN'));
+});
 const manualMemberMap = computed(()=>{
   const map={};
   const members=Array.isArray(activeTeamMonthData.value.members)?activeTeamMonthData.value.members:[];
@@ -5499,9 +5600,47 @@ const newsDes = Vue.computed(()=>newsData.filter(r=>r.type==='设计'));
 const newsCon = Vue.computed(()=>newsData.filter(r=>r.type==='施工'));
 function fmtW(v){return(v/10000).toFixed(1);}
 function distClass(d){return d==='长沙大区'?'tag-cs':d==='地市一区'?'tag-d1':'tag-d2';}
+function getRegionAccent(name){return name==='长沙大区' ? '#3B82F6' : name==='地市一区' ? '#F59E0B' : '#7C3AED';}
 const monthList = months;
 
 let charts={};
+function buildTeamChartBarData(rows,key,color,missingColor){
+  return rows.map(item=>{
+    const value = item[key];
+    if(value===null){
+      return {value:0,missing:true,itemStyle:{color:missingColor,borderRadius:[0,6,6,0]},label:{show:true,position:'right',formatter:'待补齐',color:'#6B7280'}};
+    }
+    return {value,missing:false,itemStyle:{color,borderRadius:[0,6,6,0]}};
+  });
+}
+function teamChartTooltip(row,type){
+  if(type==='construction'){
+    if(row.constructionRate===null) return row.name + '<br/>施工达成率：待补齐<br/>年度累计暂缺，建议先补齐成员数据';
+    return row.name + '<br/>施工达成率：' + row.constructionRate + '%<br/>年度累计：' + fmtW(row.constructionActual) + '万 / KPI：' + fmtW(row.constructionTarget) + '万';
+  }
+  if(row.designRate===null) return row.name + '<br/>设计达成率：待补齐<br/>年度累计暂缺，建议先补齐成员数据';
+  return row.name + '<br/>设计达成率：' + row.designRate + '%<br/>年度累计：' + row.designActual + '单 / KPI：' + row.designTarget + '单';
+}
+function buildTeamXAxisMax(rows,key){
+  return Math.max(120,...rows.map(item=>Math.min((item[key]===null?0:item[key])+10,160)));
+}
+function teamReferenceLine(){
+  return {symbol:'none',label:{formatter:'100% 达标线',color:'#EF4444',fontSize:12,backgroundColor:'rgba(255,255,255,.92)',padding:[3,6],borderRadius:8},lineStyle:{type:'dashed',color:'#EF4444',width:1.5},data:[{xAxis:100}]};
+}
+function initRegionCharts(){
+  if(charts.regionAmountShare) charts.regionAmountShare.dispose();
+  if(charts.regionDesignShare) charts.regionDesignShare.dispose();
+  const amountEl = document.getElementById('regionAmountShareChart');
+  const designEl = document.getElementById('regionDesignShareChart');
+  if(amountEl){
+    charts.regionAmountShare = echarts.init(amountEl);
+    charts.regionAmountShare.setOption({tooltip:{trigger:'item',formatter:params=>params.name + '<br/>施工金额：' + fmtW(params.value) + '万<br/>占比：' + params.percent + '%'},legend:{bottom:0,icon:'circle'},series:[{type:'pie',radius:['55%','76%'],center:['50%','46%'],label:{formatter:params=>params.name + '\n' + params.percent + '%',fontSize:12},itemStyle:{borderColor:'#fff',borderWidth:4},data:regionAmountShareData.value.map(item=>({...item,itemStyle:{color:getRegionAccent(item.name==='长沙区域'?'长沙大区':item.name)}}))}]});
+  }
+  if(designEl){
+    charts.regionDesignShare = echarts.init(designEl);
+    charts.regionDesignShare.setOption({tooltip:{trigger:'item',formatter:params=>params.name + '<br/>设计单数：' + params.value + '单<br/>占比：' + params.percent + '%'},legend:{bottom:0,icon:'circle'},series:[{type:'pie',radius:['55%','76%'],center:['50%','46%'],label:{formatter:params=>params.name + '\n' + params.percent + '%',fontSize:12},itemStyle:{borderColor:'#fff',borderWidth:4},data:regionDesignShareData.value.map(item=>({...item,itemStyle:{color:getRegionAccent(item.name==='长沙区域'?'长沙大区':item.name)}}))}]});
+  }
+}
 function initTrendChart(){
   if(charts.trend)charts.trend.dispose();
   const el=document.getElementById('trendChart');if(!el)return;
@@ -5518,26 +5657,26 @@ function initTrendChart(){
       const constructionEl = document.getElementById('teamConstructionChart');
       const designEl = document.getElementById('teamDesignChart');
       const rows = memberPerformanceRanked.value;
-      const constructionMax = Math.max(120,...rows.map(item=>(item.constructionRate===null?0:item.constructionRate)+10));
-      const designMax = Math.max(120,...rows.map(item=>(item.designRate===null?0:item.designRate)+10));
+      const constructionMax = buildTeamXAxisMax(rows,'constructionRate');
+      const designMax = buildTeamXAxisMax(rows,'designRate');
       if(constructionEl){
         charts.teamConstruction = echarts.init(constructionEl);
         charts.teamConstruction.setOption({
-          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];if(row.constructionRate===null){return row.name + '<br/>施工达成率：数据待补齐<br/>请先补充该成员数据';}return row.name + '<br/>施工达成率：' + row.constructionRate + '%<br/>累计：' + fmtW(row.constructionActual) + '万 / KPI：' + fmtW(row.constructionTarget) + '万'; }},
-          grid:{left:80,right:50,top:30,bottom:20},
-          xAxis:{type:'value',name:'%',max:constructionMax},
+          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];return teamChartTooltip(row,'construction');}},
+          grid:{left:80,right:70,top:36,bottom:24},
+          xAxis:{type:'value',name:'达成率(%)',max:constructionMax,axisLabel:{formatter:'{value}%'}},
           yAxis:{type:'category',data:rows.map(item=>item.name),axisTick:{show:false}},
-          series:[{type:'bar',data:rows.map(item=>item.constructionRate===null?{value:0,missing:true,itemStyle:{color:'#D1D5DB'},label:{show:true,position:'right',formatter:'待补齐',color:'#6B7280'}}:item.constructionRate),label:{show:true,position:'right',formatter:(p)=>p.data&&p.data.missing?'待补齐':(p.value + '%')},itemStyle:{color:'#3B82F6',borderRadius:[0,6,6,0]},markLine:{symbol:'none',label:{formatter:'100%'},lineStyle:{type:'dashed',color:'#EF4444'},data:[{xAxis:100}]}}]
+          series:[{type:'bar',barMaxWidth:22,data:buildTeamChartBarData(rows,'constructionRate','#3B82F6','#D1D5DB'),label:{show:true,position:'right',formatter:(p)=>p.data&&p.data.missing?'待补齐':(p.value + '%'),color:'#334155',fontWeight:700},itemStyle:{borderRadius:[0,6,6,0]},markLine:teamReferenceLine()}]
         });
       }
       if(designEl){
         charts.teamDesign = echarts.init(designEl);
         charts.teamDesign.setOption({
-          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];if(row.designRate===null){return row.name + '<br/>设计达成率：数据待补齐<br/>请先补充该成员数据';}return row.name + '<br/>设计达成率：' + row.designRate + '%<br/>累计：' + row.designActual + '单 / KPI：' + row.designTarget + '单'; }},
-          grid:{left:80,right:50,top:30,bottom:20},
-          xAxis:{type:'value',name:'%',max:designMax},
+          tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:(params)=>{const p=params[0];const row=rows[p.dataIndex];return teamChartTooltip(row,'design');}},
+          grid:{left:80,right:70,top:36,bottom:24},
+          xAxis:{type:'value',name:'达成率(%)',max:designMax,axisLabel:{formatter:'{value}%'}},
           yAxis:{type:'category',data:rows.map(item=>item.name),axisTick:{show:false}},
-          series:[{type:'bar',data:rows.map(item=>item.designRate===null?{value:0,itemStyle:{color:'#FDE68A'},label:{show:true,position:'right',formatter:'待补齐',color:'#92400E'}}:item.designRate),label:{show:true,position:'right',formatter:(p)=>p.value&&typeof p.value==='object'?'待补齐':'{c}%'},itemStyle:{color:'#F59E0B',borderRadius:[0,6,6,0]},markLine:{symbol:'none',label:{formatter:'100%'},lineStyle:{type:'dashed',color:'#EF4444'},data:[{xAxis:100}]}}]
+          series:[{type:'bar',barMaxWidth:22,data:buildTeamChartBarData(rows,'designRate','#F59E0B','#FDE68A'),label:{show:true,position:'right',formatter:(p)=>p.data&&p.data.missing?'待补齐':(p.value + '%'),color:'#334155',fontWeight:700},itemStyle:{borderRadius:[0,6,6,0]},markLine:teamReferenceLine()}]
         });
       }
     }
@@ -5570,12 +5709,13 @@ function initMonthlyDistChart(){
   });
 }
 
-onMounted(()=>nextTick(()=>initTrendChart()));
+onMounted(()=>nextTick(()=>{initTrendChart();initRegionCharts();}));
 watch(quarterSel,()=>nextTick(()=>initQCharts()));
-watch(tab,(v)=>{if(v==='overview')nextTick(()=>initTrendChart());if(v==='quarter')nextTick(()=>initQCharts());if(v==='monthly')nextTick(()=>initMonthlyDistChart());if(v==='team')nextTick(()=>initTeamCharts());});
+watch(tab,(v)=>{if(v==='overview')nextTick(()=>{initTrendChart();initRegionCharts();});if(v==='quarter')nextTick(()=>initQCharts());if(v==='monthly')nextTick(()=>initMonthlyDistChart());if(v==='team')nextTick(()=>initTeamCharts());});
 watch(monthSel,()=>nextTick(()=>initMonthlyDistChart()));
 watch(teamRankMode,()=>nextTick(()=>initTeamCharts()));
 watch(teamMonthSel,()=>nextTick(()=>initTeamCharts()));
+watch(regionRankTab,()=>nextTick(()=>initRegionCharts()));
 
 return {
   tab,storeRankTab,quarterSel,qStoreRankTab,teamRankMode,qStoreDesignTop,monthSel,teamMonthSel,teamMonthOptions,showTeamDataStatus,monthDist,monthType,months,monthList,teamDetailFilter,tableDensity,
@@ -5583,7 +5723,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop3,storeConBottom3,storeDesTop15,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,fmtW,distClass,newsRecords,newsDes,newsCon,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,fmtW,distClass,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
