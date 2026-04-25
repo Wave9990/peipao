@@ -134,6 +134,16 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .chart-box{width:100%}
 .monthly-detail-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .monthly-detail-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);gap:16px}
+.monthly-district-rank-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.monthly-district-rank-card{padding:18px;border-radius:18px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);border:1px solid var(--line);box-shadow:var(--card-shadow-soft)}
+.monthly-district-rank-card h3{font-size:22px;color:#0F172A;margin-bottom:6px}
+.monthly-district-rank-card .helper-text{margin-bottom:12px}
+.monthly-rank-dual{display:grid;grid-template-columns:1fr;gap:14px}
+.rank-mini-table{border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;background:#FFF}
+.rank-mini-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#F8FAFC;border-bottom:1px solid var(--line-soft)}
+.rank-mini-head strong{font-size:13px;color:#0F172A}
+.rank-mini-head span{font-size:12px;color:var(--gray)}
+.analysis-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .status-dot{display:inline-block;width:8px;height:8px;border-radius:999px;background:currentColor}
 .view-toggle{display:flex;gap:8px;flex-wrap:wrap}
 .section-anchor{scroll-margin-top:96px}
@@ -156,7 +166,7 @@ tbody tr:nth-child(even){background:rgba(248,250,252,.78)}
 tbody tr:hover{background:#EEF4FF}
 th:first-child{border-top-left-radius:14px}
 th:last-child{border-top-right-radius:14px}
-@media(max-width:1100px){.hero-bar,.progress-summary-grid,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid{grid-template-columns:1fr}.hero-meta,.kpi-grid,.summary-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.hero-bar,.progress-summary-grid,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid,.analysis-compare-grid,.monthly-district-rank-grid{grid-template-columns:1fr}.hero-meta,.kpi-grid,.summary-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:768px){body{padding:12px}.tabs{top:8px;padding:10px}.card,.metric,.kpi-card{padding:16px}.hero-bar,.team-hero{padding:20px}.hero-title,.team-hero-title{font-size:28px}.table-scroll{max-height:none}}
 @media(max-width:640px){.hero-meta,.kpi-grid,.spotlight-metrics,.summary-strip{grid-template-columns:1fr}.tab{flex:1 1 calc(50% - 10px);justify-content:center;text-align:center}.hero-meta{min-width:0}.overview-toolbar,.monthly-detail-head,.team-hero{flex-direction:column;align-items:stretch}.toolbar-group,.view-toggle,.team-hero-actions{width:100%}.control-chip,select,.data-status-toggle{justify-content:center}.section-heading{align-items:flex-start}}
 </style>
@@ -175,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 08:00:58</div></div>
-<div style="display:none">数据更新时间: 2026/4/25 08:00:58</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 10:47:54</div></div>
+<div style="display:none">数据更新时间: 2026/4/25 10:47:54</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -485,6 +495,29 @@ th:last-child{border-top-right-radius:14px}
 <tr class="total-row"><td colspan="5" style="text-align:right">合计</td><td style="font-weight:700">{{fmtW(mFiltered.reduce((s,r)=>s+r.amount,0))}}</td><td></td></tr>
 </tbody></table>
 </div>
+<div class="card" style="margin-top:16px">
+<div class="card-title">🏬 {{monthSel}} 各大区门店月榜单</div>
+<div class="helper-text">按当前月份拆分长沙大区、地市一区、地市二区，若门店当月无数据则按 0 展示。</div>
+<div class="monthly-district-rank-grid">
+<div class="monthly-district-rank-card" v-for="item in monthlyDistrictStoreRankings" :key="item.district">
+<h3>{{item.district}}</h3>
+<div class="helper-text">门店全集按历史数据固定，月度无数据门店补零展示。</div>
+<div class="monthly-rank-dual">
+<div class="rank-mini-table">
+<div class="rank-mini-head"><strong>🎨 设计单数榜</strong><span>当月签约</span></div>
+<table><thead><tr><th>排名</th><th>门店</th><th>设计单数</th></tr></thead><tbody>
+<tr v-for="(row,idx) in item.designRank" :key="item.district + '-design-' + row.store"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.store}}</td><td style="font-weight:700;color:var(--orange)">{{row.value}}</td></tr>
+</tbody></table>
+</div>
+<div class="rank-mini-table">
+<div class="rank-mini-head"><strong>🔨 施工金额榜</strong><span>当月施工金额</span></div>
+<table><thead><tr><th>排名</th><th>门店</th><th>施工金额(万)</th></tr></thead><tbody>
+<tr v-for="(row,idx) in item.constructionRank" :key="item.district + '-construction-' + row.store"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.store}}</td><td style="font-weight:700;color:var(--blue)">{{fmtW(row.value)}}</td></tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div><!-- /monthly -->
 
@@ -503,28 +536,56 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="section">
+<div class="analysis-compare-grid">
 <div class="card">
-<div class="card-title">🏆 TOP3 vs 需关注门店（施工金额）</div>
+<div class="card-title">🏆 TOP5 vs 需关注门店（施工金额）</div>
 <div class="grid2">
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 3 门店</div>
-<div v-for="(s,i) in storeConTop3" :key="s.store" class="pk-card">
-<div class="rank-badge" :class="'rank-'+(i+1)" style="min-width:30px">{{i+1}}</div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 5 门店</div>
+<div v-for="(s,i) in storeConTop5" :key="'con-top-'+s.store" class="pk-card">
+<div class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'" style="min-width:30px">{{i+1}}</div>
 <div class="pk-side">
 <div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
-<div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万 · 均值{{fmtW(s.amount/s.count)}}万</div>
-<div class="pk-bar"><div class="fill" :style="{width:(s.amount/storeConTop3[0].amount*100)+'%',background:'var(--green)'}"></div></div>
+<div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万 · 均值{{s.count?fmtW(s.amount/s.count):'0.0'}}万</div>
+<div class="pk-bar"><div class="fill" :style="{width:(s.amount/Math.max((storeConTop5[0]||{}).amount||0,1)*100)+'%',background:'var(--green)'}"></div></div>
 </div>
 </div>
 </div>
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（金额末3）</div>
-<div v-for="(s,i) in storeConBottom3" :key="s.store" class="pk-card">
-<div class="rank-badge rank-other" style="min-width:30px">{{((storeConAll || []).length)-2+i}}</div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（金额末5）</div>
+<div v-for="(s,i) in storeConBottom5" :key="'con-bottom-'+s.store" class="pk-card">
+<div class="rank-badge rank-other" style="min-width:30px">{{((storeConAll || []).length)-4+i}}</div>
 <div class="pk-side">
 <div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
 <div class="stats">{{s.count}}单 · {{fmtW(s.amount)}}万</div>
-<div class="pk-bar"><div class="fill" :style="{width:Math.max(s.amount/storeConTop3[0].amount*100,5)+'%',background:'var(--red)'}"></div></div>
+<div class="pk-bar"><div class="fill" :style="{width:Math.max(s.amount/Math.max((storeConTop5[0]||{}).amount||0,1)*100,5)+'%',background:'var(--red)'}"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">🎨 TOP5 vs 需关注门店（设计单数）</div>
+<div class="grid2">
+<div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 5 门店</div>
+<div v-for="(s,i) in storeDesTop5" :key="'des-top-'+s.store" class="pk-card">
+<div class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'" style="min-width:30px">{{i+1}}</div>
+<div class="pk-side">
+<div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
+<div class="stats">{{s.count}}单 · 设计金额 {{fmtW(s.amount)}}万</div>
+<div class="pk-bar"><div class="fill" :style="{width:(s.count/Math.max((storeDesTop5[0]||{}).count||0,1)*100)+'%',background:'var(--orange)'}"></div></div>
+</div>
+</div>
+</div>
+<div>
+<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（设计末5）</div>
+<div v-for="(s,i) in storeDesBottom5" :key="'des-bottom-'+s.store" class="pk-card">
+<div class="rank-badge rank-other" style="min-width:30px">{{((storeDesAll || []).length)-4+i}}</div>
+<div class="pk-side">
+<div class="name">{{s.store}} <span class="tag" :class="distClass(s.district)" style="font-size:10px">{{s.district}}</span></div>
+<div class="stats">{{s.count}}单 · 设计金额 {{fmtW(s.amount)}}万</div>
+<div class="pk-bar"><div class="fill" :style="{width:Math.max(s.count/Math.max((storeDesTop5[0]||{}).count||0,1)*100,5)+'%',background:'var(--red)'}"></div></div>
 </div>
 </div>
 </div>
@@ -778,7 +839,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 08:00:58</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 10:47:54</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -5131,7 +5192,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 08:00:58 CST",
+      "updatedAt": "2026-04-25 10:47:54 CST",
       "members": [
         {
           "name": "周国平",
@@ -5170,7 +5231,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 08:00:58 CST",
+      "updatedAt": "2026-04-25 10:47:54 CST",
       "members": [
         {
           "name": "周国平",
@@ -5209,7 +5270,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 08:00:58 CST",
+      "updatedAt": "2026-04-25 10:47:54 CST",
       "members": [
         {
           "name": "周国平",
@@ -5248,7 +5309,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 08:00:58 CST",
+      "updatedAt": "2026-04-25 10:47:54 CST",
       "members": [
         {
           "name": "周国平",
@@ -5288,7 +5349,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-25 08:00:58 CST",
+    "updatedAt": "2026-04-25 10:47:54 CST",
     "members": [
       {
         "name": "周国平",
@@ -5389,12 +5450,15 @@ const storeConAll = computed(()=>{
   return Object.values(map).sort((a,b)=>b.amount-a.amount);
 });
 const storeConTop15 = computed(()=>storeConAll.value.slice(0,15));
-const storeConTop3 = computed(()=>storeConAll.value.slice(0,3));
-const storeConBottom3 = computed(()=>storeConAll.value.slice(-3).reverse());
-const storeDesTop15 = computed(()=>{
+const storeConTop5 = computed(()=>storeConAll.value.slice(0,5));
+const storeConBottom5 = computed(()=>storeConAll.value.slice(-5).reverse());
+const storeDesAll = computed(()=>{
   const map={};rawData.filter(r=>r.type==='设计').forEach(r=>{if(!map[r.store])map[r.store]={store:r.store,count:0,amount:0,district:r.district};map[r.store].count++;map[r.store].amount+=r.amount;});
-  return Object.values(map).sort((a,b)=>b.count-a.count).slice(0,15);
+  return Object.values(map).sort((a,b)=>b.count-a.count || b.amount-a.amount || a.store.localeCompare(b.store,'zh-CN'));
 });
+const storeDesTop15 = computed(()=>storeDesAll.value.slice(0,15));
+const storeDesTop5 = computed(()=>storeDesAll.value.slice(0,5));
+const storeDesBottom5 = computed(()=>storeDesAll.value.slice(-5).reverse());
 const advisorRankAll = computed(()=>{
   const map={};
   rawData.forEach(r=>{
@@ -5453,6 +5517,40 @@ const mFiltered = computed(()=>{
   if(monthType.value!=='全部')items=items.filter(r=>r.type===monthType.value);
   return items;
 });
+const districtStoreMap = computed(()=>{
+  const map = {'长沙大区': new Set(), '地市一区': new Set(), '地市二区': new Set()};
+  rawData.forEach(r=>{
+    if(map[r.district] && r.store) map[r.district].add(r.store);
+  });
+  return Object.fromEntries(Object.entries(map).map(([district, stores])=>[district, Array.from(stores).sort((a,b)=>a.localeCompare(b,'zh-CN'))]));
+});
+const monthlyDistrictStoreRankings = computed(()=>['长沙大区','地市一区','地市二区'].map(district=>{
+  const stores = districtStoreMap.value[district] || [];
+  const monthItems = rawData.filter(r=>r.month===monthSel.value && r.district===district);
+  const designMap = {};
+  const constructionMap = {};
+  stores.forEach(store=>{
+    designMap[store] = { store, value: 0 };
+    constructionMap[store] = { store, value: 0 };
+  });
+  monthItems.forEach(r=>{
+    if(!r.store) return;
+    if(r.type==='设计'){
+      if(!designMap[r.store]) designMap[r.store] = { store:r.store, value:0 };
+      designMap[r.store].value += 1;
+    }
+    if(r.type==='施工'){
+      if(!constructionMap[r.store]) constructionMap[r.store] = { store:r.store, value:0 };
+      constructionMap[r.store].value += r.amount;
+    }
+  });
+  const sorter = (a,b)=>b.value-a.value || a.store.localeCompare(b.store,'zh-CN');
+  return {
+    district,
+    designRank: Object.values(designMap).sort(sorter),
+    constructionRank: Object.values(constructionMap).sort(sorter),
+  };
+}));
 const mConCount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').length);
 const mConAmount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').reduce((s,r)=>s+r.amount,0));
 
@@ -5831,7 +5929,7 @@ return {
   totalRecords:rawData.length,totalDesign,totalConstr,totalConAmount,totalDesAmount,
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
-  storeConAll,storeConTop15,storeConTop3,storeConBottom3,storeDesTop15,advisorConTop15,advisorDesTop15,
+  storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
   qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
 };
 }
