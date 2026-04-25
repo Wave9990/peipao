@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 11:05:41</div></div>
-<div style="display:none">数据更新时间: 2026/4/25 11:05:41</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 12:14:40</div></div>
+<div style="display:none">数据更新时间: 2026/4/25 12:14:40</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -519,8 +519,6 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 </div>
-</div>
-</div>
 </div><!-- /monthly -->
 
 <!-- ========== 对比分析 ========== -->
@@ -595,8 +593,7 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 </div>
-</div>
-<!-- /analysis -->
+</div><!-- /analysis -->
 
 
 <!-- ========== 团队成员业绩 ========== -->
@@ -828,21 +825,52 @@ th:last-child{border-top-right-radius:14px}
 </table>
 </div>
 </div>
-<div id="teamRiskTips" class="card" style="margin-top:16px" v-if="(teamRiskTips || []).length">
-<div class="card-title">⚠️ 跟进提醒</div>
-<div v-for="(tip,idx) in teamRiskTips" :key="idx" class="team-note">• {{tip}}</div>
 </div>
+</div>
+
 </div><!-- /team -->
 
-
-
+<!-- 新增信息 -->
+<div v-show="tab==='news'" class="fade-in">
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 12:14:40</div>
+</div>
+<div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
+<div class="card-title">🗂️ 今日暂无新增</div>
+<div style="color:var(--gray);font-size:14px;line-height:1.8">当前批次未检测到新增设计或施工记录，保留该页签用于稳定展示新增动态与空态提示。</div>
+</div>
+<div v-else class="section">
+<div class="card">
+<div class="card-title">🎨 设计新增 {{newsDes.length}} 单</div>
+<div v-if="newsDes.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增设计</div>
+<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
+<tr v-for="(r,i) in newsDes" :key="i">
+<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
+<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
+<td style="color:var(--orange);font-weight:600">{{fmtW(r.amount)}}</td>
+</tr></tbody></table>
+</div>
+<div class="card">
+<div class="card-title">🔨 施工新增 {{newsCon.length}} 单</div>
+<div v-if="newsCon.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增施工</div>
+<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
+<tr v-for="(r,i) in newsCon" :key="i">
+<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
+<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
+<td style="color:var(--blue);font-weight:600">{{fmtW(r.amount)}}</td>
+</tr></tbody></table>
+</div>
+</div>
+</div>
+</div><!-- /news -->
 
 
 <!-- 新增信息 -->
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 11:05:41</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 12:14:40</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -872,8 +900,6 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 </div>
-</div>
-</div><!-- /news -->
 </div><!-- /app -->
 </div><!-- /page-shell -->
 
@@ -5197,7 +5223,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 11:05:41 CST",
+      "updatedAt": "2026-04-25 12:14:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -5236,7 +5262,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 11:05:41 CST",
+      "updatedAt": "2026-04-25 12:14:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -5275,7 +5301,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 11:05:41 CST",
+      "updatedAt": "2026-04-25 12:14:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -5314,7 +5340,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 11:05:41 CST",
+      "updatedAt": "2026-04-25 12:14:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -5354,7 +5380,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-25 11:05:41 CST",
+    "updatedAt": "2026-04-25 12:14:40 CST",
     "members": [
       {
         "name": "周国平",
@@ -5921,9 +5947,9 @@ function initMonthlyDistChart(){
   });
 }
 
-onMounted(()=>nextTick(()=>{initTrendChart();initRegionCharts();}));
+onMounted(()=>nextTick(()=>{initTrendChart();initRegionCharts();initQCharts();initMonthlyDistChart();initTeamCharts();}));
 watch(quarterSel,()=>nextTick(()=>initQCharts()));
-watch(tab,(v)=>{if(v==='overview')nextTick(()=>{initTrendChart();initRegionCharts();});if(v==='quarter')nextTick(()=>initQCharts());if(v==='monthly')nextTick(()=>initMonthlyDistChart());if(v==='team')nextTick(()=>initTeamCharts());});
+watch(tab,()=>nextTick(()=>{initTrendChart();initRegionCharts();initQCharts();initMonthlyDistChart();initTeamCharts();}));
 watch(monthSel,()=>nextTick(()=>initMonthlyDistChart()));
 watch(teamRankMode,()=>nextTick(()=>initTeamCharts()));
 watch(teamMonthSel,()=>nextTick(()=>initTeamCharts()));
