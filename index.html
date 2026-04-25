@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 16:53:25</div></div>
-<div style="display:none">数据更新时间: 2026/4/25 16:53:25</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 17:13:22</div></div>
+<div style="display:none">数据更新时间: 2026/4/25 17:13:22</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -768,72 +768,13 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 
-<!-- <section id="regionStoreSummary" class="cockpit-section section-anchor">
-<div class="section-heading">
-<div><h2>区域门店年度汇总</h2><p>先看长沙 / 地市一区 / 地市二区的年度结构，再看各区域门店年度累计表现。</p></div>
-</div>
-<div class="region-summary-grid">
-<div class="region-card" v-for="item in regionSummaryList" :key="item.name">
-<div class="region-card-head">
-<div>
-<h3>{{item.shortName}}</h3>
-<p>年度累计门店经营概况</p>
-</div>
-<span class="team-status status-good">{{item.storeCount}} 家门店</span>
-</div>
-<div class="region-metric-grid">
-<div class="region-metric"><div class="label">设计单数</div><div class="value" style="color:var(--orange)">{{item.designCount}}</div></div>
-<div class="region-metric"><div class="label">施工单数</div><div class="value" style="color:var(--blue)">{{item.constructionCount}}</div></div>
-<div class="region-metric"><div class="label">施工金额</div><div class="value" style="color:var(--blue)">{{fmtW(item.constructionAmount)}}万</div></div>
-<div class="region-metric"><div class="label">设计金额</div><div class="value" style="color:var(--orange)">{{fmtW(item.designAmount)}}万</div></div>
-</div>
-</div>
-</div>
-<div class="region-chart-grid">
-<div class="card">
-<div class="card-title">🧿 施工金额区域占比</div>
-<div id="regionConstructionShareChart" class="chart-box" style="height:320px"></div>
-</div>
-<div class="card">
-<div class="card-title">🧿 设计单数区域占比</div>
-<div id="regionDesignShareChart" class="chart-box" style="height:320px"></div>
-</div>
-</div>
-<div class="card">
-<div class="region-ranking-head">
-<div>
-<div class="card-title">🏪 区域门店年度榜单</div>
-<div class="region-ranking-meta">按区域切换查看门店年度累计设计 / 施工表现。</div>
-</div>
-<div class="toolbar-group view-toggle">
-<button type="button" class="control-chip" v-for="item in regionSummaryList" :key="item.name" :class="{active:regionRankTab===item.name}" @click="regionRankTab=item.name">{{item.shortName}}</button>
-</div>
-</div>
-<div class="table-scroll">
-<table>
-<thead><tr><th>门店名称</th><th>年度设计单数</th><th>年度施工单数</th><th>年度施工金额</th><th>年度设计金额</th></tr></thead>
-<tbody>
-<tr v-for="row in regionStoreRanking" :key="regionRankTab + row.store">
-<td style="font-weight:700">{{row.store}}</td>
-<td>{{row.designCount}}</td>
-<td>{{row.constructionCount}}</td>
-<td style="color:var(--blue);font-weight:600">{{fmtW(row.constructionAmount)}}万</td>
-<td style="color:var(--orange);font-weight:600">{{fmtW(row.designAmount)}}万</td>
-</tr>
-<tr v-if="!(regionStoreRanking || []).length"><td colspan="5" style="text-align:center;color:var(--gray)">当前区域暂无年度门店累计数据</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</div> -->
-
 <!-- /team -->
 
 <!-- 新增信息 -->
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 16:53:25</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 17:13:22</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -5286,7 +5227,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 16:53:25 CST",
+      "updatedAt": "2026-04-25 17:13:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -5325,7 +5266,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 16:53:25 CST",
+      "updatedAt": "2026-04-25 17:13:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -5364,7 +5305,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 16:53:25 CST",
+      "updatedAt": "2026-04-25 17:13:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -5403,7 +5344,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 16:53:25 CST",
+      "updatedAt": "2026-04-25 17:13:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -5443,7 +5384,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-25 16:53:25 CST",
+    "updatedAt": "2026-04-25 17:13:22 CST",
     "members": [
       {
         "name": "周国平",
