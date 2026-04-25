@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 17:13:22</div></div>
-<div style="display:none">数据更新时间: 2026/4/25 17:13:22</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/25 21:31:26</div></div>
+<div style="display:none">数据更新时间: 2026/4/25 21:31:26</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -599,208 +599,79 @@ th:last-child{border-top-right-radius:14px}
 
 <!-- ========== 团队成员业绩 ========== -->
 <div v-show="tab==='team'" class="fade-in">
-<div class="team-hero">
-<div class="team-hero-main">
-<div class="team-hero-title">👥 团队成员业绩</div>
-<div class="team-hero-subtitle">先看年度累计表现，再看当月跟进情况。主界面只保留经营结果与跟进重点，数据维护信息收纳到单独面板。</div>
-<div class="team-hero-status">
-<span class="team-status status-good">年度累计口径</span>
-<span id="teamSourceBadge" class="team-status" :class="teamSourceInfo.badgeClass">数据来源：{{teamSourceInfo.label}}</span>
-<span class="team-status" :class="teamMonthlyStatus.badgeClass">{{teamMonthlyStatus.label}}</span>
-<span class="status-inline-note">KPI 口径：施工 7500W · 设计 550 单</span>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">👥 团队成员业绩</div>
+<div style="color:var(--gray);font-size:14px;line-height:1.8">先看年度累计表现，再看当月跟进情况。若复杂模块异常，至少先保证此页签可稳定显示核心信息。</div>
 </div>
-</div>
-<div class="team-hero-actions">
-<label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray)">
-<span>查看当月明细</span>
-<select id="teamMonthSelect" v-model="teamMonthSel" @change="$nextTick(()=>initTeamCharts())">
-<option v-for="m in teamMonthOptions" :key="m" :value="m">{{m}}</option>
-</select>
-</label>
-<button type="button" class="data-status-toggle" @click="showTeamDataStatus=!showTeamDataStatus">
-{{showTeamDataStatus ? '收起数据状态' : '查看数据状态'}}
-</button>
-</div>
-</div>
-<div class="team-summary-grid">
-<div class="team-summary-card">
-<div class="team-summary-head">
-<div>
-<h3>本期经营重点</h3>
-<p>顶部指标看年度累计，当前月份只影响下方成员明细与跟进节奏。</p>
-</div>
-<span class="inline-stat">当前明细月份 {{teamMonthSel}}</span>
-</div>
-<div class="summary-strip">
-<div class="summary-tile">
-<div class="label">年度已更新成员</div>
-<div class="value">{{teamSyncedCount}} / {{(teamMembers || []).length}}</div>
-<div class="meta">排名按年度累计展示</div>
-</div>
-<div class="summary-tile">
-<div class="label">本月已更新成员</div>
-<div class="value">{{monthlyMemberStats.completeCount}}</div>
-<div class="meta">待跟进 {{monthlyMemberStats.partialCount + monthlyMemberStats.pendingCount}} 人</div>
-</div>
-<div class="summary-tile">
-<div class="label">本月优先事项</div>
-<div class="value">{{teamMonthlyStatus.focusCount}}</div>
-<div class="meta">优先补齐未更新与待补充成员</div>
-</div>
-</div>
-</div>
-<div class="data-status-card">
-<div class="team-summary-head" style="margin-bottom:0">
-<div>
-<h3>数据状态</h3>
-<p>默认收纳维护信息，避免打扰主视图阅读。</p>
-</div>
-<span class="team-status" :class="teamMonthlyStatus.badgeClass">{{teamMonthlyStatus.label}}</span>
-</div>
-<div v-if="showTeamDataStatus" class="data-status-panel">
-<div class="data-status-item"><strong>当前数据说明：</strong>{{teamSourceInfo.note}}</div>
-<div class="data-status-item"><strong>当前月份：</strong>{{teamMonthSel}}<span v-if="teamSourceInfo.updatedAt"> · 最近更新 {{teamSourceInfo.updatedAt}}</span></div>
-<div class="data-status-list">
-<div v-for="(tip,idx) in teamDataStatusTips" :key="idx" class="data-status-item">{{tip}}</div>
-</div>
-</div>
-<div v-else class="status-inline-note">点击“查看数据状态”后，可展开查看本月更新情况与待补项。</div>
-</div>
-</div>
-<div class="metrics">
-<div class="metric"><div class="label">施工累计</div><div id="teamConstructionActualMetric" class="val" style="color:var(--blue)">{{teamKpiSummary.constructionActualDisplay}}</div><div class="unit">万元</div></div>
-<div class="metric"><div class="label">施工 KPI</div><div class="val" style="color:var(--blue)">{{fmtW(teamKpiSummary.constructionTarget)}}</div><div class="unit">万元</div></div>
+<div class="metrics" style="margin-bottom:16px">
+<div class="metric"><div class="label">施工累计</div><div class="val" style="color:var(--blue)">{{teamKpiSummary.constructionActualDisplay}}</div><div class="unit">万元</div></div>
 <div class="metric"><div class="label">施工达成率</div><div class="val" style="color:var(--blue)">{{teamKpiSummary.constructionRateDisplay}}</div><div class="unit">目标完成</div></div>
-<div class="metric"><div class="label">设计累计</div><div id="teamDesignActualMetric" class="val" style="color:var(--orange)">{{teamKpiSummary.designActualDisplay}}</div><div class="unit">单</div></div>
-<div class="metric"><div class="label">设计 KPI</div><div class="val" style="color:var(--orange)">{{teamKpiSummary.designTarget}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">设计累计</div><div class="val" style="color:var(--orange)">{{teamKpiSummary.designActualDisplay}}</div><div class="unit">单</div></div>
 <div class="metric"><div class="label">设计达成率</div><div class="val" style="color:var(--orange)">{{teamKpiSummary.designRateDisplay}}</div><div class="unit">目标完成</div></div>
-<div class="metric"><div class="label">时间进度</div><div class="val" style="color:var(--purple, #8B5CF6)">{{teamKpiSummary.timeProgress}}%</div><div class="unit">年度进度</div></div>
-<div class="metric"><div class="label">偏差</div><div class="val" :style="{color:teamKpiSummary.deviationValue===null?'var(--gray)':teamKpiSummary.deviationValue>=0?'var(--green)':'var(--red)'}">{{teamKpiSummary.deviationDisplay}}</div><div class="unit">短板 vs 时间</div></div>
 </div>
-<div class="member-layout">
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">📌 当前状态</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<span class="team-status status-good">年度累计口径</span>
+<span class="team-status" :class="teamMonthlyStatus.badgeClass">{{teamMonthlyStatus.label}}</span>
+<span class="team-status" :class="teamSourceInfo.badgeClass">数据来源：{{teamSourceInfo.label}}</span>
+</div>
+<div style="color:var(--gray);font-size:14px;line-height:1.8">{{teamSourceInfo.note}}</div>
+<div style="color:var(--gray);font-size:13px;margin-top:8px">当前明细月份：{{teamMonthSel}}<span v-if="teamSourceInfo.updatedAt"> · 最近更新 {{teamSourceInfo.updatedAt}}</span></div>
+</div>
 <div class="card">
-<div class="card-title">🏅 个人 KPI 排名表</div>
-<div class="filter-row">
-<button :class="{active:teamRankMode==='construction'}" @click="teamRankMode='construction';$nextTick(()=>initTeamCharts())">🔨 按施工金额排序</button>
-<button :class="{active:teamRankMode==='design'}" @click="teamRankMode='design';$nextTick(()=>initTeamCharts())">🎨 按设计单数排序</button>
-<div id="teamSyncedCountLabel" style="margin-left:auto;font-size:12px;color:var(--gray)">已同步成员 {{teamSyncedCount}} / {{(teamMembers || []).length}}</div>
-</div>
-<div style="overflow-x:auto">
-<table id="teamKpiTable"><thead><tr><th>姓名</th><th>施工累计</th><th>施工KPI</th><th>施工达成率</th><th>设计累计</th><th>设计KPI</th><th>设计达成率</th><th>缺口/状态</th></tr></thead><tbody>
+<div class="card-title">🏅 成员排名（精简可见版）</div>
+<div class="table-scroll">
+<table>
+<thead><tr><th>姓名</th><th>施工累计</th><th>施工达成率</th><th>设计累计</th><th>设计达成率</th><th>状态</th></tr></thead>
+<tbody>
 <tr v-for="member in memberPerformanceRanked" :key="member.name">
 <td style="font-weight:700">{{member.name}}</td>
 <td style="color:var(--blue);font-weight:600">{{member.constructionActualDisplay}}</td>
-<td>{{fmtW(member.constructionTarget)}}万</td>
-<td style="color:var(--blue);font-weight:600">{{member.constructionRateDisplay}}</td>
+<td>{{member.constructionRateDisplay}}</td>
 <td style="color:var(--orange);font-weight:600">{{member.designActualDisplay}}</td>
-<td>{{member.designTarget}}</td>
-<td style="color:var(--orange);font-weight:600">{{member.designRateDisplay}}</td>
-<td>
-<div class="team-gap">{{member.gapDisplay}}</div>
-<span class="team-status" :class="member.statusClass">{{member.status}}</span>
-</td>
-</tr>
-</tbody></table>
-</div>
-<div class="panel-note">口径：按年度累计展示成员长期达成表现。</div>
-</div>
-<div class="stack-card">
-<div class="card">
-<div class="card-title">🔨 个人施工达成率条形图</div>
-<div id="teamConstructionChart" class="chart-box" style="height:360px"></div>
-</div>
-<div class="card">
-<div class="card-title">🎨 个人设计达成率条形图</div>
-<div id="teamDesignChart" class="chart-box" style="height:360px"></div>
-</div>
-</div>
-</div>
-
-<div class="card member-table-card">
-<!-- 当月明细数据（由月份筛选器控制） -->
-<div class="monthly-detail-head">
-<div>
-<div style="font-weight:700;color:#334155;margin-bottom:4px">📅 {{teamMonthSel}} 当月明细数据</div>
-<div class="team-note">此区域只追踪当前月份的成员数据更新与跟进重点。</div>
-</div>
-<div class="toolbar-group">
-<button type="button" class="control-chip" :class="{active:teamDetailFilter==='all'}" @click="teamDetailFilter='all'">全部成员</button>
-<button type="button" class="control-chip" :class="{active:teamDetailFilter==='complete'}" @click="teamDetailFilter='complete'">仅看已同步</button>
-<button type="button" class="control-chip" :class="{active:teamDetailFilter==='risk'}" @click="teamDetailFilter='risk'">仅看风险成员</button>
-</div>
-</div>
-<div class="monthly-detail-grid">
-<div style="padding:16px;background:#f8fafc;border-radius:16px;border:1px solid #e2e8f0">
-<div class="table-scroll">
-<table style="width:100%;font-size:13px">
-<thead>
-<tr style="background:#f1f5f9">
-<th style="padding:8px;text-align:left">成员</th>
-<th style="padding:8px;text-align:right">施工金额</th>
-<th style="padding:8px;text-align:right">设计单数</th>
-<th style="padding:8px;text-align:center">状态</th>
-</tr>
-</thead>
-<tbody>
-<tr v-for="m in filteredMonthlyMemberDetail" :key="m.name" style="border-bottom:1px solid #e2e8f0">
-<td style="padding:8px;font-weight:600">{{m.name}}</td>
-<td style="padding:8px;text-align:right" :style="{color: m.hasConstructionData ? 'var(--blue)' : 'var(--gray)'}">{{m.constructionDisplay}}</td>
-<td style="padding:8px;text-align:right" :style="{color: m.hasDesignData ? 'var(--orange)' : 'var(--gray)'}">{{m.designDisplay}}</td>
-<td style="padding:8px;text-align:center">
-<span v-if="m.hasAllData" class="team-status status-good">已更新</span>
-<span v-else-if="m.hasPartialData" class="team-status status-warn">待补充</span>
-<span v-else class="team-status status-bad">未更新</span>
-</td>
+<td>{{member.designRateDisplay}}</td>
+<td><span class="team-status" :class="member.statusClass">{{member.status}}</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="card" style="padding:16px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);box-shadow:none">
-<div class="card-title" style="font-size:18px;margin-bottom:12px">📌 本月跟进摘要</div>
-<div class="alert-list">
-<div class="business-alert"><strong>已更新：</strong>{{monthlyMemberStats.completeCount}} 人；当前筛选展示 {{(filteredMonthlyMemberDetail || []).length}} 人。</div>
-<div class="business-alert"><strong>待跟进：</strong>{{monthlyMemberStats.partialCount + monthlyMemberStats.pendingCount}} 人，优先处理待补充与未更新成员。</div>
-<div class="business-alert"><strong>阅读方式：</strong>上方看年度累计表现，下方看 {{teamMonthSel}} 的当月跟进情况。</div>
-</div>
-</div>
-</div>
-<div class="team-note" style="margin-top:8px">口径：上方看年度累计，下方看 {{teamMonthSel}} 当月跟进。</div>
-</div>
-</div>
 
+</div>
 <!-- /team -->
 
 <!-- 新增信息 -->
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 17:13:22</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/25 21:31:26</div>
+</div>
+<div class="metrics" style="margin-bottom:16px">
+<div class="metric"><div class="label">新增总数</div><div class="val">{{safeLen(newsRecords)}}</div><div class="unit">条</div></div>
+<div class="metric"><div class="label">设计新增</div><div class="val" style="color:var(--orange)">{{newsDes.length}}</div><div class="unit">单</div></div>
+<div class="metric"><div class="label">施工新增</div><div class="val" style="color:var(--blue)">{{newsCon.length}}</div><div class="unit">单</div></div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
 <div style="color:var(--gray);font-size:14px;line-height:1.8">当前批次未检测到新增设计或施工记录，保留该页签用于稳定展示新增动态与空态提示。</div>
 </div>
-<div v-else class="section">
-<div class="card">
-<div class="card-title">🎨 设计新增 {{newsDes.length}} 单</div>
-<div v-if="newsDes.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增设计</div>
-<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
-<tr v-for="(r,i) in newsDes" :key="i">
-<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
-<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
-<td style="color:var(--orange);font-weight:600">{{fmtW(r.amount)}}</td>
-</tr></tbody></table>
-</div>
-<div class="card">
-<div class="card-title">🔨 施工新增 {{newsCon.length}} 单</div>
-<div v-if="newsCon.length===0" style="color:var(--gray);text-align:center;padding:20px">今日无新增施工</div>
-<table v-else><thead><tr><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead><tbody>
-<tr v-for="(r,i) in newsCon" :key="i">
-<td>{{r.date}}</td><td><span class="tag" :class="distClass(r.district)">{{r.district}}</span></td>
-<td style="font-weight:600">{{r.store}}</td><td>{{r.customer}}</td>
-<td style="color:var(--blue);font-weight:600">{{fmtW(r.amount)}}</td>
-</tr></tbody></table>
+<div v-else class="card">
+<div class="card-title">🆕 新增明细（精简可见版）</div>
+<div class="table-scroll">
+<table>
+<thead><tr><th>类型</th><th>日期</th><th>大区</th><th>门店</th><th>客户</th><th>金额(万)</th></tr></thead>
+<tbody>
+<tr v-for="(r,i) in newsRecords" :key="i">
+<td>{{r.type}}</td>
+<td>{{r.date}}</td>
+<td>{{r.district}}</td>
+<td style="font-weight:600">{{r.store}}</td>
+<td>{{r.customer}}</td>
+<td :style="{color:r.type==='设计'?'var(--orange)':'var(--blue)',fontWeight:600}">{{fmtW(r.amount)}}</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div><!-- /news -->
@@ -5228,7 +5099,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 17:13:22 CST",
+      "updatedAt": "2026-04-25 21:31:26 CST",
       "members": [
         {
           "name": "周国平",
@@ -5267,7 +5138,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 17:13:22 CST",
+      "updatedAt": "2026-04-25 21:31:26 CST",
       "members": [
         {
           "name": "周国平",
@@ -5306,7 +5177,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 17:13:22 CST",
+      "updatedAt": "2026-04-25 21:31:26 CST",
       "members": [
         {
           "name": "周国平",
@@ -5345,7 +5216,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-25 17:13:22 CST",
+      "updatedAt": "2026-04-25 21:31:26 CST",
       "members": [
         {
           "name": "周国平",
@@ -5385,7 +5256,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-25 17:13:22 CST",
+    "updatedAt": "2026-04-25 21:31:26 CST",
     "members": [
       {
         "name": "周国平",
