@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/27 22:37:35</div></div>
-<div style="display:none">数据更新时间: 2026/4/27 22:37:35</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/27 23:42:33</div></div>
+<div style="display:none">数据更新时间: 2026/4/27 23:42:33</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -322,7 +322,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="card table-panel" :class="tableDensityClass">
 <div class="table-panel-head">
 <div>
-<div class="card-title">👨‍💼 家顾施工排名 TOP10</div>
+<div class="card-title">👨‍💼 家顾施工排名 TOP15</div>
 <div class="helper-text">复盘区重做为“图表/榜单”协调布局，减少长表直顶的压迫感。</div>
 </div>
 <span class="inline-stat">年度累计口径</span>
@@ -343,7 +343,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="card table-panel" :class="tableDensityClass">
 <div class="table-panel-head">
 <div>
-<div class="card-title">🎨 家顾设计排名 TOP10</div>
+<div class="card-title">🎨 家顾设计排名 TOP15</div>
 <div class="helper-text">与施工榜单保持统一表头密度、圆角与滚动容器。</div>
 </div>
 <span class="inline-stat">按设计单数排序</span>
@@ -775,7 +775,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/27 22:37:35</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/27 23:42:33</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -2211,13 +2211,14 @@ const rawData = [
   },
   {
     "type": "施工",
-    "store": "城东店",
+    "store": "城北店",
     "district": "长沙大区",
     "advisor": "张晓",
     "amount": 162601,
     "date": "2026-04-19",
     "month": "2026-04",
-    "customer": "黄鲤萍"
+    "customer": "黄鲤萍",
+    "canonicalNote": "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
   },
   {
     "type": "施工",
@@ -5170,7 +5171,19 @@ const rawData = [
     "customer": "熊欣"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "施工",
+    "store": "城北店",
+    "district": "长沙大区",
+    "advisor": "张晓",
+    "amount": 162601,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "黄鲤萍",
+    "canonicalNote": "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
+  }
+];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -5188,7 +5201,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-27 22:37:35 CST",
+      "updatedAt": "2026-04-27 23:42:33 CST",
       "members": [
         {
           "name": "周国平",
@@ -5227,7 +5240,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-27 22:37:35 CST",
+      "updatedAt": "2026-04-27 23:42:33 CST",
       "members": [
         {
           "name": "周国平",
@@ -5266,7 +5279,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-27 22:37:35 CST",
+      "updatedAt": "2026-04-27 23:42:33 CST",
       "members": [
         {
           "name": "周国平",
@@ -5282,8 +5295,8 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "钟海燕",
-          "constructionAmount": 5259387,
-          "designCount": 17,
+          "constructionAmount": 5391545,
+          "designCount": 18,
           "note": "自动生成"
         },
         {
@@ -5294,8 +5307,8 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "黄诗宇",
-          "constructionAmount": 816088,
-          "designCount": 3,
+          "constructionAmount": 683930,
+          "designCount": 2,
           "note": "自动生成"
         }
       ],
@@ -5305,7 +5318,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-27 22:37:35 CST",
+      "updatedAt": "2026-04-27 23:42:33 CST",
       "members": [
         {
           "name": "周国平",
@@ -5322,7 +5335,7 @@ const manualTeamMonthlyData = {
         {
           "name": "钟海燕",
           "constructionAmount": 821112,
-          "designCount": 8,
+          "designCount": 9,
           "note": "自动生成"
         },
         {
@@ -5334,7 +5347,7 @@ const manualTeamMonthlyData = {
         {
           "name": "黄诗宇",
           "constructionAmount": 662123,
-          "designCount": 8,
+          "designCount": 7,
           "note": "自动生成"
         }
       ],
@@ -5345,7 +5358,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-27 22:37:35 CST",
+    "updatedAt": "2026-04-27 23:42:33 CST",
     "members": [
       {
         "name": "周国平",
@@ -5361,8 +5374,8 @@ const manualTeamMonthlyData = {
       },
       {
         "name": "钟海燕",
-        "constructionAmount": 5259387,
-        "designCount": 17,
+        "constructionAmount": 5391545,
+        "designCount": 18,
         "note": "自动生成"
       },
       {
@@ -5373,8 +5386,8 @@ const manualTeamMonthlyData = {
       },
       {
         "name": "黄诗宇",
-        "constructionAmount": 816088,
-        "designCount": 3,
+        "constructionAmount": 683930,
+        "designCount": 2,
         "note": "自动生成"
       }
     ],
@@ -5477,13 +5490,13 @@ const advisorRankAll = computed(()=>{
 const advisorConTop15 = computed(()=>advisorRankAll.value
   .filter(item=>item.constructionCount>0)
   .sort((a,b)=>b.constructionAmount-a.constructionAmount || b.constructionCount-a.constructionCount || a.key.localeCompare(b.key,'zh-CN'))
-  .slice(0,10)
+  .slice(0,15)
   .map(item=>({ ...item, count:item.constructionCount, amount:item.constructionAmount }))
 );
 const advisorDesTop15 = computed(()=>advisorRankAll.value
   .filter(item=>item.designCount>0)
   .sort((a,b)=>b.designCount-a.designCount || b.designAmount-a.designAmount || a.key.localeCompare(b.key,'zh-CN'))
-  .slice(0,10)
+  .slice(0,15)
   .map(item=>({ ...item, count:item.designCount, amount:item.designAmount }))
 );
 
