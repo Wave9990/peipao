@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/29 00:01:13</div></div>
-<div style="display:none">数据更新时间: 2026/4/29 00:01:13</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/4/29 14:28:36</div></div>
+<div style="display:none">数据更新时间: 2026/4/29 14:28:36</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -775,7 +775,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/4/29 00:01:13</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/4/29 14:28:36</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -3544,6 +3544,16 @@ const rawData = [
     "type": "设计",
     "store": "南宁店",
     "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 10000,
+    "date": "2026-04-25",
+    "month": "2026-04",
+    "customer": "黄金凤"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
     "advisor": "尕藏卓玛",
     "amount": 7800,
     "date": "2026-02-24",
@@ -3989,6 +3999,16 @@ const rawData = [
     "date": "2026-01-18",
     "month": "2026-01",
     "customer": "谭亮"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭湘乡店",
+    "district": "地市一区",
+    "advisor": "王茜",
+    "amount": 6800,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "王海河"
   },
   {
     "type": "设计",
@@ -5231,7 +5251,28 @@ const rawData = [
     "customer": "熊欣"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "农显铄",
+    "amount": 10000,
+    "date": "2026-04-25",
+    "month": "2026-04",
+    "customer": "黄金凤"
+  },
+  {
+    "type": "设计",
+    "store": "湘潭湘乡店",
+    "district": "地市一区",
+    "advisor": "王茜",
+    "amount": 6800,
+    "date": "2026-04-15",
+    "month": "2026-04",
+    "customer": "王海河"
+  }
+];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -5249,7 +5290,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-29 00:01:13 CST",
+      "updatedAt": "2026-04-29 14:28:36 CST",
       "members": [
         {
           "name": "周国平",
@@ -5288,7 +5329,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-29 00:01:13 CST",
+      "updatedAt": "2026-04-29 14:28:36 CST",
       "members": [
         {
           "name": "周国平",
@@ -5327,7 +5368,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-29 00:01:13 CST",
+      "updatedAt": "2026-04-29 14:28:36 CST",
       "members": [
         {
           "name": "周国平",
@@ -5366,7 +5407,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-04-29 00:01:13 CST",
+      "updatedAt": "2026-04-29 14:28:36 CST",
       "members": [
         {
           "name": "周国平",
@@ -5389,7 +5430,7 @@ const manualTeamMonthlyData = {
         {
           "name": "宁章娜",
           "constructionAmount": 2685757,
-          "designCount": 21,
+          "designCount": 22,
           "note": "自动生成"
         },
         {
@@ -5406,7 +5447,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-03",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-04-29 00:01:13 CST",
+    "updatedAt": "2026-04-29 14:28:36 CST",
     "members": [
       {
         "name": "周国平",
