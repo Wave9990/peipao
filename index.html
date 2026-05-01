@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/1 07:46:20</div></div>
-<div style="display:none">数据更新时间: 2026/5/1 07:46:20</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/1 14:34:46</div></div>
+<div style="display:none">数据更新时间: 2026/5/1 14:34:46</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -775,7 +775,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/1 07:46:20</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/1 14:34:46</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -4045,6 +4045,17 @@ const rawData = [
     "type": "设计",
     "store": "南宁店",
     "district": "地市一区",
+    "advisor": "尕藏卓玛",
+    "amount": 12800,
+    "date": "2026-05-01",
+    "month": "2026-05",
+    "customer": "罗兰德",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
     "advisor": "苏春梅",
     "amount": 4800,
     "date": "2026-01-24",
@@ -5769,25 +5780,38 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "尕藏卓玛",
+    "amount": 12800,
+    "date": "2026-05-01",
+    "month": "2026-05",
+    "customer": "罗兰德",
+    "customerSource": "营销/新媒体陪跑"
+  }
+];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
-  "dashboardMonth": "2026-04",
-  "defaultMonth": "2026-04",
-  "activeMonth": "2026-04",
+  "dashboardMonth": "2026-05",
+  "defaultMonth": "2026-05",
+  "activeMonth": "2026-05",
   "sourceStatus": "ready",
   "monthOptions": [
     "2026-01",
     "2026-02",
     "2026-03",
-    "2026-04"
+    "2026-04",
+    "2026-05"
   ],
   "months": [
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-01 07:46:20 CST",
+      "updatedAt": "2026-05-01 14:34:46 CST",
       "members": [
         {
           "name": "周国平",
@@ -5826,7 +5850,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-01 07:46:20 CST",
+      "updatedAt": "2026-05-01 14:34:46 CST",
       "members": [
         {
           "name": "周国平",
@@ -5865,7 +5889,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-01 07:46:20 CST",
+      "updatedAt": "2026-05-01 14:34:46 CST",
       "members": [
         {
           "name": "周国平",
@@ -5904,7 +5928,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-01 07:46:20 CST",
+      "updatedAt": "2026-05-01 14:34:46 CST",
       "members": [
         {
           "name": "周国平",
@@ -5939,41 +5963,80 @@ const manualTeamMonthlyData = {
       ],
       "missingFields": [],
       "sourceStatus": "ready"
+    },
+    {
+      "month": "2026-05",
+      "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
+      "updatedAt": "2026-05-01 14:34:46 CST",
+      "members": [
+        {
+          "name": "周国平",
+          "constructionAmount": 0,
+          "designCount": 0,
+          "note": "自动生成"
+        },
+        {
+          "name": "向勇",
+          "constructionAmount": 0,
+          "designCount": 0,
+          "note": "自动生成"
+        },
+        {
+          "name": "钟海燕",
+          "constructionAmount": 0,
+          "designCount": 0,
+          "note": "自动生成"
+        },
+        {
+          "name": "宁章娜",
+          "constructionAmount": 0,
+          "designCount": 1,
+          "note": "自动生成"
+        },
+        {
+          "name": "黄诗宇",
+          "constructionAmount": 0,
+          "designCount": 0,
+          "note": "自动生成"
+        }
+      ],
+      "missingFields": [],
+      "sourceStatus": "ready"
     }
   ],
   "activeData": {
-    "month": "2026-04",
+    "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-01 07:46:20 CST",
+    "updatedAt": "2026-05-01 14:34:46 CST",
     "members": [
       {
         "name": "周国平",
-        "constructionAmount": 4099608,
-        "designCount": 15,
+        "constructionAmount": 0,
+        "designCount": 0,
         "note": "自动生成"
       },
       {
         "name": "向勇",
-        "constructionAmount": 2852965,
-        "designCount": 16,
+        "constructionAmount": 0,
+        "designCount": 0,
         "note": "自动生成"
       },
       {
         "name": "钟海燕",
-        "constructionAmount": 1621945,
-        "designCount": 9,
+        "constructionAmount": 0,
+        "designCount": 0,
         "note": "自动生成"
       },
       {
         "name": "宁章娜",
-        "constructionAmount": 2616232,
-        "designCount": 22,
+        "constructionAmount": 0,
+        "designCount": 1,
         "note": "自动生成"
       },
       {
         "name": "黄诗宇",
-        "constructionAmount": 490981,
-        "designCount": 7,
+        "constructionAmount": 0,
+        "designCount": 0,
         "note": "自动生成"
       }
     ],
@@ -5990,8 +6053,8 @@ const storeRankTab = ref('con');
 const quarterSel = ref('Q1');
 const qStoreRankTab = ref('con');
 const teamRankMode = ref('construction');
-const monthSel = ref('2026-04');
-const teamMonthSel = ref(manualTeamMonthlyData.defaultMonth || manualTeamMonthlyData.activeMonth || '2026-04');
+const monthSel = ref('2026-05');
+const teamMonthSel = ref(manualTeamMonthlyData.defaultMonth || manualTeamMonthlyData.activeMonth || '2026-05');
 const showTeamDataStatus = ref(false);
 const teamDetailFilter = ref('all');
 const monthDist = ref('全部');
