@@ -47,6 +47,10 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .timestamp{background:#F3F4F6;padding:8px 16px;border-radius:8px;font-size:13px;color:var(--gray);text-align:center;margin-bottom:16px}
 .total-row{background:#EFF6FF;font-weight:700}
 .team-note{font-size:12px;color:var(--gray);line-height:1.6}
+.tier-insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 0 18px}
+.tier-insight{border:1px solid var(--line-soft);border-radius:16px;padding:14px;background:linear-gradient(180deg,#FFF 0%,#F8FAFC 100%);box-shadow:0 4px 14px rgba(15,23,42,.04)}
+.tier-insight .k{font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:700}.tier-insight .v{font-size:22px;font-weight:800;margin-bottom:4px}.tier-insight .d{font-size:12px;color:var(--gray);line-height:1.55}
+.action-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.action-card{border:1px solid var(--line-soft);border-radius:16px;padding:14px;background:#FFF}.action-card .name{font-size:18px;font-weight:800;margin-bottom:8px}.action-card ul{padding-left:18px;color:#334155;font-size:13px;line-height:1.75}.warn-text{color:var(--red);font-weight:800}.good-text{color:var(--green);font-weight:800}
 .team-status{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
 .team-status.status-good{background:var(--success-soft);color:var(--green)}
 .team-status.status-warn{background:var(--warning-soft);color:var(--orange)}
@@ -185,8 +189,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 12:08:10</div></div>
-<div style="display:none">数据更新时间: 2026/5/2 12:08:10</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 12:29:22</div></div>
+<div style="display:none">数据更新时间: 2026/5/2 12:29:22</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -776,7 +780,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 12:08:10</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 12:29:22</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -822,6 +826,24 @@ th:last-child{border-top-right-radius:14px}
 <div class="metric"><div class="label">未拉群</div><div class="val" style="color:var(--red)">{{tierSummary.ungroupedCount || 0}}</div><div class="unit">个</div></div>
 <div class="metric"><div class="label">新增奖励</div><div class="val" style="color:var(--green)">{{tierSummary.rewardCount || 0}}</div><div class="unit">个</div></div>
 <div class="metric"><div class="label">高潜孵化</div><div class="val" style="color:var(--orange)">{{tierSummary.highPotentialCount || 0}}</div><div class="unit">个</div></div>
+</div>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">📌 本月重点判断</div>
+<div class="tier-insight-grid">
+<div class="tier-insight" v-for="item in tierDecisionInsights" :key="item.title"><div class="k">{{item.title}}</div><div class="v" :style="{color:item.color}">{{item.value}}</div><div class="d">{{item.desc}}</div></div>
+</div>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">🚨 未拉群预警</div>
+<table><thead><tr><th>运营</th><th>未拉群</th><th>占比</th><th>优先动作</th></tr></thead><tbody>
+<tr v-for="row in tierUngroupedAlertRows" :key="row.operator"><td style="font-weight:700">{{row.operator}}</td><td class="warn-text">{{row.ungrouped}}</td><td>{{row.ungroupedRate}}%</td><td>{{row.action}}</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-title">✅ 运营行动清单</div>
+<div class="action-list"><div class="action-card" v-for="row in tierActionPlans" :key="row.operator"><div class="name">{{row.operator}}</div><ul><li v-for="(item,i) in row.actions" :key="i">{{item}}</li></ul></div></div>
+</div>
 </div>
 <div class="section">
 <div class="card">
@@ -5953,7 +5975,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:08:10 CST",
+      "updatedAt": "2026-05-02 12:29:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -5992,7 +6014,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:08:10 CST",
+      "updatedAt": "2026-05-02 12:29:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -6031,7 +6053,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:08:10 CST",
+      "updatedAt": "2026-05-02 12:29:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -6070,7 +6092,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:08:10 CST",
+      "updatedAt": "2026-05-02 12:29:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -6109,7 +6131,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:08:10 CST",
+      "updatedAt": "2026-05-02 12:29:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -6149,7 +6171,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-02 12:08:10 CST",
+    "updatedAt": "2026-05-02 12:29:22 CST",
     "members": [
       {
         "name": "周国平",
@@ -11098,6 +11120,44 @@ const tierMatrixRows = computed(()=>Array.isArray(tierAccountData.tierMatrix) ? 
 const tierUngroupedRows = computed(()=>Array.isArray(tierAccountData.ungroupedAccounts) ? tierAccountData.ungroupedAccounts : []);
 const tierHighPotentialRows = computed(()=>Array.isArray(tierAccountData.highPotentialAccounts) ? tierAccountData.highPotentialAccounts : []);
 const tierBottomRows = computed(()=>Array.isArray(tierAccountData.bottomCleanupAccounts) ? tierAccountData.bottomCleanupAccounts : []);
+const tierDecisionInsights = computed(()=>{
+  const total = Number(tierSummary.totalAccounts || 0);
+  const head = Number(tierSummary.tier1 || 0) + Number(tierSummary.tier2 || 0);
+  const tier4 = Number(tierSummary.tier4 || 0);
+  const ungrouped = Number(tierSummary.ungroupedCount || 0);
+  const highPotential = Number(tierSummary.highPotentialCount || 0);
+  const headRate = total ? Math.round(head / total * 100) : 0;
+  const tier4Rate = total ? Math.round(tier4 / total * 100) : 0;
+  const ungroupedRate = total ? Math.round(ungrouped / total * 100) : 0;
+  const topUngrouped = [...tierOperatorStats.value].sort((a,b)=>(b.ungrouped||0)-(a.ungrouped||0))[0] || {};
+  const topPotential = [...tierOperatorStats.value].sort((a,b)=>(b.highPotential||0)-(a.highPotential||0))[0] || {};
+  return [
+    {title:'头部账号占比', value: headRate + '%', color: headRate >= 15 ? '#059669' : '#F59E0B', desc:'第一/第二梯队共 ' + head + ' 个，' + (headRate >= 15 ? '头部储备相对健康' : '头部账号储备偏少，需补强标杆账号')},
+    {title:'第四梯队压力', value: tier4Rate + '%', color: tier4Rate >= 60 ? '#DC2626' : '#64748B', desc:'第四梯队 ' + tier4 + ' 个，' + (tier4Rate >= 60 ? '底部账号占比偏高，建议清理或重定策略' : '底部占比可控')},
+    {title:'未拉群闭环', value: ungroupedRate + '%', color: ungroupedRate >= 25 ? '#DC2626' : '#059669', desc:'未拉群 ' + ungrouped + ' 个，' + (topUngrouped.operator ? topUngrouped.operator + ' 需优先补齐建群动作' : '暂无明显责任人压力')},
+    {title:'高潜孵化池', value: highPotential + '个', color: '#F59E0B', desc:'高潜账号最多：' + (topPotential.operator || '-') + '，建议优先安排内容节奏和案例包装'},
+  ];
+});
+const tierUngroupedAlertRows = computed(()=>tierOperatorStats.value.map(row=>{
+  const total = Number(row.total || 0);
+  const ungrouped = Number(row.ungrouped || 0);
+  const rate = total ? Math.round(ungrouped / total * 100) : 0;
+  return { operator: row.operator, ungrouped, ungroupedRate: rate, action: ungrouped >= 8 ? '本周优先集中补群' : (ungrouped > 0 ? '逐个补齐建群动作' : '保持闭环') };
+}).sort((a,b)=>b.ungrouped-a.ungrouped));
+const tierActionPlans = computed(()=>tierOperatorStats.value.map(row=>{
+  const total = Number(row.total || 0);
+  const head = Number(row.head || 0);
+  const ungrouped = Number(row.ungrouped || 0);
+  const high = Number(row.highPotential || 0);
+  const bottom = Number(row.bottomCleanup || row['第四梯队'] || 0);
+  const headRate = total ? Math.round(head / total * 100) : 0;
+  const actions = [];
+  actions.push(ungrouped > 0 ? '优先推进 ' + ungrouped + ' 个未拉群账号，先完成过程闭环。' : '未拉群账号已清零，保持建群闭环。');
+  actions.push(high > 0 ? '重点孵化 ' + high + ' 个高潜账号，安排选题、案例和直播/短视频节奏。' : '暂无高潜池，先从第三梯队里筛选可上升账号。');
+  actions.push(bottom > 0 ? '清理/观察 ' + bottom + ' 个底部账号，明确保留、转化或降级策略。' : '底部账号压力较小，继续维护头部账号结果。');
+  if (headRate < 15) actions.push('头部账号占比仅 ' + headRate + '%，需要补强第一/第二梯队标杆账号。');
+  return {operator: row.operator, actions};
+}));
 
 const totalDesign = rawData.filter(r=>r.type==='设计').length;
 const totalConstr = rawData.filter(r=>r.type==='施工').length;
@@ -11602,7 +11662,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierActionPlans,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
