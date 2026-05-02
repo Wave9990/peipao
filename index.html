@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 19:20:50</div></div>
-<div style="display:none">数据更新时间: 2026/5/2 19:20:50</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/3 07:01:56</div></div>
+<div style="display:none">数据更新时间: 2026/5/3 07:01:56</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -843,7 +843,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 19:20:50</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/3 07:01:56</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -3337,6 +3337,19 @@ const rawData = [
     "type": "施工",
     "store": "星沙店",
     "district": "长沙大区",
+    "advisor": "陈湘",
+    "owner": "宁章娜",
+    "ownerRuleType": "override",
+    "amount": 267401,
+    "date": "2026-05-02",
+    "month": "2026-05",
+    "customer": "梁文",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "星沙店",
+    "district": "长沙大区",
     "advisor": "彭振华",
     "owner": "周国平",
     "ownerRuleType": "default",
@@ -5794,6 +5807,19 @@ const rawData = [
     "type": "施工",
     "store": "衡阳万达店",
     "district": "地市二区",
+    "advisor": "谢利婷",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 190426,
+    "date": "2026-05-02",
+    "month": "2026-05",
+    "customer": "颜克清",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
     "advisor": "邓玉秀",
     "owner": "向勇",
     "ownerRuleType": "default",
@@ -7041,16 +7067,29 @@ const rawData = [
 ];
 const newsData = [
   {
-    "type": "设计",
-    "store": "平江店",
+    "type": "施工",
+    "store": "星沙店",
     "district": "长沙大区",
-    "advisor": "唐展鹏",
-    "owner": "钟海燕",
-    "ownerRuleType": "default",
-    "amount": 6800,
+    "advisor": "陈湘",
+    "owner": "宁章娜",
+    "ownerRuleType": "override",
+    "amount": 267401,
     "date": "2026-05-02",
     "month": "2026-05",
-    "customer": "方瑶",
+    "customer": "梁文",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "谢利婷",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 190426,
+    "date": "2026-05-02",
+    "month": "2026-05",
+    "customer": "颜克清",
     "customerSource": "营销/新媒体陪跑"
   }
 ];
@@ -7072,7 +7111,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 19:20:50 CST",
+      "updatedAt": "2026-05-03 07:01:56 CST",
       "members": [
         {
           "name": "周国平",
@@ -7111,7 +7150,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 19:20:50 CST",
+      "updatedAt": "2026-05-03 07:01:56 CST",
       "members": [
         {
           "name": "周国平",
@@ -7150,7 +7189,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 19:20:50 CST",
+      "updatedAt": "2026-05-03 07:01:56 CST",
       "members": [
         {
           "name": "周国平",
@@ -7189,7 +7228,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 19:20:50 CST",
+      "updatedAt": "2026-05-03 07:01:56 CST",
       "members": [
         {
           "name": "周国平",
@@ -7228,7 +7267,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 19:20:50 CST",
+      "updatedAt": "2026-05-03 07:01:56 CST",
       "members": [
         {
           "name": "周国平",
@@ -7238,7 +7277,7 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "向勇",
-          "constructionAmount": 376432,
+          "constructionAmount": 566858,
           "designCount": 0,
           "note": "自动生成"
         },
@@ -7250,7 +7289,7 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "宁章娜",
-          "constructionAmount": 0,
+          "constructionAmount": 267401,
           "designCount": 1,
           "note": "自动生成"
         },
@@ -7268,7 +7307,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-02 19:20:50 CST",
+    "updatedAt": "2026-05-03 07:01:56 CST",
     "members": [
       {
         "name": "周国平",
@@ -7278,7 +7317,7 @@ const manualTeamMonthlyData = {
       },
       {
         "name": "向勇",
-        "constructionAmount": 376432,
+        "constructionAmount": 566858,
         "designCount": 0,
         "note": "自动生成"
       },
@@ -7290,7 +7329,7 @@ const manualTeamMonthlyData = {
       },
       {
         "name": "宁章娜",
-        "constructionAmount": 0,
+        "constructionAmount": 267401,
         "designCount": 1,
         "note": "自动生成"
       },
