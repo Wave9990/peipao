@@ -185,8 +185,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 11:20:15</div></div>
-<div style="display:none">数据更新时间: 2026/5/2 11:20:15</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 11:50:42</div></div>
+<div style="display:none">数据更新时间: 2026/5/2 11:50:42</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -775,7 +775,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 11:20:15</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 11:50:42</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -5879,30 +5879,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "平江店",
-    "district": "长沙大区",
-    "advisor": "罗怀安",
-    "amount": 7600,
-    "date": "2026-05-02",
-    "month": "2026-05",
-    "customer": "陈行光",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "株洲神农店",
-    "district": "地市二区",
-    "advisor": "丁杨",
-    "amount": 12000,
-    "date": "2026-05-01",
-    "month": "2026-05",
-    "customer": "潘泽邦",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -5921,7 +5898,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 11:20:15 CST",
+      "updatedAt": "2026-05-02 11:50:42 CST",
       "members": [
         {
           "name": "周国平",
@@ -5960,7 +5937,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 11:20:15 CST",
+      "updatedAt": "2026-05-02 11:50:42 CST",
       "members": [
         {
           "name": "周国平",
@@ -5999,7 +5976,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 11:20:15 CST",
+      "updatedAt": "2026-05-02 11:50:42 CST",
       "members": [
         {
           "name": "周国平",
@@ -6038,7 +6015,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 11:20:15 CST",
+      "updatedAt": "2026-05-02 11:50:42 CST",
       "members": [
         {
           "name": "周国平",
@@ -6077,7 +6054,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 11:20:15 CST",
+      "updatedAt": "2026-05-02 11:50:42 CST",
       "members": [
         {
           "name": "周国平",
@@ -6117,7 +6094,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-02 11:20:15 CST",
+    "updatedAt": "2026-05-02 11:50:42 CST",
     "members": [
       {
         "name": "周国平",
@@ -6171,8 +6148,13 @@ const monthDist = ref('全部');
 const monthType = ref('全部');
 const tableDensity = ref('compact');
 
-const months = ['2026-01','2026-02','2026-03','2026-04'];
-const qMonths = {Q1:['2026-01','2026-02','2026-03'],Q2:['2026-04'],Q3:['2026-07','2026-08','2026-09'],Q4:['2026-10','2026-11','2026-12']};
+const months = Array.from(new Set(rawData.map(r=>r.month).filter(Boolean))).sort();
+const qMonths = {
+  Q1: months.filter(m=>['01','02','03'].includes(String(m).slice(5,7))),
+  Q2: months.filter(m=>['04','05','06'].includes(String(m).slice(5,7))),
+  Q3: months.filter(m=>['07','08','09'].includes(String(m).slice(5,7))),
+  Q4: months.filter(m=>['10','11','12'].includes(String(m).slice(5,7)))
+};
 const teamMembers = Object.keys(MEMBER_KPI || {});
 const teamMonthOptions = (Array.isArray(manualTeamMonthlyData.monthOptions) && manualTeamMonthlyData.monthOptions.length ? manualTeamMonthlyData.monthOptions : months).filter((month, index, list) => list.indexOf(month) === index);
 const teamTimeProgress = (()=>{ const now=new Date(); const start=new Date(2026,0,1); const end=new Date(2026,11,31,23,59,59,999); const clamped=now<start?start:now>end?end:now; return Number((((clamped-start)/(end-start))*100).toFixed(1)); })();
