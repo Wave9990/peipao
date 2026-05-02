@@ -51,6 +51,7 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .tier-insight{border:1px solid var(--line-soft);border-radius:16px;padding:14px;background:linear-gradient(180deg,#FFF 0%,#F8FAFC 100%);box-shadow:0 4px 14px rgba(15,23,42,.04)}
 .tier-insight .k{font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:700}.tier-insight .v{font-size:22px;font-weight:800;margin-bottom:4px}.tier-insight .d{font-size:12px;color:var(--gray);line-height:1.55}
 .action-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.action-card{border:1px solid var(--line-soft);border-radius:16px;padding:14px;background:#FFF}.action-card .name{font-size:18px;font-weight:800;margin-bottom:8px}.action-card ul{padding-left:18px;color:#334155;font-size:13px;line-height:1.75}.warn-text{color:var(--red);font-weight:800}.good-text{color:var(--green);font-weight:800}
+.health-badge{display:inline-flex;align-items:center;justify-content:center;min-width:44px;padding:4px 10px;border-radius:999px;font-weight:800;font-size:12px}.health-a{background:rgba(5,150,105,.12);color:#059669}.health-b{background:rgba(37,99,235,.12);color:#2563EB}.health-c{background:rgba(245,158,11,.14);color:#B45309}.health-d{background:rgba(220,38,38,.12);color:#DC2626}.score-text{font-weight:900;font-variant-numeric:tabular-nums}.priority-tag{display:inline-flex;padding:3px 8px;border-radius:999px;background:#FFF7ED;color:#C2410C;font-weight:800;font-size:12px}
 .team-status{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
 .team-status.status-good{background:var(--success-soft);color:var(--green)}
 .team-status.status-warn{background:var(--warning-soft);color:var(--orange)}
@@ -189,8 +190,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 12:29:22</div></div>
-<div style="display:none">数据更新时间: 2026/5/2 12:29:22</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/2 12:39:25</div></div>
+<div style="display:none">数据更新时间: 2026/5/2 12:39:25</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -780,7 +781,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 12:29:22</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/2 12:39:25</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -844,6 +845,29 @@ th:last-child{border-top-right-radius:14px}
 <div class="card-title">✅ 运营行动清单</div>
 <div class="action-list"><div class="action-card" v-for="row in tierActionPlans" :key="row.operator"><div class="name">{{row.operator}}</div><ul><li v-for="(item,i) in row.actions" :key="i">{{item}}</li></ul></div></div>
 </div>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">💚 账号健康分概览</div>
+<div class="tier-insight-grid">
+<div class="tier-insight" v-for="item in tierHealthSummaryCards" :key="item.title"><div class="k">{{item.title}}</div><div class="v" :style="{color:item.color}">{{item.value}}</div><div class="d">{{item.desc}}</div></div>
+</div>
+<table><thead><tr><th>健康等级</th><th>账号数</th><th>判断</th></tr></thead><tbody>
+<tr v-for="row in tierHealthBuckets" :key="row.level"><td><span class="health-badge" :class="row.className">{{row.level}}</span></td><td class="score-text">{{row.count}}</td><td>{{row.desc}}</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-title">🌱 高潜账号优先级榜 Top 20</div>
+<table><thead><tr><th>优先级</th><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>健康分</th><th>建议动作</th></tr></thead><tbody>
+<tr v-for="(r,i) in tierPriorityPotentialRows.slice(0,20)" :key="i"><td><span class="priority-tag">{{r.priorityLabel}}</span></td><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td><span class="score-text">{{r.healthScore}}</span> <span class="health-badge" :class="r.healthClass">{{r.healthLevel}}</span></td><td>{{r.priorityAction}}</td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">🏅 健康分 TOP 30 账号</div>
+<table><thead><tr><th>等级</th><th>分数</th><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>签单</th><th>动作</th></tr></thead><tbody>
+<tr v-for="(r,i) in tierHealthTopRows.slice(0,30)" :key="i"><td><span class="health-badge" :class="r.healthClass">{{r.healthLevel}}</span></td><td class="score-text">{{r.healthScore}}</td><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td>{{r.sign2026Total || 0}}</td><td>{{r.healthAction}}</td></tr>
+</tbody></table>
 </div>
 <div class="section">
 <div class="card">
@@ -5975,7 +5999,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:29:22 CST",
+      "updatedAt": "2026-05-02 12:39:25 CST",
       "members": [
         {
           "name": "周国平",
@@ -6014,7 +6038,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:29:22 CST",
+      "updatedAt": "2026-05-02 12:39:25 CST",
       "members": [
         {
           "name": "周国平",
@@ -6053,7 +6077,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:29:22 CST",
+      "updatedAt": "2026-05-02 12:39:25 CST",
       "members": [
         {
           "name": "周国平",
@@ -6092,7 +6116,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:29:22 CST",
+      "updatedAt": "2026-05-02 12:39:25 CST",
       "members": [
         {
           "name": "周国平",
@@ -6131,7 +6155,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-02 12:29:22 CST",
+      "updatedAt": "2026-05-02 12:39:25 CST",
       "members": [
         {
           "name": "周国平",
@@ -6171,7 +6195,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-02 12:29:22 CST",
+    "updatedAt": "2026-05-02 12:39:25 CST",
     "members": [
       {
         "name": "周国平",
@@ -11158,6 +11182,70 @@ const tierActionPlans = computed(()=>tierOperatorStats.value.map(row=>{
   if (headRate < 15) actions.push('头部账号占比仅 ' + headRate + '%，需要补强第一/第二梯队标杆账号。');
   return {operator: row.operator, actions};
 }));
+function tierHealthBaseScore(tier){
+  const map = {'第一梯队':40,'第二梯队':30,'第三梯队':20,'第四梯队':10};
+  return map[tier] || 0;
+}
+function tierHealthLevel(score){
+  if (score >= 80) return {level:'A类', className:'health-a', desc:'重点保护'};
+  if (score >= 60) return {level:'B类', className:'health-b', desc:'重点孵化'};
+  if (score >= 40) return {level:'C类', className:'health-c', desc:'持续观察'};
+  return {level:'D类', className:'health-d', desc:'建议清理/重定策略'};
+}
+function calcTierHealth(row){
+  const sign = Number(row.sign2026Total || 0);
+  let score = tierHealthBaseScore(row.tier);
+  if (row.isGrouped) score += 15; else score -= 15;
+  if (row.hasReward) score += 10;
+  if (sign > 0) score += 20;
+  if (row.tier === '第三梯队' && sign > 0) score += 15;
+  if (row.tier === '第四梯队' && (sign > 0 || row.hasReward)) score += 15;
+  if (row.tier === '第四梯队' && !sign) score -= 20;
+  score = Math.max(0, Math.min(100, score));
+  const level = tierHealthLevel(score);
+  const action = level.level === 'A类' ? '重点保护，沉淀案例打法' : (level.level === 'B类' ? '重点孵化，安排内容节奏' : (level.level === 'C类' ? '持续观察，补齐过程动作' : '清理/重定策略'));
+  return {...row, healthScore:score, healthLevel:level.level, healthClass:level.className, healthDesc:level.desc, healthAction:action};
+}
+const tierHealthRows = computed(()=> (Array.isArray(tierAccountData.records) ? tierAccountData.records : []).map(calcTierHealth).sort((a,b)=>b.healthScore-a.healthScore || (b.sign2026Total||0)-(a.sign2026Total||0)));
+const tierHealthBuckets = computed(()=>{
+  const defs = [tierHealthLevel(80), tierHealthLevel(60), tierHealthLevel(40), tierHealthLevel(0)];
+  return defs.map(def=>({level:def.level,className:def.className,desc:def.desc,count:tierHealthRows.value.filter(r=>r.healthLevel===def.level).length}));
+});
+const tierHealthSummaryCards = computed(()=>{
+  const rows = tierHealthRows.value;
+  const total = rows.length || 0;
+  const avg = total ? Math.round(rows.reduce((s,r)=>s+r.healthScore,0)/total) : 0;
+  const aCount = rows.filter(r=>r.healthLevel==='A类').length;
+  const bCount = rows.filter(r=>r.healthLevel==='B类').length;
+  const dCount = rows.filter(r=>r.healthLevel==='D类').length;
+  const topOp = [...tierOperatorStats.value].map(op=>{
+    const list = rows.filter(r=>r.operator===op.operator);
+    const avgScore = list.length ? Math.round(list.reduce((s,r)=>s+r.healthScore,0)/list.length) : 0;
+    return {operator:op.operator, avgScore};
+  }).sort((a,b)=>b.avgScore-a.avgScore)[0] || {};
+  return [
+    {title:'平均健康分', value: avg + '分', color: avg >= 60 ? '#059669' : '#F59E0B', desc:'按梯队、签单、拉群、新增奖励综合评分'},
+    {title:'A/B类账号', value: (aCount + bCount) + '个', color:'#2563EB', desc:'重点保护 + 重点孵化账号池'},
+    {title:'D类待清理', value: dCount + '个', color: dCount > total * 0.4 ? '#DC2626' : '#64748B', desc:'低健康分账号，建议重定策略或降级观察'},
+    {title:'运营健康均分最高', value: topOp.operator || '-', color:'#059669', desc: topOp.operator ? ('平均 ' + topOp.avgScore + ' 分') : '暂无数据'},
+  ];
+});
+const tierHealthTopRows = computed(()=>tierHealthRows.value);
+const tierPriorityPotentialRows = computed(()=>{
+  const rows = tierHealthRows.value.filter(r=>r.tier==='第三梯队' || r.tier==='第四梯队' || r.hasReward || Number(r.sign2026Total||0)>0);
+  return rows.map(r=>{
+    let p = 0;
+    if (r.tier === '第三梯队') p += 30;
+    if (r.tier === '第四梯队' && (Number(r.sign2026Total||0)>0 || r.hasReward)) p += 24;
+    if (r.isGrouped) p += 12; else p += 18;
+    if (r.hasReward) p += 12;
+    p += Math.min(20, Number(r.sign2026Total||0) * 4);
+    p += Math.round(r.healthScore/10);
+    const label = p >= 65 ? 'P1' : (p >= 50 ? 'P2' : 'P3');
+    const action = !r.isGrouped ? '先补齐建群闭环，再安排孵化' : (r.tier==='第四梯队' ? '低梯队有结果，建议上探观察' : '重点孵化，争取提级');
+    return {...r, priorityScore:p, priorityLabel:label, priorityAction:action};
+  }).sort((a,b)=>b.priorityScore-a.priorityScore || b.healthScore-a.healthScore || (b.sign2026Total||0)-(a.sign2026Total||0));
+});
 
 const totalDesign = rawData.filter(r=>r.type==='设计').length;
 const totalConstr = rawData.filter(r=>r.type==='施工').length;
@@ -11662,7 +11750,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierActionPlans,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierPriorityPotentialRows,fmtW,distClass,newsRecords,newsDes,newsCon,safeLen,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
