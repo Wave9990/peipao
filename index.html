@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/4 22:25:10</div></div>
-<div style="display:none">数据更新时间: 2026/5/4 22:25:10</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/4 22:35:27</div></div>
+<div style="display:none">数据更新时间: 2026/5/4 22:35:27</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -843,7 +843,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/4 22:25:10</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/4 22:35:27</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -4547,8 +4547,8 @@ const rawData = [
     "store": "耒阳点石",
     "district": "地市二区",
     "advisor": "陆伍元",
-    "owner": "",
-    "ownerRuleType": "unmatched",
+    "owner": "黄诗宇",
+    "ownerRuleType": "override",
     "amount": 5800,
     "date": "2026-05-04",
     "month": "2026-05",
@@ -5549,7 +5549,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 20000,
     "date": "2026-01-23",
     "month": "2026-01",
@@ -5562,7 +5562,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 9000,
     "date": "2026-03-08",
     "month": "2026-03",
@@ -5575,7 +5575,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "罗岩",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 5800,
     "date": "2026-03-01",
     "month": "2026-03",
@@ -5588,7 +5588,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "何江",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 12000,
     "date": "2026-05-04",
     "month": "2026-05",
@@ -5601,7 +5601,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 5800,
     "date": "2026-03-01",
     "month": "2026-03",
@@ -5614,7 +5614,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 5800,
     "date": "2026-01-10",
     "month": "2026-01",
@@ -5627,7 +5627,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 4800,
     "date": "2026-03-13",
     "month": "2026-03",
@@ -5640,7 +5640,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 4800,
     "date": "2026-02-24",
     "month": "2026-02",
@@ -5653,7 +5653,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "伍朋",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 6000,
     "date": "2026-03-13",
     "month": "2026-03",
@@ -5666,7 +5666,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "罗岩",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 8000,
     "date": "2026-03-06",
     "month": "2026-03",
@@ -5679,7 +5679,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "陈泽龙",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 5800,
     "date": "2026-05-03",
     "month": "2026-05",
@@ -5691,8 +5691,8 @@ const rawData = [
     "store": "岳阳岳州店",
     "district": "地市二区",
     "advisor": "王凤",
-    "owner": "",
-    "ownerRuleType": "unmatched",
+    "owner": "钟海燕",
+    "ownerRuleType": "override",
     "amount": 7800,
     "date": "2026-05-04",
     "month": "2026-05",
@@ -7083,7 +7083,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "胡小军",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 129404,
     "date": "2026-05-04",
     "month": "2026-05",
@@ -7096,7 +7096,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 167548,
     "date": "2026-03-14",
     "month": "2026-03",
@@ -7109,7 +7109,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 454582,
     "date": "2026-02-01",
     "month": "2026-02",
@@ -7122,7 +7122,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 139958,
     "date": "2026-03-15",
     "month": "2026-03",
@@ -7135,7 +7135,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "罗岩",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 140306,
     "date": "2026-03-08",
     "month": "2026-03",
@@ -7148,7 +7148,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 191440,
     "date": "2026-03-29",
     "month": "2026-03",
@@ -7161,7 +7161,7 @@ const rawData = [
     "district": "地市二区",
     "advisor": "伍朋",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 169439,
     "date": "2026-03-17",
     "month": "2026-03",
@@ -7364,60 +7364,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "洋湖店",
-    "district": "长沙大区",
-    "advisor": "周维",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 3800,
-    "date": "2026-05-04",
-    "month": "2026-05",
-    "customer": "胡小冬",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "耒阳点石",
-    "district": "地市二区",
-    "advisor": "陆伍元",
-    "owner": "",
-    "ownerRuleType": "unmatched",
-    "amount": 5800,
-    "date": "2026-05-04",
-    "month": "2026-05",
-    "customer": "齐梦红",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "岳阳锦城店",
-    "district": "地市二区",
-    "advisor": "何江",
-    "owner": "钟海燕",
-    "ownerRuleType": "default",
-    "amount": 12000,
-    "date": "2026-05-04",
-    "month": "2026-05",
-    "customer": "李荣",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "岳阳岳州店",
-    "district": "地市二区",
-    "advisor": "王凤",
-    "owner": "",
-    "ownerRuleType": "unmatched",
-    "amount": 7800,
-    "date": "2026-05-04",
-    "month": "2026-05",
-    "customer": "刘毅",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -7436,7 +7383,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-04 22:25:10 CST",
+      "updatedAt": "2026-05-04 22:35:27 CST",
       "members": [
         {
           "name": "周国平",
@@ -7475,7 +7422,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-04 22:25:10 CST",
+      "updatedAt": "2026-05-04 22:35:27 CST",
       "members": [
         {
           "name": "周国平",
@@ -7514,7 +7461,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-04 22:25:10 CST",
+      "updatedAt": "2026-05-04 22:35:27 CST",
       "members": [
         {
           "name": "周国平",
@@ -7553,7 +7500,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-04 22:25:10 CST",
+      "updatedAt": "2026-05-04 22:35:27 CST",
       "members": [
         {
           "name": "周国平",
@@ -7592,7 +7539,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-04 22:25:10 CST",
+      "updatedAt": "2026-05-04 22:35:27 CST",
       "members": [
         {
           "name": "周国平",
@@ -7609,7 +7556,7 @@ const manualTeamMonthlyData = {
         {
           "name": "钟海燕",
           "constructionAmount": 129404,
-          "designCount": 6,
+          "designCount": 7,
           "note": "自动生成"
         },
         {
@@ -7621,7 +7568,7 @@ const manualTeamMonthlyData = {
         {
           "name": "黄诗宇",
           "constructionAmount": 0,
-          "designCount": 0,
+          "designCount": 1,
           "note": "自动生成"
         }
       ],
@@ -7632,7 +7579,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-04 22:25:10 CST",
+    "updatedAt": "2026-05-04 22:35:27 CST",
     "members": [
       {
         "name": "周国平",
@@ -7649,7 +7596,7 @@ const manualTeamMonthlyData = {
       {
         "name": "钟海燕",
         "constructionAmount": 129404,
-        "designCount": 6,
+        "designCount": 7,
         "note": "自动生成"
       },
       {
@@ -7661,7 +7608,7 @@ const manualTeamMonthlyData = {
       {
         "name": "黄诗宇",
         "constructionAmount": 0,
-        "designCount": 0,
+        "designCount": 1,
         "note": "自动生成"
       }
     ],
