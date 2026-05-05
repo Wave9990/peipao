@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/5 19:23:11</div></div>
-<div style="display:none">数据更新时间: 2026/5/5 19:23:11</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/5 23:29:28</div></div>
+<div style="display:none">数据更新时间: 2026/5/5 23:29:28</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -843,7 +843,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/5 19:23:11</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/5 23:29:28</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -2806,6 +2806,19 @@ const rawData = [
     "advisor": "罗怀安",
     "owner": "钟海燕",
     "ownerRuleType": "default",
+    "amount": 7500,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "黎黄龙",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "罗怀安",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
     "amount": 6800,
     "date": "2026-03-10",
     "month": "2026-03",
@@ -2836,6 +2849,32 @@ const rawData = [
     "date": "2026-01-17",
     "month": "2026-01",
     "customer": "李焘",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
+    "amount": 9800,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "李芳芳",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
+    "amount": 9800,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "唐飞燕",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -2914,6 +2953,19 @@ const rawData = [
     "date": "2026-01-27",
     "month": "2026-01",
     "customer": "章雪蕾",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
+    "amount": 6800,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "周洱锋",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -4445,10 +4497,36 @@ const rawData = [
     "advisor": "王奇",
     "owner": "周国平",
     "ownerRuleType": "default",
+    "amount": 7700,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "吴冬梅",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "owner": "周国平",
+    "ownerRuleType": "default",
     "amount": 5800,
     "date": "2026-04-03",
     "month": "2026-04",
     "customer": "向建银",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "怀化湖天店",
+    "district": "地市一区",
+    "advisor": "王奇",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 5800,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "杨景筌",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -5723,6 +5801,19 @@ const rawData = [
     "date": "2026-03-01",
     "month": "2026-03",
     "customer": "刘岸雄",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "岳阳锦城店",
+    "district": "地市二区",
+    "advisor": "张爱芳",
+    "owner": "钟海燕",
+    "ownerRuleType": "override",
+    "amount": 5800,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "刘丹",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -7526,106 +7617,93 @@ const canonicalCorrectionsNote = [
 const newsData = [
   {
     "type": "设计",
-    "store": "龙湖店",
+    "store": "平江店",
     "district": "长沙大区",
-    "advisor": "陈琳",
+    "advisor": "罗怀安",
     "owner": "钟海燕",
     "ownerRuleType": "default",
-    "amount": 12800,
+    "amount": 7500,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "李金凤",
+    "customer": "黎黄龙",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "梅溪湖店",
+    "store": "平江店",
     "district": "长沙大区",
-    "advisor": "罗委乡",
-    "owner": "周国平",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
     "ownerRuleType": "default",
-    "amount": 7600,
+    "amount": 9800,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "李鸿君",
+    "customer": "李芳芳",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "湘府店",
+    "store": "平江店",
     "district": "长沙大区",
-    "advisor": "龙浇苗",
-    "owner": "向勇",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
     "ownerRuleType": "default",
-    "amount": 14000,
+    "amount": 9800,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "刘甲",
+    "customer": "唐飞燕",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "星沙店",
+    "store": "平江店",
     "district": "长沙大区",
-    "advisor": "陈湘",
-    "owner": "宁章娜",
-    "ownerRuleType": "override",
+    "advisor": "唐展鹏",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
     "amount": 6800,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "卜磊",
+    "customer": "周洱锋",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "南宁店",
+    "store": "怀化湖天店",
     "district": "地市一区",
-    "advisor": "苏春梅",
-    "owner": "宁章娜",
+    "advisor": "王奇",
+    "owner": "周国平",
     "ownerRuleType": "default",
-    "amount": 9000,
+    "amount": 7700,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "黄海荣",
+    "customer": "吴冬梅",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "南宁店",
+    "store": "怀化湖天店",
     "district": "地市一区",
-    "advisor": "梁国生",
-    "owner": "宁章娜",
+    "advisor": "王奇",
+    "owner": "周国平",
     "ownerRuleType": "default",
-    "amount": 10000,
+    "amount": 5800,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "黄宇",
+    "customer": "杨景筌",
     "customerSource": "营销/新媒体陪跑"
   },
   {
     "type": "设计",
-    "store": "宁乡玉兴店",
+    "store": "岳阳锦城店",
     "district": "地市二区",
-    "advisor": "周圣明",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 7200,
-    "date": "2026-05-05",
-    "month": "2026-05",
-    "customer": "黄辉晖",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "株洲神农店",
-    "district": "地市二区",
-    "advisor": "詹媛媛",
+    "advisor": "张爱芳",
     "owner": "钟海燕",
-    "ownerRuleType": "default",
-    "amount": 11000,
+    "ownerRuleType": "override",
+    "amount": 5800,
     "date": "2026-05-05",
     "month": "2026-05",
-    "customer": "李顺",
+    "customer": "刘丹",
     "customerSource": "营销/新媒体陪跑"
   }
 ];
@@ -7647,7 +7725,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-05 19:23:11 CST",
+      "updatedAt": "2026-05-05 23:29:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -7686,7 +7764,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-05 19:23:11 CST",
+      "updatedAt": "2026-05-05 23:29:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -7725,7 +7803,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-05 19:23:11 CST",
+      "updatedAt": "2026-05-05 23:29:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -7764,7 +7842,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-05 19:23:11 CST",
+      "updatedAt": "2026-05-05 23:29:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -7803,12 +7881,12 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-05 19:23:11 CST",
+      "updatedAt": "2026-05-05 23:29:28 CST",
       "members": [
         {
           "name": "周国平",
           "constructionAmount": 656690,
-          "designCount": 5,
+          "designCount": 7,
           "note": "自动生成"
         },
         {
@@ -7820,7 +7898,7 @@ const manualTeamMonthlyData = {
         {
           "name": "钟海燕",
           "constructionAmount": 129404,
-          "designCount": 9,
+          "designCount": 14,
           "note": "自动生成"
         },
         {
@@ -7843,12 +7921,12 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-05 19:23:11 CST",
+    "updatedAt": "2026-05-05 23:29:28 CST",
     "members": [
       {
         "name": "周国平",
         "constructionAmount": 656690,
-        "designCount": 5,
+        "designCount": 7,
         "note": "自动生成"
       },
       {
@@ -7860,7 +7938,7 @@ const manualTeamMonthlyData = {
       {
         "name": "钟海燕",
         "constructionAmount": 129404,
-        "designCount": 9,
+        "designCount": 14,
         "note": "自动生成"
       },
       {
