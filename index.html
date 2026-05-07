@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 10:56:45</div></div>
-<div style="display:none">数据更新时间: 2026/5/7 10:56:45</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 13:44:31</div></div>
+<div style="display:none">数据更新时间: 2026/5/7 13:44:31</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -843,7 +843,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 10:56:45</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 13:44:31</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -7611,10 +7611,10 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
-const newsData = [];
 const manualTeamMonthlyData = {
   "version": 2,
   "filePath": "/Users/wave/dashboard/data/team_member_monthly_data.json",
@@ -7633,7 +7633,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 10:56:45 CST",
+      "updatedAt": "2026-05-07 13:44:31 CST",
       "members": [
         {
           "name": "周国平",
@@ -7672,7 +7672,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 10:56:45 CST",
+      "updatedAt": "2026-05-07 13:44:31 CST",
       "members": [
         {
           "name": "周国平",
@@ -7711,7 +7711,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 10:56:45 CST",
+      "updatedAt": "2026-05-07 13:44:31 CST",
       "members": [
         {
           "name": "周国平",
@@ -7750,7 +7750,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 10:56:45 CST",
+      "updatedAt": "2026-05-07 13:44:31 CST",
       "members": [
         {
           "name": "周国平",
@@ -7789,7 +7789,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 10:56:45 CST",
+      "updatedAt": "2026-05-07 13:44:31 CST",
       "members": [
         {
           "name": "周国平",
@@ -7829,7 +7829,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-07 10:56:45 CST",
+    "updatedAt": "2026-05-07 13:44:31 CST",
     "members": [
       {
         "name": "周国平",
@@ -12130,6 +12130,9 @@ const qMonths = {
 };
 const teamMembers = Object.keys(MEMBER_KPI || {});
 const teamMonthOptions = (Array.isArray(manualTeamMonthlyData.monthOptions) && manualTeamMonthlyData.monthOptions.length ? manualTeamMonthlyData.monthOptions : months).filter((month, index, list) => list.indexOf(month) === index);
+const newsRecords = computed(()=>newsData);
+const newsDes = computed(()=>newsData.filter(r=>r.type==='设计'));
+const newsCon = computed(()=>newsData.filter(r=>r.type==='施工'));
 const teamTimeProgress = (()=>{ const now=new Date(); const start=new Date(2026,0,1); const end=new Date(2026,11,31,23,59,59,999); const clamped=now<start?start:now>end?end:now; return Number((((clamped-start)/(end-start))*100).toFixed(1)); })();
 function calcRate(actual,target){ return target!==null && actual!==null ? Number(((actual/target)*100).toFixed(1)) : null; }
 function formatAmountOrPending(value){ return value===null ? '待补充' : fmtW(value) + '万'; }
@@ -12726,10 +12729,6 @@ function jumpToSection(sectionId){
   }
 }
 function safeLen(value){ return Array.isArray(value) ? value.length : 0; }
-function safeLen(value){ return Array.isArray(value) ? value.length : 0; }
-const newsRecords = Vue.computed(()=>newsData);
-const newsDes = Vue.computed(()=>newsData.filter(r=>r.type==='设计'));
-const newsCon = Vue.computed(()=>newsData.filter(r=>r.type==='施工'));
 function fmtW(v){return(v/10000).toFixed(1);}
 function distClass(d){return d==='长沙大区'?'tag-cs':d==='地市一区'?'tag-d1':'tag-d2';}
 function getRegionAccent(name){return name==='长沙大区' ? '#3B82F6' : name==='地市一区' ? '#F59E0B' : '#7C3AED';}
