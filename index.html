@@ -63,6 +63,21 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .team-status.status-warn{background:var(--warning-soft);color:var(--orange)}
 .team-status.status-bad{background:var(--danger-soft);color:var(--red)}
 .team-gap{font-size:12px;color:var(--gray);line-height:1.5}
+.insight-hero{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.4fr);gap:16px;margin-bottom:16px}
+.insight-verdict{position:relative;overflow:hidden;border-radius:22px;padding:22px;background:linear-gradient(135deg,#0F172A 0%,#1E293B 58%,#334155 100%);color:#F8FAFC;box-shadow:0 18px 48px rgba(15,23,42,.18)}
+.insight-verdict:after{content:"";position:absolute;right:-54px;top:-64px;width:180px;height:180px;border-radius:999px;background:rgba(255,255,255,.07)}
+.insight-verdict .eyebrow{font-size:12px;color:rgba(226,232,240,.76);font-weight:800;letter-spacing:.12em;margin-bottom:10px}
+.insight-verdict .title{font-size:25px;font-weight:900;line-height:1.25;margin-bottom:12px}
+.insight-verdict .desc{font-size:13px;line-height:1.75;color:rgba(248,250,252,.82)}
+.insight-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.insight-card{border:1px solid var(--line-soft);border-radius:18px;padding:16px;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);box-shadow:var(--card-shadow-soft)}
+.insight-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+.insight-card .label{font-size:12px;color:var(--gray);font-weight:800}.insight-card .value{font-size:24px;font-weight:900;color:#0F172A}.insight-card .desc{font-size:12px;color:#334155;line-height:1.65;margin-top:8px}.insight-card .basis{font-size:11px;color:var(--gray);line-height:1.55;margin-top:8px}
+.priority-pill{display:inline-flex;align-items:center;justify-content:center;min-width:36px;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900;background:#EFF6FF;color:#1D4ED8}
+.priority-pill.p1{background:#FEE2E2;color:#DC2626}.priority-pill.p2{background:#FFF7ED;color:#C2410C}.priority-pill.p3{background:#F1F5F9;color:#475569}
+.insight-list{display:grid;gap:10px}.insight-list-item{padding:12px 14px;border-radius:16px;background:#FFF;border:1px solid var(--line-soft);font-size:13px;line-height:1.65}.insight-list-item strong{color:#0F172A}
+.forecast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.forecast-card{padding:15px;border-radius:18px;background:#FFF;border:1px solid var(--line-soft);box-shadow:var(--card-shadow-soft)}.forecast-card .name{font-size:14px;font-weight:900;color:#0F172A;margin-bottom:8px}.forecast-kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.forecast-kv div{padding:9px;border-radius:12px;background:#F8FAFC;border:1px solid #E2E8F0}.forecast-kv span{display:block;font-size:11px;color:var(--gray);margin-bottom:3px}.forecast-kv strong{font-size:15px}
+.health-mini-table td,.health-mini-table th{font-size:12px}.status-good{background:var(--success-soft);color:var(--green)}.status-warn{background:var(--warning-soft);color:var(--orange)}.status-bad{background:var(--danger-soft);color:var(--red)}
 .page-shell{max-width:1440px;margin:0 auto;padding-bottom:28px}
 .hero-bar{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:24px 26px;margin-bottom:18px;background:linear-gradient(135deg,#0F172A 0%,#1E293B 55%,#334155 100%);color:#F8FAFC;border:1px solid rgba(148,163,184,.22);border-radius:24px;box-shadow:0 22px 60px rgba(15,23,42,.22)}
 .hero-title{font-size:34px;line-height:1.12;margin-bottom:10px;letter-spacing:.02em}
@@ -177,9 +192,9 @@ tbody tr:nth-child(even){background:rgba(248,250,252,.78)}
 tbody tr:hover{background:#EEF4FF}
 th:first-child{border-top-left-radius:14px}
 th:last-child{border-top-right-radius:14px}
-@media(max-width:1100px){.hero-bar,.progress-summary-grid,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid,.analysis-compare-grid,.monthly-district-rank-grid,.tier-hero,.tier-above-fold{grid-template-columns:1fr}.hero-meta,.kpi-grid,.summary-strip,.tier-compact-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.hero-bar,.progress-summary-grid,.dual-grid,.member-layout,.monthly-detail-grid,.section-pair,.team-summary-grid,.analysis-compare-grid,.monthly-district-rank-grid,.tier-hero,.tier-above-fold,.insight-hero{grid-template-columns:1fr}.hero-meta,.kpi-grid,.summary-strip,.tier-compact-metrics,.insight-card-grid,.forecast-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:768px){body{padding:12px}.tabs{top:8px;padding:10px}.card,.metric,.kpi-card{padding:16px}.hero-bar,.team-hero,.tier-hero{padding:20px}.hero-title,.team-hero-title,.tier-title{font-size:28px}.table-scroll{max-height:none}.priority-cards{grid-template-columns:1fr}.tier-hero-score{min-height:180px}}
-@media(max-width:640px){.hero-meta,.kpi-grid,.spotlight-metrics,.summary-strip,.tier-compact-metrics{grid-template-columns:1fr}.tab{flex:1 1 calc(50% - 10px);justify-content:center;text-align:center}.hero-meta{min-width:0}.overview-toolbar,.monthly-detail-head,.team-hero{flex-direction:column;align-items:stretch}.toolbar-group,.view-toggle,.team-hero-actions{width:100%}.control-chip,select,.data-status-toggle{justify-content:center}.section-heading{align-items:flex-start}}
+@media(max-width:640px){.hero-meta,.kpi-grid,.spotlight-metrics,.summary-strip,.tier-compact-metrics,.insight-card-grid,.forecast-grid{grid-template-columns:1fr}.tab{flex:1 1 calc(50% - 10px);justify-content:center;text-align:center}.hero-meta{min-width:0}.overview-toolbar,.monthly-detail-head,.team-hero{flex-direction:column;align-items:stretch}.toolbar-group,.view-toggle,.team-hero-actions{width:100%}.control-chip,select,.data-status-toggle{justify-content:center}.section-heading{align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -196,8 +211,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 14:03:15</div></div>
-<div style="display:none">数据更新时间: 2026/5/7 14:03:15</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 14:31:57</div></div>
+<div style="display:none">数据更新时间: 2026/5/7 14:31:57</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -256,6 +271,63 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="progress-footnote">口径：施工按累计施工金额 ÷ 7500 万，设计按累计设计单数 ÷ 550 单。</div>
+</section>
+
+<section id="overviewInsights" class="cockpit-section section-anchor">
+<div class="section-heading">
+<div><h2>经营判断台</h2><p>把结果、短板、风险和下一步动作收在首页，先判断再下钻。</p></div>
+<span class="inline-stat">最新月份 {{dashboardInsights.latestMonth || '-'}}</span>
+</div>
+<div class="insight-hero">
+<div class="insight-verdict">
+<div class="eyebrow">EXECUTIVE VERDICT</div>
+<div class="title">{{dashboardInsights.verdict}}</div>
+<div class="desc">这块只使用规则判断，不接大模型；每条结论都保留依据，避免“看起来很聪明但说不清楚”。</div>
+</div>
+<div class="insight-card-grid">
+<div class="insight-card" v-for="card in dashboardInsights.executiveCards" :key="card.title">
+<div class="insight-card-head">
+<div>
+<div class="label">{{card.title}}</div>
+<div class="value">{{card.value}}</div>
+</div>
+<span class="team-status" :class="card.statusClass">{{card.statusClass==='status-good'?'健康':card.statusClass==='status-bad'?'预警':'观察'}}</span>
+</div>
+<div class="desc">{{card.desc}}</div>
+<div class="basis">依据：{{card.basis}}</div>
+</div>
+</div>
+</div>
+<div class="section-pair">
+<div class="card">
+<div class="card-title">🚦 风险优先级</div>
+<div class="helper-text" style="margin-bottom:12px">按目标预测、运营短板、月度波动、家顾效率自动排序，先看 P1/P2。</div>
+<div class="insight-list">
+<div v-for="item in dashboardInsights.focusCards" :key="item.title" class="insight-list-item">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+<strong>{{item.title}}</strong>
+<span class="priority-pill" :class="String(item.priority || '').toLowerCase()">{{item.priority}}</span>
+</div>
+<div>{{item.desc}}</div>
+<div class="helper-text">依据：{{item.basis}}</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">✅ 本周行动建议</div>
+<div class="helper-text" style="margin-bottom:12px">建议只当经营提醒，不替代人工判断；适合拿去安排跟进动作。</div>
+<div class="insight-list">
+<div v-for="item in dashboardInsights.actionItems" :key="item.owner + item.action" class="insight-list-item">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+<strong>{{item.owner}}</strong>
+<span class="priority-pill" :class="String(item.priority || '').toLowerCase()">{{item.priority}}</span>
+</div>
+<div>{{item.action}}</div>
+<div class="helper-text">依据：{{item.basis}}</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="overviewTrend" class="cockpit-section section-anchor">
@@ -550,6 +622,79 @@ th:last-child{border-top-right-radius:14px}
 
 <!-- ========== 对比分析 ========== -->
 <div v-show="tab==='analysis'" class="fade-in">
+<div class="section-heading">
+<div><h2>经营深度分析</h2><p>新增目标预测、异常波动、运营健康分与家顾效率矩阵，帮助从“发生了什么”走到“下一步盯什么”。</p></div>
+<span class="inline-stat">{{dashboardInsights.previousMonth || '-'}} → {{dashboardInsights.latestMonth || '-'}}</span>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">🎯 目标缺口预测</div>
+<div class="helper-text" style="margin-bottom:12px">按当前年度时间进度线性外推，只用于提前预警，不替代正式 KPI 结算。</div>
+<div class="forecast-grid">
+<div class="forecast-card" v-for="row in dashboardInsights.targetForecast" :key="row.name">
+<div class="name">{{row.name}}</div>
+<div class="forecast-kv">
+<div><span>当前</span><strong>{{row.actual}}</strong></div>
+<div><span>目标</span><strong>{{row.target}}</strong></div>
+<div><span>预计全年</span><strong>{{row.forecast}}</strong></div>
+<div><span>预计差额</span><strong>{{row.gap}}</strong></div>
+</div>
+<div class="helper-text" style="margin-top:10px">完成率 {{row.rate}}% · {{row.basis}}</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">📉 月度异常波动</div>
+<div class="helper-text" style="margin-bottom:12px">识别门店环比明显上涨/下降，下降项优先人工核查是否为入账节奏问题。</div>
+<div class="insight-list" v-if="dashboardInsights.monthlyAnomalies.length">
+<div class="insight-list-item" v-for="row in dashboardInsights.monthlyAnomalies" :key="row.district + row.store">
+<div style="display:flex;justify-content:space-between;gap:10px">
+<strong>{{row.store}}</strong>
+<span class="team-status" :class="row.direction==='下降'?'status-bad':'status-good'">{{row.direction}}</span>
+</div>
+<div>{{row.district}} · 施工 {{row.constructionDeltaDisplay}} · 设计 {{row.designDeltaDisplay}}</div>
+<div class="helper-text">依据：{{row.basis}}</div>
+</div>
+</div>
+<div v-else class="owner-empty">暂未发现明显月度异常波动。</div>
+</div>
+</div>
+<div class="section">
+<div class="card">
+<div class="card-title">🧭 运营经营观察分</div>
+<div class="helper-text" style="margin-bottom:12px">不是绩效打分，只是把施工、设计、本月活跃、覆盖和转化合成一个观察信号。</div>
+<div class="table-scroll">
+<table class="health-mini-table"><thead><tr><th>运营</th><th>观察分</th><th>状态</th><th>施工</th><th>设计</th><th>转化</th><th>依据</th></tr></thead><tbody>
+<tr v-for="row in dashboardInsights.ownerHealth" :key="row.owner">
+<td style="font-weight:800">{{row.owner}}</td>
+<td><span class="score-text">{{row.score}}</span></td>
+<td><span class="health-badge" :class="row.statusClass">{{row.status}}</span></td>
+<td>{{row.constructionAmountDisplay}} / {{row.constructionRate}}%</td>
+<td>{{row.designCount}}单 / {{row.designRate}}%</td>
+<td>{{row.conversion}}%</td>
+<td class="helper-text">{{row.basis}}</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card">
+<div class="card-title">🧩 家顾效率矩阵</div>
+<div class="helper-text" style="margin-bottom:12px">优先找“设计强但施工弱”“施工强但蓄水弱”的断点。</div>
+<div class="table-scroll">
+<table class="health-mini-table"><thead><tr><th>运营</th><th>门店</th><th>家顾</th><th>类型</th><th>设计</th><th>施工</th><th>建议动作</th></tr></thead><tbody>
+<tr v-for="row in dashboardInsights.advisorEfficiencyRows" :key="row.owner + row.store + row.advisor">
+<td>{{row.owner}}</td>
+<td>{{row.store}}</td>
+<td style="font-weight:800">{{row.advisor}}</td>
+<td><span class="priority-tag">{{row.category}}</span></td>
+<td>{{row.designCount}}单</td>
+<td>{{row.constructionCount}}单 / {{row.constructionAmountDisplay}}</td>
+<td class="helper-text">{{row.action}}</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
 <div class="section">
 <div class="card">
 <div class="card-title">🏆 大区 PK</div>
@@ -857,7 +1002,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 14:03:15</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 14:31:57</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -7647,7 +7792,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 14:03:15 CST",
+      "updatedAt": "2026-05-07 14:31:57 CST",
       "members": [
         {
           "name": "周国平",
@@ -7686,7 +7831,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 14:03:15 CST",
+      "updatedAt": "2026-05-07 14:31:57 CST",
       "members": [
         {
           "name": "周国平",
@@ -7725,7 +7870,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 14:03:15 CST",
+      "updatedAt": "2026-05-07 14:31:57 CST",
       "members": [
         {
           "name": "周国平",
@@ -7764,7 +7909,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 14:03:15 CST",
+      "updatedAt": "2026-05-07 14:31:57 CST",
       "members": [
         {
           "name": "周国平",
@@ -7803,7 +7948,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 14:03:15 CST",
+      "updatedAt": "2026-05-07 14:31:57 CST",
       "members": [
         {
           "name": "周国平",
@@ -7843,7 +7988,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-07 14:03:15 CST",
+    "updatedAt": "2026-05-07 14:31:57 CST",
     "members": [
       {
         "name": "周国平",
@@ -12117,6 +12262,467 @@ const tierAccountData = {
   "source": "腾讯文档梯队名单",
   "updatedAt": "2026-05-01T02:59:39.810Z"
 };
+const dashboardInsights = {
+  "version": 1,
+  "generatedAt": "2026-05-07T06:31:57.527Z",
+  "latestMonth": "2026-05",
+  "previousMonth": "2026-04",
+  "timeProgress": 34.7,
+  "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
+  "executiveCards": [
+    {
+      "title": "经营结论",
+      "value": "健康",
+      "statusClass": "status-good",
+      "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
+      "basis": "短板完成率 48.6% vs 时间进度 34.7%"
+    },
+    {
+      "title": "最大短板",
+      "value": "施工兑现",
+      "statusClass": "status-good",
+      "desc": "施工金额完成率低于设计单数完成率。",
+      "basis": "施工48.6% · 设计55.5%"
+    },
+    {
+      "title": "转化兑现",
+      "value": "66%",
+      "statusClass": "status-good",
+      "desc": "按年度累计施工单数 / 设计单数估算。",
+      "basis": "201施工 / 305设计"
+    },
+    {
+      "title": "本月火力点",
+      "value": "宁章娜",
+      "statusClass": "status-good",
+      "desc": "2026-05 施工金额 123.5万，记录 14 条。",
+      "basis": "按本月施工金额排序"
+    }
+  ],
+  "focusCards": [
+    {
+      "title": "目标预测",
+      "priority": "P2",
+      "desc": "施工金额预测预计 10513.7万；设计单数预测预计 879单。",
+      "basis": "线性外推，仅作经营预警"
+    },
+    {
+      "title": "运营短板",
+      "priority": "P1",
+      "desc": "黄诗宇 当前观察分 33，施工13.6% · 设计36% · 本月2条。",
+      "basis": "施工/设计/本月活跃/覆盖/转化综合评分"
+    },
+    {
+      "title": "月度波动",
+      "priority": "P1",
+      "desc": "星沙店 下降：施工-158.7万，设计-7单。",
+      "basis": "2026-04 对比 2026-05"
+    },
+    {
+      "title": "家顾效率",
+      "priority": "P1",
+      "desc": "罗怀安：均衡观察，继续观察设计到施工闭环。",
+      "basis": "按设计、施工、金额与转化综合排序"
+    }
+  ],
+  "targetForecast": [
+    {
+      "name": "施工金额预测",
+      "actual": "3648.3万",
+      "target": "7500万",
+      "rate": 48.6,
+      "forecast": "10513.7万",
+      "gap": "+3013.7万",
+      "status": "健康",
+      "basis": "按当前 34.7% 时间进度线性外推"
+    },
+    {
+      "name": "设计单数预测",
+      "actual": "305单",
+      "target": "550单",
+      "rate": 55.5,
+      "forecast": "879单",
+      "gap": "+329单",
+      "status": "健康",
+      "basis": "按当前 34.7% 时间进度线性外推"
+    }
+  ],
+  "ownerHealth": [
+    {
+      "owner": "黄诗宇",
+      "score": 33,
+      "status": "优先跟进",
+      "statusClass": "health-d",
+      "constructionAmount": 1494977,
+      "constructionAmountDisplay": "149.5万",
+      "constructionRate": 13.6,
+      "designCount": 18,
+      "designRate": 36,
+      "conversion": 55.6,
+      "storeCount": 6,
+      "latestCount": 2,
+      "basis": "施工13.6% · 设计36% · 本月2条"
+    },
+    {
+      "owner": "向勇",
+      "score": 63,
+      "status": "观察",
+      "statusClass": "health-c",
+      "constructionAmount": 6804913,
+      "constructionAmountDisplay": "680.5万",
+      "constructionRate": 40,
+      "designCount": 64,
+      "designRate": 42.7,
+      "conversion": 57.8,
+      "storeCount": 11,
+      "latestCount": 10,
+      "basis": "施工40% · 设计42.7% · 本月10条"
+    },
+    {
+      "owner": "周国平",
+      "score": 68,
+      "status": "观察",
+      "statusClass": "health-c",
+      "constructionAmount": 9483581,
+      "constructionAmountDisplay": "948.4万",
+      "constructionRate": 55.8,
+      "designCount": 75,
+      "designRate": 50,
+      "conversion": 72,
+      "storeCount": 8,
+      "latestCount": 10,
+      "basis": "施工55.8% · 设计50% · 本月10条"
+    },
+    {
+      "owner": "钟海燕",
+      "score": 75,
+      "status": "健康",
+      "statusClass": "health-a",
+      "constructionAmount": 8768630,
+      "constructionAmountDisplay": "876.9万",
+      "constructionRate": 58.5,
+      "designCount": 64,
+      "designRate": 64,
+      "conversion": 68.8,
+      "storeCount": 10,
+      "latestCount": 15,
+      "basis": "施工58.5% · 设计64% · 本月15条"
+    },
+    {
+      "owner": "宁章娜",
+      "score": 81,
+      "status": "健康",
+      "statusClass": "health-a",
+      "constructionAmount": 9930449,
+      "constructionAmountDisplay": "993万",
+      "constructionRate": 66.2,
+      "designCount": 84,
+      "designRate": 84,
+      "conversion": 66.7,
+      "storeCount": 9,
+      "latestCount": 14,
+      "basis": "施工66.2% · 设计84% · 本月14条"
+    }
+  ],
+  "monthlyAnomalies": [
+    {
+      "district": "长沙大区",
+      "store": "星沙店",
+      "direction": "下降",
+      "constructionDelta": -1586882,
+      "constructionDeltaDisplay": "-158.7万",
+      "designDelta": -7,
+      "designDeltaDisplay": "-7单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 71.86882
+    },
+    {
+      "district": "地市一区",
+      "store": "南宁店",
+      "direction": "下降",
+      "constructionDelta": -374889,
+      "constructionDeltaDisplay": "-37.5万",
+      "designDelta": -7,
+      "designDeltaDisplay": "-7单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 59.74889
+    },
+    {
+      "district": "长沙大区",
+      "store": "平江店",
+      "direction": "下降",
+      "constructionDelta": -210430,
+      "constructionDeltaDisplay": "-21万",
+      "designDelta": 7,
+      "designDeltaDisplay": "+7单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 58.1043
+    },
+    {
+      "district": "长沙大区",
+      "store": "城东店",
+      "direction": "下降",
+      "constructionDelta": 0,
+      "constructionDeltaDisplay": "+0万",
+      "designDelta": -5,
+      "designDeltaDisplay": "-5单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 40
+    },
+    {
+      "district": "长沙大区",
+      "store": "洋湖店",
+      "direction": "下降",
+      "constructionDelta": -474916,
+      "constructionDeltaDisplay": "-47.5万",
+      "designDelta": -3,
+      "designDeltaDisplay": "-3单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 28.74916
+    },
+    {
+      "district": "地市二区",
+      "store": "株洲神农店",
+      "direction": "下降",
+      "constructionDelta": -311462,
+      "constructionDeltaDisplay": "-31.1万",
+      "designDelta": -3,
+      "designDeltaDisplay": "-3单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 27.11462
+    },
+    {
+      "district": "地市二区",
+      "store": "岳阳锦城店",
+      "direction": "上升",
+      "constructionDelta": 129404,
+      "constructionDeltaDisplay": "+12.9万",
+      "designDelta": 3,
+      "designDeltaDisplay": "+3单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 25.29404
+    },
+    {
+      "district": "长沙大区",
+      "store": "梅溪湖店",
+      "direction": "下降",
+      "constructionDelta": -851267,
+      "constructionDeltaDisplay": "-85.1万",
+      "designDelta": -2,
+      "designDeltaDisplay": "-2单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 24.51267
+    }
+  ],
+  "advisorEfficiencyRows": [
+    {
+      "owner": "钟海燕",
+      "district": "长沙大区",
+      "store": "平江店",
+      "advisor": "罗怀安",
+      "designCount": 18,
+      "constructionCount": 9,
+      "constructionAmount": 1926693,
+      "constructionAmountDisplay": "192.7万",
+      "conversion": 50,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 46.26693
+    },
+    {
+      "owner": "周国平",
+      "district": "长沙大区",
+      "store": "梅溪湖店",
+      "advisor": "罗委乡",
+      "designCount": 19,
+      "constructionCount": 9,
+      "constructionAmount": 1460947,
+      "constructionAmountDisplay": "146.1万",
+      "conversion": 47.4,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 42.60947
+    },
+    {
+      "owner": "周国平",
+      "district": "长沙大区",
+      "store": "星沙店",
+      "advisor": "蒋志军",
+      "designCount": 12,
+      "constructionCount": 9,
+      "constructionAmount": 1812870,
+      "constructionAmountDisplay": "181.3万",
+      "conversion": 75,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 39.128699999999995
+    },
+    {
+      "owner": "宁章娜",
+      "district": "长沙大区",
+      "store": "星沙店",
+      "advisor": "陈湘",
+      "designCount": 12,
+      "constructionCount": 8,
+      "constructionAmount": 1675613,
+      "constructionAmountDisplay": "167.6万",
+      "conversion": 66.7,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 36.75613
+    },
+    {
+      "owner": "宁章娜",
+      "district": "地市一区",
+      "store": "南宁店",
+      "advisor": "梁国生",
+      "designCount": 9,
+      "constructionCount": 9,
+      "constructionAmount": 1404117,
+      "constructionAmountDisplay": "140.4万",
+      "conversion": 100,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 32.04117
+    },
+    {
+      "owner": "钟海燕",
+      "district": "长沙大区",
+      "store": "平江店",
+      "advisor": "唐展鹏",
+      "designCount": 4,
+      "constructionCount": 0,
+      "constructionAmount": 0,
+      "constructionAmountDisplay": "0万",
+      "conversion": 0,
+      "category": "待兑现",
+      "action": "安排逐单跟进，避免设计单沉没。",
+      "priority": 32
+    },
+    {
+      "owner": "向勇",
+      "district": "长沙大区",
+      "store": "洋湖店",
+      "advisor": "王海波",
+      "designCount": 3,
+      "constructionCount": 0,
+      "constructionAmount": 0,
+      "constructionAmountDisplay": "0万",
+      "conversion": 0,
+      "category": "待兑现",
+      "action": "安排逐单跟进，避免设计单沉没。",
+      "priority": 31
+    },
+    {
+      "owner": "向勇",
+      "district": "长沙大区",
+      "store": "洋湖店",
+      "advisor": "周维",
+      "designCount": 3,
+      "constructionCount": 0,
+      "constructionAmount": 0,
+      "constructionAmountDisplay": "0万",
+      "conversion": 0,
+      "category": "待兑现",
+      "action": "安排逐单跟进，避免设计单沉没。",
+      "priority": 31
+    },
+    {
+      "owner": "宁章娜",
+      "district": "地市一区",
+      "store": "南宁店",
+      "advisor": "王传龙",
+      "designCount": 8,
+      "constructionCount": 8,
+      "constructionAmount": 1102011,
+      "constructionAmountDisplay": "110.2万",
+      "conversion": 100,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 27.020110000000003
+    },
+    {
+      "owner": "宁章娜",
+      "district": "地市一区",
+      "store": "张家界店",
+      "advisor": "伍显微",
+      "designCount": 8,
+      "constructionCount": 5,
+      "constructionAmount": 1118129,
+      "constructionAmountDisplay": "111.8万",
+      "conversion": 62.5,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 24.18129
+    },
+    {
+      "owner": "钟海燕",
+      "district": "地市二区",
+      "store": "岳阳锦城店",
+      "advisor": "张爱芳",
+      "designCount": 7,
+      "constructionCount": 4,
+      "constructionAmount": 953528,
+      "constructionAmountDisplay": "95.4万",
+      "conversion": 57.1,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 20.53528
+    },
+    {
+      "owner": "周国平",
+      "district": "地市一区",
+      "store": "怀化湖天店",
+      "advisor": "王奇",
+      "designCount": 7,
+      "constructionCount": 5,
+      "constructionAmount": 847980,
+      "constructionAmountDisplay": "84.8万",
+      "conversion": 71.4,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 20.479799999999997
+    }
+  ],
+  "actionItems": [
+    {
+      "priority": "P1",
+      "owner": "黄诗宇",
+      "action": "本周优先复盘负责区域里的低活跃门店和设计未转施工家顾。",
+      "basis": "施工13.6% · 设计36% · 本月2条"
+    },
+    {
+      "priority": "P1",
+      "owner": "长沙大区",
+      "action": "核查 星沙店 环比下降原因，确认是入账节奏还是真实掉量。",
+      "basis": "施工-158.7万 · 设计-7单"
+    },
+    {
+      "priority": "P1",
+      "owner": "地市一区",
+      "action": "核查 南宁店 环比下降原因，确认是入账节奏还是真实掉量。",
+      "basis": "施工-37.5万 · 设计-7单"
+    },
+    {
+      "priority": "P2",
+      "owner": "钟海燕",
+      "action": "平江店 唐展鹏：安排逐单跟进，避免设计单沉没。",
+      "basis": "4设计 / 0施工 / 0万"
+    },
+    {
+      "priority": "P2",
+      "owner": "向勇",
+      "action": "洋湖店 王海波：安排逐单跟进，避免设计单沉没。",
+      "basis": "3设计 / 0施工 / 0万"
+    },
+    {
+      "priority": "P2",
+      "owner": "向勇",
+      "action": "洋湖店 周维：安排逐单跟进，避免设计单沉没。",
+      "basis": "3设计 / 0施工 / 0万"
+    }
+  ]
+};
 
 createApp({
 setup(){
@@ -12880,6 +13486,7 @@ watch(regionRankTab,()=>nextTick(()=>initRegionCharts()));
 
 return {
   tab,storeRankTab,quarterSel,qStoreRankTab,teamRankMode,qStoreDesignTop,advisorOwnerFilter,advisorOwnerOptions,monthSel,teamMonthSel,teamMonthOptions,showTeamDataStatus,monthDist,monthType,months,monthList,teamDetailFilter,tableDensity,ownerDetailFilters,
+  dashboardInsights,
   totalRecords:rawData.length,totalDesign,totalConstr,totalConAmount,totalDesAmount,
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
