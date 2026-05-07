@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 07:51:45</div></div>
-<div style="display:none">数据更新时间: 2026/5/7 07:51:45</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 09:17:53</div></div>
+<div style="display:none">数据更新时间: 2026/5/7 09:17:53</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -843,7 +843,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 07:51:45</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 09:17:53</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -7633,7 +7633,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 07:51:45 CST",
+      "updatedAt": "2026-05-07 09:17:53 CST",
       "members": [
         {
           "name": "周国平",
@@ -7672,7 +7672,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 07:51:45 CST",
+      "updatedAt": "2026-05-07 09:17:53 CST",
       "members": [
         {
           "name": "周国平",
@@ -7711,7 +7711,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 07:51:45 CST",
+      "updatedAt": "2026-05-07 09:17:53 CST",
       "members": [
         {
           "name": "周国平",
@@ -7750,7 +7750,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 07:51:45 CST",
+      "updatedAt": "2026-05-07 09:17:53 CST",
       "members": [
         {
           "name": "周国平",
@@ -7789,7 +7789,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 07:51:45 CST",
+      "updatedAt": "2026-05-07 09:17:53 CST",
       "members": [
         {
           "name": "周国平",
@@ -7829,7 +7829,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-07 07:51:45 CST",
+    "updatedAt": "2026-05-07 09:17:53 CST",
     "members": [
       {
         "name": "周国平",
@@ -10140,60 +10140,736 @@ const tierAccountData = {
     }
   ],
   "summary": {
-    "total": 119,
-    "by_owner": {
-      "向勇": 30,
-      "周国平": 34,
-      "宁章娜": 24,
-      "钟海燕": 19,
-      "黄诗宇": 12
+    "totalAccounts": 119,
+    "tier1": 5,
+    "tier2": 9,
+    "tier3": 23,
+    "tier4": 82,
+    "ungroupedCount": 40,
+    "newRewardCount": 10,
+    "highPotentialCount": 14
+  },
+  "operatorStats": [
+    {
+      "operator": "周国平",
+      "total": 34,
+      "head": 4,
+      "第三梯队": 6,
+      "第四梯队": 24,
+      "ungrouped": 14,
+      "sign2026Total": 51,
+      "highPotential": 3,
+      "amount2025": 14385311.573
     },
-    "by_tier": {
-      "第一梯队": 5,
-      "第二梯队": 9,
-      "第三梯队": 23,
-      "第四梯队": 82
+    {
+      "operator": "向勇",
+      "total": 30,
+      "head": 1,
+      "第三梯队": 5,
+      "第四梯队": 24,
+      "ungrouped": 12,
+      "sign2026Total": 20,
+      "highPotential": 3,
+      "amount2025": 10778161
     },
-    "by_owner_tier": {
-      "向勇": {
-        "第一梯队": 1,
-        "第三梯队": 5,
-        "第四梯队": 24
-      },
-      "周国平": {
-        "第一梯队": 2,
-        "第二梯队": 2,
-        "第三梯队": 6,
-        "第四梯队": 24
-      },
-      "宁章娜": {
-        "第一梯队": 1,
-        "第二梯队": 3,
-        "第三梯队": 3,
-        "第四梯队": 17
-      },
-      "钟海燕": {
-        "第一梯队": 1,
-        "第二梯队": 2,
-        "第三梯队": 4,
-        "第四梯队": 12
-      },
-      "黄诗宇": {
-        "第二梯队": 2,
-        "第三梯队": 5,
-        "第四梯队": 5
-      }
+    {
+      "operator": "钟海燕",
+      "total": 19,
+      "head": 3,
+      "第三梯队": 4,
+      "第四梯队": 12,
+      "ungrouped": 6,
+      "sign2026Total": 33,
+      "highPotential": 2,
+      "amount2025": 8774346.120000001
     },
-    "no_group_count": 40,
-    "new_reward_count": 10,
-    "amount_by_owner": {
-      "向勇": 10778161,
-      "周国平": 14385311.573,
-      "宁章娜": 6341132.918,
-      "钟海燕": 8774346.120000001,
-      "黄诗宇": 440000
+    {
+      "operator": "宁章娜",
+      "total": 24,
+      "head": 4,
+      "第三梯队": 3,
+      "第四梯队": 17,
+      "ungrouped": 7,
+      "sign2026Total": 40,
+      "highPotential": 3,
+      "amount2025": 6341132.918
+    },
+    {
+      "operator": "黄诗宇",
+      "total": 12,
+      "head": 2,
+      "第三梯队": 5,
+      "第四梯队": 5,
+      "ungrouped": 1,
+      "sign2026Total": 7,
+      "highPotential": 3,
+      "amount2025": 440000
     }
-  }
+  ],
+  "tierMatrix": [
+    {
+      "operator": "周国平",
+      "第一梯队": 2,
+      "第二梯队": 2,
+      "第三梯队": 6,
+      "第四梯队": 24,
+      "合计": 34
+    },
+    {
+      "operator": "向勇",
+      "第一梯队": 1,
+      "第二梯队": 0,
+      "第三梯队": 5,
+      "第四梯队": 24,
+      "合计": 30
+    },
+    {
+      "operator": "钟海燕",
+      "第一梯队": 1,
+      "第二梯队": 2,
+      "第三梯队": 4,
+      "第四梯队": 12,
+      "合计": 19
+    },
+    {
+      "operator": "宁章娜",
+      "第一梯队": 1,
+      "第二梯队": 3,
+      "第三梯队": 3,
+      "第四梯队": 17,
+      "合计": 24
+    },
+    {
+      "operator": "黄诗宇",
+      "第一梯队": 0,
+      "第二梯队": 2,
+      "第三梯队": 5,
+      "第四梯队": 5,
+      "合计": 12
+    }
+  ],
+  "ungroupedAccounts": [
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "星沙",
+      "advisor": "黄平华",
+      "accountName": "长沙装修华子",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "湘府",
+      "advisor": "宁可",
+      "accountName": "长沙点石宁可",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "湘府",
+      "advisor": "王道航",
+      "accountName": "大航爱装修·龙湖云和颂/保利天瑞",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "湘府",
+      "advisor": "舒小虎",
+      "accountName": "长沙做装修的小虎哥",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "衡阳",
+      "advisor": "戴宇杰",
+      "accountName": "衡阳点石装修丨小戴",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "衡阳",
+      "advisor": "段黎明",
+      "accountName": "常宁点石家装·黎明",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "衡阳",
+      "advisor": "邱菊",
+      "accountName": "常宁装修~邱菊",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "曾纯慧",
+      "accountName": "邵东装修大曾",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "杨文武",
+      "accountName": "新邵点石装修小杨锅",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "蒋珺",
+      "accountName": "宝庆装修蒋总",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "郴州",
+      "advisor": "刘学娇",
+      "accountName": "郴州装修学姣",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "郴州",
+      "advisor": "彭烈艺",
+      "accountName": "郴州装修彭哥",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "郴州",
+      "advisor": "李亚娟",
+      "accountName": "郴州装修 亚娟",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "刘亚芳",
+      "accountName": "点石女汉子小芳",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "徐家发",
+      "accountName": "",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "谢丽",
+      "accountName": "谢丽常德点石装修设计",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "怀化",
+      "advisor": "杨涛",
+      "accountName": "怀化装修小杨",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "怀化",
+      "advisor": "涂贤秀",
+      "accountName": "芷江装修秀姐",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "怀化",
+      "advisor": "黄秀秀",
+      "accountName": "会同点石家装秀秀美女",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "杨紫航",
+      "accountName": "点石家装杨紫航",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "胡峰",
+      "accountName": "长沙点石家装胡峰",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "陈婉毅",
+      "accountName": "点石家装婉婉",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "梅溪湖",
+      "advisor": "李明",
+      "accountName": "长沙装修小李",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "文胜",
+      "accountName": "湘乡装修点石文胜",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "王茜",
+      "accountName": "湘乡装修嘻嘻",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "罗琴",
+      "accountName": "湘潭点石家装罗掌柜",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "南宁",
+      "advisor": "刘紫薇",
+      "accountName": "南宁装修紫薇呀",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "南宁",
+      "advisor": "尕藏卓玛",
+      "accountName": "青云台｜点石•卓玛",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "南宁",
+      "advisor": "朱萧炎",
+      "accountName": "南宁点石家装-萧炎",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "娄底",
+      "advisor": "李金星",
+      "accountName": "双峰装修金星",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "吴肖",
+      "accountName": "长沙装修吴肖",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "孙叶",
+      "accountName": "点石家装孙叶",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "浏阳",
+      "advisor": "王琳",
+      "accountName": "浏阳点石家装王琳姐",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "大宅-湘府",
+      "advisor": "游航",
+      "accountName": "点石大宅you",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "岳阳",
+      "advisor": "河江",
+      "accountName": "岳阳点石家装一何经理",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "株洲",
+      "advisor": "何琴",
+      "accountName": "株洲装修何琴",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "株洲",
+      "advisor": "周跃+陈冰纯",
+      "accountName": "株洲装修|周跃",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "株洲",
+      "advisor": "陈旭辉",
+      "accountName": "搞装修找旭辉",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "龙湖",
+      "advisor": "梁铁军",
+      "accountName": "长沙装修铁军",
+      "action": "补群并建立日常跟进闭环"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第四梯队",
+      "region": "宁乡",
+      "advisor": "王选",
+      "accountName": "宁乡装修选选",
+      "action": "补群并建立日常跟进闭环"
+    }
+  ],
+  "highPotentialAccounts": [
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "星沙",
+      "advisor": "卢泽川",
+      "accountName": "叫我点石搞装修的阿川",
+      "sign2026Total": 4,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "梅溪湖",
+      "advisor": "杨磊",
+      "accountName": "长沙装修小磊哥",
+      "sign2026Total": 4,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第三梯队",
+      "region": "湘府",
+      "advisor": "李春梅",
+      "accountName": "长沙装修 梅姐姐",
+      "sign2026Total": 3,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第三梯队",
+      "region": "娄底",
+      "advisor": "梅兰芳",
+      "accountName": "新化装修梅兰芳",
+      "sign2026Total": 3,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第三梯队",
+      "region": "大宅-马王堆",
+      "advisor": "张嘉辉",
+      "accountName": "长沙大宅装修嘉辉",
+      "sign2026Total": 3,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第三梯队",
+      "region": "湘府",
+      "advisor": "周维",
+      "accountName": "长沙点石家装 周维",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第三梯队",
+      "region": "衡阳",
+      "advisor": "谢利婷",
+      "accountName": "衡阳点石家装丨谢利婷",
+      "sign2026Total": 2,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "湘潭",
+      "advisor": "王永",
+      "accountName": "湘潭点石家装王咏",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第三梯队",
+      "region": "南宁",
+      "advisor": "农显铄",
+      "accountName": "小农或者阿铄（南宁装修）",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第三梯队",
+      "region": "南宁",
+      "advisor": "钟长发",
+      "accountName": "南宁装修丨点石小钟",
+      "sign2026Total": 2,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第三梯队",
+      "region": "马王堆-城北",
+      "advisor": "张彪",
+      "accountName": "长沙装修小虎哥",
+      "sign2026Total": 1,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第三梯队",
+      "region": "岳阳",
+      "advisor": "戴葡",
+      "accountName": "湖南装修点石家装戴葡",
+      "sign2026Total": 0,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第三梯队",
+      "region": "马王堆-城东",
+      "advisor": "朱佳",
+      "accountName": "长沙装修 朱哥",
+      "sign2026Total": 0,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第三梯队",
+      "region": "马王堆-城东",
+      "advisor": "汤军",
+      "accountName": "长沙装修～汤圆",
+      "sign2026Total": 0,
+      "reason": "已有新增奖励，优先放大"
+    }
+  ],
+  "bottomCleanupAccounts": [
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "湘府",
+      "advisor": "舒小虎",
+      "accountName": "长沙做装修的小虎哥",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "衡阳",
+      "advisor": "戴宇杰",
+      "accountName": "衡阳点石装修丨小戴",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "衡阳",
+      "advisor": "段黎明",
+      "accountName": "常宁点石家装·黎明",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "曾纯慧",
+      "accountName": "邵东装修大曾",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "杨文武",
+      "accountName": "新邵点石装修小杨锅",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "邵阳",
+      "advisor": "蒋珺",
+      "accountName": "宝庆装修蒋总",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "郴州",
+      "advisor": "刘学娇",
+      "accountName": "郴州装修学姣",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "向勇",
+      "tier": "第四梯队",
+      "region": "郴州",
+      "advisor": "彭烈艺",
+      "accountName": "郴州装修彭哥",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "刘亚芳",
+      "accountName": "点石女汉子小芳",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "徐家发",
+      "accountName": "",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "常德",
+      "advisor": "谢丽",
+      "accountName": "谢丽常德点石装修设计",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "怀化",
+      "advisor": "涂贤秀",
+      "accountName": "芷江装修秀姐",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "文胜",
+      "accountName": "湘乡装修点石文胜",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "王茜",
+      "accountName": "湘乡装修嘻嘻",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第四梯队",
+      "region": "湘潭",
+      "advisor": "罗琴",
+      "accountName": "湘潭点石家装罗掌柜",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "南宁",
+      "advisor": "朱萧炎",
+      "accountName": "南宁点石家装-萧炎",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "吴肖",
+      "accountName": "长沙装修吴肖",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "星沙",
+      "advisor": "孙叶",
+      "accountName": "点石家装孙叶",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第四梯队",
+      "region": "浏阳",
+      "advisor": "王琳",
+      "accountName": "浏阳点石家装王琳姐",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "大宅-湘府",
+      "advisor": "游航",
+      "accountName": "点石大宅you",
+      "action": "清理/重定策略"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第四梯队",
+      "region": "株洲",
+      "advisor": "何琴",
+      "accountName": "株洲装修何琴",
+      "action": "清理/重定策略"
+    }
+  ],
+  "source": "腾讯文档梯队名单",
+  "updatedAt": "2026-05-01T02:59:39.810Z"
 };
 
 createApp({
