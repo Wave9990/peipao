@@ -196,8 +196,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 13:50:27</div></div>
-<div style="display:none">数据更新时间: 2026/5/7 13:50:27</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/7 14:03:15</div></div>
+<div style="display:none">数据更新时间: 2026/5/7 14:03:15</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -335,17 +335,24 @@ th:last-child{border-top-right-radius:14px}
 <div class="table-panel-head">
 <div>
 <div class="card-title">👨‍💼 家顾施工排名 TOP15</div>
-<div class="helper-text">复盘区重做为“图表/榜单”协调布局，减少长表直顶的压迫感。</div>
+<div class="helper-text">显示归属陪跑运营；筛选后按当前运营范围重新取 TOP15。</div>
 </div>
-<span class="inline-stat">年度累计口径</span>
+<div class="toolbar-group">
+<label class="toolbar-caption" for="advisorOwnerFilterCon">归属运营</label>
+<select id="advisorOwnerFilterCon" v-model="advisorOwnerFilter">
+<option v-for="owner in advisorOwnerOptions" :key="'con-'+owner" :value="owner">{{owner}}</option>
+</select>
+<span class="inline-stat">{{advisorOwnerFilter==='全部'?'年度累计口径':'筛选后 TOP15'}}</span>
+</div>
 </div>
 <div class="table-scroll">
-<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>归属运营</th><th>施工单数</th><th>施工金额(万)</th></tr></thead><tbody>
 <tr v-for="(a,i) in advisorConTop15" :key="a.key">
 <td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
 <td><span class="tag" :class="distClass(a.district)">{{a.district}}</span></td>
 <td>{{a.store}}</td>
 <td style="font-weight:700">{{a.advisor}}</td>
+<td><span class="tag" :class="a.owner==='未匹配'?'tag-d2':'tag-d1'">{{a.owner}}</span></td>
 <td>{{a.count}}</td>
 <td style="color:var(--blue);font-weight:600">{{fmtW(a.amount)}}</td>
 </tr></tbody></table>
@@ -356,17 +363,24 @@ th:last-child{border-top-right-radius:14px}
 <div class="table-panel-head">
 <div>
 <div class="card-title">🎨 家顾设计排名 TOP15</div>
-<div class="helper-text">与施工榜单保持统一表头密度、圆角与滚动容器。</div>
+<div class="helper-text">与施工榜单共用归属运营筛选，筛选后仍保持 TOP15 口径。</div>
 </div>
-<span class="inline-stat">按设计单数排序</span>
+<div class="toolbar-group">
+<label class="toolbar-caption" for="advisorOwnerFilterDes">归属运营</label>
+<select id="advisorOwnerFilterDes" v-model="advisorOwnerFilter">
+<option v-for="owner in advisorOwnerOptions" :key="'des-'+owner" :value="owner">{{owner}}</option>
+</select>
+<span class="inline-stat">{{advisorOwnerFilter==='全部'?'按设计单数排序':'筛选后 TOP15'}}</span>
+</div>
 </div>
 <div class="table-scroll">
-<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
+<table><thead><tr><th>排名</th><th>大区</th><th>门店</th><th>家顾</th><th>归属运营</th><th>设计单数</th><th>设计金额(万)</th></tr></thead><tbody>
 <tr v-for="(a,i) in advisorDesTop15" :key="a.key">
 <td><span class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'">{{i+1}}</span></td>
 <td><span class="tag" :class="distClass(a.district)">{{a.district}}</span></td>
 <td>{{a.store}}</td>
 <td style="font-weight:700">{{a.advisor}}</td>
+<td><span class="tag" :class="a.owner==='未匹配'?'tag-d2':'tag-d1'">{{a.owner}}</span></td>
 <td style="color:var(--orange);font-weight:600">{{a.count}}</td>
 <td style="color:var(--orange)">{{fmtW(a.amount)}}</td>
 </tr></tbody></table>
@@ -843,7 +857,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 13:50:27</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/7 14:03:15</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -7633,7 +7647,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 13:50:27 CST",
+      "updatedAt": "2026-05-07 14:03:15 CST",
       "members": [
         {
           "name": "周国平",
@@ -7672,7 +7686,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 13:50:27 CST",
+      "updatedAt": "2026-05-07 14:03:15 CST",
       "members": [
         {
           "name": "周国平",
@@ -7711,7 +7725,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 13:50:27 CST",
+      "updatedAt": "2026-05-07 14:03:15 CST",
       "members": [
         {
           "name": "周国平",
@@ -7750,7 +7764,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 13:50:27 CST",
+      "updatedAt": "2026-05-07 14:03:15 CST",
       "members": [
         {
           "name": "周国平",
@@ -7789,7 +7803,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-07 13:50:27 CST",
+      "updatedAt": "2026-05-07 14:03:15 CST",
       "members": [
         {
           "name": "周国平",
@@ -7829,7 +7843,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-07 13:50:27 CST",
+    "updatedAt": "2026-05-07 14:03:15 CST",
     "members": [
       {
         "name": "周国平",
@@ -12111,6 +12125,7 @@ const storeRankTab = ref('con');
 const quarterSel = ref('Q1');
 const qStoreRankTab = ref('con');
 const teamRankMode = ref('construction');
+const advisorOwnerFilter = ref('全部');
 const monthSel = ref('2026-05');
 const teamMonthSel = ref(manualTeamMonthlyData.defaultMonth || manualTeamMonthlyData.activeMonth || '2026-05');
 const showTeamDataStatus = ref(false);
@@ -12329,9 +12344,11 @@ const advisorRankAll = computed(()=>{
     const advisor = String(r.advisor || '').trim();
     const store = String(r.store || '').trim();
     const district = String(r.district || '').trim();
+    const owner = String(r.owner || '').trim() || '未匹配';
     if(!advisor || !store || !district) return;
     const key = advisor + '|' + store + '|' + district;
-    if(!map[key]) map[key] = { key, advisor, store, district, designCount:0, designAmount:0, constructionCount:0, constructionAmount:0 };
+    if(!map[key]) map[key] = { key, advisor, store, district, owner, designCount:0, designAmount:0, constructionCount:0, constructionAmount:0 };
+    if(map[key].owner === '未匹配' && owner !== '未匹配') map[key].owner = owner;
     if(r.type==='设计'){
       map[key].designCount++;
       map[key].designAmount += r.amount;
@@ -12342,14 +12359,27 @@ const advisorRankAll = computed(()=>{
   });
   return Object.values(map);
 });
+const advisorOwnerOptions = computed(()=>{
+  const preferred = ['周国平','向勇','钟海燕','宁章娜','黄诗宇'];
+  const owners = Array.from(new Set(advisorRankAll.value.map(item=>item.owner || '未匹配')));
+  const ordered = preferred.filter(owner=>owners.includes(owner));
+  const rest = owners.filter(owner=>!preferred.includes(owner) && owner !== '未匹配').sort((a,b)=>a.localeCompare(b,'zh-CN'));
+  if(owners.includes('未匹配')) rest.push('未匹配');
+  return ['全部', ...ordered, ...rest];
+});
+function advisorOwnerMatches(item){
+  return advisorOwnerFilter.value === '全部' || (item.owner || '未匹配') === advisorOwnerFilter.value;
+}
 const advisorConTop15 = computed(()=>advisorRankAll.value
   .filter(item=>item.constructionCount>0)
+  .filter(advisorOwnerMatches)
   .sort((a,b)=>b.constructionAmount-a.constructionAmount || b.constructionCount-a.constructionCount || a.key.localeCompare(b.key,'zh-CN'))
   .slice(0,15)
   .map(item=>({ ...item, count:item.constructionCount, amount:item.constructionAmount }))
 );
 const advisorDesTop15 = computed(()=>advisorRankAll.value
   .filter(item=>item.designCount>0)
+  .filter(advisorOwnerMatches)
   .sort((a,b)=>b.designCount-a.designCount || b.designAmount-a.designAmount || a.key.localeCompare(b.key,'zh-CN'))
   .slice(0,15)
   .map(item=>({ ...item, count:item.designCount, amount:item.designAmount }))
@@ -12849,7 +12879,7 @@ watch(teamMonthSel,()=>nextTick(()=>initTeamCharts()));
 watch(regionRankTab,()=>nextTick(()=>initRegionCharts()));
 
 return {
-  tab,storeRankTab,quarterSel,qStoreRankTab,teamRankMode,qStoreDesignTop,monthSel,teamMonthSel,teamMonthOptions,showTeamDataStatus,monthDist,monthType,months,monthList,teamDetailFilter,tableDensity,ownerDetailFilters,
+  tab,storeRankTab,quarterSel,qStoreRankTab,teamRankMode,qStoreDesignTop,advisorOwnerFilter,advisorOwnerOptions,monthSel,teamMonthSel,teamMonthOptions,showTeamDataStatus,monthDist,monthType,months,monthList,teamDetailFilter,tableDensity,ownerDetailFilters,
   totalRecords:rawData.length,totalDesign,totalConstr,totalConAmount,totalDesAmount,
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
