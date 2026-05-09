@@ -38,6 +38,9 @@
     .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-weight:800}
     h1{font-size:clamp(32px,4.8vw,64px);line-height:.98;margin:12px 0 12px;letter-spacing:-.06em}
     .hero-desc{max-width:760px;color:#4c596b;font-size:15px;line-height:1.85;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .status-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .status-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;background:rgba(23,32,51,.07);border:1px solid rgba(23,32,51,.08);font-size:12px;font-weight:800;color:#334155}
+    .status-badge.live{background:rgba(18,130,92,.12);color:var(--green);border-color:rgba(18,130,92,.20)}
     .hero-side{padding:20px;display:grid;gap:10px;background:rgba(255,255,255,.62)}
     .metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .metric{padding:16px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
@@ -50,6 +53,10 @@
     .summary-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(23,32,51,.06);font-size:12px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .summary-row:last-child{border-bottom:0}
     .summary-row span:last-child{font-weight:900;color:var(--ink)}
+    .explain-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:0 0 14px}
+    .explain-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.70);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
+    .explain-card strong{display:block;font-size:15px;margin-bottom:8px}
+    .explain-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.8;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:14px 0 16px}
     .tabs::-webkit-scrollbar{display:none}
     .tab{border:1px solid var(--line);background:rgba(255,255,255,.62);padding:11px 15px;border-radius:999px;font-size:13px;color:#596579;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;white-space:nowrap;cursor:pointer}
@@ -94,7 +101,7 @@
     .anomaly{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid{grid-template-columns:1fr}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
     }
   </style>
@@ -106,6 +113,7 @@
         <div class="eyebrow">Advisor Fusion Ranking V2</div>
         <h1>陪跑家顾梯度名单驾驶舱</h1>
         <div class="hero-desc">这不是旧 119 榜单的补丁，而是把原 119 重点家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
+        <div class="status-strip" id="statusStrip"></div>
       </div>
       <div class="panel hero-side">
         <div class="metric-grid" id="metricGrid"></div>
@@ -121,6 +129,7 @@
       <div class="control"><label>搜索家顾 / 门店</label><input id="keywordFilter" placeholder="输入关键词" /></div>
     </section>
     <section class="summary-grid" id="summaryGrid"></section>
+    <section class="explain-grid" id="explainGrid"></section>
 
     <main>
       <section class="view active" id="view-ranking">
@@ -149,9 +158,13 @@
   <script>
     const payload = {
   "summary": {
-    "generatedAt": "2026-05-09T23:02:56",
+    "generatedAt": "2026-05-09T23:10:00",
     "version": "advisor-fusion-v2",
     "definition": "原119重点家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
+    "dataPeriod": "2026年累计",
+    "releaseMode": "日更观察版",
+    "monthlySnapshotPolicy": "建议每月1号或月末人工确认后生成月度正式梯度名单快照；日常页面保持每日自动刷新。",
+    "scoringPolicy": "综合评分 = 原梯队基础权重 + 设计签单 + 施工签单 + 施工金额 + 原表签单/历史业绩 + 管理状态；无当期数据的原119家顾会降权进入激活观察。",
     "scope": {
       "总家顾数": 177,
       "原119覆盖": 119,
@@ -1034,7 +1047,31 @@
     "anomalies": {
       "运营冲突": [],
       "待分配运营": [],
-      "原高梯队待激活": []
+      "原高梯队待激活": [],
+      "强新增家顾": [
+        {
+          "家顾姓名": "龙浇苗",
+          "新排名": 22,
+          "原梯队": "新增家顾",
+          "新梯度": "新第二梯队",
+          "归属运营": "向勇",
+          "运营候选": [
+            "向勇"
+          ],
+          "原因": "原119外新增家顾进入新第一/第二梯队，建议人工确认是否纳入正式重点名单"
+        },
+        {
+          "家顾姓名": "陈文波",
+          "新排名": 29,
+          "原梯队": "新增家顾",
+          "新梯度": "新第二梯队",
+          "归属运营": "向勇",
+          "运营候选": [
+            "向勇"
+          ],
+          "原因": "原119外新增家顾进入新第一/第二梯队，建议人工确认是否纳入正式重点名单"
+        }
+      ]
     }
   },
   "rows": [
@@ -7896,7 +7933,9 @@
       document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
       byId('view-' + activeTab).classList.add('active');
       renderMetrics();
+      renderStatusStrip();
       renderSummaryGrid();
+      renderExplainGrid();
       const list = filteredRows();
       renderRanking(list);
       renderOriginal(list);
@@ -7915,6 +7954,16 @@
         ['施工金额', fmtWan(totals['施工金额(万)'] || 0)]
       ];
       byId('metricGrid').innerHTML = metrics.map(([k, v]) => '<div class="metric"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>').join('');
+    }
+
+    function renderStatusStrip() {
+      const generatedAt = summary.generatedAt ? summary.generatedAt.replace('T', ' ') : '未知';
+      const badges = [
+        ['数据周期', summary.dataPeriod || '2026年累计', ''],
+        ['更新时间', generatedAt, ''],
+        ['状态', summary.releaseMode || '日更观察版', 'live']
+      ];
+      byId('statusStrip').innerHTML = badges.map(([k, v, cls]) => '<span class="status-badge ' + cls + '">' + k + '：' + v + '</span>').join('');
     }
 
     function renderSummaryGrid() {
@@ -7945,6 +7994,20 @@
       byId('summaryGrid').innerHTML = cards.map(card => '<div class="summary-card"><strong>' + card.title + '</strong>'
         + card.rows.map(([k, v]) => '<div class="summary-row"><span>' + k + '</span><span>' + v + '</span></div>').join('')
         + '</div>').join('');
+    }
+
+    function renderExplainGrid() {
+      const cards = [
+        {
+          title: '评分说明',
+          text: summary.scoringPolicy || '综合评分会同时参考原梯队、设计签单、施工签单、施工金额、历史业绩和管理状态。'
+        },
+        {
+          title: '自动更新规则',
+          text: summary.monthlySnapshotPolicy || '页面每日自动刷新；月度正式名单建议人工确认后定版。'
+        }
+      ];
+      byId('explainGrid').innerHTML = cards.map(card => '<div class="explain-card"><strong>' + card.title + '</strong><p>' + card.text + '</p></div>').join('');
     }
 
     function personCard(row) {
