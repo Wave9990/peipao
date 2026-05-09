@@ -211,8 +211,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/9 13:52:58</div></div>
-<div style="display:none">数据更新时间: 2026/5/9 13:52:58</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/9 17:50:44</div></div>
+<div style="display:none">数据更新时间: 2026/5/9 17:50:44</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1002,7 +1002,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/9 13:52:58</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/9 17:50:44</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -2345,6 +2345,19 @@ const rawData = [
     "date": "2026-01-31",
     "month": "2026-01",
     "customer": "罗鑫彪",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 6616,
+    "date": "2026-05-09",
+    "month": "2026-05",
+    "customer": "马婉琳",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -7835,7 +7848,21 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 6616,
+    "date": "2026-05-09",
+    "month": "2026-05",
+    "customer": "马婉琳",
+    "customerSource": "营销/新媒体陪跑"
+  }
+];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -7857,7 +7884,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 13:52:58 CST",
+      "updatedAt": "2026-05-09 17:50:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -7896,7 +7923,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 13:52:58 CST",
+      "updatedAt": "2026-05-09 17:50:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -7935,7 +7962,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 13:52:58 CST",
+      "updatedAt": "2026-05-09 17:50:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -7974,7 +8001,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 13:52:58 CST",
+      "updatedAt": "2026-05-09 17:50:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -8013,12 +8040,12 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 13:52:58 CST",
+      "updatedAt": "2026-05-09 17:50:44 CST",
       "members": [
         {
           "name": "周国平",
           "constructionAmount": 919650,
-          "designCount": 7,
+          "designCount": 8,
           "note": "自动生成"
         },
         {
@@ -8053,12 +8080,12 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-09 13:52:58 CST",
+    "updatedAt": "2026-05-09 17:50:44 CST",
     "members": [
       {
         "name": "周国平",
         "constructionAmount": 919650,
-        "designCount": 7,
+        "designCount": 8,
         "note": "自动生成"
       },
       {
@@ -12329,10 +12356,10 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-09T05:52:58.286Z",
+  "generatedAt": "2026-05-09T09:50:44.654Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
-  "timeProgress": 35.2,
+  "timeProgress": 35.3,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
   "executiveCards": [
     {
@@ -12340,21 +12367,21 @@ const dashboardInsights = {
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 49.5% vs 时间进度 35.2%"
+      "basis": "短板完成率 49.5% vs 时间进度 35.3%"
     },
     {
       "title": "最大短板",
       "value": "施工兑现",
       "statusClass": "status-good",
       "desc": "施工金额完成率低于设计单数完成率。",
-      "basis": "施工49.5% · 设计56%"
+      "basis": "施工49.5% · 设计56.2%"
     },
     {
       "title": "转化兑现",
       "value": "66%",
       "statusClass": "status-good",
       "desc": "按年度累计施工单数 / 设计单数估算。",
-      "basis": "203施工 / 308设计"
+      "basis": "203施工 / 309设计"
     },
     {
       "title": "本月火力点",
@@ -12368,7 +12395,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10539.8万；设计单数预测预计 875单。",
+      "desc": "施工金额预测预计 10510万；设计单数预测预计 875单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -12380,7 +12407,7 @@ const dashboardInsights = {
     {
       "title": "月度波动",
       "priority": "P1",
-      "desc": "星沙店 下降：施工-132.4万，设计-7单。",
+      "desc": "星沙店 下降：施工-132.4万，设计-6单。",
       "basis": "2026-04 对比 2026-05"
     },
     {
@@ -12396,20 +12423,20 @@ const dashboardInsights = {
       "actual": "3710万",
       "target": "7500万",
       "rate": 49.5,
-      "forecast": "10539.8万",
-      "gap": "+3039.8万",
+      "forecast": "10510万",
+      "gap": "+3010万",
       "status": "健康",
-      "basis": "按当前 35.2% 时间进度线性外推"
+      "basis": "按当前 35.3% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
-      "actual": "308单",
+      "actual": "309单",
       "target": "550单",
-      "rate": 56,
+      "rate": 56.2,
       "forecast": "875单",
       "gap": "+325单",
       "status": "健康",
-      "basis": "按当前 35.2% 时间进度线性外推"
+      "basis": "按当前 35.3% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
@@ -12451,12 +12478,12 @@ const dashboardInsights = {
       "constructionAmount": 9746541,
       "constructionAmountDisplay": "974.7万",
       "constructionRate": 57.3,
-      "designCount": 74,
-      "designRate": 49.3,
-      "conversion": 74.3,
+      "designCount": 75,
+      "designRate": 50,
+      "conversion": 73.3,
       "storeCount": 8,
-      "latestCount": 11,
-      "basis": "施工57.3% · 设计49.3% · 本月11条"
+      "latestCount": 12,
+      "basis": "施工57.3% · 设计50% · 本月12条"
     },
     {
       "owner": "钟海燕",
@@ -12496,10 +12523,10 @@ const dashboardInsights = {
       "direction": "下降",
       "constructionDelta": -1323922,
       "constructionDeltaDisplay": "-132.4万",
-      "designDelta": -7,
-      "designDeltaDisplay": "-7单",
+      "designDelta": -6,
+      "designDeltaDisplay": "-6单",
       "basis": "2026-04 → 2026-05",
-      "priority": 69.23922
+      "priority": 61.23922
     },
     {
       "district": "地市一区",
@@ -12599,14 +12626,14 @@ const dashboardInsights = {
       "district": "长沙大区",
       "store": "星沙店",
       "advisor": "蒋志军",
-      "designCount": 12,
+      "designCount": 13,
       "constructionCount": 10,
       "constructionAmount": 2075830,
       "constructionAmountDisplay": "207.6万",
-      "conversion": 83.3,
+      "conversion": 76.9,
       "category": "均衡观察",
       "action": "继续观察设计到施工闭环。",
-      "priority": 42.7583
+      "priority": 43.7583
     },
     {
       "owner": "周国平",
@@ -12760,7 +12787,7 @@ const dashboardInsights = {
       "priority": "P1",
       "owner": "长沙大区",
       "action": "核查 星沙店 环比下降原因，确认是入账节奏还是真实掉量。",
-      "basis": "施工-132.4万 · 设计-7单"
+      "basis": "施工-132.4万 · 设计-6单"
     },
     {
       "priority": "P1",
