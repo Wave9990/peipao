@@ -5231,19 +5231,33 @@
       return { title: '2026全盘陪跑签单家顾', note: '按主看板标准 records 自动入池，谁出单谁进榜，不再固定死看119。' };
     };
 
-    const buildOperatorRows = (rows) => {
+    const buildOperatorRows = (rows, options = {}) => {
+      const { managementOnly = false } = options;
       const operatorMap = {};
-      rows.forEach(row => {
-        const name = row['归属运营'] || '未分配';
-        if (!operatorMap[name]) operatorMap[name] = { name, accounts: 0, aCount: 0, amount: 0, design: 0, construction: 0, newCount: 0 };
-        operatorMap[name].accounts += 1;
-        if (row['资源池建议'] === 'A池') operatorMap[name].aCount += 1;
-        if (row['来源类型'] === '全盘新增') operatorMap[name].newCount += 1;
-        operatorMap[name].amount += Number(row['最新施工金额(万)'] || 0);
-        operatorMap[name].design += Number(row['最新设计签单'] || 0);
-        operatorMap[name].construction += Number(row['最新施工签单'] || 0);
-      });
+      rows
+        .filter(row => !managementOnly || row['是否来自原119体系'] === '是')
+        .filter(row => (row['归属运营'] || '').trim())
+        .forEach(row => {
+          const name = row['归属运营'];
+          if (!operatorMap[name]) operatorMap[name] = { name, accounts: 0, aCount: 0, amount: 0, design: 0, construction: 0, newCount: 0 };
+          operatorMap[name].accounts += 1;
+          if (row['资源池建议'] === 'A池') operatorMap[name].aCount += 1;
+          if (row['来源类型'] === '全盘新增') operatorMap[name].newCount += 1;
+          operatorMap[name].amount += Number(row['最新施工金额(万)'] || 0);
+          operatorMap[name].design += Number(row['最新设计签单'] || 0);
+          operatorMap[name].construction += Number(row['最新施工签单'] || 0);
+        });
       return Object.values(operatorMap).sort((a, b) => b.amount - a.amount);
+    };
+
+    const getStatusLabel = (row) => {
+      if (row['是否来自原119体系'] !== '是') return '管理状态未知';
+      return row['是否已拉群标准化'] === '是' ? '已标准化' : '待补齐';
+    };
+
+    const getOperatorLabel = (row) => {
+      if (row['是否来自原119体系'] !== '是') return '待纳入梯队表';
+      return row['归属运营'] || '未分配';
     };
 
     const renderRankRow = (row, compact = false) => `
@@ -5253,7 +5267,7 @@
             <div class="rank-no">#${row['全新排名']}</div>
             <div>
               <div class="rank-name">${row['家顾姓名']}</div>
-              <div class="rank-meta">${row['归属运营'] || '未分配'}｜${row['区域'] || '未分区'}｜${row['账号名称'] || '未填账号名'}</div>
+              <div class="rank-meta">${getOperatorLabel(row)}｜${row['区域'] || '未分区'}｜${row['账号名称'] || '未填账号名'}</div>
               <div class="pool-tag ${row['资源池建议']}" style="margin-top:8px;">${row['资源池建议']}</div>
               <div class="source-tag ${row['来源类型'] === '全盘新增' ? 'new' : 'base'}">${row['来源类型']}</div>
             </div>
@@ -5268,7 +5282,7 @@
           <div class="chip">施工 ${row['最新施工签单']}</div>
           <div class="chip">金额 ${fmtWan(row['最新施工金额(万)'])}</div>
         </div>
-        ${compact ? '' : `<div class="rank-meta">剪辑 ${row['剪辑资源建议']} ｜ 投放 ${row['投放资源建议']} ｜ 拉群 ${row['是否已拉群标准化'] === '是' ? '已标准化' : '待补齐'} ｜ 来源 ${row['来源类型']}</div>`}
+        ${compact ? '' : `<div class="rank-meta">剪辑 ${row['剪辑资源建议']} ｜ 投放 ${row['投放资源建议']} ｜ 状态 ${getStatusLabel(row)} ｜ 来源 ${row['来源类型']}</div>`}
       </div>
     `;
 
@@ -5288,7 +5302,7 @@
       const newRows = rankingData.filter(r => r['是否来自原119体系'] === '否');
       const newTopByAmount = newRows.slice().sort((a, b) => Number(b['最新施工金额(万)'] || 0) - Number(a['最新施工金额(万)'] || 0)).slice(0, 5);
       const newTopByDesign = newRows.slice().sort((a, b) => Number(b['最新设计签单'] || 0) - Number(a['最新设计签单'] || 0)).slice(0, 5);
-      const newPendingGroup = newRows.filter(r => r['是否已拉群标准化'] !== '是').slice(0, 6);
+      const newPendingGroup = newRows.slice(0, 6);
       const warningKpis = [
         { label: '新增家顾数', value: summaryData.预警概览?.新增家顾数 ?? newRows.length },
         { label: '新增设计单', value: summaryData.预警概览?.新增设计单 ?? newRows.reduce((s,r)=>s+fmtInt(r['最新设计签单']),0) },
@@ -5315,10 +5329,10 @@
           tags: newTopByDesign.map(r => `设计 ${r['最新设计签单']}`)
         },
         {
-          title: '新增待补齐动作',
-          sub: '这些家顾已有出单，但群/运营动作还要跟上',
-          rows: newPendingGroup.map(r => `${r['家顾姓名']}｜${r['归属运营'] || '未分配'}`),
-          tags: newPendingGroup.map(r => r['是否已拉群标准化'] === '是' ? '已拉群' : '待拉群')
+          title: '新增待纳入梯队表',
+          sub: '这些家顾已有出单，但管理字段仍以原梯队表为空，需后续补录',
+          rows: newPendingGroup.map(r => `${r['家顾姓名']}｜${r['区域'] || '未分区'}`),
+          tags: newPendingGroup.map(() => '管理状态未知')
         }
       ].map(card => `
         <div class="warning-card">
@@ -5338,12 +5352,13 @@
       const totalConstruction = scopeRows.reduce((s, r) => s + Number(r['最新施工金额(万)'] || 0), 0);
       const totalDesign = scopeRows.reduce((s, r) => s + Number(r['最新设计签单'] || 0), 0);
       const totalConstructionCount = scopeRows.reduce((s, r) => s + Number(r['最新施工签单'] || 0), 0);
-      const groupedCount = scopeRows.filter(r => r['是否已拉群标准化'] === '是').length;
+      const managementRows = scopeRows.filter(r => r['是否来自原119体系'] === '是');
+      const groupedCount = managementRows.filter(r => r['是否已拉群标准化'] === '是').length;
       const top8 = scopeRows.slice(0, 8);
       const aPool = scopeRows.filter(r => r['资源池建议'] === 'A池').slice(0, 5);
       const bPool = scopeRows.filter(r => r['资源池建议'] === 'B池').slice(0, 4);
-      const notGrouped = scopeRows.filter(r => r['是否已拉群标准化'] !== '是').slice(0, 4);
-      const operators = buildOperatorRows(scopeRows);
+      const notGrouped = managementRows.filter(r => r['是否已拉群标准化'] !== '是').slice(0, 4);
+      const operators = buildOperatorRows(scopeRows, { managementOnly: true });
       const maxAmount = Math.max(...operators.map(o => o.amount), 1);
       const counts = {
         'A池': scopeRows.filter(r => r['资源池建议'] === 'A池').length,
@@ -5353,7 +5368,7 @@
       };
 
       document.getElementById('monthChip').textContent = summaryData.generatedAt.slice(0, 7);
-      document.getElementById('heroSummary').textContent = `${scopeMeta.title}：共 ${scopeRows.length} 人，A池 ${counts['A池']} 人，B池 ${counts['B池']} 人。优先看头部保供、运营负载和漏网新增。`;
+      document.getElementById('heroSummary').textContent = `${scopeMeta.title}：共 ${scopeRows.length} 人，A池 ${counts['A池']} 人，B池 ${counts['B池']} 人。经营结果看全盘，管理动作只看原梯队表口径。`;
       document.getElementById('scopeNote').textContent = scopeMeta.note;
 
       document.getElementById('quickMetrics').innerHTML = [
@@ -5386,13 +5401,13 @@
             <div class="pool-tag A池">A池 ${op.aCount}</div>
           </div>
           <div class="bar"><span style="width:${(op.amount / maxAmount) * 100}%"></span></div>
-          <div class="operator-sub">家顾 ${op.accounts} 人 ｜ 新增 ${op.newCount} ｜ 设计 ${op.design} ｜ 施工 ${op.construction} ｜ 金额 ${fmtWan(op.amount)}</div>
+          <div class="operator-sub">管理口径：原梯队表 ${op.accounts} 人 ｜ 经营结果：设计 ${op.design} ｜ 施工 ${op.construction} ｜ 金额 ${fmtWan(op.amount)}</div>
         </div>
       `).join('') || '<div class="note"><strong>暂无运营数据</strong><p>这个视图下暂无可展示的运营拆解。</p></div>';
 
       const watchItems = [
-        ...bPool.map(r => ({ text: `冲刺：#${r['全新排名']} ${r['家顾姓名']}｜${r['归属运营'] || '未分配'}`, tag: fmtWan(r['最新施工金额(万)']), cls: 'up' })),
-        ...notGrouped.map(r => ({ text: `待补齐：${r['家顾姓名']}｜${r['归属运营'] || '未分配'}`, tag: r['来源类型'] === '全盘新增' ? '新增待拉群' : '待拉群', cls: 'down' }))
+        ...bPool.map(r => ({ text: `冲刺：#${r['全新排名']} ${r['家顾姓名']}｜${getOperatorLabel(r)}`, tag: fmtWan(r['最新施工金额(万)']), cls: 'up' })),
+        ...notGrouped.map(r => ({ text: `待补齐：${r['家顾姓名']}｜${getOperatorLabel(r)}`, tag: '原梯队表待拉群', cls: 'down' }))
       ].slice(0, 8);
       document.getElementById('watchList').innerHTML = watchItems.map(item => `
         <div class="watch-item">
@@ -5408,11 +5423,12 @@
         </div>
       `).join('');
 
-      const coverRate = scopeRows.length ? `${Math.round((groupedCount / scopeRows.length) * 100)}%` : '0%';
+      const coverRate = managementRows.length ? `${Math.round((groupedCount / managementRows.length) * 100)}%` : '0%';
       document.getElementById('systemInfo').innerHTML = [
         { title: '当前视图', text: scopeMeta.title },
         { title: '数据源', text: '主看板标准化 records → 动态排名 → 单文件 mobile 页' },
-        { title: '拉群覆盖', text: `${groupedCount}/${scopeRows.length}（${coverRate}）` },
+        { title: '管理口径覆盖', text: `${groupedCount}/${managementRows.length}（${coverRate}）｜仅统计原梯队表内家顾` },
+        { title: '经营口径', text: `全盘 ${scopeRows.length} 人｜设计 ${totalDesign}｜施工 ${totalConstructionCount}｜金额 ${fmtWan(totalConstruction)}` },
         { title: '快照状态', text: changesData.length ? `已生成变化明细 ${changesData.length} 条` : '当前暂无上月快照' },
         { title: '页面定位', text: '手机优先版 / 全盘陪跑资源调度驾驶舱' }
       ].map(item => `
