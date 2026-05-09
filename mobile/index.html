@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>陪跑119资源调度驾驶舱</title>
+  <title>陪跑119资源调度驾驶舱 v2</title>
   <style>
     :root {
       --bg: #08111b;
@@ -113,8 +113,6 @@
       margin-bottom: 14px; padding-bottom: 2px;
     }
     .tabs::-webkit-scrollbar { display:none; }
-    .tab-group { display:flex; gap:8px; }
-    .tab-group::after { content:''; width:6px; }
     .tab {
       flex: 0 0 auto;
       padding: 10px 14px;
@@ -124,38 +122,8 @@
       color: var(--muted);
       font-size: 13px;
       white-space: nowrap;
-      appearance: none;
-      -webkit-appearance: none;
     }
     .tab.active { color: #fff; background: rgba(255,255,255,.11); }
-    .search-box {
-      display:flex; align-items:center; gap:10px;
-      margin-bottom:14px; padding:12px 14px;
-      border-radius:18px; border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.05);
-    }
-    .search-box input {
-      flex:1; background:transparent; border:none; outline:none; color:var(--text);
-      font-size:14px;
-    }
-    .search-box input::placeholder { color: var(--muted); }
-    .operator-switcher { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .operator-card {
-      padding:14px; border-radius:18px; border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.045);
-    }
-    .operator-card.active { background: linear-gradient(160deg, rgba(91,168,255,.20), rgba(255,255,255,.06)); border-color: rgba(91,168,255,.35); }
-    .operator-card strong { display:block; font-size:15px; margin-bottom:6px; }
-    .operator-card p { margin:0; color:var(--muted); font-size:12px; line-height:1.5; }
-    .operator-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .mini-stat { padding:12px; border-radius:16px; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.08); }
-    .mini-stat strong { display:block; font-size:20px; margin-top:6px; }
-    .status-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    .status-card { padding:14px; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.045); }
-    .status-card strong { display:block; font-size:15px; margin-bottom:8px; }
-    .signal-list { display:grid; gap:8px; }
-    .signal-item { display:flex; justify-content:space-between; gap:10px; font-size:12px; color:var(--muted); }
-    .signal-item b { color:var(--text); font-weight:700; }
     .hero {
       padding: 18px;
       margin-bottom: 14px;
@@ -313,30 +281,20 @@
             <strong>陪跑驾驶舱</strong>
             <span id="monthChip">2026-05</span>
           </div>
-          <span style="display:none">如打不开请尝试浏览器打开或末尾加 ?refresh=1</span>
         </div>
         <div class="top-actions">
-          <a class="circle-btn" href="https://wave9990.github.io/peipao/" title="返回总看板">⌂</a>
-          <a class="circle-btn" href="https://wave9990.github.io/peipao/mobile/index.html?refresh=1" title="刷新页面">↻</a>
+          <div class="circle-btn">＋</div>
+          <div class="circle-btn">☰</div>
         </div>
       </div>
 
-      <div class="tabs" id="filterTabs"></div>
-
-      <div class="search-box card">
-        <span>🔎</span>
-        <input id="searchInput" type="text" placeholder="搜家顾 / 账号 / 区域 / 运营" />
+      <div class="tabs">
+        <div class="tab active">总览</div>
+        <div class="tab">资源池</div>
+        <div class="tab">运营</div>
+        <div class="tab">变化</div>
+        <div class="tab">月报</div>
       </div>
-
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">运营驾驶舱切换</div>
-            <div class="section-sub">点一下就切到对应运营视角</div>
-          </div>
-        </div>
-        <div class="operator-switcher" id="operatorSwitcher"></div>
-      </section>
 
       <section class="card hero">
         <div class="eyebrow">Peipao Dispatch Deck</div>
@@ -345,17 +303,7 @@
         <div class="quick-metrics" id="quickMetrics"></div>
       </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">运营详情抽屉</div>
-            <div class="section-sub">当前选中运营的关键状态与动作位</div>
-          </div>
-        </div>
-        <div class="operator-detail-grid" id="operatorDetailGrid"></div>
-      </section>
-
-      <section class="section card card-pad">
+      <section class="section">
         <div class="section-header">
           <div>
             <div class="section-title">资源池总览</div>
@@ -398,31 +346,11 @@
       <section class="section card card-pad">
         <div class="section-header">
           <div>
-            <div class="section-title">升降变化榜</div>
-            <div class="section-sub">有上月快照就看真实变化；没有就先给待启用状态</div>
-          </div>
-        </div>
-        <div class="watch-list" id="changesList"></div>
-      </section>
-
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
             <div class="section-title">重点提醒</div>
             <div class="section-sub">本月最该盯的两类账号</div>
           </div>
         </div>
         <div class="watch-list" id="watchList"></div>
-      </section>
-
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">重点账号状态灯</div>
-            <div class="section-sub">已拉群 / 奖励 / 资源池 / 当前动作，一屏扫状态</div>
-          </div>
-        </div>
-        <div class="status-grid" id="statusGrid"></div>
       </section>
 
       <section class="section card card-pad">
@@ -4424,7 +4352,7 @@
     "D池只做16个轮转观察位，其他账号保基础覆盖。"
   ]
 };
-    const changesData = summaryData['上升明显账号']?.length || summaryData['下降明显账号']?.length ? [...(summaryData['上升明显账号']||[]), ...(summaryData['下降明显账号']||[])] : [];
+    const changesData = [];
 
     const fmtWan = (n) => `${Number(n || 0).toFixed(1)}万`;
     const totalConstruction = rankingData.reduce((s, r) => s + Number(r['最新施工金额(万)'] || 0), 0);
@@ -4449,7 +4377,6 @@
     });
     const operators = Object.values(operatorMap).sort((a, b) => b.amount - a.amount);
     const maxAmount = Math.max(...operators.map(o => o.amount), 1);
-    const state = { activeOperator: operators[0]?.name || '全部', activePool: '全部', searchText: '' };
 
     document.getElementById('monthChip').textContent = summaryData.generatedAt.slice(0, 7);
     document.getElementById('heroSummary').textContent = `当前共 ${rankingData.length} 个账号，A池 ${summaryData.counts['A池']} 个，B池 ${summaryData.counts['B池']} 个。手机端先看头部保供、运营负载和动作建议。`;
@@ -4472,20 +4399,6 @@
         <div class="pool-count">${count}</div>
         <div class="pool-note">${pool === 'A池' ? '头部保供' : pool === 'B池' ? '冲刺放量' : pool === 'C池' ? '重点位观察' : '轮转覆盖'}</div>
       </div>
-    `).join('');
-
-    const operatorOptions = ['全部', ...operators.map(op => op.name)];
-    const poolOptions = ['全部', 'A池', 'B池', 'C池', 'D池'];
-    document.getElementById('filterTabs').innerHTML = `
-      <div class="tab-group">${operatorOptions.map(name => `<button class="tab ${name === state.activeOperator ? 'active' : ''}" data-filter="operator" data-value="${name}">${name}</button>`).join('')}</div>
-      <div class="tab-group">${poolOptions.map(pool => `<button class="tab ${pool === state.activePool ? 'active' : ''}" data-filter="pool" data-value="${pool}">${pool}</button>`).join('')}</div>
-    `;
-
-    document.getElementById('operatorSwitcher').innerHTML = operators.map(op => `
-      <button class="operator-card ${op.name === state.activeOperator ? 'active' : ''}" data-operator-card="${op.name}">
-        <strong>${op.name}</strong>
-        <p>账号 ${op.accounts} 个｜A池 ${op.aCount}｜施工 ${fmtWan(op.amount)}</p>
-      </button>
     `).join('');
 
     const renderRankRow = (row, compact = false) => `
@@ -4515,81 +4428,6 @@
 
     document.getElementById('topList').innerHTML = top8.map(r => renderRankRow(r)).join('');
     document.getElementById('aWall').innerHTML = aPool.map(r => renderRankRow(r, true)).join('');
-
-    const getFilteredRows = () => rankingData.filter(row => {
-      const okOperator = state.activeOperator === '全部' || (row['归属运营'] || '未分配') === state.activeOperator;
-      const okPool = state.activePool === '全部' || row['资源池建议'] === state.activePool;
-      const keyword = state.searchText.trim().toLowerCase();
-      const haystack = [row['家顾姓名'], row['账号名称'], row['区域'], row['归属运营']].join(' ').toLowerCase();
-      const okSearch = !keyword || haystack.includes(keyword);
-      return okOperator && okPool && okSearch;
-    });
-
-    const renderFilteredTopList = () => {
-      const rows = getFilteredRows().slice(0, 12);
-      document.getElementById('topList').innerHTML = rows.length
-        ? rows.map(r => renderRankRow(r)).join('')
-        : '<div class="note"><strong>当前筛选暂无结果</strong><p>可切回“全部”或放宽筛选条件。</p></div>';
-    };
-
-    const renderFilteredAWall = () => {
-      const rows = getFilteredRows().filter(r => r['资源池建议'] === 'A池').slice(0, 8);
-      document.getElementById('aWall').innerHTML = rows.length
-        ? rows.map(r => renderRankRow(r, true)).join('')
-        : '<div class="note"><strong>当前筛选下暂无 A 池账号</strong><p>说明该运营当前没有 A 池，或当前资源池筛到了别的池。</p></div>';
-    };
-
-    const renderChangesList = () => {
-      const source = changesData.length ? changesData.slice(0, 8).map(item => ({
-        text: `${item['家顾姓名'] || item['家顾'] || '未知账号'}｜${item['归属运营'] || item['运营'] || '未分配'}`,
-        tag: item['变化'] || item['排名变化'] || item['名次变化'] || '有变动',
-        cls: String(item['变化'] || item['排名变化'] || item['名次变化'] || '').includes('-') ? 'down' : 'up'
-      })) : [
-        { text: '上月快照未生成，变化榜待自动启用', tag: '待启用', cls: 'down' },
-        { text: '后续一旦有 snapshot，会自动展示上升 / 下降 / 新进榜', tag: '自动接入', cls: 'up' }
-      ];
-      document.getElementById('changesList').innerHTML = source.map(item => `
-        <div class="watch-item">
-          <span>${item.text}</span>
-          <span class="delta ${item.cls}">${item.tag}</span>
-        </div>
-      `).join('');
-    };
-
-    const renderOperatorDetail = () => {
-      const rows = rankingData.filter(r => (r['归属运营'] || '未分配') === state.activeOperator);
-      const aCount = rows.filter(r => r['资源池建议'] === 'A池').length;
-      const bCount = rows.filter(r => r['资源池建议'] === 'B池').length;
-      const ungrouped = rows.filter(r => r['是否已拉群标准化'] !== '是').length;
-      const rewardCount = rows.filter(r => String(r['是否新增奖励'] || '').trim()).length;
-      document.getElementById('operatorDetailGrid').innerHTML = [
-        { label: '当前运营', value: state.activeOperator, note: `账号 ${rows.length} 个` },
-        { label: 'A/B池', value: `${aCount}/${bCount}`, note: '头部保供 / 冲刺位' },
-        { label: '待拉群', value: ungrouped, note: '优先补标准化' },
-        { label: '奖励账号', value: rewardCount, note: '有新增奖励标记' }
-      ].map(item => `
-        <div class="mini-stat">
-          <span>${item.label}</span>
-          <strong>${item.value}</strong>
-          <div class="section-sub">${item.note}</div>
-        </div>
-      `).join('');
-    };
-
-    const renderStatusGrid = () => {
-      const rows = getFilteredRows().slice(0, 4);
-      document.getElementById('statusGrid').innerHTML = rows.length ? rows.map(row => `
-        <div class="status-card">
-          <strong>${row['家顾姓名']}</strong>
-          <div class="signal-list">
-            <div class="signal-item"><span>资源池</span><b>${row['资源池建议']}</b></div>
-            <div class="signal-item"><span>拉群</span><b>${row['是否已拉群标准化'] === '是' ? '🟢 已完成' : '🟠 待补齐'}</b></div>
-            <div class="signal-item"><span>奖励</span><b>${String(row['是否新增奖励'] || '').trim() ? '🟢 有' : '⚪ 无'}</b></div>
-            <div class="signal-item"><span>动作</span><b>${row['内容资源建议']}</b></div>
-          </div>
-        </div>
-      `).join('') : '<div class="note"><strong>当前筛选暂无状态灯</strong><p>可切换运营 / 资源池或清空搜索词后再看。</p></div>';
-    };
 
     document.getElementById('operatorList').innerHTML = operators.map(op => `
       <div class="operator-item">
@@ -4632,58 +4470,6 @@
         <p>${item.text}</p>
       </div>
     `).join('');
-
-    document.getElementById('filterTabs').addEventListener('click', (e) => {
-      const btn = e.target.closest('.tab');
-      if (!btn) return;
-      const filter = btn.dataset.filter;
-      const value = btn.dataset.value;
-      if (filter === 'operator') state.activeOperator = value;
-      if (filter === 'pool') state.activePool = value;
-      document.querySelectorAll('.tab').forEach(tab => {
-        const sameFilter = tab.dataset.filter === filter;
-        if (sameFilter) tab.classList.remove('active');
-      });
-      btn.classList.add('active');
-      document.querySelectorAll('.operator-card').forEach(card => {
-        card.classList.toggle('active', card.dataset.operatorCard === state.activeOperator);
-      });
-      renderFilteredTopList();
-      renderFilteredAWall();
-      renderOperatorDetail();
-      renderStatusGrid();
-      document.getElementById('heroSummary').textContent = `当前筛选：${state.activeOperator} / ${state.activePool} / ${state.searchText || '全部关键词'}，命中 ${getFilteredRows().length} 个账号。手机端先看头部保供、运营负载和动作建议。`;
-    });
-
-    document.getElementById('operatorSwitcher').addEventListener('click', (e) => {
-      const card = e.target.closest('.operator-card');
-      if (!card) return;
-      state.activeOperator = card.dataset.operatorCard;
-      document.querySelectorAll('.operator-card').forEach(el => el.classList.toggle('active', el === card));
-      document.querySelectorAll('.tab[data-filter="operator"]').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.value === state.activeOperator);
-      });
-      renderFilteredTopList();
-      renderFilteredAWall();
-      renderOperatorDetail();
-      renderStatusGrid();
-      document.getElementById('heroSummary').textContent = `当前筛选：${state.activeOperator} / ${state.activePool} / ${state.searchText || '全部关键词'}，命中 ${getFilteredRows().length} 个账号。手机端先看头部保供、运营负载和动作建议。`;
-    });
-
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      state.searchText = e.target.value || '';
-      renderFilteredTopList();
-      renderFilteredAWall();
-      renderOperatorDetail();
-      renderStatusGrid();
-      document.getElementById('heroSummary').textContent = `当前筛选：${state.activeOperator} / ${state.activePool} / ${state.searchText || '全部关键词'}，命中 ${getFilteredRows().length} 个账号。手机端先看头部保供、运营负载和动作建议。`;
-    });
-
-    renderFilteredTopList();
-    renderFilteredAWall();
-    renderChangesList();
-    renderOperatorDetail();
-    renderStatusGrid();
   </script>
 </body>
 </html>
