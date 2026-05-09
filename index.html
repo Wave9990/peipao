@@ -211,8 +211,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/9 23:09:51</div></div>
-<div style="display:none">数据更新时间: 2026/5/9 23:09:51</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/9 23:22:11</div></div>
+<div style="display:none">数据更新时间: 2026/5/9 23:22:11</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1002,7 +1002,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/9 23:09:51</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/9 23:22:11</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -1781,7 +1781,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 9800,
     "date": "2026-03-06",
     "month": "2026-03",
@@ -1794,7 +1794,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 7600,
     "date": "2026-04-16",
     "month": "2026-04",
@@ -1859,7 +1859,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 7700,
     "date": "2026-03-27",
     "month": "2026-03",
@@ -1937,7 +1937,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 7600,
     "date": "2026-02-26",
     "month": "2026-02",
@@ -1950,7 +1950,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 5888,
     "date": "2026-02-06",
     "month": "2026-02",
@@ -2002,7 +2002,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 7700,
     "date": "2026-04-15",
     "month": "2026-04",
@@ -2691,7 +2691,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 12000,
     "date": "2026-01-10",
     "month": "2026-01",
@@ -3210,8 +3210,8 @@ const rawData = [
     "store": "优改家湘府店",
     "district": "长沙大区",
     "advisor": "冯淑燕",
-    "owner": "",
-    "ownerRuleType": "unmatched",
+    "owner": "向勇",
+    "ownerRuleType": "override",
     "amount": 3800,
     "date": "2026-05-07",
     "month": "2026-05",
@@ -3589,7 +3589,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 182709,
     "date": "2026-05-05",
     "month": "2026-05",
@@ -3641,7 +3641,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 212252,
     "date": "2026-03-26",
     "month": "2026-03",
@@ -3654,7 +3654,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 127729,
     "date": "2026-02-25",
     "month": "2026-02",
@@ -4096,7 +4096,7 @@ const rawData = [
     "district": "长沙大区",
     "advisor": "冯淑燕",
     "owner": "向勇",
-    "ownerRuleType": "default",
+    "ownerRuleType": "override",
     "amount": 251920,
     "date": "2026-04-16",
     "month": "2026-04",
@@ -7870,7 +7870,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 23:09:51 CST",
+      "updatedAt": "2026-05-09 23:22:11 CST",
       "members": [
         {
           "name": "周国平",
@@ -7909,7 +7909,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 23:09:51 CST",
+      "updatedAt": "2026-05-09 23:22:11 CST",
       "members": [
         {
           "name": "周国平",
@@ -7948,7 +7948,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 23:09:51 CST",
+      "updatedAt": "2026-05-09 23:22:11 CST",
       "members": [
         {
           "name": "周国平",
@@ -7987,7 +7987,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 23:09:51 CST",
+      "updatedAt": "2026-05-09 23:22:11 CST",
       "members": [
         {
           "name": "周国平",
@@ -8026,7 +8026,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-09 23:09:51 CST",
+      "updatedAt": "2026-05-09 23:22:11 CST",
       "members": [
         {
           "name": "周国平",
@@ -8037,7 +8037,7 @@ const manualTeamMonthlyData = {
         {
           "name": "向勇",
           "constructionAmount": 1104285,
-          "designCount": 7,
+          "designCount": 8,
           "note": "自动生成"
         },
         {
@@ -8066,7 +8066,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-09 23:09:51 CST",
+    "updatedAt": "2026-05-09 23:22:11 CST",
     "members": [
       {
         "name": "周国平",
@@ -8077,7 +8077,7 @@ const manualTeamMonthlyData = {
       {
         "name": "向勇",
         "constructionAmount": 1104285,
-        "designCount": 7,
+        "designCount": 8,
         "note": "自动生成"
       },
       {
@@ -12342,7 +12342,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-09T15:09:51.191Z",
+  "generatedAt": "2026-05-09T15:22:11.091Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 35.3,
@@ -12387,7 +12387,7 @@ const dashboardInsights = {
     {
       "title": "运营短板",
       "priority": "P1",
-      "desc": "黄诗宇 当前观察分 33，施工13.6% · 设计36% · 本月2条。",
+      "desc": "黄诗宇 当前观察分 32，施工13.6% · 设计36% · 本月2条。",
       "basis": "施工/设计/本月活跃/覆盖/转化综合评分"
     },
     {
@@ -12428,7 +12428,7 @@ const dashboardInsights = {
   "ownerHealth": [
     {
       "owner": "黄诗宇",
-      "score": 33,
+      "score": 32,
       "status": "优先跟进",
       "statusClass": "health-d",
       "constructionAmount": 1494977,
@@ -12449,16 +12449,16 @@ const dashboardInsights = {
       "constructionAmount": 7883576,
       "constructionAmountDisplay": "788.4万",
       "constructionRate": 46.4,
-      "designCount": 66,
-      "designRate": 44,
-      "conversion": 62.1,
-      "storeCount": 12,
-      "latestCount": 12,
-      "basis": "施工46.4% · 设计44% · 本月12条"
+      "designCount": 67,
+      "designRate": 44.7,
+      "conversion": 61.2,
+      "storeCount": 13,
+      "latestCount": 13,
+      "basis": "施工46.4% · 设计44.7% · 本月13条"
     },
     {
       "owner": "周国平",
-      "score": 69,
+      "score": 68,
       "status": "观察",
       "statusClass": "health-c",
       "constructionAmount": 9613140,
@@ -12473,7 +12473,7 @@ const dashboardInsights = {
     },
     {
       "owner": "钟海燕",
-      "score": 73,
+      "score": 72,
       "status": "观察",
       "statusClass": "health-c",
       "constructionAmount": 8178086,
@@ -12488,7 +12488,7 @@ const dashboardInsights = {
     },
     {
       "owner": "宁章娜",
-      "score": 80,
+      "score": 79,
       "status": "健康",
       "statusClass": "health-a",
       "constructionAmount": 9930449,
