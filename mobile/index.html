@@ -53,9 +53,9 @@
     .app {
       position: relative;
       z-index: 1;
-      width: min(100%, 540px);
+      width: min(100%, 1480px);
       margin: 0 auto;
-      padding: calc(18px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));
+      padding: calc(18px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));
     }
     .shell {
       background: rgba(9, 17, 27, 0.40);
@@ -66,6 +66,8 @@
       -webkit-backdrop-filter: blur(24px);
       padding: 16px;
       overflow: hidden;
+      max-width: 560px;
+      margin: 0 auto;
     }
     .card {
       position: relative;
@@ -279,8 +281,75 @@
       display:inline-flex; align-items:center; gap:4px; padding:5px 9px; border-radius:999px; font-size:10px; font-weight:700;
       border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.06); color:#e8f3ff; margin-top:8px;
     }
-    .source-tag.new { background: rgba(60,216,141,.12); color:#bdf3d6; border-color: rgba(60,216,141,.24); }
     .source-tag.base { background: rgba(255,184,75,.12); color:#ffe3b0; border-color: rgba(247,184,75,.22); }
+    @media (min-width: 960px) {
+      .app {
+        width: min(100%, 1480px);
+        padding: 28px 28px 40px;
+      }
+      .shell {
+        max-width: none;
+        margin: 0;
+        display: grid;
+        grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+      .topbar {
+        grid-column: 1 / -1;
+        margin-bottom: 0;
+      }
+      .desktop-rail {
+        display: grid;
+        gap: 14px;
+        position: sticky;
+        top: 24px;
+      }
+      .desktop-main {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .desktop-main .section.full-span,
+      .desktop-main .bottom-nav {
+        grid-column: 1 / -1;
+      }
+      .hero {
+        margin-bottom: 0;
+      }
+      .quick-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .pool-grid,
+      .scope-kpis {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .top-list,
+      .a-wall,
+      .operator-list,
+      .watch-list,
+      .notes-list,
+      .warning-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .rank-row,
+      .operator-item,
+      .warning-card,
+      .note,
+      .system-item {
+        min-height: 100%;
+      }
+      .bottom-nav {
+        position: static;
+        margin-top: 0;
+      }
+    }
+    @media (max-width: 959px) {
+      .desktop-rail,
+      .desktop-main {
+        display: block;
+      }
+    }
 
     .bottom-nav {
       position: sticky;
@@ -326,99 +395,108 @@
         </div>
       </div>
 
-      <div class="tabs">
-        <div class="tab active">总览</div>
-        <div class="tab">资源池</div>
-        <div class="tab">运营</div>
-        <div class="tab">变化</div>
-        <div class="tab">月报</div>
-      </div>
+      <aside class="desktop-rail">
+        <section class="card hero">
+          <div class="eyebrow">Peipao Dispatch Deck</div>
+          <h1>陪跑全盘资源调度驾驶舱</h1>
+          <p id="heroSummary">首屏只保留手机上最该看的：总盘数据、资源池、Top 榜、运营负载与管理动作。少堆表，多给判断。</p>
+          <div class="scope-switcher" id="scopeSwitcher"></div>
+          <div class="scope-note" id="scopeNote"></div>
+          <div class="quick-metrics" id="quickMetrics"></div>
+        </section>
 
-      <section class="card hero">
-        <div class="eyebrow">Peipao Dispatch Deck</div>
-        <h1>陪跑全盘资源调度驾驶舱</h1>
-        <p id="heroSummary">首屏只保留手机上最该看的：总盘数据、资源池、Top 榜、运营负载与管理动作。少堆表，多给判断。</p>
-        <div class="scope-switcher" id="scopeSwitcher"></div>
-        <div class="scope-note" id="scopeNote"></div>
-        <div class="quick-metrics" id="quickMetrics"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <div class="section-title">资源池总览</div>
-            <div class="section-sub">A / B / C / D 四池的当前分布</div>
+        <section class="section full-span">
+          <div class="section-header">
+            <div>
+              <div class="section-title">资源池总览</div>
+              <div class="section-sub">A / B / C / D 四池的当前分布</div>
+            </div>
           </div>
-        </div>
-        <div class="pool-grid" id="poolGrid"></div>
-      </section>
+          <div class="pool-grid" id="poolGrid"></div>
+        </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Top 8 作战榜</div>
-            <div class="section-sub">手机端先盯最重要的一屏</div>
+        <section class="section full-span">
+          <div class="section-header">
+            <div>
+              <div class="section-title">系统信息</div>
+              <div class="section-sub">数据源 / 覆盖率 / 快照状态</div>
+            </div>
           </div>
-        </div>
-        <div class="top-list" id="topList"></div>
-      </section>
+          <div class="card card-pad notes-list" id="systemInfo"></div>
+        </section>
+      </aside>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">A池头部墙</div>
-            <div class="section-sub">方便你直接截图汇报</div>
+      <main class="desktop-main">
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Top 8 作战榜</div>
+              <div class="section-sub">手机端先盯最重要的一屏</div>
+            </div>
           </div>
-        </div>
-        <div class="a-wall" id="aWall"></div>
-      </section>
+          <div class="top-list" id="topList"></div>
+        </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">运营负载分布</div>
-            <div class="section-sub">按施工金额排序，兼顾 A 池占位</div>
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
+              <div class="section-title">A池头部墙</div>
+              <div class="section-sub">方便你直接截图汇报</div>
+            </div>
           </div>
-        </div>
-        <div class="operator-list" id="operatorList"></div>
-      </section>
+          <div class="a-wall" id="aWall"></div>
+        </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">重点提醒</div>
-            <div class="section-sub">本月最该盯的两类账号</div>
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
+              <div class="section-title">运营负载分布</div>
+              <div class="section-sub">按施工金额排序，兼顾 A 池占位</div>
+            </div>
           </div>
-        </div>
-        <div class="watch-list" id="watchList"></div>
-      </section>
+          <div class="operator-list" id="operatorList"></div>
+        </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">本月管理动作</div>
-            <div class="section-sub">把制度建议翻成手机可扫的便签</div>
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
+              <div class="section-title">重点提醒</div>
+              <div class="section-sub">本月最该盯的两类账号</div>
+            </div>
           </div>
-        </div>
-        <div class="notes-list" id="notesList"></div>
-      </section>
+          <div class="watch-list" id="watchList"></div>
+        </section>
 
-      <section class="section card card-pad">
-        <div class="section-header">
-          <div>
-            <div class="section-title">系统信息</div>
-            <div class="section-sub">数据源 / 覆盖率 / 快照状态</div>
+        <section class="section full-span">
+          <div class="section-header">
+            <div>
+              <div class="section-title">新增家顾预警区</div>
+              <div class="section-sub">全盘新增签单家顾单独拎出，方便看漏网强苗子</div>
+            </div>
           </div>
-        </div>
-        <div class="notes-list" id="systemInfo"></div>
-      </section>
+          <div class="card card-pad">
+            <div class="scope-kpis" id="warningKpis"></div>
+            <div class="warning-grid" id="warningGrid" style="margin-top:12px;"></div>
+          </div>
+        </section>
 
-      <div class="bottom-nav">
-        <div class="bottom-tab active">总览<br/>Overview</div>
-        <div class="bottom-tab">资源池<br/>Pool</div>
-        <div class="bottom-tab">运营<br/>Ops</div>
-        <div class="bottom-tab">动作<br/>Action</div>
-      </div>
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
+              <div class="section-title">本月管理动作</div>
+              <div class="section-sub">把制度建议翻成手机可扫的便签</div>
+            </div>
+          </div>
+          <div class="notes-list" id="notesList"></div>
+        </section>
+
+        <div class="bottom-nav full-span">
+          <div class="bottom-tab active">总览<br/>Overview</div>
+          <div class="bottom-tab">资源池<br/>Pool</div>
+          <div class="bottom-tab">运营<br/>Ops</div>
+          <div class="bottom-tab">动作<br/>Action</div>
+        </div>
+      </main>
     </div>
   </div>
 
