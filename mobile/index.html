@@ -325,6 +325,44 @@
     .funnel-card.warn { background: linear-gradient(160deg, rgba(255,107,107,.16), rgba(255,255,255,.05)); }
     .funnel-card.good { background: linear-gradient(160deg, rgba(60,216,141,.16), rgba(255,255,255,.05)); }
     .funnel-card.neutral { background: linear-gradient(160deg, rgba(247,184,75,.16), rgba(255,255,255,.05)); }
+    .tier-board { display:grid; gap:12px; }
+    .tier-card {
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.045);
+      border-radius:20px;
+      padding:14px;
+      overflow:hidden;
+    }
+    .tier-card[data-tier="第一梯队"] { background: linear-gradient(160deg, rgba(255,127,92,.18), rgba(255,255,255,.045)); }
+    .tier-card[data-tier="第二梯队"] { background: linear-gradient(160deg, rgba(247,184,75,.17), rgba(255,255,255,.045)); }
+    .tier-card[data-tier="第三梯队"] { background: linear-gradient(160deg, rgba(87,169,255,.16), rgba(255,255,255,.045)); }
+    .tier-card[data-tier="第四梯队"] { background: linear-gradient(160deg, rgba(108,119,137,.18), rgba(255,255,255,.045)); }
+    .tier-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
+    .tier-title { font-size:16px; font-weight:800; }
+    .tier-count { color:var(--muted); font-size:12px; margin-top:4px; }
+    .tier-stats { display:flex; flex-wrap:wrap; gap:7px; margin:8px 0 10px; }
+    .tier-stat {
+      padding:6px 9px; border-radius:999px; font-size:10px;
+      background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.07); color:#dfefff;
+    }
+    .tier-list { display:grid; gap:8px; max-height:360px; overflow:auto; padding-right:2px; }
+    .tier-person {
+      display:grid; grid-template-columns: minmax(0, 1fr) auto; gap:8px;
+      padding:10px; border-radius:14px; background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.055);
+    }
+    .tier-person-main { min-width:0; }
+    .tier-person-name { font-size:14px; font-weight:760; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tier-person-meta { color:var(--muted); font-size:11px; line-height:1.55; margin-top:4px; }
+    .tier-person-rank { text-align:right; display:grid; gap:6px; justify-items:end; align-content:start; }
+    .small-pill {
+      display:inline-flex; align-items:center; justify-content:center; padding:5px 8px; border-radius:999px;
+      font-size:10px; background:rgba(255,255,255,.06); color:#dfefff; border:1px solid rgba(255,255,255,.06);
+      white-space:nowrap;
+    }
+    .small-pill.hot { background:rgba(255,127,92,.16); color:#ffd9d0; border-color:rgba(255,127,92,.24); }
+    .small-pill.sleep { background:rgba(108,119,137,.18); color:#dce4ef; border-color:rgba(108,119,137,.24); }
+    .tier-empty { color:var(--muted); font-size:12px; padding:10px; }
     @media (min-width: 960px) {
       .app {
         width: min(100%, 1480px);
@@ -380,7 +418,8 @@
       }
       .a-wall,
       .watch-list,
-      .warning-grid {
+      .warning-grid,
+      .tier-board {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .rank-row,
@@ -414,7 +453,7 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 8px;
     }
     .bottom-tab {
@@ -484,8 +523,18 @@
         <section class="section card card-pad">
           <div class="section-header">
             <div>
+              <div class="section-title">原梯队全员视图</div>
+              <div class="section-sub">第一 / 第二 / 第三 / 第四梯队所有家顾都在这里</div>
+            </div>
+          </div>
+          <div class="tier-board" id="tierBoard"></div>
+        </section>
+
+        <section class="section card card-pad">
+          <div class="section-header">
+            <div>
               <div class="section-title">Top 8 作战榜</div>
-              <div class="section-sub">手机端先盯最重要的一屏</div>
+              <div class="section-sub">经营信号最强的人，不替代梯队全员盘</div>
             </div>
           </div>
           <div class="top-list" id="topList"></div>
@@ -557,7 +606,8 @@
         </section>
 
         <div class="bottom-nav full-span">
-          <div class="bottom-tab active" data-section="overview">总览<br/>Overview</div>
+          <div class="bottom-tab" data-section="overview">总览<br/>Overview</div>
+          <div class="bottom-tab active" data-section="tiers">梯队<br/>Tiers</div>
           <div class="bottom-tab" data-section="pool">资源池<br/>Pool</div>
           <div class="bottom-tab" data-section="ops">运营<br/>Ops</div>
           <div class="bottom-tab" data-section="action">动作<br/>Action</div>
@@ -7691,6 +7741,7 @@
       const renderSectionVisibility = () => {
       const sectionMap = {
         overview: ['topList', 'aWall'],
+        tiers: ['tierBoard'],
         pool: ['poolGrid'],
         ops: ['operatorList'],
         action: ['watchList', 'funnelGrid', 'warningKpis', 'warningGrid', 'notesList']
@@ -7768,7 +7819,55 @@
       });
     };
 
-    let activeSection = 'overview';
+    let activeSection = 'tiers';
+
+    const renderTierBoard = (scopeRows) => {
+      const tierOrder = ['第一梯队', '第二梯队', '第三梯队', '第四梯队'];
+      const baseRows = scopeRows.filter(r => r['是否来自原119体系'] === '是');
+      const rowsByTier = tierOrder.map(tier => ({
+        tier,
+        rows: baseRows
+          .filter(r => r['原等级'] === tier)
+          .slice()
+          .sort((a, b) => Number(a['全新排名'] || 9999) - Number(b['全新排名'] || 9999))
+      }));
+
+      document.getElementById('tierBoard').innerHTML = rowsByTier.map(group => {
+        const activeCount = group.rows.filter(r => r['当期陪跑状态'] === '有当期陪跑签单').length;
+        const noCurrentCount = group.rows.length - activeCount;
+        const groupedCount = group.rows.filter(r => r['是否已拉群标准化'] === '是').length;
+        const topNames = group.rows.map(row => `
+          <div class="tier-person">
+            <div class="tier-person-main">
+              <div class="tier-person-name">${row['家顾姓名']}</div>
+              <div class="tier-person-meta">${row['归属运营']}｜${row['资源池建议']}｜${row['当期陪跑状态']}</div>
+              <div class="tier-person-meta">设计 ${row['最新设计签单']}｜施工 ${row['最新施工签单']}｜金额 ${fmtWan(row['最新施工金额(万)'])}</div>
+            </div>
+            <div class="tier-person-rank">
+              <span class="small-pill ${row['当期陪跑状态'] === '有当期陪跑签单' ? 'hot' : 'sleep'}">#${row['全新排名']}</span>
+              <span class="small-pill">${row['是否已拉群标准化'] === '是' ? '已拉群' : '待补齐'}</span>
+            </div>
+          </div>
+        `).join('');
+        return `
+          <div class="tier-card" data-tier="${group.tier}">
+            <div class="tier-head">
+              <div>
+                <div class="tier-title">${group.tier}</div>
+                <div class="tier-count">${group.rows.length} 人全量展示</div>
+              </div>
+              <div class="pool-tag ${group.tier === '第一梯队' ? 'A池' : group.tier === '第二梯队' ? 'B池' : group.tier === '第三梯队' ? 'C池' : 'D池'}">${group.tier.replace('梯队','')}</div>
+            </div>
+            <div class="tier-stats">
+              <span class="tier-stat">当期有签单 ${activeCount}</span>
+              <span class="tier-stat">待激活 ${noCurrentCount}</span>
+              <span class="tier-stat">已拉群 ${groupedCount}</span>
+            </div>
+            <div class="tier-list">${topNames || '<div class="tier-empty">暂无该梯队人员</div>'}</div>
+          </div>
+        `;
+      }).join('');
+    };
 
     const renderDashboard = () => {
       renderScopeButtons();
@@ -7817,6 +7916,7 @@
       `).join('');
 
       document.getElementById('topList').innerHTML = top8.map(r => renderRankRow(r)).join('') || '<div class="note"><strong>暂无数据</strong><p>当前视图下还没有符合条件的家顾。</p></div>';
+      renderTierBoard(scopeRows);
       document.getElementById('aWall').innerHTML = aPool.map(r => renderRankRow(r, true)).join('') || '<div class="note"><strong>当前无A池</strong><p>这个视图下暂时没有A池家顾。</p></div>';
 
       document.getElementById('operatorList').innerHTML = operators.map(op => `
