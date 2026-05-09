@@ -43,6 +43,13 @@
     .metric{padding:16px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
     .metric .k{font-size:12px;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .metric .v{font-size:30px;font-weight:900;letter-spacing:-.04em;margin-top:4px}
+    .summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 14px}
+    .summary-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.70);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
+    .summary-card strong{display:block;font-size:15px;margin-bottom:9px}
+    .summary-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.75;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .summary-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(23,32,51,.06);font-size:12px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .summary-row:last-child{border-bottom:0}
+    .summary-row span:last-child{font-weight:900;color:var(--ink)}
     .tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:14px 0 16px}
     .tabs::-webkit-scrollbar{display:none}
     .tab{border:1px solid var(--line);background:rgba(255,255,255,.62);padding:11px 15px;border-radius:999px;font-size:13px;color:#596579;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;white-space:nowrap;cursor:pointer}
@@ -64,17 +71,21 @@
     .tier-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:12px}
     .tier-name{font-size:20px;font-weight:900}.tier-count{color:var(--muted);font-size:12px;margin-top:4px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .tier-list{display:grid;gap:9px;max-height:760px;overflow:auto;padding-right:3px}
-    .person{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:start;padding:12px;border-radius:16px;background:rgba(255,255,255,.64);border:1px solid rgba(23,32,51,.08)}
-    .rank{width:44px;height:44px;border-radius:14px;background:#172033;color:#fff;display:grid;place-items:center;font-weight:900;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .person{display:grid;grid-template-columns:40px minmax(0,1fr) 70px;gap:10px;align-items:start;padding:10px;border-radius:16px;background:rgba(255,255,255,.64);border:1px solid rgba(23,32,51,.08)}
+    .rank{width:40px;height:40px;border-radius:13px;background:#172033;color:#fff;display:grid;place-items:center;font-weight:900;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .name{font-size:16px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .meta{font-size:12px;color:var(--muted);line-height:1.65;margin-top:3px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
     .pill{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:rgba(23,32,51,.06);font-size:11px;color:#334155;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .pill.new{background:rgba(18,130,92,.12);color:var(--green)}.pill.warn{background:rgba(200,58,58,.10);color:var(--red)}.pill.hot{background:rgba(217,108,44,.13);color:var(--orange)}
-    .score{text-align:right;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.score .num{font-size:24px;font-weight:900}.score .txt{font-size:11px;color:var(--muted)}
+    .score{text-align:right;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.score .num{font-size:20px;font-weight:900}.score .txt{font-size:11px;color:var(--muted)}
+    .reason{margin-top:7px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .reason summary{cursor:pointer;color:#506070;font-size:11px;font-weight:800}
+    .reason div{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.6}
     .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .info-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
     .info-card strong{display:block;font-size:17px;margin-bottom:8px}.info-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .bar{height:8px;background:rgba(23,32,51,.08);border-radius:999px;overflow:hidden;margin:10px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#71a0ff);border-radius:inherit}
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.72)}
     table{border-collapse:collapse;width:100%;min-width:860px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     th,td{padding:12px 13px;border-bottom:1px solid rgba(23,32,51,.08);font-size:13px;text-align:left;white-space:nowrap}
@@ -83,7 +94,7 @@
     .anomaly{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid{grid-template-columns:1fr}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
     }
   </style>
@@ -109,6 +120,7 @@
       <div class="control"><label>状态</label><select id="statusFilter"></select></div>
       <div class="control"><label>搜索家顾 / 门店</label><input id="keywordFilter" placeholder="输入关键词" /></div>
     </section>
+    <section class="summary-grid" id="summaryGrid"></section>
 
     <main>
       <section class="view active" id="view-ranking">
@@ -137,7 +149,7 @@
   <script>
     const payload = {
   "summary": {
-    "generatedAt": "2026-05-09T22:20:10",
+    "generatedAt": "2026-05-09T22:57:23",
     "version": "advisor-fusion-v2",
     "definition": "原119重点家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
     "scope": {
@@ -167,15 +179,15 @@
     "ownerSummary": [
       {
         "运营": "周国平",
-        "家顾数": 40,
+        "家顾数": 39,
         "原119家顾": 34,
-        "新增家顾": 6,
-        "设计签单": 77,
-        "施工签单": 55,
-        "施工金额(万)": 974.7,
+        "新增家顾": 5,
+        "设计签单": 75,
+        "施工签单": 54,
+        "施工金额(万)": 961.4,
         "新第一梯队": 3,
         "新第二梯队": 4,
-        "新第三梯队": 8,
+        "新第三梯队": 7,
         "新第四梯队": 25
       },
       {
@@ -193,15 +205,15 @@
       },
       {
         "运营": "钟海燕",
-        "家顾数": 29,
+        "家顾数": 30,
         "原119家顾": 19,
-        "新增家顾": 10,
-        "设计签单": 63,
-        "施工签单": 41,
-        "施工金额(万)": 804.3,
+        "新增家顾": 11,
+        "设计签单": 65,
+        "施工签单": 42,
+        "施工金额(万)": 817.6,
         "新第一梯队": 2,
         "新第二梯队": 3,
-        "新第三梯队": 9,
+        "新第三梯队": 10,
         "新第四梯队": 15
       },
       {
@@ -897,10 +909,9 @@
         "归属运营": "向勇",
         "运营归属来源": "主看板签单归属",
         "运营候选": [
-          "向勇",
-          "钟海燕"
+          "向勇"
         ],
-        "运营是否冲突": "是",
+        "运营是否冲突": "否",
         "是否拉群": "1",
         "是否已拉群标准化": "是",
         "是否新增奖励": "",
@@ -1001,80 +1012,7 @@
       }
     ],
     "anomalies": {
-      "运营冲突": [
-        {
-          "家顾姓名": "周维",
-          "新排名": 18,
-          "原梯队": "第三梯队",
-          "新梯度": "新第二梯队",
-          "归属运营": "向勇",
-          "运营候选": [
-            "向勇",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        },
-        {
-          "家顾姓名": "龙浇苗",
-          "新排名": 21,
-          "原梯队": "新增家顾",
-          "新梯度": "新第二梯队",
-          "归属运营": "向勇",
-          "运营候选": [
-            "向勇",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        },
-        {
-          "家顾姓名": "陈文波",
-          "新排名": 29,
-          "原梯队": "新增家顾",
-          "新梯度": "新第二梯队",
-          "归属运营": "向勇",
-          "运营候选": [
-            "向勇",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        },
-        {
-          "家顾姓名": "胡峰",
-          "新排名": 37,
-          "原梯队": "第四梯队",
-          "新梯度": "新第三梯队",
-          "归属运营": "周国平",
-          "运营候选": [
-            "周国平",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        },
-        {
-          "家顾姓名": "王道航",
-          "新排名": 55,
-          "原梯队": "第四梯队",
-          "新梯度": "新第三梯队",
-          "归属运营": "向勇",
-          "运营候选": [
-            "向勇",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        },
-        {
-          "家顾姓名": "彭振华",
-          "新排名": 69,
-          "原梯队": "新增家顾",
-          "新梯度": "新第三梯队",
-          "归属运营": "周国平",
-          "运营候选": [
-            "周国平",
-            "钟海燕"
-          ],
-          "原因": "同一家顾在主看板中出现多个运营归属"
-        }
-      ],
+      "运营冲突": [],
       "待分配运营": [],
       "原高梯队待激活": [
         {
@@ -1750,10 +1688,9 @@
       "归属运营": "向勇",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "向勇",
-        "钟海燕"
+        "向勇"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "1",
       "是否已拉群标准化": "是",
       "是否新增奖励": "",
@@ -1865,10 +1802,9 @@
       "归属运营": "向勇",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "向勇",
-        "钟海燕"
+        "向勇"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "",
       "是否已拉群标准化": "未知",
       "是否新增奖励": "",
@@ -2170,10 +2106,9 @@
       "归属运营": "向勇",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "向勇",
-        "钟海燕"
+        "向勇"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "",
       "是否已拉群标准化": "未知",
       "是否新增奖励": "",
@@ -2475,10 +2410,9 @@
       "归属运营": "周国平",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "周国平",
-        "钟海燕"
+        "周国平"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "",
       "是否已拉群标准化": "否",
       "是否新增奖励": "",
@@ -3160,10 +3094,9 @@
       "归属运营": "向勇",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "向勇",
-        "钟海燕"
+        "向勇"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "",
       "是否已拉群标准化": "否",
       "是否新增奖励": "",
@@ -3690,13 +3623,12 @@
       "原始区域": "",
       "主看板大区": "长沙大区",
       "主看板门店": "星沙店",
-      "归属运营": "周国平",
+      "归属运营": "钟海燕",
       "运营归属来源": "主看板签单归属",
       "运营候选": [
-        "周国平",
         "钟海燕"
       ],
-      "运营是否冲突": "是",
+      "运营是否冲突": "否",
       "是否拉群": "",
       "是否已拉群标准化": "未知",
       "是否新增奖励": "",
@@ -3715,7 +3647,7 @@
       "最近签单日期": "2026-03-27",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 57.6,
-      "加权依据": "原119外新增出单家顾；设计2单；施工1单/13.3万；运营按主看板归属：周国平",
+      "加权依据": "原119外新增出单家顾；设计2单；施工1单/13.3万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
       "新排名": 69
     },
@@ -7813,6 +7745,7 @@
       document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
       byId('view-' + activeTab).classList.add('active');
       renderMetrics();
+      renderSummaryGrid();
       const list = filteredRows();
       renderRanking(list);
       renderOriginal(list);
@@ -7833,6 +7766,36 @@
       byId('metricGrid').innerHTML = metrics.map(([k, v]) => '<div class="metric"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>').join('');
     }
 
+    function renderSummaryGrid() {
+      const tierCounts = summary.newTierCounts || {};
+      const totals = summary.totals || {};
+      const scope = summary.scope || {};
+      const ownerTop = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['施工金额(万)'] || 0) - Number(a['施工金额(万)'] || 0)).slice(0, 3);
+      const anomalies = summary.anomalies || {};
+      const anomalyCount = Object.values(anomalies).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+      const cards = [
+        {
+          title: '新梯度结构',
+          rows: orderTiers.map(tier => [tier.replace('新',''), (tierCounts[tier] || 0) + '人'])
+        },
+        {
+          title: '经营数据总览',
+          rows: [['设计签单', (totals['设计签单'] || 0) + '单'], ['施工签单', (totals['施工签单'] || 0) + '单'], ['施工金额', fmtWan(totals['施工金额(万)'] || 0)]]
+        },
+        {
+          title: '运营金额 TOP3',
+          rows: ownerTop.map(item => [item['运营'], fmtWan(item['施工金额(万)'])])
+        },
+        {
+          title: '需要关注',
+          rows: [['异常项', anomalyCount + '个'], ['待激活观察', (scope['待激活观察'] || 0) + '人'], ['新增家顾', (scope['全盘新增家顾'] || 0) + '人']]
+        }
+      ];
+      byId('summaryGrid').innerHTML = cards.map(card => '<div class="summary-card"><strong>' + card.title + '</strong>'
+        + card.rows.map(([k, v]) => '<div class="summary-row"><span>' + k + '</span><span>' + v + '</span></div>').join('')
+        + '</div>').join('');
+    }
+
     function personCard(row) {
       const sourceCls = row['来源类型'] === '全盘新增家顾' ? 'new' : '';
       const statusCls = row['当期陪跑状态'] === '暂无当期陪跑签单' ? 'warn' : 'hot';
@@ -7842,8 +7805,8 @@
         + '<div class="name">' + row['家顾姓名'] + '</div>'
         + '<div class="meta">' + row['归属运营'] + '｜原' + row['原梯队'] + '｜' + (row['主看板门店'] || row['原始区域'] || '未记录门店') + '</div>'
         + '<div class="meta">设计 ' + row['设计签单'] + '｜施工 ' + row['施工签单'] + '｜金额 ' + fmtWan(row['施工金额(万)']) + '</div>'
-        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + row['来源类型'] + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span><span class="pill">' + row['推荐动作'] + '</span></div>'
-        + '<div class="meta">' + row['加权依据'] + '</div>'
+        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + row['来源类型'] + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span></div>'
+        + '<details class="reason"><summary>排名依据 / 推荐动作</summary><div>' + row['加权依据'] + '<br>' + row['推荐动作'] + '</div></details>'
         + '</div>'
         + '<div class="score"><div class="txt">评分</div><div class="num">' + row['综合评分'] + '</div></div>'
         + '</div>';
@@ -7877,9 +7840,11 @@
     }
 
     function renderOwners() {
-      const owners = summary.ownerSummary || [];
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['施工金额(万)'] || 0) - Number(a['施工金额(万)'] || 0));
+      const maxAmount = Math.max(...owners.map(owner => Number(owner['施工金额(万)'] || 0)), 1);
       byId('ownerCards').innerHTML = owners.map(owner => '<div class="info-card">'
         + '<strong>' + owner['运营'] + '</strong>'
+        + '<div class="bar"><span style="width:' + Math.max(3, Number(owner['施工金额(万)'] || 0) / maxAmount * 100) + '%"></span></div>'
         + '<p>家顾 ' + owner['家顾数'] + ' 人｜原119 ' + owner['原119家顾'] + '｜新增 ' + owner['新增家顾'] + '</p>'
         + '<p>设计 ' + owner['设计签单'] + '｜施工 ' + owner['施工签单'] + '｜金额 ' + fmtWan(owner['施工金额(万)']) + '</p>'
         + '<p>新一 ' + owner['新第一梯队'] + '｜新二 ' + owner['新第二梯队'] + '｜新三 ' + owner['新第三梯队'] + '｜新四 ' + owner['新第四梯队'] + '</p>'
