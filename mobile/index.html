@@ -4355,6 +4355,7 @@
 };
     const changesData = [];
 
+    const state = { activeOperator: '全部', activePool: '全部' };
     const fmtWan = (n) => `${Number(n || 0).toFixed(1)}万`;
     const totalConstruction = rankingData.reduce((s, r) => s + Number(r['最新施工金额(万)'] || 0), 0);
     const totalDesign = rankingData.reduce((s, r) => s + Number(r['最新设计签单'] || 0), 0);
@@ -4402,6 +4403,13 @@
       </div>
     `).join('');
 
+    const operatorOptions = ['全部', ...operators.map(op => op.name)];
+    const poolOptions = ['全部', 'A池', 'B池', 'C池', 'D池'];
+    document.querySelector('.tabs').innerHTML = [
+      ...operatorOptions.map(name => `<button class="tab ${name === state.activeOperator ? 'active' : ''}" data-filter="operator" data-value="${name}">${name}</button>`),
+      ...poolOptions.map(pool => `<button class="tab ${pool === state.activePool ? 'active' : ''}" data-filter="pool" data-value="${pool}">${pool}</button>`)
+    ].join('');
+
     const renderRankRow = (row, compact = false) => `
       <div class="rank-row">
         <div class="rank-top">
@@ -4429,6 +4437,26 @@
 
     document.getElementById('topList').innerHTML = top8.map(r => renderRankRow(r)).join('');
     document.getElementById('aWall').innerHTML = aPool.map(r => renderRankRow(r, true)).join('');
+
+    const getFilteredRows = () => rankingData.filter(row => {
+      const okOperator = state.activeOperator === '全部' || (row['归属运营'] || '未分配') === state.activeOperator;
+      const okPool = state.activePool === '全部' || row['资源池建议'] === state.activePool;
+      return okOperator && okPool;
+    });
+
+    const renderFilteredTopList = () => {
+      const rows = getFilteredRows().slice(0, 12);
+      document.getElementById('topList').innerHTML = rows.length
+        ? rows.map(r => renderRankRow(r)).join('')
+        : '<div class="note"><strong>当前筛选暂无结果</strong><p>可切回“全部”或放宽筛选条件。</p></div>';
+    };
+
+    const renderFilteredAWall = () => {
+      const rows = getFilteredRows().filter(r => r['资源池建议'] === 'A池').slice(0, 8);
+      document.getElementById('aWall').innerHTML = rows.length
+        ? rows.map(r => renderRankRow(r, true)).join('')
+        : '<div class="note"><strong>当前筛选下暂无 A 池账号</strong><p>说明该运营当前没有 A 池，或当前资源池筛到了别的池。</p></div>';
+    };
 
     document.getElementById('operatorList').innerHTML = operators.map(op => `
       <div class="operator-item">
@@ -4471,6 +4499,26 @@
         <p>${item.text}</p>
       </div>
     `).join('');
+
+    document.querySelector('.tabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+      const filter = btn.dataset.filter;
+      const value = btn.dataset.value;
+      if (filter === 'operator') state.activeOperator = value;
+      if (filter === 'pool') state.activePool = value;
+      document.querySelectorAll('.tab').forEach(tab => {
+        const sameFilter = tab.dataset.filter === filter;
+        if (sameFilter) tab.classList.remove('active');
+      });
+      btn.classList.add('active');
+      renderFilteredTopList();
+      renderFilteredAWall();
+      document.getElementById('heroSummary').textContent = `当前筛选：${state.activeOperator} / ${state.activePool}，命中 ${getFilteredRows().length} 个账号。手机端先看头部保供、运营负载和动作建议。`;
+    });
+
+    renderFilteredTopList();
+    renderFilteredAWall();
   </script>
 </body>
 </html>
