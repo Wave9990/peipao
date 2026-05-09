@@ -281,6 +281,7 @@
       display:inline-flex; align-items:center; gap:4px; padding:5px 9px; border-radius:999px; font-size:10px; font-weight:700;
       border:1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.06); color:#e8f3ff; margin-top:8px;
     }
+    .source-tag.new { background: rgba(60,216,141,.12); color:#bdf3d6; border-color: rgba(60,216,141,.24); }
     .source-tag.base { background: rgba(255,184,75,.12); color:#ffe3b0; border-color: rgba(247,184,75,.22); }
     @media (min-width: 960px) {
       .app {
@@ -291,9 +292,12 @@
         max-width: none;
         margin: 0;
         display: grid;
-        grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
-        gap: 18px;
+        grid-template-columns: 390px minmax(0, 1fr);
+        gap: 20px;
         align-items: start;
+        overflow: visible;
+        padding: 20px;
+        border-radius: 24px;
       }
       .topbar {
         grid-column: 1 / -1;
@@ -301,14 +305,16 @@
       }
       .desktop-rail {
         display: grid;
-        gap: 14px;
+        gap: 16px;
         position: sticky;
         top: 24px;
+        align-self: start;
       }
       .desktop-main {
         display: grid;
-        gap: 14px;
+        gap: 16px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: start;
       }
       .desktop-main .section.full-span,
       .desktop-main .bottom-nav {
@@ -325,10 +331,12 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
       .top-list,
-      .a-wall,
       .operator-list,
+      .notes-list {
+        grid-template-columns: 1fr;
+      }
+      .a-wall,
       .watch-list,
-      .notes-list,
       .warning-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -340,8 +348,7 @@
         min-height: 100%;
       }
       .bottom-nav {
-        position: static;
-        margin-top: 0;
+        display: none;
       }
     }
     @media (max-width: 959px) {
