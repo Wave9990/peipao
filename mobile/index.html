@@ -57,11 +57,20 @@
     .explain-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.70);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
     .explain-card strong{display:block;font-size:15px;margin-bottom:8px}
     .explain-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.8;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .boss-grid{display:grid;grid-template-columns:1.25fr repeat(3,minmax(0,1fr));gap:12px;margin:0 0 14px}
+    .boss-card{padding:18px;border-radius:22px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
+    .boss-card.lead{background:linear-gradient(135deg,rgba(23,32,51,.94),rgba(217,108,44,.76));color:#fff}
+    .boss-card.warn{background:linear-gradient(145deg,rgba(255,242,203,.92),rgba(255,255,255,.76))}
+    .boss-card.risk{background:linear-gradient(145deg,rgba(255,232,219,.92),rgba(255,255,255,.76))}
+    .boss-card strong{display:block;font-size:16px;margin-bottom:8px}
+    .boss-card .boss-num{font-size:30px;font-weight:900;letter-spacing:-.04em;margin-bottom:4px}
+    .boss-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .boss-card.lead p{color:rgba(255,255,255,.78)}
     .tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:14px 0 16px}
     .tabs::-webkit-scrollbar{display:none}
     .tab{border:1px solid var(--line);background:rgba(255,255,255,.62);padding:11px 15px;border-radius:999px;font-size:13px;color:#596579;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;white-space:nowrap;cursor:pointer}
     .tab.active{background:#172033;color:#fff;border-color:#172033}
-    .toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+    .toolbar{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}
     .control{background:rgba(255,255,255,.68);border:1px solid var(--line);border-radius:16px;padding:10px}
     .control label{display:block;font-size:11px;color:var(--muted);font-weight:800;margin-bottom:5px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     select,input{width:100%;border:0;background:transparent;font-size:14px;color:var(--ink);outline:none;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
@@ -69,6 +78,9 @@
     .section-title{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:8px 2px 12px}
     .section-title h2{margin:0;font-size:24px;letter-spacing:-.03em}
     .section-title p{margin:4px 0 0;color:var(--muted);font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .view-toggle{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .mode-btn{border:1px solid var(--line);background:rgba(255,255,255,.7);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900;color:#506070;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;cursor:pointer}
+    .mode-btn.active{background:#172033;color:#fff;border-color:#172033}
     .tier-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .tier-card{padding:16px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.72);box-shadow:0 14px 40px rgba(65,47,25,.08)}
     .tier-card[data-tier="新第一梯队"]{background:linear-gradient(145deg,rgba(255,232,219,.92),rgba(255,255,255,.76))}
@@ -90,6 +102,10 @@
     .reason summary{cursor:pointer;color:#506070;font-size:11px;font-weight:800}
     .reason div{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.6}
     .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .owner-warzone{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+    .warzone-card{padding:14px;border-radius:18px;background:rgba(255,255,255,.74);border:1px solid var(--line);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .warzone-card strong{display:flex;justify-content:space-between;gap:8px;font-size:14px;margin-bottom:8px}
+    .warzone-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.65}
     .info-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
     .info-card strong{display:block;font-size:17px;margin-bottom:8px}.info-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .bar{height:8px;background:rgba(23,32,51,.08);border-radius:999px;overflow:hidden;margin:10px 0}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#71a0ff);border-radius:inherit}
@@ -99,9 +115,42 @@
     th{background:rgba(23,32,51,.05);color:#334155;font-size:12px}
     tr:last-child td{border-bottom:0}
     .anomaly{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .resource-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+    .resource-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
+    .resource-card[data-pool^="A"]{background:linear-gradient(145deg,rgba(255,232,219,.94),rgba(255,255,255,.78))}
+    .resource-card[data-pool^="B"]{background:linear-gradient(145deg,rgba(255,242,203,.94),rgba(255,255,255,.78))}
+    .resource-card[data-pool^="C"]{background:linear-gradient(145deg,rgba(224,236,255,.94),rgba(255,255,255,.78))}
+    .resource-card[data-pool^="D"]{background:linear-gradient(145deg,rgba(232,245,237,.94),rgba(255,255,255,.78))}
+    .resource-card strong{display:block;font-size:17px;margin-bottom:8px}
+    .resource-card .big{font-size:30px;font-weight:900;letter-spacing:-.04em;margin:4px 0}
+    .resource-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.75;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .resource-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+    .resource-note{padding:14px 16px;border-radius:18px;background:rgba(23,32,51,.05);border:1px dashed rgba(23,32,51,.18);color:#4b5563;font-size:12px;line-height:1.75;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin-bottom:12px}
+    .resource-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-bottom:14px}
+    .resource-hero-card{position:relative;overflow:hidden;padding:20px;border-radius:24px;background:linear-gradient(135deg,rgba(23,32,51,.94),rgba(37,93,214,.82));color:#fff;box-shadow:0 18px 50px rgba(23,32,51,.20)}
+    .resource-hero-card:after{content:"";position:absolute;right:-60px;top:-70px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.12)}
+    .resource-hero-card .mini{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.72;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-weight:900}
+    .resource-hero-card .headline{font-size:34px;line-height:1.08;font-weight:900;letter-spacing:-.04em;margin:10px 0 8px}
+    .resource-hero-card p{max-width:720px;margin:0;color:rgba(255,255,255,.78);font-size:13px;line-height:1.8;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .action-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+    .action-card{padding:14px;border-radius:18px;background:rgba(255,255,255,.74);border:1px solid var(--line)}
+    .action-card strong{display:flex;justify-content:space-between;gap:8px;font-size:15px;margin-bottom:8px}
+    .action-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.65;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .pressure-list{display:grid;gap:8px}
+    .pressure-row{padding:10px 12px;border-radius:15px;background:rgba(255,255,255,.72);border:1px solid rgba(23,32,51,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .pressure-top{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:900}
+    .pressure-meta{font-size:11px;color:var(--muted);margin-top:5px}
+    .pending-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+    .pending-card{padding:13px;border-radius:18px;background:rgba(200,58,58,.07);border:1px solid rgba(200,58,58,.16);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .pending-card strong{display:block;font-size:14px;margin-bottom:6px}.pending-card p{margin:0;color:#7f1d1d;font-size:12px;line-height:1.65}
+    .execution-list{display:grid;gap:8px;margin:0 0 14px}
+    .execution-item{display:grid;grid-template-columns:110px minmax(0,1fr) 160px;gap:10px;align-items:center;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.74);border:1px solid rgba(23,32,51,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone{grid-template-columns:1fr}
+      .resource-grid,.resource-layout,.resource-hero,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
+      .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
     }
   </style>
@@ -124,17 +173,27 @@
     <section class="toolbar">
       <div class="control"><label>新梯度</label><select id="tierFilter"></select></div>
       <div class="control"><label>归属运营</label><select id="ownerFilter"></select></div>
+      <div class="control"><label>资源池</label><select id="resourceFilter"></select></div>
       <div class="control"><label>来源</label><select id="sourceFilter"></select></div>
       <div class="control"><label>状态</label><select id="statusFilter"></select></div>
       <div class="control"><label>搜索家顾 / 门店</label><input id="keywordFilter" placeholder="输入关键词" /></div>
     </section>
     <section class="summary-grid" id="summaryGrid"></section>
     <section class="explain-grid" id="explainGrid"></section>
+    <section class="boss-grid" id="bossGrid"></section>
 
     <main>
       <section class="view active" id="view-ranking">
-        <div class="section-title"><div><h2>新梯度名单</h2><p>按新第一/第二/第三/第四梯队完整展示所有家顾。</p></div></div>
+        <div class="section-title">
+          <div><h2>新梯度名单</h2><p>按新第一/第二/第三/第四梯队完整展示所有家顾。</p></div>
+          <div class="view-toggle">
+            <button class="mode-btn active" data-rank-mode="cards">卡片视图</button>
+            <button class="mode-btn" data-rank-mode="table">紧凑表格</button>
+            <button class="mode-btn" data-rank-mode="alerts">只看异常</button>
+          </div>
+        </div>
         <div class="tier-grid" id="tierGrid"></div>
+        <div class="table-wrap" id="rankingTableWrap" style="display:none;margin-top:12px"><table id="rankingTable"></table></div>
       </section>
       <section class="view" id="view-original">
         <div class="section-title"><div><h2>原119复盘</h2><p>看原重点名单在新排名里的位置、升降和待激活对象。</p></div></div>
@@ -146,7 +205,28 @@
       </section>
       <section class="view" id="view-owner">
         <div class="section-title"><div><h2>运营视角</h2><p>使用主看板同一套 owner 归属规则汇总，不再和团队运营数据口径打架。</p></div></div>
+        <div class="section-title"><div><h2>运营战区</h2><p>先看资源负载、头部数量和全盘承接压力，再看详细经营数据。</p></div></div>
+        <div class="owner-warzone" id="ownerWarzone"></div>
         <div class="cards" id="ownerCards"></div>
+      </section>
+      <section class="view" id="view-resource">
+        <div class="section-title"><div><h2>资源扶持方案</h2><p>独立资源层：只用于剪辑、投放和内容扶持，不替代新梯度名单。</p></div></div>
+        <div class="resource-hero">
+          <div class="resource-hero-card" id="resourceHero"></div>
+          <div class="info-card">
+            <strong>运营资源压力排行</strong>
+            <div class="pressure-list" id="resourcePressureList"></div>
+          </div>
+        </div>
+        <div class="action-grid" id="resourceActionGrid"></div>
+        <div class="execution-list" id="resourceExecutionList"></div>
+        <div id="resourcePendingWrap"></div>
+        <div class="resource-note" id="resourceNote"></div>
+        <div class="resource-grid" id="resourceCards"></div>
+        <div class="resource-layout">
+          <div class="table-wrap"><table id="resourceTable"></table></div>
+          <div class="cards" id="resourceOwnerCards"></div>
+        </div>
       </section>
       <section class="view" id="view-anomaly">
         <div class="section-title"><div><h2>异常校验</h2><p>把可能导致看板不可信的问题直接列出来。</p></div></div>
@@ -158,7 +238,7 @@
   <script>
     const payload = {
   "summary": {
-    "generatedAt": "2026-05-10T13:13:44",
+    "generatedAt": "2026-05-10T16:27:37",
     "version": "advisor-fusion-v2",
     "definition": "原119重点家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
     "dataPeriod": "2026年累计",
@@ -190,13 +270,214 @@
       "原119重点家顾": 119,
       "全盘新增家顾": 58
     },
+    "resourceSummary": {
+      "策略版本": "advisor-resource-v1-20260510",
+      "策略名称": "陪跑家顾资源扶持策略",
+      "策略模式": "177人全量展示 + 54个资源位精准扶持",
+      "资源原则": "新梯度名单用于全量经营观察；资源池只用于剪辑、投放和管理者扶持分配，不能替代新第一/第二/第三/第四梯队。",
+      "锁定规则": "页面日更仅供观察；正式资源池建议每月1号或月末人工确认后锁定。",
+      "月剪辑产能": 272,
+      "建议资源盘": "建议资源盘272条/月",
+      "保守备用盘": "保守备用盘220条/月",
+      "资源位人数": 54,
+      "月剪辑需求": 272,
+      "资源池人数": {
+        "A池保供位": 6,
+        "B池冲刺位": 12,
+        "C池重点位": 16,
+        "D池轮转位": 20,
+        "基础观察": 123
+      },
+      "规则": [
+        "A/B/C/D资源池只影响资源分配，不改变新梯度排行。",
+        "日更页面可以刷新资源建议，但正式资源调整建议每月1号或月末人工确认。",
+        "原119外新增家顾如果进入A/B/C池，必须进入新增强家顾确认清单。",
+        "如果月剪辑产能不足，可临时切换为保守备用盘：A5/B10/C12/D16。"
+      ],
+      "资源池定义": [
+        {
+          "key": "A",
+          "label": "A池保供位",
+          "rankStart": 1,
+          "rankEnd": 6,
+          "monthlyEdits": 16,
+          "editSuggestion": "16条/月",
+          "adSuggestion": "每周1-2次 × 100元",
+          "contentSupport": "管理者一对一深介入",
+          "positionType": "头部保卫",
+          "goal": "保结果、保样板、保500万级冲刺"
+        },
+        {
+          "key": "B",
+          "label": "B池冲刺位",
+          "rankStart": 7,
+          "rankEnd": 18,
+          "monthlyEdits": 6,
+          "editSuggestion": "6条/月",
+          "adSuggestion": "每月2-4次测试放大",
+          "contentSupport": "重点会诊制",
+          "positionType": "重点冲刺",
+          "goal": "培养下一批A池账号"
+        },
+        {
+          "key": "C",
+          "label": "C池重点位",
+          "rankStart": 19,
+          "rankEnd": 34,
+          "monthlyEdits": 4,
+          "editSuggestion": "4条/月",
+          "adSuggestion": "每月1-2次小额测试",
+          "contentSupport": "模板扶持 + 亮点介入",
+          "positionType": "成长观察",
+          "goal": "测试、筛选、寻找升级苗子"
+        },
+        {
+          "key": "D",
+          "label": "D池轮转位",
+          "rankStart": 35,
+          "rankEnd": 54,
+          "monthlyEdits": 2,
+          "editSuggestion": "2条/月",
+          "adSuggestion": "原则上不常规配置",
+          "contentSupport": "基础覆盖",
+          "positionType": "轮转观察",
+          "goal": "保基础动作，只观察可上探对象"
+        }
+      ]
+    },
+    "resourceActionSummary": [
+      {
+        "资源池": "A池保供位",
+        "管理动作": "保供",
+        "人数": 6,
+        "月剪辑条数": 96,
+        "代表家顾": [
+          "罗怀安",
+          "蒋志军",
+          "罗委乡",
+          "陈湘",
+          "梁国生"
+        ],
+        "说明": "本月不讨论值不值得投，优先保障内容、剪辑、投放不断档。"
+      },
+      {
+        "资源池": "B池冲刺位",
+        "管理动作": "冲刺",
+        "人数": 12,
+        "月剪辑条数": 72,
+        "代表家顾": [
+          "王传龙",
+          "冯淑燕",
+          "张爱芳",
+          "王奇",
+          "丁杨+高泱"
+        ],
+        "说明": "集中会诊选题与转化断点，寻找下一批可上A池的人。"
+      },
+      {
+        "资源池": "C池重点位",
+        "管理动作": "观察",
+        "人数": 16,
+        "月剪辑条数": 64,
+        "代表家顾": [
+          "周维",
+          "张嘉辉",
+          "朱莉",
+          "龙浇苗",
+          "杨磊"
+        ],
+        "说明": "用模板扶持和小额测试验证内容苗子，重点看新增强家顾是否值得纳管。"
+      },
+      {
+        "资源池": "D池轮转位",
+        "管理动作": "轮转",
+        "人数": 20,
+        "月剪辑条数": 40,
+        "代表家顾": [
+          "陈旭辉",
+          "伍朋",
+          "胡峰",
+          "米宝云",
+          "梁赛"
+        ],
+        "说明": "保持基础动作，不做重投放；只保留可上探对象的观察窗口。"
+      }
+    ],
+    "resourcePendingNew": [
+      {
+        "新排名": 22,
+        "家顾姓名": "龙浇苗",
+        "归属运营": "向勇",
+        "资源池建议": "C池重点位",
+        "新梯度": "新第二梯队",
+        "设计签单": 5,
+        "施工签单": 4,
+        "施工金额(万)": 98.2,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      },
+      {
+        "新排名": 29,
+        "家顾姓名": "陈文波",
+        "归属运营": "向勇",
+        "资源池建议": "C池重点位",
+        "新梯度": "新第二梯队",
+        "设计签单": 4,
+        "施工签单": 3,
+        "施工金额(万)": 57.4,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      },
+      {
+        "新排名": 42,
+        "家顾姓名": "李方",
+        "归属运营": "宁章娜",
+        "资源池建议": "D池轮转位",
+        "新梯度": "新第三梯队",
+        "设计签单": 1,
+        "施工签单": 1,
+        "施工金额(万)": 66.8,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      },
+      {
+        "新排名": 45,
+        "家顾姓名": "彭爽",
+        "归属运营": "宁章娜",
+        "资源池建议": "D池轮转位",
+        "新梯度": "新第三梯队",
+        "设计签单": 3,
+        "施工签单": 2,
+        "施工金额(万)": 33.5,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      },
+      {
+        "新排名": 48,
+        "家顾姓名": "邱婷",
+        "归属运营": "向勇",
+        "资源池建议": "D池轮转位",
+        "新梯度": "新第三梯队",
+        "设计签单": 2,
+        "施工签单": 2,
+        "施工金额(万)": 33.7,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      },
+      {
+        "新排名": 54,
+        "家顾姓名": "康再华",
+        "归属运营": "向勇",
+        "资源池建议": "D池轮转位",
+        "新梯度": "新第三梯队",
+        "设计签单": 3,
+        "施工签单": 1,
+        "施工金额(万)": 21.5,
+        "建议动作": "人工确认是否纳入正式重点名单；确认后再锁定剪辑/投放资源"
+      }
+    ],
     "ownerSummary": [
       {
         "运营": "周国平",
-        "家顾数": 39,
+        "家顾数": 38,
         "原119家顾": 34,
-        "新增家顾": 5,
-        "设计签单": 75,
+        "新增家顾": 4,
+        "设计签单": 74,
         "施工签单": 54,
         "施工金额(万)": 961.3,
         "当前月": "2026-05",
@@ -206,7 +487,13 @@
         "新第一梯队": 3,
         "新第二梯队": 4,
         "新第三梯队": 7,
-        "新第四梯队": 25
+        "新第四梯队": 24,
+        "资源位人数": 13,
+        "资源月剪辑条数": 74,
+        "A池保供位": 2,
+        "B池冲刺位": 4,
+        "C池重点位": 2,
+        "D池轮转位": 5
       },
       {
         "运营": "向勇",
@@ -223,7 +510,13 @@
         "新第一梯队": 1,
         "新第二梯队": 7,
         "新第三梯队": 9,
-        "新第四梯队": 34
+        "新第四梯队": 34,
+        "资源位人数": 13,
+        "资源月剪辑条数": 46,
+        "A池保供位": 0,
+        "B池冲刺位": 2,
+        "C池重点位": 6,
+        "D池轮转位": 5
       },
       {
         "运营": "钟海燕",
@@ -240,14 +533,20 @@
         "新第一梯队": 2,
         "新第二梯队": 3,
         "新第三梯队": 10,
-        "新第四梯队": 14
+        "新第四梯队": 14,
+        "资源位人数": 11,
+        "资源月剪辑条数": 54,
+        "A池保供位": 1,
+        "B池冲刺位": 3,
+        "C池重点位": 3,
+        "D池轮转位": 4
       },
       {
         "运营": "宁章娜",
-        "家顾数": 39,
+        "家顾数": 40,
         "原119家顾": 24,
-        "新增家顾": 15,
-        "设计签单": 84,
+        "新增家顾": 16,
+        "设计签单": 85,
         "施工签单": 56,
         "施工金额(万)": 993,
         "当前月": "2026-05",
@@ -257,7 +556,13 @@
         "新第一梯队": 4,
         "新第二梯队": 4,
         "新第三梯队": 9,
-        "新第四梯队": 22
+        "新第四梯队": 23,
+        "资源位人数": 12,
+        "资源月剪辑条数": 82,
+        "A池保供位": 3,
+        "B池冲刺位": 2,
+        "C池重点位": 4,
+        "D池轮转位": 3
       },
       {
         "运营": "黄诗宇",
@@ -274,7 +579,13 @@
         "新第一梯队": 0,
         "新第二梯队": 2,
         "新第三梯队": 5,
-        "新第四梯队": 12
+        "新第四梯队": 12,
+        "资源位人数": 5,
+        "资源月剪辑条数": 16,
+        "A池保供位": 0,
+        "B池冲刺位": 1,
+        "C池重点位": 1,
+        "D池轮转位": 3
       }
     ],
     "totals": {
@@ -328,7 +639,17 @@
         "综合评分": 338.7,
         "加权依据": "原第一梯队；设计18单；施工9单/192.7万；运营按主看板归属：钟海燕",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 1
+        "新排名": 1,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第1，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "蒋志军",
@@ -372,7 +693,17 @@
         "综合评分": 324.7,
         "加权依据": "原第一梯队；设计13单；施工10单/207.6万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 2
+        "新排名": 2,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第2，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "罗委乡",
@@ -416,7 +747,17 @@
         "综合评分": 319.8,
         "加权依据": "原第一梯队；设计19单；施工9单/146.1万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 3
+        "新排名": 3,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第3，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "陈湘",
@@ -460,7 +801,17 @@
         "综合评分": 250.4,
         "加权依据": "原第二梯队；设计12单；施工8单/167.6万；运营按主看板归属：宁章娜",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 4
+        "新排名": 4,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第4，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "梁国生",
@@ -504,7 +855,17 @@
         "综合评分": 232,
         "加权依据": "原第二梯队；设计9单；施工9单/140.4万；运营按主看板归属：宁章娜",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 5
+        "新排名": 5,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第5，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "伍显微",
@@ -548,7 +909,17 @@
         "综合评分": 223.7,
         "加权依据": "原第一梯队；设计8单；施工5单/111.8万；运营按主看板归属：宁章娜",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 6
+        "新排名": 6,
+        "资源池建议": "A池保供位",
+        "是否资源位": "是",
+        "资源位类型": "头部保卫",
+        "剪辑资源建议": "16条/月",
+        "月剪辑条数": 16,
+        "投放资源建议": "每周1-2次 × 100元",
+        "内容资源建议": "管理者一对一深介入",
+        "资源入池原因": "当前融合排名第6，进入A池保供位；保结果、保样板、保500万级冲刺",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "王传龙",
@@ -592,7 +963,17 @@
         "综合评分": 214.3,
         "加权依据": "原第二梯队；设计8单；施工8单/110.2万；运营按主看板归属：宁章娜",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 7
+        "新排名": 7,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第7，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "冯淑燕",
@@ -606,7 +987,7 @@
         "主看板大区": "长沙大区",
         "主看板门店": "湘府店",
         "归属运营": "向勇",
-        "运营归属来源": "主看板签单归属",
+        "运营归属来源": "家顾归属修正规则",
         "运营候选": [
           "向勇"
         ],
@@ -634,9 +1015,19 @@
         "最近签单日期": "2026-05-07",
         "当期陪跑状态": "有陪跑签单数据",
         "综合评分": 207.8,
-        "加权依据": "原第一梯队；设计8单；施工4单/77.5万；运营按主看板归属：向勇",
+        "加权依据": "原第一梯队；设计8单；施工4单/77.5万",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 8
+        "新排名": 8,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第8，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "张爱芳",
@@ -680,7 +1071,17 @@
         "综合评分": 189.4,
         "加权依据": "原第二梯队；设计7单；施工4单/95.4万；运营按主看板归属：钟海燕",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 9
+        "新排名": 9,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第9，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "王奇",
@@ -724,7 +1125,17 @@
         "综合评分": 180.7,
         "加权依据": "原第二梯队；设计7单；施工5单/84.8万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 10
+        "新排名": 10,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第10，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "丁杨+高泱",
@@ -768,7 +1179,17 @@
         "综合评分": 158.9,
         "加权依据": "原第二梯队；设计5单；施工4单/71.0万；原119名单显示为“丁杨+高泱”，但主看板签单/施工数据应查找家装顾问“丁杨”，避免拆成重复家顾。",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 11
+        "新排名": 11,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第11，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "王永",
@@ -812,7 +1233,17 @@
         "综合评分": 154.5,
         "加权依据": "原第三梯队；设计5单；施工6单/94.1万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 12
+        "新排名": 12,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第12，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "徐利民",
@@ -856,7 +1287,17 @@
         "综合评分": 145.6,
         "加权依据": "原第二梯队；设计3单；施工3单/50.8万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 13
+        "新排名": 13,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第13，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "卢泽川",
@@ -900,7 +1341,17 @@
         "综合评分": 130.3,
         "加权依据": "原第三梯队；设计4单；施工3单/57.8万；运营按主看板归属：周国平",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 14
+        "新排名": 14,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第14，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "许鸿",
@@ -944,7 +1395,17 @@
         "综合评分": 127.6,
         "加权依据": "原第四梯队；设计2单；施工5单/110.9万；运营按主看板归属：钟海燕",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 15
+        "新排名": 15,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第15，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "唐奥州",
@@ -988,7 +1449,17 @@
         "综合评分": 122.6,
         "加权依据": "原第二梯队；设计3单；施工2单/28.6万；运营按主看板归属：黄诗宇",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 16
+        "新排名": 16,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第16，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "梅兰芳",
@@ -1032,7 +1503,17 @@
         "综合评分": 122.3,
         "加权依据": "原第三梯队；设计4单；施工3单/50.7万；运营按主看板归属：宁章娜",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 17
+        "新排名": 17,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第17，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "谢利婷",
@@ -1076,7 +1557,17 @@
         "综合评分": 121.1,
         "加权依据": "原第三梯队；设计4单；施工3单/52.6万；运营按主看板归属：向勇",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 18
+        "新排名": 18,
+        "资源池建议": "B池冲刺位",
+        "是否资源位": "是",
+        "资源位类型": "重点冲刺",
+        "剪辑资源建议": "6条/月",
+        "月剪辑条数": 6,
+        "投放资源建议": "每月2-4次测试放大",
+        "内容资源建议": "重点会诊制",
+        "资源入池原因": "当前融合排名第18，进入B池冲刺位；培养下一批A池账号",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "周维",
@@ -1090,7 +1581,7 @@
         "主看板大区": "长沙大区",
         "主看板门店": "洋湖店",
         "归属运营": "向勇",
-        "运营归属来源": "主看板签单归属",
+        "运营归属来源": "家顾归属修正规则",
         "运营候选": [
           "向勇"
         ],
@@ -1118,9 +1609,19 @@
         "最近签单日期": "2026-05-08",
         "当期陪跑状态": "有陪跑签单数据",
         "综合评分": 119.9,
-        "加权依据": "原第三梯队；设计4单；施工2单/48.9万；运营按主看板归属：向勇",
+        "加权依据": "原第三梯队；设计4单；施工2单/48.9万",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 19
+        "新排名": 19,
+        "资源池建议": "C池重点位",
+        "是否资源位": "是",
+        "资源位类型": "成长观察",
+        "剪辑资源建议": "4条/月",
+        "月剪辑条数": 4,
+        "投放资源建议": "每月1-2次小额测试",
+        "内容资源建议": "模板扶持 + 亮点介入",
+        "资源入池原因": "当前融合排名第19，进入C池重点位；测试、筛选、寻找升级苗子",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       },
       {
         "家顾姓名": "张嘉辉",
@@ -1164,7 +1665,17 @@
         "综合评分": 119.6,
         "加权依据": "原第三梯队；设计4单；施工2单/51.8万；运营按主看板归属：钟海燕",
         "推荐动作": "重点资源跟进，复盘内容打法",
-        "新排名": 20
+        "新排名": 20,
+        "资源池建议": "C池重点位",
+        "是否资源位": "是",
+        "资源位类型": "成长观察",
+        "剪辑资源建议": "4条/月",
+        "月剪辑条数": 4,
+        "投放资源建议": "每月1-2次小额测试",
+        "内容资源建议": "模板扶持 + 亮点介入",
+        "资源入池原因": "当前融合排名第20，进入C池重点位；测试、筛选、寻找升级苗子",
+        "资源确认状态": "已入资源位",
+        "资源策略版本": "advisor-resource-v1-20260510"
       }
     ],
     "anomalies": {
@@ -1240,7 +1751,17 @@
       "综合评分": 338.7,
       "加权依据": "原第一梯队；设计18单；施工9单/192.7万；运营按主看板归属：钟海燕",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 1
+      "新排名": 1,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第1，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "蒋志军",
@@ -1284,7 +1805,17 @@
       "综合评分": 324.7,
       "加权依据": "原第一梯队；设计13单；施工10单/207.6万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 2
+      "新排名": 2,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第2，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗委乡",
@@ -1328,7 +1859,17 @@
       "综合评分": 319.8,
       "加权依据": "原第一梯队；设计19单；施工9单/146.1万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 3
+      "新排名": 3,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第3，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈湘",
@@ -1372,7 +1913,17 @@
       "综合评分": 250.4,
       "加权依据": "原第二梯队；设计12单；施工8单/167.6万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 4
+      "新排名": 4,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第4，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "梁国生",
@@ -1416,7 +1967,17 @@
       "综合评分": 232,
       "加权依据": "原第二梯队；设计9单；施工9单/140.4万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 5
+      "新排名": 5,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第5，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "伍显微",
@@ -1460,7 +2021,17 @@
       "综合评分": 223.7,
       "加权依据": "原第一梯队；设计8单；施工5单/111.8万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 6
+      "新排名": 6,
+      "资源池建议": "A池保供位",
+      "是否资源位": "是",
+      "资源位类型": "头部保卫",
+      "剪辑资源建议": "16条/月",
+      "月剪辑条数": 16,
+      "投放资源建议": "每周1-2次 × 100元",
+      "内容资源建议": "管理者一对一深介入",
+      "资源入池原因": "当前融合排名第6，进入A池保供位；保结果、保样板、保500万级冲刺",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王传龙",
@@ -1504,7 +2075,17 @@
       "综合评分": 214.3,
       "加权依据": "原第二梯队；设计8单；施工8单/110.2万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 7
+      "新排名": 7,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第7，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "冯淑燕",
@@ -1518,7 +2099,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "湘府店",
       "归属运营": "向勇",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "向勇"
       ],
@@ -1546,9 +2127,19 @@
       "最近签单日期": "2026-05-07",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 207.8,
-      "加权依据": "原第一梯队；设计8单；施工4单/77.5万；运营按主看板归属：向勇",
+      "加权依据": "原第一梯队；设计8单；施工4单/77.5万",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 8
+      "新排名": 8,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第8，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张爱芳",
@@ -1592,7 +2183,17 @@
       "综合评分": 189.4,
       "加权依据": "原第二梯队；设计7单；施工4单/95.4万；运营按主看板归属：钟海燕",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 9
+      "新排名": 9,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第9，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王奇",
@@ -1636,7 +2237,17 @@
       "综合评分": 180.7,
       "加权依据": "原第二梯队；设计7单；施工5单/84.8万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 10
+      "新排名": 10,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第10，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "丁杨+高泱",
@@ -1680,7 +2291,17 @@
       "综合评分": 158.9,
       "加权依据": "原第二梯队；设计5单；施工4单/71.0万；原119名单显示为“丁杨+高泱”，但主看板签单/施工数据应查找家装顾问“丁杨”，避免拆成重复家顾。",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 11
+      "新排名": 11,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第11，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王永",
@@ -1724,7 +2345,17 @@
       "综合评分": 154.5,
       "加权依据": "原第三梯队；设计5单；施工6单/94.1万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 12
+      "新排名": 12,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第12，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "徐利民",
@@ -1768,7 +2399,17 @@
       "综合评分": 145.6,
       "加权依据": "原第二梯队；设计3单；施工3单/50.8万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 13
+      "新排名": 13,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第13，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "卢泽川",
@@ -1812,7 +2453,17 @@
       "综合评分": 130.3,
       "加权依据": "原第三梯队；设计4单；施工3单/57.8万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 14
+      "新排名": 14,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第14，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "许鸿",
@@ -1856,7 +2507,17 @@
       "综合评分": 127.6,
       "加权依据": "原第四梯队；设计2单；施工5单/110.9万；运营按主看板归属：钟海燕",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 15
+      "新排名": 15,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第15，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "唐奥州",
@@ -1900,7 +2561,17 @@
       "综合评分": 122.6,
       "加权依据": "原第二梯队；设计3单；施工2单/28.6万；运营按主看板归属：黄诗宇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 16
+      "新排名": 16,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第16，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "梅兰芳",
@@ -1944,7 +2615,17 @@
       "综合评分": 122.3,
       "加权依据": "原第三梯队；设计4单；施工3单/50.7万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 17
+      "新排名": 17,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第17，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "谢利婷",
@@ -1988,7 +2669,17 @@
       "综合评分": 121.1,
       "加权依据": "原第三梯队；设计4单；施工3单/52.6万；运营按主看板归属：向勇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 18
+      "新排名": 18,
+      "资源池建议": "B池冲刺位",
+      "是否资源位": "是",
+      "资源位类型": "重点冲刺",
+      "剪辑资源建议": "6条/月",
+      "月剪辑条数": 6,
+      "投放资源建议": "每月2-4次测试放大",
+      "内容资源建议": "重点会诊制",
+      "资源入池原因": "当前融合排名第18，进入B池冲刺位；培养下一批A池账号",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "周维",
@@ -2002,7 +2693,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "洋湖店",
       "归属运营": "向勇",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "向勇"
       ],
@@ -2030,9 +2721,19 @@
       "最近签单日期": "2026-05-08",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 119.9,
-      "加权依据": "原第三梯队；设计4单；施工2单/48.9万；运营按主看板归属：向勇",
+      "加权依据": "原第三梯队；设计4单；施工2单/48.9万",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 19
+      "新排名": 19,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第19，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张嘉辉",
@@ -2076,7 +2777,17 @@
       "综合评分": 119.6,
       "加权依据": "原第三梯队；设计4单；施工2单/51.8万；运营按主看板归属：钟海燕",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 20
+      "新排名": 20,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第20，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "朱莉",
@@ -2120,7 +2831,17 @@
       "综合评分": 119.1,
       "加权依据": "原第二梯队；设计3单；施工2单/24.1万；运营按主看板归属：黄诗宇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 21
+      "新排名": 21,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第21，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "龙浇苗",
@@ -2134,7 +2855,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "湘府店",
       "归属运营": "向勇",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "向勇"
       ],
@@ -2162,9 +2883,19 @@
       "最近签单日期": "2026-05-05",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 117.2,
-      "加权依据": "原119外新增出单家顾；设计5单；施工4单/98.2万；运营按主看板归属：向勇",
+      "加权依据": "原119外新增出单家顾；设计5单；施工4单/98.2万",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 22
+      "新排名": 22,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第22，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨磊",
@@ -2208,7 +2939,17 @@
       "综合评分": 112.8,
       "加权依据": "原第三梯队；设计4单；施工2单/32.8万；运营按主看板归属：周国平",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 23
+      "新排名": 23,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第23，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "农显铄",
@@ -2252,7 +2993,17 @@
       "综合评分": 107.7,
       "加权依据": "原第三梯队；设计5单；施工2单/30.3万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 24
+      "新排名": 24,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第24，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈丹",
@@ -2296,7 +3047,17 @@
       "综合评分": 99.4,
       "加权依据": "原第三梯队；设计3单；施工2单/33.0万；运营按主看板归属：向勇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 25
+      "新排名": 25,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第25，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李春梅",
@@ -2340,7 +3101,17 @@
       "综合评分": 96.8,
       "加权依据": "原第三梯队；设计3单；施工1单/15.4万；运营按主看板归属：向勇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 26
+      "新排名": 26,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第26，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "苏春梅",
@@ -2384,7 +3155,17 @@
       "综合评分": 96.2,
       "加权依据": "原第四梯队；设计5单；施工2单/30.4万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 27
+      "新排名": 27,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第27，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "廖戍华",
@@ -2428,7 +3209,17 @@
       "综合评分": 92.3,
       "加权依据": "原第三梯队；设计2单；施工1单/28.7万；运营按主看板归属：向勇",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 28
+      "新排名": 28,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第28，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈文波",
@@ -2442,7 +3233,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "洋湖店",
       "归属运营": "向勇",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "向勇"
       ],
@@ -2470,9 +3261,19 @@
       "最近签单日期": "2026-04-28",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 92.1,
-      "加权依据": "原119外新增出单家顾；设计4单；施工3单/57.4万；运营按主看板归属：向勇",
+      "加权依据": "原119外新增出单家顾；设计4单；施工3单/57.4万",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 29
+      "新排名": 29,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第29，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "钟长发",
@@ -2516,7 +3317,17 @@
       "综合评分": 90.5,
       "加权依据": "原第三梯队；设计3单；施工1单/12.1万；运营按主看板归属：宁章娜",
       "推荐动作": "重点资源跟进，复盘内容打法",
-      "新排名": 30
+      "新排名": 30,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第30，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "詹媛媛",
@@ -2560,7 +3371,17 @@
       "综合评分": 86.8,
       "加权依据": "原第三梯队；设计3单；施工1单/21.2万；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 31
+      "新排名": 31,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第31，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈婉毅",
@@ -2604,7 +3425,17 @@
       "综合评分": 84.6,
       "加权依据": "原第四梯队；设计3单；施工2单/34.7万；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 32
+      "新排名": 32,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第32，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘紫薇",
@@ -2648,7 +3479,17 @@
       "综合评分": 83.8,
       "加权依据": "原第四梯队；设计3单；施工2单/34.0万；运营按主看板归属：宁章娜",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 33
+      "新排名": 33,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第33，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张晓",
@@ -2692,7 +3533,17 @@
       "综合评分": 83.2,
       "加权依据": "原第四梯队；设计2单；施工3单/35.3万；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 34
+      "新排名": 34,
+      "资源池建议": "C池重点位",
+      "是否资源位": "是",
+      "资源位类型": "成长观察",
+      "剪辑资源建议": "4条/月",
+      "月剪辑条数": 4,
+      "投放资源建议": "每月1-2次小额测试",
+      "内容资源建议": "模板扶持 + 亮点介入",
+      "资源入池原因": "当前融合排名第34，进入C池重点位；测试、筛选、寻找升级苗子",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈旭辉",
@@ -2736,7 +3587,17 @@
       "综合评分": 82.5,
       "加权依据": "原第四梯队；设计1单；施工3单/47.2万；运营按主看板归属：钟海燕",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 35
+      "新排名": 35,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第35，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "伍朋",
@@ -2780,7 +3641,17 @@
       "综合评分": 82,
       "加权依据": "原第三梯队；设计1单；施工1单/16.9万；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 36
+      "新排名": 36,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第36，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "胡峰",
@@ -2794,7 +3665,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "星沙店",
       "归属运营": "周国平",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "周国平"
       ],
@@ -2822,9 +3693,19 @@
       "最近签单日期": "2026-04-17",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 81.7,
-      "加权依据": "原第四梯队；设计3单；施工2单/37.3万；运营按主看板归属：周国平",
+      "加权依据": "原第四梯队；设计3单；施工2单/37.3万",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 37
+      "新排名": 37,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第37，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "米宝云",
@@ -2868,7 +3749,17 @@
       "综合评分": 81.3,
       "加权依据": "原第三梯队；设计1单；施工1单/16.1万；运营按主看板归属：周国平",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 38
+      "新排名": 38,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第38，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "梁赛",
@@ -2912,7 +3803,17 @@
       "综合评分": 80.6,
       "加权依据": "原第四梯队；设计2单；施工2单/51.4万；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 39
+      "新排名": 39,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第39，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "黄秀秀",
@@ -2956,7 +3857,17 @@
       "综合评分": 79.7,
       "加权依据": "原第四梯队；设计3单；施工2单/32.5万；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 40
+      "新排名": 40,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第40，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨紫航",
@@ -3000,7 +3911,17 @@
       "综合评分": 78,
       "加权依据": "原第四梯队；设计2单；施工2单/41.9万；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 41
+      "新排名": 41,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第41，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李方",
@@ -3044,7 +3965,17 @@
       "综合评分": 77.1,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/66.8万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 42
+      "新排名": 42,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第42，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈琳",
@@ -3088,7 +4019,17 @@
       "综合评分": 76.3,
       "加权依据": "原第四梯队；设计4单；施工1单/20.6万；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 43
+      "新排名": 43,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第43，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邱菊",
@@ -3132,7 +4073,17 @@
       "综合评分": 76.2,
       "加权依据": "原第四梯队；设计2单；施工2单/31.4万；运营按主看板归属：向勇",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 44
+      "新排名": 44,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第44，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "彭爽",
@@ -3176,7 +4127,17 @@
       "综合评分": 74.1,
       "加权依据": "原119外新增出单家顾；设计3单；施工2单/33.5万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 45
+      "新排名": 45,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第45，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "周圣明",
@@ -3220,7 +4181,17 @@
       "综合评分": 73.8,
       "加权依据": "原第四梯队；设计2单；施工2单/26.9万；运营按主看板归属：黄诗宇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 46
+      "新排名": 46,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第46，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李芳",
@@ -3264,7 +4235,17 @@
       "综合评分": 72.5,
       "加权依据": "原第四梯队；设计2单；施工1单/27.4万；运营按主看板归属：周国平",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 47
+      "新排名": 47,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第47，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邱婷",
@@ -3308,7 +4289,17 @@
       "综合评分": 71.2,
       "加权依据": "原119外新增出单家顾；设计2单；施工2单/33.7万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 48
+      "新排名": 48,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第48，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张彪",
@@ -3352,7 +4343,17 @@
       "综合评分": 69.5,
       "加权依据": "原第三梯队；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 49
+      "新排名": 49,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第49，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "唐美娟",
@@ -3396,7 +4397,17 @@
       "综合评分": 66.6,
       "加权依据": "原第四梯队；设计1单；施工1单/26.4万；运营按主看板归属：向勇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 50
+      "新排名": 50,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第50，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "梁俊",
@@ -3440,7 +4451,17 @@
       "综合评分": 66.3,
       "加权依据": "原第四梯队；设计2单；施工1单/14.2万；运营按主看板归属：宁章娜",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 51
+      "新排名": 51,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第51，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "汤军",
@@ -3484,7 +4505,17 @@
       "综合评分": 66,
       "加权依据": "原第三梯队；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 52
+      "新排名": 52,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第52，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "彭斌",
@@ -3528,7 +4559,17 @@
       "综合评分": 64.4,
       "加权依据": "原第四梯队；设计1单；施工1单/22.3万；运营按主看板归属：向勇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 53
+      "新排名": 53,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第53，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "已入资源位",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "康再华",
@@ -3572,7 +4613,17 @@
       "综合评分": 64,
       "加权依据": "原119外新增出单家顾；设计3单；施工1单/21.5万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 54
+      "新排名": 54,
+      "资源池建议": "D池轮转位",
+      "是否资源位": "是",
+      "资源位类型": "轮转观察",
+      "剪辑资源建议": "2条/月",
+      "月剪辑条数": 2,
+      "投放资源建议": "原则上不常规配置",
+      "内容资源建议": "基础覆盖",
+      "资源入池原因": "当前融合排名第54，进入D池轮转位；保基础动作，只观察可上探对象",
+      "资源确认状态": "新增家顾待确认",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王道航",
@@ -3586,7 +4637,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "湘府店",
       "归属运营": "向勇",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "向勇"
       ],
@@ -3614,9 +4665,19 @@
       "最近签单日期": "2026-04-26",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 63.7,
-      "加权依据": "原第四梯队；设计2单；施工1单/21.8万；运营按主看板归属：向勇",
+      "加权依据": "原第四梯队；设计2单；施工1单/21.8万",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 55
+      "新排名": 55,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第55，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "谢百莲",
@@ -3660,7 +4721,17 @@
       "综合评分": 63.7,
       "加权依据": "原第四梯队；设计1单；施工1单/17.6万；运营按主看板归属：向勇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 56
+      "新排名": 56,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第56，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "尕藏卓玛",
@@ -3704,7 +4775,17 @@
       "综合评分": 61.2,
       "加权依据": "原第四梯队；设计2单；施工1单/11.2万；运营按主看板归属：宁章娜",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 57
+      "新排名": 57,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第57，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "周学范",
@@ -3748,7 +4829,17 @@
       "综合评分": 60.4,
       "加权依据": "原第四梯队；设计2单；施工1单/15.2万；运营按主看板归属：宁章娜",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 58
+      "新排名": 58,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第58，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "叶小菊",
@@ -3792,7 +4883,17 @@
       "综合评分": 59.9,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/26.0万；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 59
+      "新排名": 59,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第59，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈婷",
@@ -3836,7 +4937,17 @@
       "综合评分": 59.7,
       "加权依据": "原119外新增出单家顾；设计2单；施工1单/18.4万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 60
+      "新排名": 60,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第60，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘小朋",
@@ -3880,7 +4991,17 @@
       "综合评分": 58.8,
       "加权依据": "原119外新增出单家顾；施工1单/30.5万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 61
+      "新排名": 61,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第61，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "彭晓梅",
@@ -3924,7 +5045,17 @@
       "综合评分": 58.3,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/22.2万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 62
+      "新排名": 62,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第62，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "喻柳英",
@@ -3968,7 +5099,17 @@
       "综合评分": 58.1,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/21.6万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 63
+      "新排名": 63,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第63，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王樱",
@@ -4012,7 +5153,17 @@
       "综合评分": 58.1,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/21.6万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 64
+      "新排名": 64,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第64，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王选",
@@ -4056,7 +5207,17 @@
       "综合评分": 58,
       "加权依据": "原第四梯队；设计1单；施工1单/15.5万；运营按主看板归属：黄诗宇",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 65
+      "新排名": 65,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第65，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨涛",
@@ -4100,7 +5261,17 @@
       "综合评分": 57.9,
       "加权依据": "原第四梯队；设计1单；施工1单/15.3万；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 66
+      "新排名": 66,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第66，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗岩",
@@ -4144,7 +5315,17 @@
       "综合评分": 57.9,
       "加权依据": "原119外新增出单家顾；设计2单；施工1单/14.0万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 67
+      "新排名": 67,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第67，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "田滔",
@@ -4188,7 +5369,17 @@
       "综合评分": 57.7,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/20.8万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 68
+      "新排名": 68,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第68，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "彭振华",
@@ -4202,7 +5393,7 @@
       "主看板大区": "长沙大区",
       "主看板门店": "星沙店",
       "归属运营": "钟海燕",
-      "运营归属来源": "主看板签单归属",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
         "钟海燕"
       ],
@@ -4230,9 +5421,19 @@
       "最近签单日期": "2026-03-27",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 57.6,
-      "加权依据": "原119外新增出单家顾；设计2单；施工1单/13.3万；运营按主看板归属：钟海燕",
+      "加权依据": "原119外新增出单家顾；设计2单；施工1单/13.3万",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 69
+      "新排名": 69,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第69，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "郑超",
@@ -4276,7 +5477,17 @@
       "综合评分": 57.3,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/19.8万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 70
+      "新排名": 70,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第70，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "肖浩轩",
@@ -4320,7 +5531,17 @@
       "综合评分": 57,
       "加权依据": "原119外新增出单家顾；设计2单；施工1单/11.8万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 71
+      "新排名": 71,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第71，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张良文",
@@ -4364,7 +5585,17 @@
       "综合评分": 56.5,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/17.9万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 72
+      "新排名": 72,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第72，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李陈梅",
@@ -4408,7 +5639,17 @@
       "综合评分": 56.5,
       "加权依据": "原119外新增出单家顾；设计2单；施工1单/10.6万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 73
+      "新排名": 73,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第73，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "徐亚利",
@@ -4452,7 +5693,17 @@
       "综合评分": 56.4,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/17.6万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 74
+      "新排名": 74,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第74，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈冰纯",
@@ -4496,7 +5747,17 @@
       "综合评分": 56.4,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/17.6万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 75
+      "新排名": 75,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第75，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "龙敏",
@@ -4540,7 +5801,17 @@
       "综合评分": 56.4,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/17.6万；运营按主看板归属：周国平",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 76
+      "新排名": 76,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第76，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "冯倩",
@@ -4584,7 +5855,17 @@
       "综合评分": 56.1,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/17.0万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 77
+      "新排名": 77,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第77，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "廖斌",
@@ -4628,7 +5909,17 @@
       "综合评分": 55.6,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/15.8万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 78
+      "新排名": 78,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第78，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "江纹",
@@ -4672,7 +5963,17 @@
       "综合评分": 55.6,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/15.7万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 79
+      "新排名": 79,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第79，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邓敏",
@@ -4716,7 +6017,17 @@
       "综合评分": 55.5,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/15.5万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 80
+      "新排名": 80,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第80，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "徐家发",
@@ -4760,7 +6071,17 @@
       "综合评分": 55.1,
       "加权依据": "原第四梯队；施工1单/24.1万；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 81
+      "新排名": 81,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第81，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "唐展鹏",
@@ -4804,7 +6125,17 @@
       "综合评分": 55,
       "加权依据": "原第四梯队；设计4单；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 82
+      "新排名": 82,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第82，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "甘盛海",
@@ -4848,7 +6179,17 @@
       "综合评分": 54.9,
       "加权依据": "原119外新增出单家顾；施工1单/21.2万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 83
+      "新排名": 83,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第83，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邓玉秀",
@@ -4892,7 +6233,17 @@
       "综合评分": 54.9,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/14.0万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 84
+      "新排名": 84,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第84，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "白爱秋",
@@ -4936,7 +6287,17 @@
       "综合评分": 54.8,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/13.9万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 85
+      "新排名": 85,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第85，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "吴丹颖",
@@ -4980,7 +6341,17 @@
       "综合评分": 54.8,
       "加权依据": "原119外新增出单家顾；设计2单；施工1单/6.7万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 86
+      "新排名": 86,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第86，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "汤利军",
@@ -5024,7 +6395,17 @@
       "综合评分": 54.7,
       "加权依据": "原119外新增出单家顾；施工1单/20.7万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 87
+      "新排名": 87,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第87，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "卢满辉",
@@ -5068,7 +6449,17 @@
       "综合评分": 54.6,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/13.4万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 88
+      "新排名": 88,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第88，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "叶成芳",
@@ -5112,7 +6503,17 @@
       "综合评分": 54.4,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/12.9万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 89
+      "新排名": 89,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第89，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘学文",
@@ -5156,7 +6557,17 @@
       "综合评分": 54.2,
       "加权依据": "原119外新增出单家顾；施工1单/19.5万；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 90
+      "新排名": 90,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第90，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "游建和",
@@ -5200,7 +6611,17 @@
       "综合评分": 53.4,
       "加权依据": "原119外新增出单家顾；施工1单/17.5万；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 91
+      "新排名": 91,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第91，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王军",
@@ -5244,7 +6665,17 @@
       "综合评分": 52.8,
       "加权依据": "原119外新增出单家顾；施工1单/16.3万；运营按主看板归属：周国平",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 92
+      "新排名": 92,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第92，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "宋斌",
@@ -5288,7 +6719,17 @@
       "综合评分": 52.8,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/9.0万；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 93
+      "新排名": 93,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第93，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "胡小军",
@@ -5332,7 +6773,17 @@
       "综合评分": 51.4,
       "加权依据": "原119外新增出单家顾；施工1单/12.9万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 94
+      "新排名": 94,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第94，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "朱钏",
@@ -5376,7 +6827,17 @@
       "综合评分": 51.3,
       "加权依据": "原119外新增出单家顾；施工1单/12.7万；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 95
+      "新排名": 95,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第95，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邵义",
@@ -5420,7 +6881,17 @@
       "综合评分": 51.3,
       "加权依据": "原119外新增出单家顾；施工1单/12.6万；运营按主看板归属：周国平",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 96
+      "新排名": 96,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第96，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "卢彪",
@@ -5464,7 +6935,17 @@
       "综合评分": 50.9,
       "加权依据": "原119外新增出单家顾；施工1单/11.6万；运营按主看板归属：周国平",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 97
+      "新排名": 97,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第97，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王海波",
@@ -5508,7 +6989,17 @@
       "综合评分": 50,
       "加权依据": "原119外新增出单家顾；设计3单；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 98
+      "新排名": 98,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第98，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "姜权",
@@ -5552,7 +7043,17 @@
       "综合评分": 49.9,
       "加权依据": "原119外新增出单家顾；设计1单；施工1单/2.2万；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 99
+      "新排名": 99,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第99，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张振华",
@@ -5596,7 +7097,17 @@
       "综合评分": 49.5,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：周国平",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 100
+      "新排名": 100,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第100，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邓可思",
@@ -5640,7 +7151,17 @@
       "综合评分": 49,
       "加权依据": "原第四梯队；设计2单；运营按主看板归属：向勇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 101
+      "新排名": 101,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第101，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨树朋",
@@ -5684,7 +7205,17 @@
       "综合评分": 47,
       "加权依据": "原119外新增出单家顾；设计2单；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 102
+      "新排名": 102,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第102，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李明",
@@ -5728,7 +7259,17 @@
       "综合评分": 46.5,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 103
+      "新排名": 103,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第103，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "邝晓亮",
@@ -5772,7 +7313,17 @@
       "综合评分": 46.5,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：宁章娜",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 104
+      "新排名": 104,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第104，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "廖国良",
@@ -5816,7 +7367,17 @@
       "综合评分": 46,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：宁章娜",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 105
+      "新排名": 105,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第105，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "龙杰",
@@ -5860,7 +7421,17 @@
       "综合评分": 46,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：宁章娜",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 106
+      "新排名": 106,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第106，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王凤",
@@ -5904,7 +7475,17 @@
       "综合评分": 46,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：钟海燕",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 107
+      "新排名": 107,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第107，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗芳",
@@ -5948,7 +7529,17 @@
       "综合评分": 46,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "保持常规陪跑观察",
-      "新排名": 108
+      "新排名": 108,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第108，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "于赣焘",
@@ -5992,7 +7583,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 109
+      "新排名": 109,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第109，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "何江",
@@ -6036,7 +7637,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 110
+      "新排名": 110,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第110，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "吴双飞",
@@ -6049,10 +7660,10 @@
       "原始区域": "",
       "主看板大区": "长沙大区",
       "主看板门店": "星沙店",
-      "归属运营": "周国平",
-      "运营归属来源": "主看板签单归属",
+      "归属运营": "宁章娜",
+      "运营归属来源": "家顾归属修正规则",
       "运营候选": [
-        "周国平"
+        "宁章娜"
       ],
       "运营是否冲突": "否",
       "是否拉群": "",
@@ -6078,9 +7689,19 @@
       "最近签单日期": "2026-01-31",
       "当期陪跑状态": "有陪跑签单数据",
       "综合评分": 44,
-      "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：周国平",
+      "加权依据": "原119外新增出单家顾；设计1单",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 111
+      "新排名": 111,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第111，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "吴菲",
@@ -6124,7 +7745,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 112
+      "新排名": 112,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第112，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "姚锋",
@@ -6168,7 +7799,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 113
+      "新排名": 113,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第113，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张芬",
@@ -6212,7 +7853,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 114
+      "新排名": 114,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第114，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "曹肖锋",
@@ -6256,7 +7907,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 115
+      "新排名": 115,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第115，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨恒超",
@@ -6300,7 +7961,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 116
+      "新排名": 116,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第116，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "覃进军",
@@ -6344,7 +8015,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 117
+      "新排名": 117,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第117，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "贾程",
@@ -6388,7 +8069,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：宁章娜",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 118
+      "新排名": 118,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第118，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陆伍元",
@@ -6432,7 +8123,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：黄诗宇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 119
+      "新排名": 119,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第119，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈泽龙",
@@ -6476,7 +8177,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 120
+      "新排名": 120,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第120，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈辉",
@@ -6520,7 +8231,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：向勇",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 121
+      "新排名": 121,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第121，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "高泱",
@@ -6564,7 +8285,17 @@
       "综合评分": 44,
       "加权依据": "原119外新增出单家顾；设计1单；运营按主看板归属：钟海燕",
       "推荐动作": "建议纳入新名单，并补齐管理字段",
-      "新排名": 122
+      "新排名": 122,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第122，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "段黎明",
@@ -6608,7 +8339,17 @@
       "综合评分": 43,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：向勇",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 123
+      "新排名": 123,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第123，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "曾纯慧",
@@ -6652,7 +8393,17 @@
       "综合评分": 43,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：向勇",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 124
+      "新排名": 124,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第124，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王茜",
@@ -6696,7 +8447,17 @@
       "综合评分": 43,
       "加权依据": "原第四梯队；设计1单；运营按主看板归属：周国平",
       "推荐动作": "补齐拉群与管理动作",
-      "新排名": 125
+      "新排名": 125,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第125，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "戴葡",
@@ -6738,7 +8499,17 @@
       "综合评分": 2,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 126
+      "新排名": 126,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第126，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "周运",
@@ -6780,7 +8551,17 @@
       "综合评分": -2,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 127
+      "新排名": 127,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第127，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李娜",
@@ -6822,7 +8603,17 @@
       "综合评分": -2,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 128
+      "新排名": 128,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第128，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "谢严",
@@ -6864,7 +8655,17 @@
       "综合评分": -2,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 129
+      "新排名": 129,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第129，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "朱佳",
@@ -6906,7 +8707,17 @@
       "综合评分": -2,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 130
+      "新排名": 130,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第130，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "黄平华",
@@ -6948,7 +8759,17 @@
       "综合评分": -3.7,
       "加权依据": "原第三梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 131
+      "新排名": 131,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第131，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "田涛",
@@ -6990,7 +8811,17 @@
       "综合评分": -17,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 132
+      "新排名": 132,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第132，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "唐伟",
@@ -7032,7 +8863,17 @@
       "综合评分": -18.1,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 133
+      "新排名": 133,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第133，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李姣",
@@ -7074,7 +8915,17 @@
       "综合评分": -20.2,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 134
+      "新排名": 134,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第134，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "黄汉斌",
@@ -7116,7 +8967,17 @@
       "综合评分": -20.7,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 135
+      "新排名": 135,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第135，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "河江",
@@ -7158,7 +9019,17 @@
       "综合评分": -21,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 136
+      "新排名": 136,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第136，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李金星",
@@ -7200,7 +9071,17 @@
       "综合评分": -21.1,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 137
+      "新排名": 137,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第137，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "周跃+陈冰纯",
@@ -7242,7 +9123,17 @@
       "综合评分": -21.1,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 138
+      "新排名": 138,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第138，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "谭欢",
@@ -7284,7 +9175,17 @@
       "综合评分": -21.2,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 139
+      "新排名": 139,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第139，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "汤倩",
@@ -7326,7 +9227,17 @@
       "综合评分": -21.4,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 140
+      "新排名": 140,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第140，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李琼琼",
@@ -7368,7 +9279,17 @@
       "综合评分": -21.5,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 141
+      "新排名": 141,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第141，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王龙",
@@ -7410,7 +9331,17 @@
       "综合评分": -21.5,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 142
+      "新排名": 142,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第142，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "汤玲",
@@ -7452,7 +9383,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 143
+      "新排名": 143,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第143，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗雅静",
@@ -7494,7 +9435,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 144
+      "新排名": 144,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第144，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "全琪琳",
@@ -7536,7 +9487,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 145
+      "新排名": 145,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第145，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "吴眉眉",
@@ -7578,7 +9539,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 146
+      "新排名": 146,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第146，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨娟",
@@ -7620,7 +9591,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 147
+      "新排名": 147,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第147，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王强",
@@ -7662,7 +9643,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 148
+      "新排名": 148,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第148，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗媛",
@@ -7704,7 +9695,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 149
+      "新排名": 149,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第149，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "骆震",
@@ -7746,7 +9747,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 150
+      "新排名": 150,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第150，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "何珊",
@@ -7788,7 +9799,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 151
+      "新排名": 151,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第151，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘箐",
@@ -7830,7 +9851,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 152
+      "新排名": 152,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第152，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨益",
@@ -7872,7 +9903,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 153
+      "新排名": 153,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第153，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "陈博",
@@ -7914,7 +9955,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 154
+      "新排名": 154,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第154，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "肖军松",
@@ -7956,7 +10007,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 155
+      "新排名": 155,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第155，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "张三丰",
@@ -7998,7 +10059,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 156
+      "新排名": 156,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第156，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "关锐",
@@ -8040,7 +10111,17 @@
       "综合评分": -22,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 157
+      "新排名": 157,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第157，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "宁可",
@@ -8082,7 +10163,17 @@
       "综合评分": -22.4,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 158
+      "新排名": 158,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第158，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "梁铁军",
@@ -8124,7 +10215,17 @@
       "综合评分": -24.3,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 159
+      "新排名": 159,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第159，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "李亚娟",
@@ -8166,7 +10267,17 @@
       "综合评分": -24.5,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 160
+      "新排名": 160,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第160，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "舒小虎",
@@ -8208,7 +10319,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 161
+      "新排名": 161,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第161，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "戴宇杰",
@@ -8250,7 +10371,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 162
+      "新排名": 162,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第162，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "杨文武",
@@ -8292,7 +10423,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 163
+      "新排名": 163,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第163，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "蒋珺",
@@ -8334,7 +10475,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 164
+      "新排名": 164,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第164，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘学娇",
@@ -8376,7 +10527,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 165
+      "新排名": 165,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第165，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "彭烈艺",
@@ -8418,7 +10579,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 166
+      "新排名": 166,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第166，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "刘亚芳",
@@ -8460,7 +10631,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 167
+      "新排名": 167,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第167，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "谢丽",
@@ -8502,7 +10683,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 168
+      "新排名": 168,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第168，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "涂贤秀",
@@ -8544,7 +10735,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 169
+      "新排名": 169,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第169，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "文胜",
@@ -8586,7 +10787,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 170
+      "新排名": 170,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第170，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "罗琴",
@@ -8628,7 +10839,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 171
+      "新排名": 171,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第171，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "朱萧炎",
@@ -8670,7 +10891,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 172
+      "新排名": 172,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第172，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "吴肖",
@@ -8712,7 +10943,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 173
+      "新排名": 173,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第173，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "孙叶",
@@ -8754,7 +10995,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 174
+      "新排名": 174,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第174，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "王琳",
@@ -8796,7 +11047,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 175
+      "新排名": 175,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第175，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "游航",
@@ -8838,7 +11099,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 176
+      "新排名": 176,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第176，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     },
     {
       "家顾姓名": "何琴",
@@ -8880,7 +11151,17 @@
       "综合评分": -25,
       "加权依据": "原第四梯队；当期暂无陪跑签单，进入激活观察",
       "推荐动作": "先确认账号状态，进入激活观察",
-      "新排名": 177
+      "新排名": 177,
+      "资源池建议": "基础观察",
+      "是否资源位": "否",
+      "资源位类型": "全量观察",
+      "剪辑资源建议": "不配置固定剪辑",
+      "月剪辑条数": 0,
+      "投放资源建议": "不配置常规投放",
+      "内容资源建议": "保留全量观察，按异常/亮点临时介入",
+      "资源入池原因": "当前融合排名第177，保留全量观察，不进入固定资源位",
+      "资源确认状态": "基础观察",
+      "资源策略版本": "advisor-resource-v1-20260510"
     }
   ]
 };
@@ -8891,6 +11172,7 @@
       ['original', '原119复盘'],
       ['new', '新增家顾'],
       ['owner', '运营视角'],
+      ['resource', '资源扶持'],
       ['anomaly', '异常校验']
     ];
     const orderTiers = ['新第一梯队','新第二梯队','新第三梯队','新第四梯队'];
@@ -8899,7 +11181,8 @@
     const byId = id => document.getElementById(id);
 
     let activeTab = 'ranking';
-    const filters = { tier:'全部', owner:'全部', source:'全部', status:'全部', keyword:'' };
+    let rankingMode = 'cards';
+    const filters = { tier:'全部', owner:'全部', resource:'全部', source:'全部', status:'全部', keyword:'' };
 
     function init() {
       byId('tabs').innerHTML = tabs.map(([key, label]) => '<button class="tab ' + (key === activeTab ? 'active' : '') + '" data-tab="' + key + '">' + label + '</button>').join('');
@@ -8907,8 +11190,13 @@
         activeTab = btn.dataset.tab;
         render();
       }));
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.addEventListener('click', () => {
+        rankingMode = btn.dataset.rankMode || 'cards';
+        render();
+      }));
       fillSelect('tierFilter', ['全部', ...orderTiers], 'tier');
       fillSelect('ownerFilter', ['全部', ...uniq(rows.map(r => r['归属运营']))], 'owner');
+      fillSelect('resourceFilter', ['全部', ...uniq(rows.map(r => r['资源池建议']))], 'resource');
       fillSelect('sourceFilter', ['全部', ...uniq(rows.map(r => r['来源类型']))], 'source');
       fillSelect('statusFilter', ['全部', ...uniq(rows.map(r => r['当期陪跑状态']))], 'status');
       byId('keywordFilter').addEventListener('input', e => { filters.keyword = e.target.value.trim().toLowerCase(); render(); });
@@ -8925,6 +11213,7 @@
       return rows.filter(row => {
         if (filters.tier !== '全部' && row['新梯度'] !== filters.tier) return false;
         if (filters.owner !== '全部' && row['归属运营'] !== filters.owner) return false;
+        if (filters.resource !== '全部' && row['资源池建议'] !== filters.resource) return false;
         if (filters.source !== '全部' && row['来源类型'] !== filters.source) return false;
         if (filters.status !== '全部' && row['当期陪跑状态'] !== filters.status) return false;
         if (filters.keyword) {
@@ -8943,11 +11232,13 @@
       renderStatusStrip();
       renderSummaryGrid();
       renderExplainGrid();
+      renderBossGrid();
       const list = filteredRows();
       renderRanking(list);
       renderOriginal(list);
       renderNew(list);
       renderOwners();
+      renderResource();
       renderAnomalies();
     }
 
@@ -8980,6 +11271,7 @@
       const scope = summary.scope || {};
       const ownerTop = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['施工金额(万)'] || 0) - Number(a['施工金额(万)'] || 0)).slice(0, 3);
       const anomalies = summary.anomalies || {};
+      const resourceSummary = summary.resourceSummary || {};
       const anomalyCount = Object.values(anomalies).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
       const cards = [
         {
@@ -9001,6 +11293,10 @@
         {
           title: '需要关注',
           rows: [['异常项', anomalyCount + '个'], ['待激活观察', (scope['待激活观察'] || 0) + '人'], ['新增家顾', (scope['全盘新增家顾'] || 0) + '人']]
+        },
+        {
+          title: '资源扶持总盘',
+          rows: [['资源位', (resourceSummary['资源位人数'] || 0) + '人'], ['月剪辑', (resourceSummary['月剪辑需求'] || 0) + '条'], ['建议盘', resourceSummary['建议资源盘'] || ((resourceSummary['月剪辑产能'] || 0) + '条/月')]]
         }
       ];
       byId('summaryGrid').innerHTML = cards.map(card => '<div class="summary-card"><strong>' + card.title + '</strong>'
@@ -9022,23 +11318,55 @@
       byId('explainGrid').innerHTML = cards.map(card => '<div class="explain-card"><strong>' + card.title + '</strong><p>' + card.text + '</p></div>').join('');
     }
 
+    function renderBossGrid() {
+      const resourceSummary = summary.resourceSummary || {};
+      const pendingNew = summary.resourcePendingNew || [];
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const topOwner = owners[0] || {};
+      const scope = summary.scope || {};
+      const totals = summary.totals || {};
+      const noCurrent = scope['待激活观察'] || 0;
+      const leadText = '当前是日更观察版：资源建议可以看，但正式资源池建议月初/月末人工锁定。';
+      const cards = [
+        { cls:'lead', title:'老板一屏结论', num:(resourceSummary['资源位人数'] || 0) + '个资源位', text:leadText },
+        { cls:'warn', title:'资源压力', num:(topOwner['运营'] || '-') + ' ' + (topOwner['资源月剪辑条数'] || 0) + '条', text:'当前资源压力最高，建议优先检查该运营的A/B池承接节奏。' },
+        { cls:pendingNew.length ? 'risk' : '', title:'待确认新增', num:pendingNew.length + '人', text:pendingNew.length ? '原119外新增家顾已进入资源位，发布前建议人工确认。' : '暂无新增家顾进入资源位。' },
+        { cls:noCurrent ? 'warn' : '', title:'全盘经营', num:(totals['施工签单'] || 0) + '施工', text:'177人全量观察，待激活 ' + noCurrent + ' 人，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '。' }
+      ];
+      byId('bossGrid').innerHTML = cards.map(card => '<div class="boss-card ' + card.cls + '"><strong>' + card.title + '</strong><div class="boss-num">' + card.num + '</div><p>' + card.text + '</p></div>').join('');
+    }
+
     function personCard(row) {
       const sourceCls = row['来源类型'] === '全盘新增家顾' ? 'new' : '';
       const statusCls = row['当期陪跑状态'] === '暂无当期陪跑签单' ? 'warn' : 'hot';
+      const resourceCls = row['是否资源位'] === '是' ? 'hot' : '';
+      const resourceLabel = row['资源池建议'] || '基础观察';
+      const confirmCls = row['资源确认状态'] === '新增家顾待确认' ? 'warn' : '';
       return '<div class="person">'
         + '<div class="rank">#' + row['新排名'] + '</div>'
         + '<div>'
         + '<div class="name">' + row['家顾姓名'] + '</div>'
         + '<div class="meta">' + row['归属运营'] + '｜原' + row['原梯队'] + '｜查找 ' + (row['主看板查找家顾'] || row['家顾姓名']) + '｜' + (row['主看板门店'] || row['原始区域'] || '未记录门店') + '</div>'
         + '<div class="meta">设计 ' + row['设计签单'] + '｜施工 ' + row['施工签单'] + '｜金额 ' + fmtWan(row['施工金额(万)']) + '</div>'
-        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + row['来源类型'] + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span></div>'
-        + '<details class="reason"><summary>排名依据 / 推荐动作</summary><div>' + row['加权依据'] + '<br>' + row['推荐动作'] + '</div></details>'
+        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + row['来源类型'] + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span><span class="pill ' + resourceCls + '">' + resourceLabel + '</span><span class="pill ' + confirmCls + '">' + (row['资源确认状态'] || '基础观察') + '</span></div>'
+        + '<details class="reason"><summary>排名依据 / 推荐动作</summary><div>' + row['加权依据'] + '<br>' + row['推荐动作'] + '<br>' + (row['资源入池原因'] || '') + '</div></details>'
         + '</div>'
         + '<div class="score"><div class="txt">评分</div><div class="num">' + row['综合评分'] + '</div></div>'
         + '</div>';
     }
 
     function renderRanking(list) {
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.rankMode === rankingMode));
+      const tableWrap = byId('rankingTableWrap');
+      if (rankingMode !== 'cards') {
+        byId('tierGrid').style.display = 'none';
+        tableWrap.style.display = 'block';
+        const tableRows = rankingMode === 'alerts' ? list.filter(isAttentionRow) : list;
+        renderRankingTable(tableRows.sort((a,b) => a['新排名'] - b['新排名']));
+        return;
+      }
+      byId('tierGrid').style.display = '';
+      tableWrap.style.display = 'none';
       byId('tierGrid').innerHTML = orderTiers.map(tier => {
         const tierRows = list.filter(row => row['新梯度'] === tier).sort((a,b) => a['新排名'] - b['新排名']);
         const active = tierRows.filter(row => row['当期陪跑状态'] !== '暂无当期陪跑签单').length;
@@ -9050,8 +11378,22 @@
       }).join('');
     }
 
+    function isAttentionRow(row) {
+      return row['资源确认状态'] === '新增家顾待确认'
+        || row['当期陪跑状态'] === '暂无当期陪跑签单'
+        || row['运营是否冲突'] === '是'
+        || row['归属运营'] === '待分配运营';
+    }
+
+    function renderRankingTable(list) {
+      const head = ['新排名','家顾姓名','新梯度','资源池建议','资源确认状态','归属运营','来源类型','设计签单','施工签单','施工金额(万)','推荐动作'];
+      byId('rankingTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
+        + (list.length ? list.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('') : '<tr><td colspan="' + head.length + '">当前筛选下暂无异常人员</td></tr>')
+        + '</tbody>';
+    }
+
     function renderTable(id, list) {
-      const head = ['新排名','家顾姓名','来源类型','原梯队','新梯度','归属运营','设计签单','施工签单','施工金额(万)','当前月施工金额(万)','推荐动作'];
+      const head = ['新排名','家顾姓名','来源类型','原梯队','新梯度','资源池建议','资源确认状态','归属运营','设计签单','施工签单','施工金额(万)','当前月施工金额(万)','推荐动作'];
       byId(id).innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
         + list.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('')
         + '</tbody>';
@@ -9068,6 +11410,13 @@
     function renderOwners() {
       const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['施工金额(万)'] || 0) - Number(a['施工金额(万)'] || 0));
       const maxAmount = Math.max(...owners.map(owner => Number(owner['施工金额(万)'] || 0)), 1);
+      const warOwners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      byId('ownerWarzone').innerHTML = warOwners.map(owner => '<div class="warzone-card">'
+        + '<strong><span>' + owner['运营'] + '</span><span>' + (owner['资源月剪辑条数'] || 0) + '条</span></strong>'
+        + '<div class="bar"><span style="width:' + Math.max(3, Number(owner['资源月剪辑条数'] || 0) / Math.max(...warOwners.map(o => Number(o['资源月剪辑条数'] || 0)), 1) * 100) + '%"></span></div>'
+        + '<p>资源位 ' + (owner['资源位人数'] || 0) + '｜A' + (owner['A池保供位'] || 0) + ' B' + (owner['B池冲刺位'] || 0) + ' C' + (owner['C池重点位'] || 0) + ' D' + (owner['D池轮转位'] || 0) + '</p>'
+        + '<p>新一 ' + (owner['新第一梯队'] || 0) + '｜待看全盘 ' + (owner['家顾数'] || 0) + '人</p>'
+        + '</div>').join('');
       byId('ownerCards').innerHTML = owners.map(owner => '<div class="info-card">'
         + '<strong>' + owner['运营'] + '</strong>'
         + '<div class="bar"><span style="width:' + Math.max(3, Number(owner['施工金额(万)'] || 0) / maxAmount * 100) + '%"></span></div>'
@@ -9075,6 +11424,77 @@
         + '<p>2026累计：设计 ' + owner['设计签单'] + '｜施工 ' + owner['施工签单'] + '｜金额 ' + fmtWan(owner['施工金额(万)']) + '</p>'
         + '<p>' + (owner['当前月'] || summary.activeMonth || '当前月') + '：设计 ' + (owner['当前月设计签单'] || 0) + '｜施工 ' + (owner['当前月施工签单'] || 0) + '｜金额 ' + fmtWan(owner['当前月施工金额(万)'] || 0) + '</p>'
         + '<p>新一 ' + owner['新第一梯队'] + '｜新二 ' + owner['新第二梯队'] + '｜新三 ' + owner['新第三梯队'] + '｜新四 ' + owner['新第四梯队'] + '</p>'
+        + '<p>资源位 ' + (owner['资源位人数'] || 0) + '｜月剪辑 ' + (owner['资源月剪辑条数'] || 0) + ' 条</p>'
+        + '</div>').join('');
+    }
+
+    function renderResource() {
+      const resourceSummary = summary.resourceSummary || {};
+      const actionSummary = summary.resourceActionSummary || [];
+      const pendingNew = summary.resourcePendingNew || [];
+      const poolDefs = resourceSummary['资源池定义'] || [];
+      const poolCounts = resourceSummary['资源池人数'] || {};
+      const resourceRows = rows.filter(row => row['是否资源位'] === '是').sort((a,b) => a['新排名'] - b['新排名']);
+      byId('resourceHero').innerHTML = '<div class="mini">Resource Command Center</div>'
+        + '<div class="headline">' + (resourceSummary['资源位人数'] || 0) + '个资源位，' + (resourceSummary['月剪辑需求'] || 0) + '条建议盘</div>'
+        + '<p>' + (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。') + '</p>'
+        + '<p style="margin-top:8px">' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。') + '</p>';
+
+      byId('resourceActionGrid').innerHTML = actionSummary.map(item => '<div class="action-card">'
+        + '<strong><span>' + item['资源池'] + '</span><span>' + item['管理动作'] + '</span></strong>'
+        + '<p>' + item['人数'] + '人｜' + item['月剪辑条数'] + '条/月</p>'
+        + '<p>代表：' + (item['代表家顾'] || []).join('、') + '</p>'
+        + '<p>' + item['说明'] + '</p>'
+        + '</div>').join('');
+
+      byId('resourceExecutionList').innerHTML = actionSummary.map(item => '<div class="execution-item">'
+        + '<strong>' + item['资源池'] + '｜' + item['管理动作'] + '</strong>'
+        + '<span>' + item['说明'] + ' 代表：' + (item['代表家顾'] || []).join('、') + '</span>'
+        + '<em>' + item['人数'] + '人 / ' + item['月剪辑条数'] + '条</em>'
+        + '</div>').join('');
+
+      byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在原119里，建议先人工确认再锁定资源。</p></div></div>'
+        + '<div class="pending-grid">' + pendingNew.map(item => '<div class="pending-card">'
+          + '<strong>#' + item['新排名'] + ' ' + item['家顾姓名'] + '｜' + item['资源池建议'] + '</strong>'
+          + '<p>' + item['归属运营'] + '｜' + item['新梯度'] + '｜设计' + item['设计签单'] + '｜施工' + item['施工签单'] + '｜金额' + fmtWan(item['施工金额(万)']) + '</p>'
+          + '<p>' + item['建议动作'] + '</p>'
+          + '</div>').join('') + '</div>' : '';
+
+      byId('resourceNote').innerHTML = (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。')
+        + ' 当前策略：' + (resourceSummary['策略模式'] || '未配置')
+        + '；' + (resourceSummary['建议资源盘'] || '建议资源盘未配置')
+        + '；资源位 ' + (resourceSummary['资源位人数'] || 0) + ' 人，月剪辑需求 ' + (resourceSummary['月剪辑需求'] || 0) + ' 条。'
+        + ' ' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。');
+
+      byId('resourceCards').innerHTML = poolDefs.map(pool => {
+        const label = pool.label || pool.key;
+        const count = poolCounts[label] || 0;
+        const monthly = count * Number(pool.monthlyEdits || 0);
+        return '<div class="resource-card" data-pool="' + label + '">'
+          + '<strong>' + label + '</strong>'
+          + '<div class="big">' + count + '人</div>'
+          + '<p>排名 ' + pool.rankStart + '-' + pool.rankEnd + '｜' + pool.editSuggestion + '｜合计 ' + monthly + ' 条/月</p>'
+          + '<p>投放：' + pool.adSuggestion + '</p>'
+          + '<p>内容：' + pool.contentSupport + '</p>'
+          + '</div>';
+      }).join('');
+
+      const head = ['新排名','资源池建议','资源确认状态','家顾姓名','归属运营','新梯度','来源类型','设计签单','施工签单','施工金额(万)','剪辑资源建议','投放资源建议','内容资源建议'];
+      byId('resourceTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
+        + resourceRows.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('')
+        + '</tbody>';
+
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const maxEdits = Math.max(...owners.map(owner => Number(owner['资源月剪辑条数'] || 0)), 1);
+      byId('resourcePressureList').innerHTML = owners.map(owner => '<div class="pressure-row">'
+        + '<div class="pressure-top"><span>' + owner['运营'] + '</span><span>' + (owner['资源月剪辑条数'] || 0) + '条</span></div>'
+        + '<div class="bar"><span style="width:' + Math.max(3, Number(owner['资源月剪辑条数'] || 0) / maxEdits * 100) + '%"></span></div>'
+        + '<div class="pressure-meta">资源位 ' + (owner['资源位人数'] || 0) + '｜A ' + (owner['A池保供位'] || 0) + '｜B ' + (owner['B池冲刺位'] || 0) + '｜C ' + (owner['C池重点位'] || 0) + '｜D ' + (owner['D池轮转位'] || 0) + '</div>'
+        + '</div>').join('');
+      byId('resourceOwnerCards').innerHTML = owners.map(owner => '<div class="info-card">'
+        + '<strong>' + owner['运营'] + '资源负载</strong>'
+        + '<p>资源位 ' + (owner['资源位人数'] || 0) + ' 人｜月剪辑 ' + (owner['资源月剪辑条数'] || 0) + ' 条</p>'
+        + '<p>A ' + (owner['A池保供位'] || 0) + '｜B ' + (owner['B池冲刺位'] || 0) + '｜C ' + (owner['C池重点位'] || 0) + '｜D ' + (owner['D池轮转位'] || 0) + '</p>'
         + '</div>').join('');
     }
 
