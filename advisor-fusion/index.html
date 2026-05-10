@@ -161,7 +161,7 @@
       <div class="panel hero-main">
         <div class="eyebrow">Advisor Fusion Ranking V2</div>
         <h1>陪跑家顾梯度名单驾驶舱</h1>
-        <div class="hero-desc">这不是旧 119 榜单的补丁，而是把原 119 重点家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
+        <div class="hero-desc">这不是旧人数口径的补丁，而是把腾讯文档原重点梯队家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
         <div class="status-strip" id="statusStrip"></div>
       </div>
       <div class="panel hero-side">
@@ -196,11 +196,11 @@
         <div class="table-wrap" id="rankingTableWrap" style="display:none;margin-top:12px"><table id="rankingTable"></table></div>
       </section>
       <section class="view" id="view-original">
-        <div class="section-title"><div><h2>原119复盘</h2><p>看原重点名单在新排名里的位置、升降和待激活对象。</p></div></div>
+        <div class="section-title"><div><h2>原重点梯队复盘</h2><p>看腾讯文档原重点梯队名单在新排名里的位置、升降和待激活对象。</p></div></div>
         <div class="table-wrap"><table id="originalTable"></table></div>
       </section>
       <section class="view" id="view-new">
-        <div class="section-title"><div><h2>新增家顾纳管</h2><p>原119之外，但已经在主陪跑看板里有签单/施工表现的人。</p></div></div>
+        <div class="section-title"><div><h2>新增家顾纳管</h2><p>原重点梯队之外，但已经在主陪跑看板里有签单/施工表现的人。</p></div></div>
         <div class="table-wrap"><table id="newTable"></table></div>
       </section>
       <section class="view" id="view-owner">
@@ -11274,7 +11274,7 @@
     const summary = payload.summary || {};
     const tabs = [
       ['ranking', '新梯度名单'],
-      ['original', '原119复盘'],
+      ['original', '原重点梯队复盘'],
       ['new', '新增家顾'],
       ['owner', '运营视角'],
       ['resource', '资源扶持'],
@@ -11284,6 +11284,15 @@
     const fmtWan = n => Number(n || 0).toFixed(1) + '万';
     const uniq = arr => Array.from(new Set(arr.filter(Boolean)));
     const byId = id => document.getElementById(id);
+    const originalTierDescriptions = {
+      '第一梯队': '500W+账号',
+      '第二梯队': '300-400W账号',
+      '第三梯队': '150-300W账号',
+      '第四梯队': '50-100W账号',
+      '新增家顾': '原梯队外新增'
+    };
+    const originalTierLabel = tier => originalTierDescriptions[tier] ? tier + '（' + originalTierDescriptions[tier] + '）' : (tier || '-');
+    const sourceLabel = source => source === '原119重点家顾' ? '原重点梯队家顾' : source;
 
     let activeTab = 'ranking';
     let rankingMode = 'cards';
@@ -11352,7 +11361,7 @@
       const totals = summary.totals || {};
       const metrics = [
         ['总家顾数', scope['总家顾数'] || rows.length],
-        ['原119覆盖', scope['原119覆盖'] || 0],
+        ['原梯队覆盖', scope['原119覆盖'] || 0],
         ['新增家顾', scope['全盘新增家顾'] || 0],
         ['施工金额', fmtWan(totals['施工金额(万)'] || 0)]
       ];
@@ -11435,7 +11444,7 @@
       const cards = [
         { cls:'lead', title:'老板一屏结论', num:(resourceSummary['资源位人数'] || 0) + '个资源位', text:leadText },
         { cls:'warn', title:'资源压力', num:(topOwner['运营'] || '-') + ' ' + (topOwner['资源月剪辑条数'] || 0) + '条', text:'当前资源压力最高，建议优先检查该运营的A/B池承接节奏。' },
-        { cls:pendingNew.length ? 'risk' : '', title:'待确认新增', num:pendingNew.length + '人', text:pendingNew.length ? '原119外新增家顾已进入资源位，发布前建议人工确认。' : '暂无新增家顾进入资源位。' },
+        { cls:pendingNew.length ? 'risk' : '', title:'待确认新增', num:pendingNew.length + '人', text:pendingNew.length ? '原重点梯队外新增家顾已进入资源位，发布前建议人工确认。' : '暂无新增家顾进入资源位。' },
         { cls:noCurrent ? 'warn' : '', title:'全盘经营', num:(totals['施工签单'] || 0) + '施工', text:'177人全量观察，待激活 ' + noCurrent + ' 人，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '。' }
       ];
       byId('bossGrid').innerHTML = cards.map(card => '<div class="boss-card ' + card.cls + '"><strong>' + card.title + '</strong><div class="boss-num">' + card.num + '</div><p>' + card.text + '</p></div>').join('');
@@ -11451,9 +11460,9 @@
         + '<div class="rank">#' + row['新排名'] + '</div>'
         + '<div>'
         + '<div class="name">' + row['家顾姓名'] + '</div>'
-        + '<div class="meta">' + row['归属运营'] + '｜原' + row['原梯队'] + '｜查找 ' + (row['主看板查找家顾'] || row['家顾姓名']) + '｜' + (row['主看板门店'] || row['原始区域'] || '未记录门店') + '</div>'
+        + '<div class="meta">' + row['归属运营'] + '｜原' + originalTierLabel(row['原梯队']) + '｜查找 ' + (row['主看板查找家顾'] || row['家顾姓名']) + '｜' + (row['主看板门店'] || row['原始区域'] || '未记录门店') + '</div>'
         + '<div class="meta">设计 ' + row['设计签单'] + '｜施工 ' + row['施工签单'] + '｜金额 ' + fmtWan(row['施工金额(万)']) + '</div>'
-        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + row['来源类型'] + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span><span class="pill ' + resourceCls + '">' + resourceLabel + '</span><span class="pill ' + confirmCls + '">' + (row['资源确认状态'] || '基础观察') + '</span></div>'
+        + '<div class="pill-row"><span class="pill ' + sourceCls + '">' + sourceLabel(row['来源类型']) + '</span><span class="pill ' + statusCls + '">' + row['当期陪跑状态'] + '</span><span class="pill ' + resourceCls + '">' + resourceLabel + '</span><span class="pill ' + confirmCls + '">' + (row['资源确认状态'] || '基础观察') + '</span></div>'
         + '<details class="reason"><summary>排名依据 / 推荐动作</summary><div>' + row['加权依据'] + '<br>' + row['推荐动作'] + '<br>' + (row['资源入池原因'] || '') + '</div></details>'
         + '</div>'
         + '<div class="score"><div class="txt">评分</div><div class="num">' + row['综合评分'] + '</div></div>'
@@ -11477,7 +11486,7 @@
         const active = tierRows.filter(row => row['当期陪跑状态'] !== '暂无当期陪跑签单').length;
         const original = tierRows.filter(row => row['是否原119体系'] === '是').length;
         return '<section class="tier-card" data-tier="' + tier + '">'
-          + '<div class="tier-head"><div><div class="tier-name">' + tier + '</div><div class="tier-count">' + tierRows.length + ' 人｜原119 ' + original + '｜有数据 ' + active + '</div></div><span class="pill hot">' + tier.replace('新','') + '</span></div>'
+          + '<div class="tier-head"><div><div class="tier-name">' + tier + '</div><div class="tier-count">' + tierRows.length + ' 人｜原梯队 ' + original + '｜有数据 ' + active + '</div></div><span class="pill hot">' + tier.replace('新','') + '</span></div>'
           + '<div class="tier-list">' + (tierRows.map(personCard).join('') || '<div class="empty">当前筛选下暂无人员</div>') + '</div>'
           + '</section>';
       }).join('');
@@ -11493,15 +11502,21 @@
     function renderRankingTable(list) {
       const head = ['新排名','家顾姓名','新梯度','资源池建议','资源确认状态','归属运营','来源类型','设计签单','施工签单','施工金额(万)','推荐动作'];
       byId('rankingTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
-        + (list.length ? list.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('') : '<tr><td colspan="' + head.length + '">当前筛选下暂无异常人员</td></tr>')
+        + (list.length ? list.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('') : '<tr><td colspan="' + head.length + '">当前筛选下暂无异常人员</td></tr>')
         + '</tbody>';
     }
 
     function renderTable(id, list) {
       const head = ['新排名','家顾姓名','来源类型','原梯队','新梯度','资源池建议','资源确认状态','归属运营','设计签单','施工签单','施工金额(万)','当前月施工金额(万)','推荐动作'];
       byId(id).innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
-        + list.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('')
+        + list.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('')
         + '</tbody>';
+    }
+
+    function formatCell(key, row) {
+      if (key === '原梯队') return originalTierLabel(row[key]);
+      if (key === '来源类型') return sourceLabel(row[key]);
+      return row[key] ?? '';
     }
 
     function renderOriginal(list) {
@@ -11525,7 +11540,7 @@
       byId('ownerCards').innerHTML = owners.map(owner => '<div class="info-card">'
         + '<strong>' + owner['运营'] + '</strong>'
         + '<div class="bar"><span style="width:' + Math.max(3, Number(owner['施工金额(万)'] || 0) / maxAmount * 100) + '%"></span></div>'
-        + '<p>家顾 ' + owner['家顾数'] + ' 人｜原119 ' + owner['原119家顾'] + '｜新增 ' + owner['新增家顾'] + '</p>'
+        + '<p>家顾 ' + owner['家顾数'] + ' 人｜原梯队 ' + owner['原119家顾'] + '｜新增 ' + owner['新增家顾'] + '</p>'
         + '<p>2026累计：设计 ' + owner['设计签单'] + '｜施工 ' + owner['施工签单'] + '｜金额 ' + fmtWan(owner['施工金额(万)']) + '</p>'
         + '<p>' + (owner['当前月'] || summary.activeMonth || '当前月') + '：设计 ' + (owner['当前月设计签单'] || 0) + '｜施工 ' + (owner['当前月施工签单'] || 0) + '｜金额 ' + fmtWan(owner['当前月施工金额(万)'] || 0) + '</p>'
         + '<p>新一 ' + owner['新第一梯队'] + '｜新二 ' + owner['新第二梯队'] + '｜新三 ' + owner['新第三梯队'] + '｜新四 ' + owner['新第四梯队'] + '</p>'
@@ -11558,7 +11573,7 @@
         + '<em>' + item['人数'] + '人 / ' + item['月剪辑条数'] + '条</em>'
         + '</div>').join('');
 
-      byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在原119里，建议先人工确认再锁定资源。</p></div></div>'
+      byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在原重点梯队里，建议先人工确认再锁定资源。</p></div></div>'
         + '<div class="pending-grid">' + pendingNew.map(item => '<div class="pending-card">'
           + '<strong>#' + item['新排名'] + ' ' + item['家顾姓名'] + '｜' + item['资源池建议'] + '</strong>'
           + '<p>' + item['归属运营'] + '｜' + item['新梯度'] + '｜设计' + item['设计签单'] + '｜施工' + item['施工签单'] + '｜金额' + fmtWan(item['施工金额(万)']) + '</p>'
@@ -11586,7 +11601,7 @@
 
       const head = ['新排名','资源池建议','资源确认状态','家顾姓名','归属运营','新梯度','来源类型','设计签单','施工签单','施工金额(万)','剪辑资源建议','投放资源建议','内容资源建议'];
       byId('resourceTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
-        + resourceRows.map(row => '<tr>' + head.map(h => '<td>' + (row[h] ?? '') + '</td>').join('') + '</tr>').join('')
+        + resourceRows.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('')
         + '</tbody>';
 
       const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
