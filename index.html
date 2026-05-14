@@ -211,8 +211,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/14 08:25:21</div></div>
-<div style="display:none">数据更新时间: 2026/5/14 08:25:21</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/15 07:02:40</div></div>
+<div style="display:none">数据更新时间: 2026/5/15 07:02:40</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1002,7 +1002,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/14 08:25:21</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/15 07:02:40</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -2533,6 +2533,19 @@ const rawData = [
     "type": "设计",
     "store": "星沙店",
     "district": "长沙大区",
+    "advisor": "蒋志军",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 8800,
+    "date": "2026-05-14",
+    "month": "2026-05",
+    "customer": "张伟",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
     "advisor": "胡峰",
     "owner": "周国平",
     "ownerRuleType": "override",
@@ -3125,6 +3138,19 @@ const rawData = [
     "date": "2026-05-13",
     "month": "2026-05",
     "customer": "杨礼士",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "喻柳英",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
+    "amount": 7600,
+    "date": "2026-05-13",
+    "month": "2026-05",
+    "customer": "喻梦姣",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -4127,6 +4153,19 @@ const rawData = [
     "date": "2026-04-10",
     "month": "2026-04",
     "customer": "陈少锋",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "王海波",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 217745,
+    "date": "2026-05-14",
+    "month": "2026-05",
+    "customer": "何觅",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -8108,7 +8147,47 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "蒋志军",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 8800,
+    "date": "2026-05-14",
+    "month": "2026-05",
+    "customer": "张伟",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "平江店",
+    "district": "长沙大区",
+    "advisor": "喻柳英",
+    "owner": "钟海燕",
+    "ownerRuleType": "default",
+    "amount": 7600,
+    "date": "2026-05-13",
+    "month": "2026-05",
+    "customer": "喻梦姣",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "洋湖店",
+    "district": "长沙大区",
+    "advisor": "王海波",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 217745,
+    "date": "2026-05-14",
+    "month": "2026-05",
+    "customer": "何觅",
+    "customerSource": "营销/新媒体陪跑"
+  }
+];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8130,7 +8209,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-14 08:25:21 CST",
+      "updatedAt": "2026-05-15 07:02:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -8169,7 +8248,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-14 08:25:21 CST",
+      "updatedAt": "2026-05-15 07:02:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -8208,7 +8287,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-14 08:25:21 CST",
+      "updatedAt": "2026-05-15 07:02:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -8247,7 +8326,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-14 08:25:21 CST",
+      "updatedAt": "2026-05-15 07:02:40 CST",
       "members": [
         {
           "name": "周国平",
@@ -8286,24 +8365,24 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-14 08:25:21 CST",
+      "updatedAt": "2026-05-15 07:02:40 CST",
       "members": [
         {
           "name": "周国平",
           "constructionAmount": 1092984,
-          "designCount": 8,
+          "designCount": 9,
           "note": "自动生成"
         },
         {
           "name": "向勇",
-          "constructionAmount": 1449542,
+          "constructionAmount": 1667287,
           "designCount": 9,
           "note": "自动生成"
         },
         {
           "name": "钟海燕",
           "constructionAmount": 616201,
-          "designCount": 18,
+          "designCount": 19,
           "note": "自动生成"
         },
         {
@@ -8326,24 +8405,24 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-14 08:25:21 CST",
+    "updatedAt": "2026-05-15 07:02:40 CST",
     "members": [
       {
         "name": "周国平",
         "constructionAmount": 1092984,
-        "designCount": 8,
+        "designCount": 9,
         "note": "自动生成"
       },
       {
         "name": "向勇",
-        "constructionAmount": 1449542,
+        "constructionAmount": 1667287,
         "designCount": 9,
         "note": "自动生成"
       },
       {
         "name": "钟海燕",
         "constructionAmount": 616201,
-        "designCount": 18,
+        "designCount": 19,
         "note": "自动生成"
       },
       {
@@ -12094,419 +12173,112 @@ const tierAccountData = {
     "tier3": 26,
     "tier4": 85,
     "ungroupedCount": 46,
-    "newRewardCount": 14,
+    "newRewardCount": 10,
     "highPotentialCount": 13
   },
   "version": 1,
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年05月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-05-14T08:00:01+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260514_080001.md",
-  "top15Accounts": [
+  "syncedAt": "2026-05-15T07:00:14+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260515_070014.md",
+  "operatorStats": [
     {
-      "等级": "第一梯队",
-      "年度产值规划": "500+",
-      "区域": "平江",
-      "家顾姓名": "罗怀安",
-      "账号名称": "平江装修罗怀安",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "钟海燕",
-      "2025年度业绩（新媒体）": 1926093,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "2026/1/17 腾讯",
-      "2026签单Q1": "14",
-      "2026签单Q2": "",
-      "源行号": 8
-    },
-    {
-      "等级": "第一梯队",
-      "年度产值规划": "500+",
-      "区域": "梅溪湖",
-      "家顾姓名": "罗委乡",
-      "账号名称": "长沙装修罗委乡",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "周国平",
-      "2025年度业绩（新媒体）": 2277155,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "",
-      "2026签单Q1": "13",
-      "2026签单Q2": "",
-      "源行号": 5
-    },
-    {
-      "等级": "第一梯队",
-      "年度产值规划": "500+",
-      "区域": "星沙",
-      "家顾姓名": "蒋志军",
-      "账号名称": "长沙装修老蒋小蒋",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "周国平",
-      "2025年度业绩（新媒体）": 7243245.04,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "2026/1/10",
-      "2026签单Q1": "8",
-      "2026签单Q2": "",
-      "源行号": 4
-    },
-    {
-      "等级": "第一梯队",
-      "年度产值规划": "500+",
-      "区域": "张家界",
-      "家顾姓名": "伍显微",
-      "账号名称": "张家界装修界的伍显微",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "宁章娜",
-      "2025年度业绩（新媒体）": 1062229.718,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "20261/16腾讯",
-      "2026签单Q1": "6",
-      "2026签单Q2": "",
-      "源行号": 6
-    },
-    {
-      "等级": "第一梯队",
-      "年度产值规划": "500+",
-      "区域": "湘府",
-      "家顾姓名": "冯淑燕",
-      "账号名称": "长沙装修冯淑燕",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "向勇",
-      "2025年度业绩（新媒体）": 3068576,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "2026/1/12",
-      "2026签单Q1": "5",
-      "2026签单Q2": "",
-      "源行号": 7
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "岳阳",
-      "家顾姓名": "张爱芳",
-      "账号名称": "岳阳装修爱芳",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "钟海燕",
-      "2025年度业绩（新媒体）": 1246877,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "6",
-      "2026签单Q2": "",
-      "源行号": 17
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "星沙",
-      "家顾姓名": "陈湘",
-      "账号名称": "长沙点石陈湘",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "宁章娜",
-      "2025年度业绩（新媒体）": 0,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "6",
-      "2026签单Q2": "",
-      "源行号": 16
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "南宁",
-      "家顾姓名": "王传龙",
-      "账号名称": "南宁点石装修小王哥",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "宁章娜",
-      "2025年度业绩（新媒体）": 1001972,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "5",
-      "2026签单Q2": "",
-      "源行号": 14
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "南宁",
-      "家顾姓名": "梁国生",
-      "账号名称": "南宁装修梁国生-点石家装",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "宁章娜",
-      "2025年度业绩（新媒体）": 145227,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "5",
-      "2026签单Q2": "",
-      "源行号": 15
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "梅溪湖",
-      "家顾姓名": "徐利民",
-      "账号名称": "长沙装修徐涂涂",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "周国平",
-      "2025年度业绩（新媒体）": 1925599.56,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "3",
-      "2026签单Q2": "",
-      "源行号": 12
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "怀化",
-      "家顾姓名": "王奇",
-      "账号名称": "怀化装修王奇",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "周国平",
-      "2025年度业绩（新媒体）": 1584493.52,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "3",
-      "2026签单Q2": "",
-      "源行号": 13
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "大宅-马王堆",
-      "家顾姓名": "张嘉辉",
-      "账号名称": "长沙大宅装修嘉辉",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "钟海燕",
-      "2025年度业绩（新媒体）": 664933,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "2026/3/4",
-      "2026签单Q1": "3",
-      "2026签单Q2": "",
-      "源行号": 20
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "株洲",
-      "家顾姓名": "丁杨+高泱",
-      "账号名称": "株洲家装小杨哥 株洲装修小高",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "钟海燕",
-      "2025年度业绩（新媒体）": 1158213,
-      "个人素材库": "",
-      "账号方案": "1",
-      "线下沟通时间": "",
-      "2026签单Q1": "2",
-      "2026签单Q2": "",
-      "源行号": 9
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "永州",
-      "家顾姓名": "唐奥州",
-      "账号名称": "永州做装修奥哥",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "黄诗宇",
-      "2025年度业绩（新媒体）": 440000,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "2",
-      "2026签单Q2": "",
-      "源行号": 18
-    },
-    {
-      "等级": "第二梯队",
-      "年度产值规划": "300-400",
-      "区域": "马王堆-城北",
-      "家顾姓名": "朱莉",
-      "账号名称": "长沙装修朱朱（已瘦40斤）",
-      "分发平台规范": "",
-      "是否拉群": "1",
-      "拉群时间": "",
-      "是否新增奖励": "",
-      "归属运营": "黄诗宇",
-      "2025年度业绩（新媒体）": 0,
-      "个人素材库": "",
-      "账号方案": "",
-      "线下沟通时间": "",
-      "2026签单Q1": "2",
-      "2026签单Q2": "",
-      "源行号": 19
-    }
-  ],
-  "highPotentialAccounts": [
-    {
-      "operator": "向勇",
-      "tier": "第三梯队",
-      "region": "湘府",
-      "advisor": "周维",
-      "account": "长沙点石家装 周维",
-      "sign2026Total": 2,
-      "reason": "第三梯队里签单/业绩表现更好"
+      "operator": "周国平",
+      "total": 34,
+      "head": 4,
+      "第三梯队": 6,
+      "第四梯队": 24,
+      "ungrouped": 15,
+      "sign2026Total": 51,
+      "highPotential": 3,
+      "amount2025": 14385311.573
     },
     {
       "operator": "向勇",
-      "tier": "第三梯队",
-      "region": "湘府",
-      "advisor": "李春梅",
-      "account": "长沙装修 梅姐姐",
-      "sign2026Total": 3,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "向勇",
-      "tier": "第三梯队",
-      "region": "衡阳",
-      "advisor": "谢利婷",
-      "account": "衡阳点石家装丨谢利婷",
-      "sign2026Total": 2,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "周国平",
-      "tier": "第三梯队",
-      "region": "星沙",
-      "advisor": "卢泽川",
-      "account": "叫我点石搞装修的阿川",
-      "sign2026Total": 4,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "周国平",
-      "tier": "第三梯队",
-      "region": "梅溪湖",
-      "advisor": "杨磊",
-      "account": "长沙装修小磊哥",
-      "sign2026Total": 4,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "周国平",
-      "tier": "第三梯队",
-      "region": "湘潭",
-      "advisor": "王永",
-      "account": "湘潭点石家装王咏",
-      "sign2026Total": 2,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "宁章娜",
-      "tier": "第三梯队",
-      "region": "南宁",
-      "advisor": "农显铄",
-      "account": "小农或者阿铄（南宁装修）",
-      "sign2026Total": 2,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "宁章娜",
-      "tier": "第三梯队",
-      "region": "南宁",
-      "advisor": "钟长发",
-      "account": "南宁装修丨点石小钟",
-      "sign2026Total": 2,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "宁章娜",
-      "tier": "第三梯队",
-      "region": "娄底",
-      "advisor": "梅兰芳",
-      "account": "新化装修梅兰芳",
-      "sign2026Total": 3,
-      "reason": "第三梯队里签单/业绩表现更好"
+      "total": 34,
+      "head": 3,
+      "第三梯队": 7,
+      "第四梯队": 24,
+      "ungrouped": 13,
+      "sign2026Total": 20,
+      "highPotential": 3,
+      "amount2025": 10778161
     },
     {
       "operator": "钟海燕",
-      "tier": "第三梯队",
-      "region": "岳阳",
-      "advisor": "戴葡",
-      "account": "湖南装修点石家装戴葡",
-      "sign2026Total": 0,
-      "reason": "第三梯队里签单/业绩表现更好"
+      "total": 19,
+      "head": 4,
+      "第三梯队": 3,
+      "第四梯队": 12,
+      "ungrouped": 6,
+      "sign2026Total": 33,
+      "highPotential": 1,
+      "amount2025": 8774346.120000001
+    },
+    {
+      "operator": "宁章娜",
+      "total": 29,
+      "head": 4,
+      "第三梯队": 5,
+      "第四梯队": 20,
+      "ungrouped": 11,
+      "sign2026Total": 39,
+      "highPotential": 3,
+      "amount2025": 6341132.9180000005
     },
     {
       "operator": "黄诗宇",
-      "tier": "第三梯队",
-      "region": "马王堆-城东",
-      "advisor": "朱佳",
-      "account": "长沙装修 朱哥",
-      "sign2026Total": 0,
-      "reason": "第三梯队里签单/业绩表现更好"
+      "total": 12,
+      "head": 2,
+      "第三梯队": 5,
+      "第四梯队": 5,
+      "ungrouped": 1,
+      "sign2026Total": 7,
+      "highPotential": 3,
+      "amount2025": 440000
+    }
+  ],
+  "tierMatrix": [
+    {
+      "operator": "周国平",
+      "第一梯队": 2,
+      "第二梯队": 2,
+      "第三梯队": 6,
+      "第四梯队": 24,
+      "合计": 34
+    },
+    {
+      "operator": "向勇",
+      "第一梯队": 1,
+      "第二梯队": 2,
+      "第三梯队": 7,
+      "第四梯队": 24,
+      "合计": 34
+    },
+    {
+      "operator": "钟海燕",
+      "第一梯队": 1,
+      "第二梯队": 3,
+      "第三梯队": 3,
+      "第四梯队": 12,
+      "合计": 19
+    },
+    {
+      "operator": "宁章娜",
+      "第一梯队": 1,
+      "第二梯队": 3,
+      "第三梯队": 5,
+      "第四梯队": 20,
+      "合计": 29
     },
     {
       "operator": "黄诗宇",
-      "tier": "第三梯队",
-      "region": "马王堆-城东",
-      "advisor": "汤军",
-      "account": "长沙装修～汤圆",
-      "sign2026Total": 0,
-      "reason": "第三梯队里签单/业绩表现更好"
-    },
-    {
-      "operator": "黄诗宇",
-      "tier": "第三梯队",
-      "region": "马王堆-城北",
-      "advisor": "张彪",
-      "account": "长沙装修小虎哥",
-      "sign2026Total": 1,
-      "reason": "第三梯队里签单/业绩表现更好"
+      "第一梯队": 0,
+      "第二梯队": 2,
+      "第三梯队": 5,
+      "第四梯队": 5,
+      "合计": 12
     }
   ],
   "ungroupedAccounts": [
@@ -12879,103 +12651,123 @@ const tierAccountData = {
       "action": "补群并建立日常跟进闭环"
     }
   ],
-  "operatorStats": [
+  "highPotentialAccounts": [
     {
       "operator": "周国平",
-      "total": 34,
-      "head": 4,
-      "第三梯队": 6,
-      "第四梯队": 24,
-      "ungrouped": 15,
-      "sign2026Total": 51,
-      "highPotential": 3,
-      "amount2025": 14385311.573
+      "tier": "第三梯队",
+      "region": "星沙",
+      "advisor": "卢泽川",
+      "account": "叫我点石搞装修的阿川",
+      "sign2026Total": 4,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "梅溪湖",
+      "advisor": "杨磊",
+      "account": "长沙装修小磊哥",
+      "sign2026Total": 4,
+      "reason": "第三梯队里签单/业绩表现更好"
     },
     {
       "operator": "向勇",
-      "total": 34,
-      "head": 3,
-      "第三梯队": 7,
-      "第四梯队": 24,
-      "ungrouped": 13,
-      "sign2026Total": 20,
-      "highPotential": 3,
-      "amount2025": 10778161
-    },
-    {
-      "operator": "钟海燕",
-      "total": 19,
-      "head": 4,
-      "第三梯队": 3,
-      "第四梯队": 12,
-      "ungrouped": 6,
-      "sign2026Total": 33,
-      "highPotential": 1,
-      "amount2025": 8774346.120000001
+      "tier": "第三梯队",
+      "region": "湘府",
+      "advisor": "李春梅",
+      "account": "长沙装修 梅姐姐",
+      "sign2026Total": 3,
+      "reason": "第三梯队里签单/业绩表现更好"
     },
     {
       "operator": "宁章娜",
-      "total": 29,
-      "head": 4,
-      "第三梯队": 5,
-      "第四梯队": 20,
-      "ungrouped": 11,
-      "sign2026Total": 39,
-      "highPotential": 3,
-      "amount2025": 6341132.9180000005
-    },
-    {
-      "operator": "黄诗宇",
-      "total": 12,
-      "head": 2,
-      "第三梯队": 5,
-      "第四梯队": 5,
-      "ungrouped": 1,
-      "sign2026Total": 7,
-      "highPotential": 3,
-      "amount2025": 440000
-    }
-  ],
-  "tierMatrix": [
-    {
-      "operator": "周国平",
-      "第一梯队": 2,
-      "第二梯队": 2,
-      "第三梯队": 6,
-      "第四梯队": 24,
-      "合计": 34
+      "tier": "第三梯队",
+      "region": "娄底",
+      "advisor": "梅兰芳",
+      "account": "新化装修梅兰芳",
+      "sign2026Total": 3,
+      "reason": "第三梯队里签单/业绩表现更好"
     },
     {
       "operator": "向勇",
-      "第一梯队": 1,
-      "第二梯队": 2,
-      "第三梯队": 7,
-      "第四梯队": 24,
-      "合计": 34
+      "tier": "第三梯队",
+      "region": "湘府",
+      "advisor": "周维",
+      "account": "长沙点石家装 周维",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
     },
     {
-      "operator": "钟海燕",
-      "第一梯队": 1,
-      "第二梯队": 3,
-      "第三梯队": 3,
-      "第四梯队": 12,
-      "合计": 19
+      "operator": "向勇",
+      "tier": "第三梯队",
+      "region": "衡阳",
+      "advisor": "谢利婷",
+      "account": "衡阳点石家装丨谢利婷",
+      "sign2026Total": 2,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "周国平",
+      "tier": "第三梯队",
+      "region": "湘潭",
+      "advisor": "王永",
+      "account": "湘潭点石家装王咏",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
     },
     {
       "operator": "宁章娜",
-      "第一梯队": 1,
-      "第二梯队": 3,
-      "第三梯队": 5,
-      "第四梯队": 20,
-      "合计": 29
+      "tier": "第三梯队",
+      "region": "南宁",
+      "advisor": "农显铄",
+      "account": "小农或者阿铄（南宁装修）",
+      "sign2026Total": 2,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "宁章娜",
+      "tier": "第三梯队",
+      "region": "南宁",
+      "advisor": "钟长发",
+      "account": "南宁装修丨点石小钟",
+      "sign2026Total": 2,
+      "reason": "已有新增奖励，优先放大"
     },
     {
       "operator": "黄诗宇",
-      "第一梯队": 0,
-      "第二梯队": 2,
-      "第三梯队": 5,
-      "第四梯队": 5,
-      "合计": 12
+      "tier": "第三梯队",
+      "region": "马王堆-城北",
+      "advisor": "张彪",
+      "account": "长沙装修小虎哥",
+      "sign2026Total": 1,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "钟海燕",
+      "tier": "第三梯队",
+      "region": "岳阳",
+      "advisor": "戴葡",
+      "account": "湖南装修点石家装戴葡",
+      "sign2026Total": 0,
+      "reason": "第三梯队里签单/业绩表现更好"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第三梯队",
+      "region": "马王堆-城东",
+      "advisor": "朱佳",
+      "account": "长沙装修 朱哥",
+      "sign2026Total": 0,
+      "reason": "已有新增奖励，优先放大"
+    },
+    {
+      "operator": "黄诗宇",
+      "tier": "第三梯队",
+      "region": "马王堆-城东",
+      "advisor": "汤军",
+      "account": "长沙装修～汤圆",
+      "sign2026Total": 0,
+      "reason": "已有新增奖励，优先放大"
     }
   ],
   "bottomCleanupAccounts": [
@@ -13234,10 +13026,10 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-14T00:25:21.692Z",
+  "generatedAt": "2026-05-14T23:02:40.440Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
-  "timeProgress": 36.5,
+  "timeProgress": 36.8,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
   "executiveCards": [
     {
@@ -13245,21 +13037,21 @@ const dashboardInsights = {
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 51.7% vs 时间进度 36.5%"
+      "basis": "短板完成率 52% vs 时间进度 36.8%"
     },
     {
       "title": "最大短板",
       "value": "施工兑现",
       "statusClass": "status-good",
       "desc": "施工金额完成率低于设计单数完成率。",
-      "basis": "施工51.7% · 设计57.8%"
+      "basis": "施工52% · 设计58.2%"
     },
     {
       "title": "转化兑现",
       "value": "67%",
       "statusClass": "status-good",
       "desc": "按年度累计施工单数 / 设计单数估算。",
-      "basis": "214施工 / 318设计"
+      "basis": "215施工 / 320设计"
     },
     {
       "title": "本月火力点",
@@ -13273,7 +13065,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10625.3万；设计单数预测预计 871单。",
+      "desc": "施工金额预测预计 10597.8万；设计单数预测预计 870单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -13285,7 +13077,7 @@ const dashboardInsights = {
     {
       "title": "月度波动",
       "priority": "P1",
-      "desc": "平江店 下降：施工-2.9万，设计+8单。",
+      "desc": "平江店 下降：施工-2.9万，设计+9单。",
       "basis": "2026-04 对比 2026-05"
     },
     {
@@ -13298,23 +13090,23 @@ const dashboardInsights = {
   "targetForecast": [
     {
       "name": "施工金额预测",
-      "actual": "3878.2万",
+      "actual": "3900万",
       "target": "7500万",
-      "rate": 51.7,
-      "forecast": "10625.3万",
-      "gap": "+3125.3万",
+      "rate": 52,
+      "forecast": "10597.8万",
+      "gap": "+3097.8万",
       "status": "健康",
-      "basis": "按当前 36.5% 时间进度线性外推"
+      "basis": "按当前 36.8% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
-      "actual": "318单",
+      "actual": "320单",
       "target": "550单",
-      "rate": 57.8,
-      "forecast": "871单",
-      "gap": "+321单",
+      "rate": 58.2,
+      "forecast": "870单",
+      "gap": "+320单",
       "status": "健康",
-      "basis": "按当前 36.5% 时间进度线性外推"
+      "basis": "按当前 36.8% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
@@ -13341,27 +13133,27 @@ const dashboardInsights = {
       "constructionAmount": 9786474,
       "constructionAmountDisplay": "978.6万",
       "constructionRate": 57.6,
-      "designCount": 74,
-      "designRate": 49.3,
-      "conversion": 74.3,
+      "designCount": 75,
+      "designRate": 50,
+      "conversion": 73.3,
       "storeCount": 9,
-      "latestCount": 13,
-      "basis": "施工57.6% · 设计49.3% · 本月13条"
+      "latestCount": 14,
+      "basis": "施工57.6% · 设计50% · 本月14条"
     },
     {
       "owner": "向勇",
       "score": 68,
       "status": "观察",
       "statusClass": "health-c",
-      "constructionAmount": 8228833,
-      "constructionAmountDisplay": "822.9万",
-      "constructionRate": 48.4,
+      "constructionAmount": 8446578,
+      "constructionAmountDisplay": "844.7万",
+      "constructionRate": 49.7,
       "designCount": 68,
       "designRate": 45.3,
-      "conversion": 64.7,
+      "conversion": 66.2,
       "storeCount": 13,
-      "latestCount": 17,
-      "basis": "施工48.4% · 设计45.3% · 本月17条"
+      "latestCount": 18,
+      "basis": "施工49.7% · 设计45.3% · 本月18条"
     },
     {
       "owner": "钟海燕",
@@ -13371,12 +13163,12 @@ const dashboardInsights = {
       "constructionAmount": 8664883,
       "constructionAmountDisplay": "866.5万",
       "constructionRate": 57.8,
-      "designCount": 68,
-      "designRate": 68,
-      "conversion": 66.2,
+      "designCount": 69,
+      "designRate": 69,
+      "conversion": 65.2,
       "storeCount": 11,
-      "latestCount": 22,
-      "basis": "施工57.8% · 设计68% · 本月22条"
+      "latestCount": 23,
+      "basis": "施工57.8% · 设计69% · 本月23条"
     },
     {
       "owner": "宁章娜",
@@ -13401,21 +13193,10 @@ const dashboardInsights = {
       "direction": "下降",
       "constructionDelta": -28972,
       "constructionDeltaDisplay": "-2.9万",
-      "designDelta": 8,
-      "designDeltaDisplay": "+8单",
+      "designDelta": 9,
+      "designDeltaDisplay": "+9单",
       "basis": "2026-04 → 2026-05",
-      "priority": 64.28972
-    },
-    {
-      "district": "长沙大区",
-      "store": "星沙店",
-      "direction": "下降",
-      "constructionDelta": -1148650,
-      "constructionDeltaDisplay": "-114.9万",
-      "designDelta": -6,
-      "designDeltaDisplay": "-6单",
-      "basis": "2026-04 → 2026-05",
-      "priority": 59.4865
+      "priority": 72.28972
     },
     {
       "district": "地市一区",
@@ -13430,6 +13211,17 @@ const dashboardInsights = {
     },
     {
       "district": "长沙大区",
+      "store": "星沙店",
+      "direction": "下降",
+      "constructionDelta": -1148650,
+      "constructionDeltaDisplay": "-114.9万",
+      "designDelta": -5,
+      "designDeltaDisplay": "-5单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 51.4865
+    },
+    {
+      "district": "长沙大区",
       "store": "城东店",
       "direction": "下降",
       "constructionDelta": 0,
@@ -13438,17 +13230,6 @@ const dashboardInsights = {
       "designDeltaDisplay": "-4单",
       "basis": "2026-04 → 2026-05",
       "priority": 32
-    },
-    {
-      "district": "长沙大区",
-      "store": "洋湖店",
-      "direction": "下降",
-      "constructionDelta": -153756,
-      "constructionDeltaDisplay": "-15.4万",
-      "designDelta": -3,
-      "designDeltaDisplay": "-3单",
-      "basis": "2026-04 → 2026-05",
-      "priority": 25.53756
     },
     {
       "district": "地市二区",
@@ -13460,6 +13241,17 @@ const dashboardInsights = {
       "designDeltaDisplay": "+3单",
       "basis": "2026-04 → 2026-05",
       "priority": 25.29404
+    },
+    {
+      "district": "长沙大区",
+      "store": "洋湖店",
+      "direction": "下降",
+      "constructionDelta": 63989,
+      "constructionDeltaDisplay": "+6.4万",
+      "designDelta": -3,
+      "designDeltaDisplay": "-3单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 24.63989
     },
     {
       "district": "长沙大区",
@@ -13518,14 +13310,14 @@ const dashboardInsights = {
       "district": "长沙大区",
       "store": "星沙店",
       "advisor": "蒋志军",
-      "designCount": 13,
+      "designCount": 14,
       "constructionCount": 10,
       "constructionAmount": 2075830,
       "constructionAmountDisplay": "207.6万",
-      "conversion": 76.9,
+      "conversion": 71.4,
       "category": "均衡观察",
       "action": "继续观察设计到施工闭环。",
-      "priority": 43.7583
+      "priority": 44.7583
     },
     {
       "owner": "宁章娜",
@@ -13568,20 +13360,6 @@ const dashboardInsights = {
       "category": "待兑现",
       "action": "安排逐单跟进，避免设计单沉没。",
       "priority": 32
-    },
-    {
-      "owner": "向勇",
-      "district": "长沙大区",
-      "store": "洋湖店",
-      "advisor": "王海波",
-      "designCount": 3,
-      "constructionCount": 0,
-      "constructionAmount": 0,
-      "constructionAmountDisplay": "0万",
-      "conversion": 0,
-      "category": "待兑现",
-      "action": "安排逐单跟进，避免设计单沉没。",
-      "priority": 31
     },
     {
       "owner": "向勇",
@@ -13652,6 +13430,20 @@ const dashboardInsights = {
       "category": "均衡观察",
       "action": "继续观察设计到施工闭环。",
       "priority": 20.479799999999997
+    },
+    {
+      "owner": "周国平",
+      "district": "地市一区",
+      "store": "湘潭双拥店",
+      "advisor": "王永",
+      "designCount": 5,
+      "constructionCount": 6,
+      "constructionAmount": 940761,
+      "constructionAmountDisplay": "94.1万",
+      "conversion": 120,
+      "category": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "priority": 20.40761
     }
   ],
   "actionItems": [
@@ -13665,25 +13457,19 @@ const dashboardInsights = {
       "priority": "P1",
       "owner": "长沙大区",
       "action": "核查 平江店 环比下降原因，确认是入账节奏还是真实掉量。",
-      "basis": "施工-2.9万 · 设计+8单"
+      "basis": "施工-2.9万 · 设计+9单"
     },
     {
       "priority": "P1",
-      "owner": "长沙大区",
-      "action": "核查 星沙店 环比下降原因，确认是入账节奏还是真实掉量。",
-      "basis": "施工-114.9万 · 设计-6单"
+      "owner": "地市一区",
+      "action": "核查 南宁店 环比下降原因，确认是入账节奏还是真实掉量。",
+      "basis": "施工-6.3万 · 设计-7单"
     },
     {
       "priority": "P2",
       "owner": "钟海燕",
       "action": "平江店 唐展鹏：安排逐单跟进，避免设计单沉没。",
       "basis": "4设计 / 0施工 / 0万"
-    },
-    {
-      "priority": "P2",
-      "owner": "向勇",
-      "action": "洋湖店 王海波：安排逐单跟进，避免设计单沉没。",
-      "basis": "3设计 / 0施工 / 0万"
     },
     {
       "priority": "P2",
