@@ -176,6 +176,25 @@
     .resource-hero-card .mini{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.72;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-weight:900}
     .resource-hero-card .headline{font-size:34px;line-height:1.08;font-weight:900;letter-spacing:-.04em;margin:10px 0 8px}
     .resource-hero-card p{max-width:720px;margin:0;color:rgba(255,255,255,.78);font-size:13px;line-height:1.8;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .resource-contribution{display:grid;grid-template-columns:.9fr 1.1fr;gap:12px;margin-bottom:14px}
+    .resource-contribution-card{padding:18px;border-radius:24px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .resource-contribution-card.lead{background:linear-gradient(135deg,rgba(18,130,92,.16),rgba(255,250,242,.88))}
+    .resource-contribution-card strong{display:block;font-size:17px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .resource-contribution-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
+    .contribution-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .contribution-kpi{padding:12px;border-radius:16px;background:rgba(255,255,255,.68);border:1px solid rgba(23,32,51,.08)}
+    .contribution-kpi .k{font-size:11px;color:var(--muted);font-weight:900}
+    .contribution-kpi .v{font-size:25px;font-weight:900;letter-spacing:-.04em;margin-top:3px}
+    .contribution-row{display:grid;grid-template-columns:88px minmax(0,1fr) 70px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:12px}
+    .contribution-row:last-child{border-bottom:0}
+    .contribution-row b{font-size:13px}
+    .contribution-row span{color:#4b5563;font-size:11px}
+    .contribution-row em{font-style:normal;text-align:right;font-weight:900;color:#172033}
+    .contribution-bars{display:grid;gap:5px}
+    .contribution-mini{display:grid;grid-template-columns:52px minmax(0,1fr) 44px;gap:6px;align-items:center}
+    .contribution-bar{height:7px;border-radius:999px;background:rgba(23,32,51,.08);overflow:hidden}
+    .contribution-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green),#72c6a1)}
+    .contribution-mini.amount .contribution-bar span{background:linear-gradient(90deg,var(--orange),var(--blue))}
     .action-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
     .action-card{padding:14px;border-radius:18px;background:rgba(255,255,255,.74);border:1px solid var(--line)}
     .action-card strong{display:flex;justify-content:space-between;gap:8px;font-size:15px;margin-bottom:8px}
@@ -193,7 +212,7 @@
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
       .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix{grid-template-columns:1fr}
-      .resource-grid,.resource-layout,.resource-hero,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
+      .resource-grid,.resource-layout,.resource-hero,.resource-contribution,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
     }
@@ -266,6 +285,7 @@
             <div class="pressure-list" id="resourcePressureList"></div>
           </div>
         </div>
+        <div class="resource-contribution" id="resourceContribution"></div>
         <div class="action-grid" id="resourceActionGrid"></div>
         <div class="execution-list" id="resourceExecutionList"></div>
         <div id="resourcePendingWrap"></div>
@@ -11803,6 +11823,8 @@
         + '<p>' + (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。') + '</p>'
         + '<p style="margin-top:8px">' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。') + '</p>';
 
+      renderResourceContribution(resourceRows);
+
       byId('resourceActionGrid').innerHTML = actionSummary.map(item => '<div class="action-card">'
         + '<strong><span>' + item['资源池'] + '</span><span>' + item['管理动作'] + '</span></strong>'
         + '<p>' + item['人数'] + '人｜' + item['月剪辑条数'] + '条/月</p>'
@@ -11859,6 +11881,52 @@
         + '<p>资源位 ' + (owner['资源位人数'] || 0) + ' 人｜月剪辑 ' + (owner['资源月剪辑条数'] || 0) + ' 条</p>'
         + '<p>A ' + (owner['A池保供位'] || 0) + '｜B ' + (owner['B池冲刺位'] || 0) + '｜C ' + (owner['C池重点位'] || 0) + '｜D ' + (owner['D池轮转位'] || 0) + '</p>'
         + '</div>').join('');
+    }
+
+    function renderResourceContribution(resourceRows) {
+      const sum = (list, key) => list.reduce((total, row) => total + Number(row[key] || 0), 0);
+      const totalPeople = rows.length || 1;
+      const totalDesign = sum(rows, '设计签单') || 1;
+      const totalConstruction = sum(rows, '施工签单') || 1;
+      const totalAmount = sum(rows, '施工金额(万)') || 1;
+      const resourcePeople = resourceRows.length;
+      const resourceDesign = sum(resourceRows, '设计签单');
+      const resourceConstruction = sum(resourceRows, '施工签单');
+      const resourceAmount = sum(resourceRows, '施工金额(万)');
+      const poolOrder = ['A池保供位','B池冲刺位','C池重点位','D池轮转位'];
+      const poolStats = poolOrder.map(pool => {
+        const list = resourceRows.filter(row => row['资源池建议'] === pool);
+        return {
+          pool,
+          count: list.length,
+          design: sum(list, '设计签单'),
+          construction: sum(list, '施工签单'),
+          amount: sum(list, '施工金额(万)')
+        };
+      });
+      const maxPoolAmount = Math.max(...poolStats.map(item => item.amount), 1);
+      const maxPoolDesign = Math.max(...poolStats.map(item => item.design), 1);
+      byId('resourceContribution').innerHTML = '<div class="resource-contribution-card lead">'
+        + '<strong>资源位业绩贡献占比</strong>'
+        + '<p>' + resourcePeople + '个资源位只占全盘 ' + fmtPct(resourcePeople / totalPeople * 100) + ' 人数，但贡献了 ' + fmtPct(resourceDesign / totalDesign * 100) + ' 设计单、' + fmtPct(resourceConstruction / totalConstruction * 100) + ' 施工单和 ' + fmtPct(resourceAmount / totalAmount * 100) + ' 施工金额。</p>'
+        + '<div class="contribution-kpis">'
+        + '<div class="contribution-kpi"><div class="k">设计单占比</div><div class="v">' + fmtPct(resourceDesign / totalDesign * 100) + '</div></div>'
+        + '<div class="contribution-kpi"><div class="k">施工单占比</div><div class="v">' + fmtPct(resourceConstruction / totalConstruction * 100) + '</div></div>'
+        + '<div class="contribution-kpi"><div class="k">施工金额占比</div><div class="v">' + fmtPct(resourceAmount / totalAmount * 100) + '</div></div>'
+        + '</div>'
+        + '<p style="margin-top:10px">资源位当前贡献施工金额 ' + fmtWan(resourceAmount) + ' / 全盘 ' + fmtWan(totalAmount) + '，说明资源池基本覆盖核心业绩人群。</p>'
+        + '</div>'
+        + '<div class="resource-contribution-card">'
+        + '<strong>A/B/C/D 池贡献拆分</strong>'
+        + poolStats.map(item => '<div class="contribution-row">'
+          + '<div><b>' + item.pool.replace('池','池') + '</b><span>' + item.count + '人｜施工' + item.construction + '单</span></div>'
+          + '<div class="contribution-bars">'
+          + '<div class="contribution-mini"><span>设计</span><div class="contribution-bar"><span style="width:' + Math.max(3, item.design / maxPoolDesign * 100) + '%"></span></div><b>' + item.design + '单</b></div>'
+          + '<div class="contribution-mini amount"><span>金额</span><div class="contribution-bar"><span style="width:' + Math.max(3, item.amount / maxPoolAmount * 100) + '%"></span></div><b>' + fmtPct(item.amount / totalAmount * 100) + '</b></div>'
+          + '</div>'
+          + '<em>' + fmtWan(item.amount) + '</em>'
+          + '</div>').join('')
+        + '</div>';
     }
 
     function renderAnomalies() {
