@@ -53,6 +53,7 @@
     .summary-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(23,32,51,.06);font-size:12px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .summary-row:last-child{border-bottom:0}
     .summary-row span:last-child{font-weight:900;color:var(--ink)}
+    .overview-only.is-hidden{display:none}
     .explain-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;margin:0 0 14px}
     .explain-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.70);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08)}
     .explain-card strong{display:block;font-size:15px;margin-bottom:8px}
@@ -66,6 +67,49 @@
     .boss-card .boss-num{font-size:30px;font-weight:900;letter-spacing:-.04em;margin-bottom:4px}
     .boss-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .boss-card.lead p{color:rgba(255,255,255,.78)}
+    .decision-strip{display:grid;grid-template-columns:1.35fr .65fr;gap:12px;margin:0 0 14px}
+    .decision-card{padding:18px;border-radius:22px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .decision-main{background:linear-gradient(135deg,rgba(18,130,92,.14),rgba(255,255,255,.78))}
+    .decision-card strong{display:block;font-size:16px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .decision-card .decision-title{font-size:25px;line-height:1.2;font-weight:900;letter-spacing:-.04em;margin-bottom:10px;color:#172033}
+    .decision-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+    .decision-list li{position:relative;padding-left:16px;color:#4b5563;font-size:12px;line-height:1.65}
+    .decision-list li:before{content:"";position:absolute;left:0;top:.68em;width:6px;height:6px;border-radius:50%;background:var(--green)}
+    .decision-alert{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(23,32,51,.08);font-size:12px;color:#4b5563}
+    .decision-alert:last-child{border-bottom:0}
+    .decision-alert span:last-child{font-weight:900;color:var(--ink)}
+    .migration-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0 0 14px}
+    .migration-card{padding:15px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .migration-card strong{display:block;font-size:14px;margin-bottom:4px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .migration-card .migration-total{font-size:12px;color:var(--muted);margin-bottom:10px}
+    .migration-row{display:grid;grid-template-columns:72px minmax(0,1fr) 34px;gap:7px;align-items:center;font-size:11px;color:#4b5563;margin:7px 0}
+    .migration-bar{height:7px;border-radius:999px;background:rgba(23,32,51,.08);overflow:hidden}
+    .migration-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--orange),var(--blue))}
+    .business-share{display:grid;grid-template-columns:1.35fr .65fr;gap:12px;margin:0 0 16px}
+    .business-panel{padding:18px;border-radius:24px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .business-panel.lead{background:linear-gradient(145deg,rgba(255,250,242,.94),rgba(232,239,255,.72))}
+    .business-panel strong{display:block;font-size:17px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .business-panel p{margin:0 0 12px;color:var(--muted);font-size:12px;line-height:1.75}
+    .business-row{display:grid;grid-template-columns:105px minmax(0,1fr) 82px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(23,32,51,.07)}
+    .business-row:last-child{border-bottom:0}
+    .business-row b{display:block;font-size:13px}.business-row small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .business-bars{display:grid;gap:6px}
+    .business-mini{display:grid;grid-template-columns:70px minmax(0,1fr) 48px;gap:8px;align-items:center;font-size:11px;color:#4b5563}
+    .business-bar{height:8px;border-radius:999px;background:rgba(23,32,51,.08);overflow:hidden}
+    .business-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green),#72c6a1)}
+    .business-mini.amount .business-bar span{background:linear-gradient(90deg,var(--orange),var(--blue))}
+    .business-row em{font-style:normal;text-align:right;font-weight:900;color:#172033;font-size:12px}
+    .business-insight{padding:12px 0;border-bottom:1px solid rgba(23,32,51,.08)}
+    .business-insight:last-child{border-bottom:0}
+    .business-insight .k{font-size:11px;color:var(--muted);font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    .business-insight .v{font-size:20px;font-weight:900;letter-spacing:-.04em;margin-top:3px}
+    .business-insight p{margin:4px 0 0;font-size:12px;line-height:1.65;color:#4b5563}
+    .pressure-matrix{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin:0 0 16px}
+    .pressure-panel{padding:16px;border-radius:22px;background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .pressure-panel strong{display:block;font-size:16px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .pressure-line{display:grid;grid-template-columns:70px minmax(0,1fr) 92px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:12px}
+    .pressure-line:last-child{border-bottom:0}
+    .pressure-line b{font-size:13px}.pressure-line em{font-style:normal;text-align:right;font-weight:900;color:#172033}
     .tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:14px 0 16px}
     .tabs::-webkit-scrollbar{display:none}
     .tab{border:1px solid var(--line);background:rgba(255,255,255,.62);padding:11px 15px;border-radius:999px;font-size:13px;color:#596579;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;white-space:nowrap;cursor:pointer}
@@ -148,7 +192,7 @@
     .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix{grid-template-columns:1fr}
       .resource-grid,.resource-layout,.resource-hero,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
@@ -161,7 +205,7 @@
       <div class="panel hero-main">
         <div class="eyebrow">Advisor Fusion Ranking V2</div>
         <h1>陪跑家顾梯度名单驾驶舱</h1>
-        <div class="hero-desc">这不是旧人数口径的补丁，而是把腾讯文档原重点梯队家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
+        <div class="hero-desc">这不是旧人数口径的补丁，而是把腾讯文档重点梯队家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
         <div class="status-strip" id="statusStrip"></div>
       </div>
       <div class="panel hero-side">
@@ -178,9 +222,13 @@
       <div class="control"><label>状态</label><select id="statusFilter"></select></div>
       <div class="control"><label>搜索家顾 / 门店</label><input id="keywordFilter" placeholder="输入关键词" /></div>
     </section>
-    <section class="summary-grid" id="summaryGrid"></section>
-    <section class="explain-grid" id="explainGrid"></section>
-    <section class="boss-grid" id="bossGrid"></section>
+    <section class="summary-grid overview-only" id="summaryGrid"></section>
+    <section class="explain-grid overview-only" id="explainGrid"></section>
+    <section class="boss-grid overview-only" id="bossGrid"></section>
+    <section class="decision-strip overview-only" id="decisionStrip"></section>
+    <section class="migration-grid overview-only" id="migrationGrid"></section>
+    <section class="business-share overview-only" id="businessShare"></section>
+    <section class="pressure-matrix overview-only" id="pressureMatrix"></section>
 
     <main>
       <section class="view active" id="view-ranking">
@@ -196,7 +244,7 @@
         <div class="table-wrap" id="rankingTableWrap" style="display:none;margin-top:12px"><table id="rankingTable"></table></div>
       </section>
       <section class="view" id="view-original">
-        <div class="section-title"><div><h2>原重点梯队复盘</h2><p>看腾讯文档原重点梯队名单在新排名里的位置、升降和待激活对象。</p></div></div>
+        <div class="section-title"><div><h2>腾讯文档重点梯队复盘</h2><p>看腾讯文档重点梯队名单在新排名里的位置、升降和待激活对象。</p></div></div>
         <div class="table-wrap"><table id="originalTable"></table></div>
       </section>
       <section class="view" id="view-new">
@@ -238,7 +286,7 @@
   <script>
     const payload = {
   "summary": {
-    "generatedAt": "2026-05-16T10:30:27",
+    "generatedAt": "2026-05-16T10:42:15",
     "version": "advisor-fusion-v2",
     "definition": "腾讯文档重点梯队家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
     "dataPeriod": "2026年累计",
@@ -273,7 +321,7 @@
     "resourceSummary": {
       "策略版本": "advisor-resource-v1-20260510",
       "策略名称": "陪跑家顾资源扶持策略",
-      "策略模式": "177人全量展示 + 54个资源位精准扶持",
+      "策略模式": "全量展示 + 资源位精准扶持",
       "资源原则": "新梯度名单用于全量经营观察；资源池只用于剪辑、投放和管理者扶持分配，不能替代新第一/第二/第三/第四梯队。",
       "锁定规则": "页面日更仅供观察；正式资源池建议每月1号或月末人工确认后锁定。",
       "月剪辑产能": 272,
@@ -11330,7 +11378,7 @@
     const summary = payload.summary || {};
     const tabs = [
       ['ranking', '新梯度名单'],
-      ['original', '原重点梯队复盘'],
+      ['original', '腾讯重点梯队复盘'],
       ['new', '新增家顾'],
       ['owner', '运营视角'],
       ['resource', '资源扶持'],
@@ -11338,6 +11386,7 @@
     ];
     const orderTiers = ['新第一梯队','新第二梯队','新第三梯队','新第四梯队'];
     const fmtWan = n => Number(n || 0).toFixed(1) + '万';
+    const fmtPct = n => Number(n || 0).toFixed(1) + '%';
     const uniq = arr => Array.from(new Set(arr.filter(Boolean)));
     const byId = id => document.getElementById(id);
     const newTierDescriptions = {
@@ -11406,11 +11455,16 @@
       document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === activeTab));
       document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
       byId('view-' + activeTab).classList.add('active');
+      document.querySelectorAll('.overview-only').forEach(el => el.classList.toggle('is-hidden', activeTab !== 'ranking'));
       renderMetrics();
       renderStatusStrip();
       renderSummaryGrid();
       renderExplainGrid();
       renderBossGrid();
+      renderDecisionStrip();
+      renderMigrationGrid();
+      renderTierBusinessShare();
+      renderPressureMatrix();
       const list = filteredRows();
       renderRanking(list);
       renderOriginal(list);
@@ -11504,14 +11558,138 @@
       const scope = summary.scope || {};
       const totals = summary.totals || {};
       const noCurrent = scope['待激活观察'] || 0;
+      const totalAdvisors = scope['总家顾数'] || rows.length;
       const leadText = '当前是日更观察版：资源建议可以看，但正式资源池建议月初/月末人工锁定。';
       const cards = [
         { cls:'lead', title:'老板一屏结论', num:(resourceSummary['资源位人数'] || 0) + '个资源位', text:leadText },
         { cls:'warn', title:'资源压力', num:(topOwner['运营'] || '-') + ' ' + (topOwner['资源月剪辑条数'] || 0) + '条', text:'当前资源压力最高，建议优先检查该运营的A/B池承接节奏。' },
-        { cls:pendingNew.length ? 'risk' : '', title:'待确认新增', num:pendingNew.length + '人', text:pendingNew.length ? '原重点梯队外新增家顾已进入资源位，发布前建议人工确认。' : '暂无新增家顾进入资源位。' },
-        { cls:noCurrent ? 'warn' : '', title:'全盘经营', num:(totals['施工签单'] || 0) + '施工', text:'177人全量观察，待激活 ' + noCurrent + ' 人，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '。' }
+        { cls:pendingNew.length ? 'risk' : '', title:'待确认新增', num:pendingNew.length + '人', text:pendingNew.length ? '腾讯文档重点梯队外新增家顾已进入资源位，发布前建议人工确认。' : '暂无新增家顾进入资源位。' },
+        { cls:noCurrent ? 'warn' : '', title:'全盘经营', num:(totals['施工签单'] || 0) + '施工', text:'当前全量观察 ' + totalAdvisors + ' 人，待激活 ' + noCurrent + ' 人，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '。' }
       ];
       byId('bossGrid').innerHTML = cards.map(card => '<div class="boss-card ' + card.cls + '"><strong>' + card.title + '</strong><div class="boss-num">' + card.num + '</div><p>' + card.text + '</p></div>').join('');
+    }
+
+    function anomalyItems(name) {
+      const items = (summary.anomalies || {})[name];
+      return Array.isArray(items) ? items : [];
+    }
+
+    function renderDecisionStrip() {
+      const scope = summary.scope || {};
+      const totals = summary.totals || {};
+      const resourceSummary = summary.resourceSummary || {};
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const topOwner = owners[0] || {};
+      const pendingOwner = anomalyItems('待分配运营');
+      const totalAdvisors = scope['总家顾数'] || rows.length;
+      const originalCount = scope['重点梯队覆盖'] || rows.filter(isOriginalAdvisor).length;
+      const newCount = scope['全盘新增家顾'] || Math.max(0, totalAdvisors - originalCount);
+      const inactive = scope['待激活观察'] || 0;
+      const resourceSlots = resourceSummary['资源位人数'] || 0;
+      const monthlyEdits = resourceSummary['月剪辑需求'] || 0;
+      const title = '当前不是只看名单，而是用 ' + totalAdvisors + ' 人全盘名单决定资源怎么投。';
+      const bullets = [
+        '腾讯文档重点梯队覆盖 ' + originalCount + ' 人，主陪跑数据新增纳管 ' + newCount + ' 人。',
+        '资源池当前 ' + resourceSlots + ' 个位置，建议月剪辑 ' + monthlyEdits + ' 条，适合月度锁定后执行。',
+        '施工签单 ' + (totals['施工签单'] || 0) + ' 单，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '，排名以签单与施工综合表现为主。',
+        '待激活观察 ' + inactive + ' 人，建议放进观察盘，不要默认占用固定剪辑资源。'
+      ];
+      byId('decisionStrip').innerHTML = '<div class="decision-card decision-main">'
+        + '<strong>老板一句话结论</strong>'
+        + '<div class="decision-title">' + title + '</div>'
+        + '<ul class="decision-list">' + bullets.map(item => '<li>' + item + '</li>').join('') + '</ul>'
+        + '</div>'
+        + '<div class="decision-card">'
+        + '<strong>今日先看这三件事</strong>'
+        + '<div class="decision-alert"><span>资源压力最高</span><span>' + (topOwner['运营'] || '-') + ' ' + (topOwner['资源月剪辑条数'] || 0) + '条/月</span></div>'
+        + '<div class="decision-alert"><span>待分配运营</span><span>' + pendingOwner.length + '人</span></div>'
+        + '<div class="decision-alert"><span>待激活观察</span><span>' + inactive + '人</span></div>'
+        + '</div>';
+    }
+
+    function renderMigrationGrid() {
+      const originalOrder = ['第一梯队','第二梯队','第三梯队','第四梯队','新增家顾'];
+      byId('migrationGrid').innerHTML = originalOrder.map(origin => {
+        const list = rows.filter(row => (row['原梯队'] || '新增家顾') === origin);
+        const total = list.length;
+        const counts = orderTiers.map(tier => [tier, list.filter(row => row['新梯度'] === tier).length]);
+        return '<div class="migration-card">'
+          + '<strong>' + originalTierLabel(origin) + '</strong>'
+          + '<div class="migration-total">流入新梯度：' + total + '人</div>'
+          + counts.map(([tier, count]) => {
+            const width = total ? Math.max(3, count / total * 100) : 0;
+            return '<div class="migration-row"><span>' + tier.replace('新','') + '</span><div class="migration-bar"><span style="width:' + width + '%"></span></div><b>' + count + '</b></div>';
+          }).join('')
+          + '</div>';
+      }).join('');
+    }
+
+    function renderTierBusinessShare() {
+      const totalDesign = rows.reduce((sum, row) => sum + Number(row['设计签单'] || 0), 0);
+      const totalConstruction = rows.reduce((sum, row) => sum + Number(row['施工签单'] || 0), 0);
+      const totalAmount = rows.reduce((sum, row) => sum + Number(row['施工金额(万)'] || 0), 0);
+      const tierStats = orderTiers.map(tier => {
+        const list = rows.filter(row => row['新梯度'] === tier);
+        const design = list.reduce((sum, row) => sum + Number(row['设计签单'] || 0), 0);
+        const construction = list.reduce((sum, row) => sum + Number(row['施工签单'] || 0), 0);
+        const amount = list.reduce((sum, row) => sum + Number(row['施工金额(万)'] || 0), 0);
+        return {
+          tier,
+          count: list.length,
+          design,
+          construction,
+          amount,
+          designShare: totalDesign ? design / totalDesign * 100 : 0,
+          constructionShare: totalConstruction ? construction / totalConstruction * 100 : 0,
+          amountShare: totalAmount ? amount / totalAmount * 100 : 0,
+          amountPerPerson: list.length ? amount / list.length : 0,
+          avgOrderAmount: construction ? amount / construction : 0,
+          conversion: design ? construction / design * 100 : 0
+        };
+      });
+      const topAmount = tierStats.slice().sort((a,b) => b.amountShare - a.amountShare)[0] || {};
+      const topEfficiency = tierStats.slice().sort((a,b) => b.amountPerPerson - a.amountPerPerson)[0] || {};
+      const fourth = tierStats.find(item => item.tier === '新第四梯队') || {};
+      const maxPerPerson = Math.max(...tierStats.map(item => item.amountPerPerson), 1);
+      const maxAvgOrder = Math.max(...tierStats.map(item => item.avgOrderAmount), 1);
+      byId('businessShare').innerHTML = '<div class="business-panel lead">'
+        + '<strong>梯队业务贡献占比</strong>'
+        + '<p>同一套名单同时看设计机会、施工产值和人均贡献，避免只按人数判断梯队价值。</p>'
+        + tierStats.map(item => '<div class="business-row">'
+          + '<div><b>' + newTierLabel(item.tier) + '</b><small>' + item.count + '人｜施工' + item.construction + '单</small></div>'
+          + '<div class="business-bars">'
+          + '<div class="business-mini"><span>设计单</span><div class="business-bar"><span style="width:' + Math.max(3, item.designShare) + '%"></span></div><b>' + fmtPct(item.designShare) + '</b></div>'
+          + '<div class="business-mini amount"><span>施工金额</span><div class="business-bar"><span style="width:' + Math.max(3, item.amountShare) + '%"></span></div><b>' + fmtPct(item.amountShare) + '</b></div>'
+          + '</div>'
+          + '<em>' + fmtWan(item.amount) + '</em>'
+          + '</div>').join('')
+        + '</div>'
+        + '<div class="business-panel">'
+        + '<strong>业务解读</strong>'
+        + '<div class="business-insight"><div class="k">核心贡献层</div><div class="v">' + (topAmount.tier || '-').replace('新','') + ' ' + fmtPct(topAmount.amountShare || 0) + '</div><p>贡献施工金额 ' + fmtWan(topAmount.amount || 0) + '，是当前产值最集中的梯队。</p></div>'
+        + '<div class="business-insight"><div class="k">人均效率最高</div><div class="v">' + (topEfficiency.tier || '-').replace('新','') + ' ' + fmtWan(topEfficiency.amountPerPerson || 0) + '/人</div><p>适合优先保供剪辑、投放和管理者内容扶持。</p></div>'
+        + '<div class="business-insight"><div class="k">观察激活层</div><div class="v">第四梯队 ' + (fourth.count || 0) + '人</div><p>人数最多，施工金额占比 ' + fmtPct(fourth.amountShare || 0) + '，更适合做低成本观察、激活和轮转测试。</p></div>'
+        + '<div class="business-insight"><div class="k">质量补充指标</div>' + tierStats.map(item => '<div class="business-mini amount"><span>' + item.tier.replace('新','') + '</span><div class="business-bar"><span style="width:' + Math.max(3, item.amountPerPerson / maxPerPerson * 100) + '%"></span></div><b>' + fmtWan(item.amountPerPerson) + '/人</b></div>').join('') + '</div>'
+        + '<div class="business-insight"><div class="k">客单参考</div>' + tierStats.map(item => '<div class="business-mini"><span>' + item.tier.replace('新','') + '</span><div class="business-bar"><span style="width:' + Math.max(3, item.avgOrderAmount / maxAvgOrder * 100) + '%"></span></div><b>' + fmtWan(item.avgOrderAmount) + '/单</b></div>').join('') + '</div>'
+        + '</div>';
+    }
+
+    function renderPressureMatrix() {
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const maxEdits = Math.max(...owners.map(owner => Number(owner['资源月剪辑条数'] || 0)), 1);
+      const maxAmount = Math.max(...owners.map(owner => Number(owner['施工金额(万)'] || 0)), 1);
+      const pressureRows = owners.map(owner => '<div class="pressure-line">'
+        + '<b>' + owner['运营'] + '</b>'
+        + '<div><div class="bar"><span style="width:' + Math.max(3, Number(owner['资源月剪辑条数'] || 0) / maxEdits * 100) + '%"></span></div><span>A' + (owner['A池保供位'] || 0) + ' B' + (owner['B池冲刺位'] || 0) + ' C' + (owner['C池重点位'] || 0) + ' D' + (owner['D池轮转位'] || 0) + '｜资源位' + (owner['资源位人数'] || 0) + '</span></div>'
+        + '<em>' + (owner['资源月剪辑条数'] || 0) + '条</em>'
+        + '</div>').join('');
+      const amountRows = owners.slice().sort((a,b) => Number(b['施工金额(万)'] || 0) - Number(a['施工金额(万)'] || 0)).map(owner => '<div class="pressure-line">'
+        + '<b>' + owner['运营'] + '</b>'
+        + '<div><div class="bar"><span style="width:' + Math.max(3, Number(owner['施工金额(万)'] || 0) / maxAmount * 100) + '%"></span></div><span>家顾' + (owner['家顾数'] || 0) + '｜新一' + (owner['新第一梯队'] || 0) + ' 新二' + (owner['新第二梯队'] || 0) + ' 新三' + (owner['新第三梯队'] || 0) + '</span></div>'
+        + '<em>' + fmtWan(owner['施工金额(万)'] || 0) + '</em>'
+        + '</div>').join('');
+      byId('pressureMatrix').innerHTML = '<div class="pressure-panel"><strong>运营资源压力图</strong>' + pressureRows + '</div>'
+        + '<div class="pressure-panel"><strong>运营施工贡献图</strong>' + amountRows + '</div>';
     }
 
     function personCard(row) {
@@ -11638,7 +11816,7 @@
         + '<em>' + item['人数'] + '人 / ' + item['月剪辑条数'] + '条</em>'
         + '</div>').join('');
 
-      byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在原重点梯队里，建议先人工确认再锁定资源。</p></div></div>'
+      byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在腾讯文档重点梯队里，建议先人工确认再锁定资源。</p></div></div>'
         + '<div class="pending-grid">' + pendingNew.map(item => '<div class="pending-card">'
           + '<strong>#' + item['新排名'] + ' ' + item['家顾姓名'] + '｜' + item['资源池建议'] + '</strong>'
           + '<p>' + item['归属运营'] + '｜' + item['新梯度'] + '｜设计' + item['设计签单'] + '｜施工' + item['施工签单'] + '｜金额' + fmtWan(item['施工金额(万)']) + '</p>'
