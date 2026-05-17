@@ -73,6 +73,16 @@
     .boss-card .boss-num{font-size:30px;font-weight:900;letter-spacing:-.04em;margin-bottom:4px}
     .boss-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .boss-card.lead p{color:rgba(255,255,255,.78)}
+    .action-grid{display:grid;grid-template-columns:1.15fr repeat(3,minmax(0,1fr));gap:12px;margin:0 0 14px}
+    .action-card{padding:17px;border-radius:22px;background:rgba(255,255,255,.75);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .action-card.p0{background:linear-gradient(145deg,rgba(255,232,219,.95),rgba(255,255,255,.76))}
+    .action-card.p1{background:linear-gradient(145deg,rgba(255,242,203,.95),rgba(255,255,255,.76))}
+    .action-card.p2{background:linear-gradient(145deg,rgba(232,239,255,.86),rgba(255,255,255,.76))}
+    .action-card strong{display:block;font-size:16px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .action-card .tag{display:inline-flex;padding:5px 8px;border-radius:999px;background:rgba(23,32,51,.08);font-size:11px;font-weight:900;color:#334155;margin-bottom:10px}
+    .action-card .target{font-size:24px;line-height:1.12;font-weight:900;letter-spacing:-.04em;margin-bottom:8px;color:#172033}
+    .action-card p{margin:0 0 8px;color:#4b5563;font-size:12px;line-height:1.7}
+    .action-card small{display:block;color:var(--muted);font-size:11px;line-height:1.55}
     .decision-strip{display:grid;grid-template-columns:1.35fr .65fr;gap:12px;margin:0 0 14px}
     .decision-card{padding:18px;border-radius:22px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .decision-main{background:linear-gradient(135deg,rgba(18,130,92,.14),rgba(255,255,255,.78))}
@@ -217,7 +227,7 @@
     .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.action-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip{grid-template-columns:1fr}
       .resource-grid,.resource-layout,.resource-hero,.resource-contribution,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
@@ -251,6 +261,7 @@
     <section class="summary-grid overview-only" id="summaryGrid"></section>
     <section class="explain-grid overview-only" id="explainGrid"></section>
     <section class="boss-grid overview-only" id="bossGrid"></section>
+    <section class="action-grid overview-only" id="managementActionGrid"></section>
     <section class="decision-strip overview-only" id="decisionStrip"></section>
     <section class="migration-grid overview-only" id="migrationGrid"></section>
     <section class="business-share overview-only" id="businessShare"></section>
@@ -313,7 +324,7 @@
   <script>
     const payload = {
   "summary": {
-    "generatedAt": "2026-05-17T14:12:47",
+    "generatedAt": "2026-05-17T14:27:01",
     "version": "advisor-fusion-v2",
     "definition": "腾讯文档重点梯队家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
     "dataPeriod": "2026年累计",
@@ -338,8 +349,8 @@
       "pipelineStatus": "published",
       "pipelinePhase": "published",
       "publishStatus": "published",
-      "dashboardGitHead": "f824158",
-      "pagesGitHead": "74654e1",
+      "dashboardGitHead": "da25eb9",
+      "pagesGitHead": "5150948",
       "latestRecords": 545
     },
     "monthlyLockSummary": {
@@ -501,6 +512,40 @@
           "伍朋"
         ],
         "说明": "保持基础动作，不做重投放；只保留可上探对象的观察窗口。"
+      }
+    ],
+    "managementActions": [
+      {
+        "优先级": "P0",
+        "动作": "月度资源锁定确认",
+        "对象": "2026-05",
+        "原因": "页面是日更观察版，正式资源分配不能直接跟随每日排名波动。",
+        "建议": "确认 54 个资源位、272 条/月剪辑后，再执行 locked 锁定。",
+        "状态": "月度锁定草案待确认"
+      },
+      {
+        "优先级": "P1",
+        "动作": "资源压力复盘",
+        "对象": "宁章娜",
+        "原因": "当前最高资源压力为 86 条/月。",
+        "建议": "检查该运营 A/B 池是否过载，必要时把 D池轮转位改成模板化扶持。",
+        "状态": "待运营周会复盘"
+      },
+      {
+        "优先级": "P1",
+        "动作": "新增资源位人工确认",
+        "对象": "0 人",
+        "原因": "重点梯队外新增家顾进入资源位时，需要确认是否正式纳管。",
+        "建议": "确认账号主页、内容稳定性、成交归因后，再纳入正式月度资源位。",
+        "状态": "有新增则月度确认"
+      },
+      {
+        "优先级": "P2",
+        "动作": "高梯队待激活专项",
+        "对象": "0 人",
+        "原因": "原第一/第二梯队但当前暂无陪跑签单，继续占用注意力会稀释资源。",
+        "建议": "单独拉出激活名单，按账号停更、线索不足、内容不匹配三类复盘。",
+        "状态": "观察盘处理"
       }
     ],
     "resourcePendingNew": [],
@@ -11479,6 +11524,7 @@
       renderSummaryGrid();
       renderExplainGrid();
       renderBossGrid();
+      renderManagementActions();
       renderDecisionStrip();
       renderMigrationGrid();
       renderTierBusinessShare();
@@ -11619,6 +11665,20 @@
         { cls:noCurrent ? 'warn' : '', title:'全盘经营', num:(totals['施工签单'] || 0) + '施工', text:'当前全量观察 ' + totalAdvisors + ' 人，待激活 ' + noCurrent + ' 人，施工金额 ' + fmtWan(totals['施工金额(万)'] || 0) + '。' }
       ];
       byId('bossGrid').innerHTML = cards.map(card => '<div class="boss-card ' + card.cls + '"><strong>' + card.title + '</strong><div class="boss-num">' + card.num + '</div><p>' + card.text + '</p></div>').join('');
+    }
+
+    function renderManagementActions() {
+      const actions = summary.managementActions || [];
+      byId('managementActionGrid').innerHTML = actions.slice(0, 4).map(action => {
+        const level = String(action['优先级'] || 'P2').toLowerCase();
+        return '<div class="action-card ' + level + '">'
+          + '<span class="tag">' + (action['优先级'] || 'P2') + ' · 管理动作清单</span>'
+          + '<strong>' + (action['动作'] || '待处理动作') + '</strong>'
+          + '<div class="target">' + (action['对象'] || '-') + '</div>'
+          + '<p>' + (action['原因'] || '') + '</p>'
+          + '<small>' + (action['建议'] || '') + '｜' + (action['状态'] || '待跟进') + '</small>'
+          + '</div>';
+      }).join('');
     }
 
     function anomalyItems(name) {
