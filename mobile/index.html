@@ -41,6 +41,12 @@
     .status-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .status-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:999px;background:rgba(23,32,51,.07);border:1px solid rgba(23,32,51,.08);font-size:12px;font-weight:800;color:#334155}
     .status-badge.live{background:rgba(18,130,92,.12);color:var(--green);border-color:rgba(18,130,92,.20)}
+    .governance-strip{display:grid;grid-template-columns:1.25fr repeat(3,minmax(0,1fr));gap:12px;margin:0 0 14px}
+    .governance-card{padding:15px 16px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .governance-card.lead{background:linear-gradient(135deg,rgba(18,130,92,.14),rgba(255,255,255,.78))}
+    .governance-card.warn{background:linear-gradient(135deg,rgba(255,242,203,.92),rgba(255,255,255,.76))}
+    .governance-card strong{display:block;font-size:15px;margin-bottom:6px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .governance-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}
     .hero-side{padding:20px;display:grid;gap:10px;background:rgba(255,255,255,.62)}
     .metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .metric{padding:16px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
@@ -211,7 +217,7 @@
     .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip{grid-template-columns:1fr}
       .resource-grid,.resource-layout,.resource-hero,.resource-contribution,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
@@ -233,6 +239,7 @@
     </section>
 
     <nav class="tabs" id="tabs"></nav>
+    <section class="governance-strip" id="governanceStrip"></section>
     <section class="toolbar">
       <div class="control"><label>新梯度</label><select id="tierFilter"></select></div>
       <div class="control"><label>归属运营</label><select id="ownerFilter"></select></div>
@@ -11443,6 +11450,7 @@
       document.querySelectorAll('.overview-only').forEach(el => el.classList.toggle('is-hidden', activeTab !== 'ranking'));
       renderMetrics();
       renderStatusStrip();
+      renderGovernanceStrip();
       renderSummaryGrid();
       renderExplainGrid();
       renderBossGrid();
@@ -11477,9 +11485,41 @@
         ['数据周期', summary.dataPeriod || '2026年累计', ''],
         ['当前月', summary.activeMonth || '未知', ''],
         ['更新时间', generatedAt, ''],
-        ['状态', summary.releaseMode || '日更观察版', 'live']
+        ['状态', summary.releaseMode || '日更观察版', 'live'],
+        ['真源', '腾讯文档重点梯队 + 主看板签单施工', ''],
+        ['资源锁定', '月度锁定版待人工确认', '']
       ];
       byId('statusStrip').innerHTML = badges.map(([k, v, cls]) => '<span class="status-badge ' + cls + '">' + k + '：' + v + '</span>').join('');
+    }
+
+    function renderGovernanceStrip() {
+      const resourceSummary = summary.resourceSummary || {};
+      const anomalies = summary.anomalies || {};
+      const anomalyCount = Object.values(anomalies).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+      const pendingNew = (summary.resourcePendingNew || []).length;
+      const cards = [
+        {
+          cls: 'lead',
+          title: '数据真源状态条',
+          text: '名单真源为腾讯文档重点梯队；经营数据真源为主陪跑数据看板；资源策略真源为 advisor_resource_policy.json。'
+        },
+        {
+          cls: 'warn',
+          title: '资源版本',
+          text: '当前页面为日更观察版；月度锁定版建议每月1号或月末人工确认后再作为正式资源分配依据。'
+        },
+        {
+          cls: anomalyCount ? 'warn' : '',
+          title: '异常审计',
+          text: anomalyCount ? '当前存在 ' + anomalyCount + ' 个观察项，发布前建议查看异常校验。' : '当前无硬性异常，运营冲突/待分配/强新增均已通过校验。'
+        },
+        {
+          cls: pendingNew ? 'warn' : '',
+          title: '老板决策',
+          text: pendingNew ? '有 ' + pendingNew + ' 个新增家顾进入资源确认池，月度锁定前要人工确认。' : '暂无新增家顾进入资源确认池，可按现有资源建议观察。'
+        }
+      ];
+      byId('governanceStrip').innerHTML = cards.map(card => '<div class="governance-card ' + card.cls + '"><strong>' + card.title + '</strong><p>' + card.text + '</p></div>').join('');
     }
 
     function renderSummaryGrid() {
@@ -11529,7 +11569,7 @@
         },
         {
           title: '自动更新规则',
-          text: summary.monthlySnapshotPolicy || '页面每日自动刷新；月度正式名单建议人工确认后定版。'
+          text: (summary.monthlySnapshotPolicy || '页面每日自动刷新；月度正式名单建议人工确认后定版。') + ' 当前页面展示“日更观察版”，正式资源分配请以“月度锁定版”为准。'
         }
       ];
       byId('explainGrid').innerHTML = cards.map(card => '<div class="explain-card"><strong>' + card.title + '</strong><p>' + card.text + '</p></div>').join('');
@@ -11786,7 +11826,7 @@
       byId('resourceHero').innerHTML = '<div class="mini">Resource Command Center</div>'
         + '<div class="headline">' + (resourceSummary['资源位人数'] || 0) + '个资源位，' + (resourceSummary['月剪辑需求'] || 0) + '条建议盘</div>'
         + '<p>' + (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。') + '</p>'
-        + '<p style="margin-top:8px">' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。') + '</p>';
+        + '<p style="margin-top:8px">月度锁定版：待人工确认；日更观察版：用于发现变化和预警。' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。') + '</p>';
 
       renderResourceContribution(resourceRows);
 
@@ -11814,6 +11854,7 @@
         + ' 当前策略：' + (resourceSummary['策略模式'] || '未配置')
         + '；' + (resourceSummary['建议资源盘'] || '建议资源盘未配置')
         + '；资源位 ' + (resourceSummary['资源位人数'] || 0) + ' 人，月剪辑需求 ' + (resourceSummary['月剪辑需求'] || 0) + ' 条。'
+        + ' 月度锁定版需人工确认后生效；日更观察版只用于经营观察。'
         + ' ' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。');
 
       byId('resourceCards').innerHTML = poolDefs.map(pool => {
