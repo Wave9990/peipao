@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/20 23:41:00</div></div>
-<div style="display:none">数据更新时间: 2026/5/20 23:41:00</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/21 07:02:49</div></div>
+<div style="display:none">数据更新时间: 2026/5/21 07:02:49</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1004,7 +1004,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/20 23:41:00</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/21 07:02:49</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -8396,333 +8396,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "施工",
-    "store": "平江店",
-    "district": "长沙大区",
-    "advisor": "罗怀安",
-    "owner": "钟海燕",
-    "ownerRuleType": "default",
-    "amount": 184264,
-    "date": "2026-05-12",
-    "month": "2026-05",
-    "customer": "邹鼎香",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "谢利婷",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 6800,
-    "date": "2026-05-20",
-    "month": "2026-05",
-    "customer": "李露",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "郴州城东店",
-    "district": "地市一区",
-    "advisor": "陈丹",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 138722,
-    "date": "2026-05-19",
-    "month": "2026-05",
-    "customer": "杜鸿",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "谢利婷",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 193126,
-    "date": "2026-05-02",
-    "month": "2026-05",
-    "customer": "颜克清",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "邓玉秀",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 142203,
-    "date": "2026-03-08",
-    "month": "2026-03",
-    "customer": "何洋",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "徐亚利",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 179692,
-    "date": "2026-04-19",
-    "month": "2026-04",
-    "customer": "黄茜",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "谢利婷",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 180716,
-    "date": "2026-04-26",
-    "month": "2026-04",
-    "customer": "肖斯映",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳蒸湘店",
-    "district": "地市二区",
-    "advisor": "廖斌",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 161719,
-    "date": "2026-05-02",
-    "month": "2026-05",
-    "customer": "郭云忠",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "怀化湖天店",
-    "district": "地市一区",
-    "advisor": "王奇",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 194577,
-    "date": "2026-04-19",
-    "month": "2026-04",
-    "customer": "杨开雄",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "怀化湖天店",
-    "district": "地市一区",
-    "advisor": "黄秀秀",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 161661,
-    "date": "2026-04-09",
-    "month": "2026-04",
-    "customer": "杨永顺",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "怀化芷江店",
-    "district": "地市一区",
-    "advisor": "杨涛",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 156474,
-    "date": "2026-04-28",
-    "month": "2026-04",
-    "customer": "杨凯",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "吉首武陵店",
-    "district": "地市一区",
-    "advisor": "彭爽",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 188726,
-    "date": "2026-04-11",
-    "month": "2026-04",
-    "customer": "胡贤奎",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "娄底扶青店",
-    "district": "地市一区",
-    "advisor": "梁俊",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 145898,
-    "date": "2026-04-13",
-    "month": "2026-04",
-    "customer": "刘冠成",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "娄底扶青店",
-    "district": "地市一区",
-    "advisor": "梁俊",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 189000,
-    "date": "2026-05-13",
-    "month": "2026-05",
-    "customer": "童韬",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "娄底新化店",
-    "district": "地市一区",
-    "advisor": "卢满辉",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 134341,
-    "date": "2026-05-03",
-    "month": "2026-05",
-    "customer": "黎旺",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "南宁店",
-    "district": "地市一区",
-    "advisor": "邝晓亮",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 149997,
-    "date": "2026-05-16",
-    "month": "2026-05",
-    "customer": "班哲华",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "宁乡玉兴店",
-    "district": "地市二区",
-    "advisor": "周圣明",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 130770,
-    "date": "2026-03-31",
-    "month": "2026-03",
-    "customer": "尹志骁",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "邵阳宝庆店",
-    "district": "地市二区",
-    "advisor": "廖戍华",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 291312,
-    "date": "2026-04-18",
-    "month": "2026-04",
-    "customer": "贺元华",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "永州潇湘店",
-    "district": "地市二区",
-    "advisor": "叶小菊",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 264029,
-    "date": "2026-04-30",
-    "month": "2026-04",
-    "customer": "邓利芳",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "永州潇湘店",
-    "district": "地市二区",
-    "advisor": "唐奥州",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 122819,
-    "date": "2026-04-23",
-    "month": "2026-04",
-    "customer": "周红亮",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "张家界店",
-    "district": "地市一区",
-    "advisor": "伍显微",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 174795,
-    "date": "2026-03-31",
-    "month": "2026-03",
-    "customer": "宋链",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "张家界店",
-    "district": "地市一区",
-    "advisor": "伍显微",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 162827,
-    "date": "2026-03-26",
-    "month": "2026-03",
-    "customer": "闵媚",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "张家界店",
-    "district": "地市一区",
-    "advisor": "伍显微",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 247734,
-    "date": "2026-05-03",
-    "month": "2026-05",
-    "customer": "熊子钧",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "株洲神农店",
-    "district": "地市二区",
-    "advisor": "丁杨",
-    "owner": "钟海燕",
-    "ownerRuleType": "override",
-    "amount": 175630,
-    "date": "2026-04-30",
-    "month": "2026-04",
-    "customer": "周斌",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "株洲神农店",
-    "district": "地市二区",
-    "advisor": "丁杨",
-    "owner": "钟海燕",
-    "ownerRuleType": "override",
-    "amount": 183119,
-    "date": "2026-05-10",
-    "month": "2026-05",
-    "customer": "彭世雄",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8744,7 +8418,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-20 23:41:00 CST",
+      "updatedAt": "2026-05-21 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -8783,7 +8457,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-20 23:41:00 CST",
+      "updatedAt": "2026-05-21 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -8822,7 +8496,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-20 23:41:00 CST",
+      "updatedAt": "2026-05-21 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -8861,7 +8535,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-20 23:41:00 CST",
+      "updatedAt": "2026-05-21 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -8900,7 +8574,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-20 23:41:00 CST",
+      "updatedAt": "2026-05-21 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -8940,7 +8614,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-20 23:41:00 CST",
+    "updatedAt": "2026-05-21 07:02:49 CST",
     "members": [
       {
         "name": "周国平",
@@ -12715,8 +12389,8 @@ const tierAccountData = {
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年05月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-05-20T08:00:00+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260520_080000.md",
+  "syncedAt": "2026-05-21T07:00:50+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260521_070050.md",
   "operatorStats": [
     {
       "operator": "周国平",
@@ -13561,7 +13235,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-20T15:41:00.252Z",
+  "generatedAt": "2026-05-20T23:02:49.193Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 38.4,
