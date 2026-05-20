@@ -124,7 +124,9 @@
     .owner-tier-card{padding:15px;border-radius:20px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .owner-tier-card strong{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:15px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
     .owner-tier-card strong span:last-child{font-size:12px;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
-    .owner-tier-total{font-size:24px;font-weight:900;letter-spacing:-.04em;margin:2px 0 10px}
+    .owner-tier-total{font-size:24px;font-weight:900;letter-spacing:-.04em;margin:2px 0 4px}
+    .owner-tier-total small{font-size:12px;color:var(--muted);margin-left:6px;font-weight:700;letter-spacing:0}
+    .owner-tier-subtotal{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6}
     .owner-tier-row{display:grid;grid-template-columns:62px minmax(0,1fr) 54px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:11px;color:#4b5563}
     .owner-tier-row:last-child{border-bottom:0}
     .owner-tier-row b{font-size:12px;color:#172033}
@@ -12108,7 +12110,8 @@
       const stats = ownerTierBusinessStats().sort((a,b) => b.totalAmount - a.totalAmount);
       byId('ownerTierShare').innerHTML = stats.map(owner => '<div class="owner-tier-card">'
         + '<strong><span>' + owner.owner + '</span><span>主贡献：' + owner.topTier.replace('新','') + '</span></strong>'
-        + '<div class="owner-tier-total">' + fmtWan(owner.totalAmount) + '</div>'
+        + '<div class="owner-tier-total">' + fmtWan(owner.totalAmount) + '<small>设计+施工合计</small></div>'
+        + '<div class="owner-tier-subtotal">施工金额 ' + fmtWan(owner.totalConstructionAmount) + '｜设计金额 ' + fmtWan(owner.totalDesignAmount) + '</div>'
         + owner.tiers.map(item => '<div class="owner-tier-row">'
           + '<b>' + item.tier.replace('新','') + '</b>'
           + '<div class="owner-tier-bar"><span style="width:' + Math.max(3, item.share) + '%"></span></div>'
