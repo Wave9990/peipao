@@ -126,6 +126,22 @@
     .pressure-line{display:grid;grid-template-columns:70px minmax(0,1fr) 92px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:12px}
     .pressure-line:last-child{border-bottom:0}
     .pressure-line b{font-size:13px}.pressure-line em{font-style:normal;text-align:right;font-weight:900;color:#172033}
+    .mode-dashboard{display:grid;grid-template-columns:1.25fr .75fr;gap:12px;margin-bottom:14px}
+    .mode-stack{display:grid;gap:12px}
+    .mode-panel{padding:18px;border-radius:24px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .mode-panel.lead{background:linear-gradient(135deg,rgba(23,32,51,.94),rgba(18,130,92,.75));color:#fff}
+    .mode-panel strong{display:block;font-size:17px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
+    .mode-panel .mode-title{font-size:30px;line-height:1.12;font-weight:900;letter-spacing:-.04em;margin-bottom:10px}
+    .mode-panel p{margin:0 0 8px;color:var(--muted);font-size:12px;line-height:1.75}
+    .mode-panel.lead p{color:rgba(255,255,255,.78)}
+    .mode-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .mode-kpi{padding:12px;border-radius:16px;background:rgba(255,255,255,.68);border:1px solid rgba(23,32,51,.08)}
+    .mode-panel.lead .mode-kpi{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.16)}
+    .mode-kpi .k{font-size:11px;color:var(--muted);font-weight:900}.mode-panel.lead .mode-kpi .k{color:rgba(255,255,255,.70)}
+    .mode-kpi .v{font-size:23px;font-weight:900;letter-spacing:-.04em;margin-top:3px}
+    .roi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+    .roi-card{padding:12px;border-radius:16px;background:rgba(255,255,255,.68);border:1px solid rgba(23,32,51,.08)}
+    .roi-card .k{font-size:11px;color:var(--muted);font-weight:900}.roi-card .v{font-size:23px;font-weight:900;letter-spacing:-.04em;margin-top:3px}
     .tabs{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin:14px 0 16px}
     .tabs::-webkit-scrollbar{display:none}
     .tab{border:1px solid var(--line);background:rgba(255,255,255,.62);padding:11px 15px;border-radius:999px;font-size:13px;color:#596579;font-weight:800;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;white-space:nowrap;cursor:pointer}
@@ -227,7 +243,7 @@
     .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.action-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.action-grid,.owner-warzone,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip,.mode-dashboard,.mode-kpis,.roi-grid{grid-template-columns:1fr}
       .resource-grid,.resource-layout,.resource-hero,.resource-contribution,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
@@ -268,7 +284,15 @@
     <section class="pressure-matrix overview-only" id="pressureMatrix"></section>
 
     <main>
-      <section class="view active" id="view-ranking">
+      <section class="view active" id="view-boss">
+        <div class="section-title"><div><h2>老板总览</h2><p>只保留经营判断、资源投入、风险动作和月度锁定决策。</p></div></div>
+        <div id="bossModeDashboard"></div>
+      </section>
+      <section class="view" id="view-execution">
+        <div class="section-title"><div><h2>运营执行台</h2><p>按运营、资源池、异常名单拆成可执行动作，方便周会直接推进。</p></div></div>
+        <div id="executionModeDashboard"></div>
+      </section>
+      <section class="view" id="view-ranking">
         <div class="section-title">
           <div><h2>新梯度名单</h2><p>按新第一/第二/第三/第四梯队完整展示所有家顾。</p></div>
           <div class="view-toggle">
@@ -11495,6 +11519,8 @@
     const rows = payload.rows || [];
     const summary = payload.summary || {};
     const tabs = [
+      ['boss', '老板总览'],
+      ['execution', '运营执行台'],
       ['ranking', '新梯度名单'],
       ['original', '腾讯重点梯队复盘'],
       ['new', '新增家顾'],
@@ -11525,7 +11551,7 @@
     const sourceLabel = source => source || '';
     const isOriginalAdvisor = row => row['是否重点梯队体系'] === '是';
 
-    let activeTab = 'ranking';
+    let activeTab = 'boss';
     let rankingMode = 'cards';
     const filters = { tier:'全部', owner:'全部', resource:'全部', source:'全部', status:'全部', keyword:'' };
 
@@ -11585,6 +11611,8 @@
       renderMigrationGrid();
       renderTierBusinessShare();
       renderPressureMatrix();
+      renderBossModeDashboard();
+      renderExecutionModeDashboard();
       const list = filteredRows();
       renderRanking(list);
       renderOriginal(list);
@@ -11860,6 +11888,72 @@
         + '<div class="pressure-panel"><strong>运营施工贡献图</strong>' + amountRows + '</div>';
     }
 
+    function resourceRoiStats() {
+      const resourceRows = rows.filter(row => row['是否资源位'] === '是');
+      const monthlyEdits = resourceRows.reduce((sum, row) => sum + Number(row['月剪辑条数'] || 0), 0);
+      const amount = resourceRows.reduce((sum, row) => sum + Number(row['施工金额(万)'] || 0), 0);
+      const design = resourceRows.reduce((sum, row) => sum + Number(row['设计签单'] || 0), 0);
+      const construction = resourceRows.reduce((sum, row) => sum + Number(row['施工签单'] || 0), 0);
+      return {
+        monthlyEdits,
+        amount,
+        design,
+        construction,
+        amountPerEdit: monthlyEdits ? amount / monthlyEdits : 0,
+        designPerEdit: monthlyEdits ? design / monthlyEdits : 0,
+        constructionPerEdit: monthlyEdits ? construction / monthlyEdits : 0
+      };
+    }
+
+    function renderBossModeDashboard() {
+      const scope = summary.scope || {};
+      const totals = summary.totals || {};
+      const resourceSummary = summary.resourceSummary || {};
+      const monthlyLock = summary.monthlyLockSummary || {};
+      const actions = summary.managementActions || [];
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const topOwner = owners[0] || {};
+      const roi = resourceRoiStats();
+      const actionHtml = actions.slice(0, 4).map(action => '<div class="decision-alert"><span>' + (action['优先级'] || 'P2') + '｜' + (action['动作'] || '-') + '</span><span>' + (action['对象'] || '-') + '</span></div>').join('');
+      byId('bossModeDashboard').innerHTML = '<div class="mode-dashboard">'
+        + '<div class="mode-panel lead"><strong>老板总览</strong><div class="mode-title">' + (resourceSummary['资源位人数'] || 0) + '个资源位，撬动' + fmtWan(roi.amount) + '施工金额</div>'
+        + '<p>当前页面是日更观察版；资源分配以月度锁定版为准。今天最重要的是确认资源是否继续投给高贡献人群，以及哪个运营已经接近资源压力上限。</p>'
+        + '<div class="mode-kpis">'
+        + '<div class="mode-kpi"><div class="k">全盘家顾</div><div class="v">' + (scope['总家顾数'] || rows.length) + '人</div></div>'
+        + '<div class="mode-kpi"><div class="k">施工金额</div><div class="v">' + fmtWan(totals['施工金额(万)'] || 0) + '</div></div>'
+        + '<div class="mode-kpi"><div class="k">月度锁定</div><div class="v">' + (monthlyLock.status || 'draft') + '</div></div>'
+        + '</div></div>'
+        + '<div class="mode-stack">'
+        + '<div class="mode-panel"><strong>今日风险指针</strong><p>资源压力最高：' + (topOwner['运营'] || '-') + '，月剪辑 ' + (topOwner['资源月剪辑条数'] || 0) + ' 条。</p><p>待激活观察：' + (scope['待激活观察'] || 0) + ' 人；新增纳管：' + (scope['全盘新增家顾'] || 0) + ' 人。</p></div>'
+        + '<div class="mode-panel"><strong>管理动作</strong>' + actionHtml + '</div>'
+        + '</div></div>'
+        + '<div class="mode-dashboard">'
+        + '<div class="mode-panel"><strong>资源投入 ROI</strong><p>把剪辑/投放资源当作经营投入看，不只看排名。</p><div class="roi-grid">'
+        + '<div class="roi-card"><div class="k">月剪辑</div><div class="v">' + roi.monthlyEdits + '条</div></div>'
+        + '<div class="roi-card"><div class="k">金额/剪辑</div><div class="v">' + fmtWan(roi.amountPerEdit) + '</div></div>'
+        + '<div class="roi-card"><div class="k">设计/剪辑</div><div class="v">' + roi.designPerEdit.toFixed(2) + '</div></div>'
+        + '<div class="roi-card"><div class="k">施工/剪辑</div><div class="v">' + roi.constructionPerEdit.toFixed(2) + '</div></div>'
+        + '</div></div>'
+        + '<div class="mode-panel"><strong>下一步决策</strong><p>如果月度资源锁仍是 draft，就先确认 54 个资源位是否正式锁定；如果已 locked，就按资源池复盘 ROI 和运营压力。</p></div>'
+        + '</div>';
+    }
+
+    function renderExecutionModeDashboard() {
+      const owners = (summary.ownerSummary || []).slice().sort((a,b) => Number(b['资源月剪辑条数'] || 0) - Number(a['资源月剪辑条数'] || 0));
+      const attention = rows.filter(isAttentionRow).sort((a,b) => a['新排名'] - b['新排名']).slice(0, 12);
+      const ownerHtml = owners.map(owner => '<div class="pressure-line">'
+        + '<b>' + owner['运营'] + '</b>'
+        + '<div><div class="bar"><span style="width:' + Math.max(3, Number(owner['资源月剪辑条数'] || 0) / Math.max(...owners.map(o => Number(o['资源月剪辑条数'] || 0)), 1) * 100) + '%"></span></div><span>资源位' + (owner['资源位人数'] || 0) + '｜设计' + (owner['设计签单'] || 0) + '｜施工' + (owner['施工签单'] || 0) + '</span></div>'
+        + '<em>' + (owner['资源月剪辑条数'] || 0) + '条</em>'
+        + '</div>').join('');
+      const attentionHtml = attention.length ? attention.map(row => '<div class="decision-alert"><span>#' + row['新排名'] + ' ' + row['家顾姓名'] + '｜' + row['归属运营'] + '</span><span>' + (row['资源确认状态'] || row['当期陪跑状态']) + '</span></div>').join('') : '<p>当前无重点异常人员。</p>';
+      byId('executionModeDashboard').innerHTML = '<div class="mode-dashboard">'
+        + '<div class="mode-panel"><strong>运营执行台</strong><p>周会建议先按资源压力排序，再处理异常名单，最后复盘 A/B/C/D 池动作。</p>' + ownerHtml + '</div>'
+        + '<div class="mode-stack"><div class="mode-panel"><strong>异常/待处理名单</strong>' + attentionHtml + '</div>'
+        + '<div class="mode-panel"><strong>执行规则</strong><p>A池保供不断档；B池做会诊冲刺；C池做模板扶持和小额测试；D池只保基础动作和轮转观察。</p></div></div>'
+        + '</div>';
+    }
+
     function personCard(row) {
       const sourceCls = row['来源类型'] === '全盘新增家顾' ? 'new' : '';
       const statusCls = row['当期陪跑状态'] === '暂无当期陪跑签单' ? 'warn' : 'hot';
@@ -12042,6 +12136,10 @@
       const resourceDesign = sum(resourceRows, '设计签单');
       const resourceConstruction = sum(resourceRows, '施工签单');
       const resourceAmount = sum(resourceRows, '施工金额(万)');
+      const resourceMonthlyEdits = resourceRows.reduce((total, row) => total + Number(row['月剪辑条数'] || 0), 0);
+      const amountPerEdit = resourceMonthlyEdits ? resourceAmount / resourceMonthlyEdits : 0;
+      const designPerEdit = resourceMonthlyEdits ? resourceDesign / resourceMonthlyEdits : 0;
+      const constructionPerEdit = resourceMonthlyEdits ? resourceConstruction / resourceMonthlyEdits : 0;
       const poolOrder = ['A池保供位','B池冲刺位','C池重点位','D池轮转位'];
       const poolStats = poolOrder.map(pool => {
         const list = resourceRows.filter(row => row['资源池建议'] === pool);
@@ -12062,6 +12160,12 @@
         + '<div class="contribution-kpi"><div class="k">设计单占比</div><div class="v">' + fmtPct(resourceDesign / totalDesign * 100) + '</div></div>'
         + '<div class="contribution-kpi"><div class="k">施工单占比</div><div class="v">' + fmtPct(resourceConstruction / totalConstruction * 100) + '</div></div>'
         + '<div class="contribution-kpi"><div class="k">施工金额占比</div><div class="v">' + fmtPct(resourceAmount / totalAmount * 100) + '</div></div>'
+        + '</div>'
+        + '<div class="roi-grid">'
+        + '<div class="roi-card"><div class="k">资源投入ROI</div><div class="v">' + fmtWan(amountPerEdit) + '/条</div></div>'
+        + '<div class="roi-card"><div class="k">设计/剪辑</div><div class="v">' + designPerEdit.toFixed(2) + '</div></div>'
+        + '<div class="roi-card"><div class="k">施工/剪辑</div><div class="v">' + constructionPerEdit.toFixed(2) + '</div></div>'
+        + '<div class="roi-card"><div class="k">月剪辑盘</div><div class="v">' + resourceMonthlyEdits + '条</div></div>'
         + '</div>'
         + '<p style="margin-top:10px">资源位当前贡献施工金额 ' + fmtWan(resourceAmount) + ' / 全盘 ' + fmtWan(totalAmount) + '，说明资源池基本覆盖核心业绩人群。</p>'
         + '</div>'
