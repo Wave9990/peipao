@@ -127,13 +127,18 @@
     .owner-tier-total{font-size:24px;font-weight:900;letter-spacing:-.04em;margin:2px 0 4px}
     .owner-tier-total small{font-size:12px;color:var(--muted);margin-left:6px;font-weight:700;letter-spacing:0}
     .owner-tier-subtotal{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6}
-    .owner-tier-row{display:grid;grid-template-columns:62px minmax(0,1fr) 54px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:11px;color:#4b5563}
+    .owner-tier-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px;align-items:start;padding:8px 0;border-bottom:1px solid rgba(23,32,51,.07);font-size:11px;color:#4b5563}
     .owner-tier-row:last-child{border-bottom:0}
     .owner-tier-row b{font-size:12px;color:#172033}
     .owner-tier-row em{font-style:normal;text-align:right;font-weight:900;color:#172033}
+    .owner-tier-metrics{display:flex;flex-direction:column;gap:5px}
+    .owner-tier-metric{display:grid;grid-template-columns:54px minmax(0,1fr) 44px;gap:6px;align-items:center}
+    .owner-tier-metric label{font-size:10px;color:var(--muted);font-weight:800}
     .owner-tier-bar{height:8px;border-radius:999px;background:rgba(23,32,51,.08);overflow:hidden}
     .owner-tier-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--orange),var(--blue))}
-    .owner-tier-meta{grid-column:2 / 4;font-size:10px;color:var(--muted);margin-top:-3px}
+    .owner-tier-metric.design .owner-tier-bar span{background:linear-gradient(90deg,#f59e0b,#f97316)}
+    .owner-tier-metric.construction .owner-tier-bar span{background:linear-gradient(90deg,#3b82f6,#06b6d4)}
+    .owner-tier-meta{grid-column:2 / 3;font-size:10px;color:var(--muted);margin-top:-3px}
     .pressure-matrix{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin:0 0 16px}
     .pressure-panel{padding:16px;border-radius:22px;background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .pressure-panel strong{display:block;font-size:16px;margin-bottom:8px;font-family:"Songti SC","STSong","Noto Serif SC",Georgia,serif}
@@ -330,7 +335,7 @@
         <div class="section-title"><div><h2>运营视角</h2><p>使用主看板同一套 owner 归属规则汇总，不再和团队运营数据口径打架。</p></div></div>
         <div class="section-title"><div><h2>运营战区</h2><p>先看资源负载、头部数量和全盘承接压力，再看详细经营数据。</p></div></div>
         <div class="owner-warzone" id="ownerWarzone"></div>
-        <div class="section-title"><div><h2>个人运营业绩梯队占比</h2><p>按每位运营自己的总业绩口径计算：设计金额 + 施工金额，再拆到新第一到新第四梯队。</p></div></div>
+        <div class="section-title"><div><h2>个人运营业绩梯队占比</h2><p>按每位运营自己的个人盘子计算：设计看签单数量占比，施工看施工金额占比，再拆到新第一到新第四梯队。</p></div></div>
         <div class="owner-tier-share" id="ownerTierShare"></div>
         <div class="cards" id="ownerCards"></div>
       </section>
@@ -12077,46 +12082,48 @@
         const ownerRows = rows.filter(row => row['归属运营'] === owner);
         const tierRows = orderTiers.map(tier => {
           const list = ownerRows.filter(row => row['新梯度'] === tier);
-          const designAmount = list.reduce((sum, row) => sum + Number(row['设计金额(万)'] || 0), 0);
           const constructionAmount = list.reduce((sum, row) => sum + Number(row['施工金额(万)'] || 0), 0);
-          const totalAmount = designAmount + constructionAmount;
+          const designCount = list.reduce((sum, row) => sum + Number(row['设计签单'] || 0), 0);
           return {
             tier,
             count: list.length,
-            designAmount,
             constructionAmount,
-            totalAmount,
-            designCount: list.reduce((sum, row) => sum + Number(row['设计签单'] || 0), 0),
+            designCount,
             constructionCount: list.reduce((sum, row) => sum + Number(row['施工签单'] || 0), 0)
           };
         });
-        const totalAmount = tierRows.reduce((sum, item) => sum + item.totalAmount, 0);
-        const topTier = tierRows.slice().sort((a,b) => b.totalAmount - a.totalAmount)[0] || {};
+        const totalConstructionAmount = tierRows.reduce((sum, item) => sum + item.constructionAmount, 0);
+        const totalDesignCount = tierRows.reduce((sum, item) => sum + item.designCount, 0);
+        const totalConstructionCount = tierRows.reduce((sum, item) => sum + item.constructionCount, 0);
+        const topTier = tierRows.slice().sort((a,b) => b.constructionAmount - a.constructionAmount)[0] || {};
         return {
           owner,
-          totalAmount,
-          totalDesignAmount: tierRows.reduce((sum, item) => sum + item.designAmount, 0),
-          totalConstructionAmount: tierRows.reduce((sum, item) => sum + item.constructionAmount, 0),
+          totalConstructionAmount,
+          totalConstructionCount,
+          totalDesignCount,
           topTier: topTier.tier || '-',
           tiers: tierRows.map(item => ({
             ...item,
-            share: totalAmount ? item.totalAmount / totalAmount * 100 : 0
+            constructionShare: totalConstructionAmount ? item.constructionAmount / totalConstructionAmount * 100 : 0,
+            designShare: totalDesignCount ? item.designCount / totalDesignCount * 100 : 0
           }))
         };
       }).filter(item => item.owner);
     }
 
     function renderOwnerTierShare() {
-      const stats = ownerTierBusinessStats().sort((a,b) => b.totalAmount - a.totalAmount);
+      const stats = ownerTierBusinessStats().sort((a,b) => b.totalConstructionAmount - a.totalConstructionAmount);
       byId('ownerTierShare').innerHTML = stats.map(owner => '<div class="owner-tier-card">'
-        + '<strong><span>' + owner.owner + '</span><span>主贡献：' + owner.topTier.replace('新','') + '</span></strong>'
-        + '<div class="owner-tier-total">' + fmtWan(owner.totalAmount) + '<small>设计+施工合计</small></div>'
-        + '<div class="owner-tier-subtotal">施工金额 ' + fmtWan(owner.totalConstructionAmount) + '｜设计金额 ' + fmtWan(owner.totalDesignAmount) + '</div>'
+        + '<strong><span>' + owner.owner + '</span><span>施工主贡献：' + owner.topTier.replace('新','') + '</span></strong>'
+        + '<div class="owner-tier-total">' + fmtWan(owner.totalConstructionAmount) + '<small>施工金额</small></div>'
+        + '<div class="owner-tier-subtotal">设计签单 ' + owner.totalDesignCount + ' 单｜施工签单 ' + owner.totalConstructionCount + ' 单</div>'
         + owner.tiers.map(item => '<div class="owner-tier-row">'
           + '<b>' + item.tier.replace('新','') + '</b>'
-          + '<div class="owner-tier-bar"><span style="width:' + Math.max(3, item.share) + '%"></span></div>'
-          + '<em>' + fmtPct(item.share) + '</em>'
-          + '<div class="owner-tier-meta">' + item.count + '人｜设计金额 ' + fmtWan(item.designAmount) + ' / 施工金额 ' + fmtWan(item.constructionAmount) + '｜设计' + item.designCount + '单 施工' + item.constructionCount + '单</div>'
+          + '<div class="owner-tier-metrics">'
+          + '<div class="owner-tier-metric construction"><label>施工额</label><div class="owner-tier-bar"><span style="width:' + Math.max(3, item.constructionShare) + '%"></span></div><em>' + fmtPct(item.constructionShare) + '</em></div>'
+          + '<div class="owner-tier-metric design"><label>设计单</label><div class="owner-tier-bar"><span style="width:' + Math.max(3, item.designShare) + '%"></span></div><em>' + fmtPct(item.designShare) + '</em></div>'
+          + '</div>'
+          + '<div class="owner-tier-meta">' + item.count + '人｜施工金额 ' + fmtWan(item.constructionAmount) + '｜设计' + item.designCount + '单｜施工' + item.constructionCount + '单</div>'
           + '</div>').join('')
         + '</div>').join('');
     }
