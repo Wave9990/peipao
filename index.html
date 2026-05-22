@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/22 21:05:26</div></div>
-<div style="display:none">数据更新时间: 2026/5/22 21:05:26</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/23 07:02:16</div></div>
+<div style="display:none">数据更新时间: 2026/5/23 07:02:16</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1004,7 +1004,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/22 21:05:26</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/23 07:02:16</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -8474,47 +8474,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "邵阳昭陵店",
-    "district": "地市二区",
-    "advisor": "王魏",
-    "owner": "",
-    "ownerRuleType": "unmatched",
-    "amount": 13000,
-    "date": "2026-05-22",
-    "month": "2026-05",
-    "customer": "阮君英",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "怀化湖天店",
-    "district": "地市一区",
-    "advisor": "王奇",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 185213,
-    "date": "2026-05-22",
-    "month": "2026-05",
-    "customer": "吴冬梅",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "湘潭湘乡店",
-    "district": "地市一区",
-    "advisor": "王茜",
-    "owner": "周国平",
-    "ownerRuleType": "override",
-    "amount": 127030,
-    "date": "2026-05-22",
-    "month": "2026-05",
-    "customer": "王海河",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8536,7 +8496,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-22 21:05:26 CST",
+      "updatedAt": "2026-05-23 07:02:16 CST",
       "members": [
         {
           "name": "周国平",
@@ -8575,7 +8535,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-22 21:05:26 CST",
+      "updatedAt": "2026-05-23 07:02:16 CST",
       "members": [
         {
           "name": "周国平",
@@ -8614,7 +8574,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-22 21:05:26 CST",
+      "updatedAt": "2026-05-23 07:02:16 CST",
       "members": [
         {
           "name": "周国平",
@@ -8653,7 +8613,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-22 21:05:26 CST",
+      "updatedAt": "2026-05-23 07:02:16 CST",
       "members": [
         {
           "name": "周国平",
@@ -8692,7 +8652,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-22 21:05:26 CST",
+      "updatedAt": "2026-05-23 07:02:16 CST",
       "members": [
         {
           "name": "周国平",
@@ -8732,7 +8692,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-22 21:05:26 CST",
+    "updatedAt": "2026-05-23 07:02:16 CST",
     "members": [
       {
         "name": "周国平",
@@ -12507,8 +12467,8 @@ const tierAccountData = {
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年05月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-05-22T08:00:00+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260522_080000.md",
+  "syncedAt": "2026-05-23T07:00:23+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260523_070023.md",
   "operatorStats": [
     {
       "operator": "周国平",
@@ -13353,10 +13313,10 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-22T13:05:26.333Z",
+  "generatedAt": "2026-05-22T23:02:16.637Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
-  "timeProgress": 38.9,
+  "timeProgress": 39,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
   "executiveCards": [
     {
@@ -13364,7 +13324,7 @@ const dashboardInsights = {
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 54.8% vs 时间进度 38.9%"
+      "basis": "短板完成率 54.8% vs 时间进度 39%"
     },
     {
       "title": "最大短板",
@@ -13392,7 +13352,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10573.3万；设计单数预测预计 859单。",
+      "desc": "施工金额预测预计 10546.2万；设计单数预测预计 856单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -13420,20 +13380,20 @@ const dashboardInsights = {
       "actual": "4113万",
       "target": "7500万",
       "rate": 54.8,
-      "forecast": "10573.3万",
-      "gap": "+3073.3万",
+      "forecast": "10546.2万",
+      "gap": "+3046.2万",
       "status": "健康",
-      "basis": "按当前 38.9% 时间进度线性外推"
+      "basis": "按当前 39% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
       "actual": "334单",
       "target": "550单",
       "rate": 60.7,
-      "forecast": "859单",
-      "gap": "+309单",
+      "forecast": "856单",
+      "gap": "+306单",
       "status": "健康",
-      "basis": "按当前 38.9% 时间进度线性外推"
+      "basis": "按当前 39% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
