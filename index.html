@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:02:01</div></div>
-<div style="display:none">数据更新时间: 2026/5/24 10:02:01</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:29:12</div></div>
+<div style="display:none">数据更新时间: 2026/5/24 10:29:12</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1004,7 +1004,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:02:01</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:29:12</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -1041,8 +1041,8 @@ th:last-child{border-top-right-radius:14px}
   <div class="tier-hero-main">
     <div>
       <div class="tier-eyebrow">ACCOUNT ASSET COCKPIT</div>
-      <div class="tier-title">重点账号梯队 · 经营判断驾驶舱</div>
-      <div class="tier-subtitle">先看账号资产质量，再看需要立刻推进的动作：头部保护、B类孵化、未拉群闭环、底部清理。</div>
+      <div class="tier-title">重点账号梯队 · 入口摘要卡</div>
+      <div class="tier-subtitle">主看板只保留梯队经营摘要和跳转入口；完整名单、资源位、健康分、未拉群与孵化清单，请进入独立梯度名单驾驶舱查看。</div>
     </div>
     <div class="tier-hero-pills">
       <span class="tier-pill">数据来源：<strong>{{tierSourceLabel}}</strong></span>
@@ -1067,16 +1067,20 @@ th:last-child{border-top-right-radius:14px}
 
 <div class="tier-above-fold">
   <div class="card">
-    <div class="tier-table-title"><div class="card-title" style="margin-bottom:0">📌 本月重点判断</div><div class="sub">把“看数据”压缩成“看动作”。</div></div>
+    <div class="tier-table-title"><div class="card-title" style="margin-bottom:0">📌 梯队摘要</div><div class="sub">主看板只做入口判断，不展开完整长表。</div></div>
     <div class="tier-insight-grid">
       <div class="tier-insight" v-for="item in tierDecisionInsights" :key="item.title"><div class="k">{{item.title}}</div><div class="v" :style="{color:item.color}">{{item.value}}</div><div class="d">{{item.desc}}</div></div>
     </div>
     <div class="tier-compact-metrics">
       <div class="tier-mini-metric" v-for="m in tierMiniMetrics" :key="m.label"><div class="label">{{m.label}}</div><div class="value" :style="{color:m.color}">{{m.value}}</div><div class="hint">{{m.hint}}</div></div>
     </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+      <a class="control-chip" href="https://wave9990.github.io/peipao/advisor-fusion/" target="_blank" rel="noopener" style="text-decoration:none;background:#0F172A;color:#FFF;border-color:#0F172A">打开完整梯度名单驾驶舱</a>
+      <span class="control-chip" style="cursor:default">完整页包含资源位、运营占比、健康分、未拉群、高潜孵化与底部清理</span>
+    </div>
   </div>
   <div class="card">
-    <div class="tier-table-title"><div class="card-title" style="margin-bottom:0">💚 健康分结构</div><div class="sub">优先看 D 类压力和 A/B 类池子。</div></div>
+    <div class="tier-table-title"><div class="card-title" style="margin-bottom:0">💚 健康分结构</div><div class="sub">只保留结构摘要，详细名单移至独立页。</div></div>
     <div class="health-stack">
       <div class="health-row" v-for="row in tierHealthBuckets" :key="row.level">
         <span class="health-badge" :class="row.className">{{row.level}}</span>
@@ -1089,73 +1093,22 @@ th:last-child{border-top-right-radius:14px}
 
 <div class="section">
 <div class="card">
-<div class="card-title">🚨 未拉群预警</div>
-<table><thead><tr><th>运营</th><th>未拉群</th><th>占比</th><th>优先动作</th></tr></thead><tbody>
-<tr v-for="row in tierUngroupedAlertRows" :key="row.operator"><td style="font-weight:700">{{row.operator}}</td><td class="warn-text">{{row.ungrouped}}</td><td>{{row.ungroupedRate}}%</td><td>{{row.action}}</td></tr>
-</tbody></table>
-</div>
-<div class="card">
-<div class="card-title">✅ 运营行动清单</div>
-<div class="action-list"><div class="action-card" v-for="row in tierActionPlans" :key="row.operator"><div class="name">{{row.operator}}</div><ul><li v-for="(item,i) in row.actions" :key="i">{{item}}</li></ul></div></div>
-</div>
-</div>
-<div class="section">
-<div class="card">
-<div class="tier-table-title"><div class="card-title" style="margin-bottom:0">🌱 高潜账号优先级榜</div><div class="sub">先卡片化展示 Top3，其余保留表格。</div></div>
-<div class="priority-cards">
-  <div class="priority-card" v-for="(r,i) in tierPriorityPotentialRows.slice(0,3)" :key="r.account + i">
-    <div class="priority-card-top"><span class="priority-tag">{{r.priorityLabel}}</span><span class="score-text">{{r.healthScore}}分</span></div>
-    <div class="advisor">{{r.advisor || '-'}}</div>
-    <div class="account">{{r.account || '-'}}｜{{r.operator}}｜{{r.tier}}</div>
-    <div class="priority-meta"><span>{{r.isGrouped ? '已拉群' : '未拉群'}}</span><span>签单 {{r.sign2026Total || 0}}</span><span>{{r.priorityAction}}</span></div>
+<div class="card-title">🚨 当前最该关注的 3 条提醒</div>
+<div class="insight-list">
+  <div class="insight-list-item" v-for="row in tierEntryAlerts" :key="row.title">
+    <div><strong>{{row.title}}</strong><p>{{row.desc}}</p></div>
+    <span class="priority-tag">{{row.priority}}</span>
   </div>
 </div>
-<table><thead><tr><th>优先级</th><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>健康分</th><th>建议动作</th></tr></thead><tbody>
-<tr v-for="(r,i) in tierPriorityPotentialRows.slice(0,20)" :key="i"><td><span class="priority-tag">{{r.priorityLabel}}</span></td><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td><span class="score-text">{{r.healthScore}}</span> <span class="health-badge" :class="r.healthClass">{{r.healthLevel}}</span></td><td>{{r.priorityAction}}</td></tr>
-</tbody></table>
 </div>
 <div class="card">
-<div class="card-title">🏅 健康分 TOP 30 账号</div>
-<table><thead><tr><th>等级</th><th>分数</th><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>签单</th><th>动作</th></tr></thead><tbody>
-<tr v-for="(r,i) in tierHealthTopRows.slice(0,30)" :key="i"><td><span class="health-badge" :class="r.healthClass">{{r.healthLevel}}</span></td><td class="score-text">{{r.healthScore}}</td><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td>{{r.sign2026Total || 0}}</td><td>{{r.healthAction}}</td></tr>
-</tbody></table>
-</div>
-</div>
-<div class="section">
-<div class="card">
-<div class="card-title">👥 运营账号分布</div>
-<table><thead><tr><th>运营</th><th>账号</th><th>头部</th><th>第三梯队</th><th>第四梯队</th><th>未拉群</th><th>2026签单</th></tr></thead><tbody>
+<div class="card-title">👥 运营梯队概览</div>
+<table><thead><tr><th>运营</th><th>账号数</th><th>头部</th><th>未拉群</th><th>2026签单</th></tr></thead><tbody>
 <tr v-for="row in tierOperatorStats" :key="row.operator">
-<td style="font-weight:700">{{row.operator}}</td><td>{{row.total}}</td><td style="color:var(--green);font-weight:700">{{row.head}}</td><td>{{row['第三梯队'] || 0}}</td><td>{{row['第四梯队'] || 0}}</td><td style="color:var(--red);font-weight:700">{{row.ungrouped || 0}}</td><td>{{row.sign2026Total || 0}}</td>
+<td style="font-weight:700">{{row.operator}}</td><td>{{row.total}}</td><td style="color:var(--green);font-weight:700">{{row.head}}</td><td :class="Number(row.ungrouped || 0) ? 'warn-text' : 'good-text'">{{row.ungrouped || 0}}</td><td>{{row.sign2026Total || 0}}</td>
 </tr></tbody></table>
+<div class="team-note" style="margin-top:10px">完整运营 × 梯队矩阵、资源位分配和个人名单已迁移到独立驾驶舱，主看板不再展开长表，避免干扰业绩经营主线。</div>
 </div>
-<div class="card">
-<div class="card-title">🧩 运营 × 梯队矩阵</div>
-<table><thead><tr><th>运营</th><th>第一</th><th>第二</th><th>第三</th><th>第四</th><th>合计</th></tr></thead><tbody>
-<tr v-for="row in tierMatrixRows" :key="row.operator">
-<td style="font-weight:700">{{row.operator}}</td><td>{{row['第一梯队'] || 0}}</td><td>{{row['第二梯队'] || 0}}</td><td>{{row['第三梯队'] || 0}}</td><td>{{row['第四梯队'] || 0}}</td><td style="font-weight:700">{{row['合计'] || 0}}</td>
-</tr></tbody></table>
-</div>
-</div>
-<div class="section">
-<div class="card">
-<div class="card-title">⚠️ 未拉群账号 Top 30</div>
-<table><thead><tr><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>动作</th></tr></thead><tbody>
-<tr v-for="(r,i) in tierUngroupedRows.slice(0,30)" :key="i"><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td style="color:var(--red);font-weight:700">{{r.action}}</td></tr>
-</tbody></table>
-</div>
-<div class="card">
-<div class="card-title">🌱 高潜孵化账号 Top 30</div>
-<table><thead><tr><th>运营</th><th>梯队</th><th>区域</th><th>家顾</th><th>账号</th><th>签单</th><th>原因</th></tr></thead><tbody>
-<tr v-for="(r,i) in tierHighPotentialRows.slice(0,30)" :key="i"><td>{{r.operator}}</td><td>{{r.tier}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td>{{r.sign2026Total || 0}}</td><td>{{r.reason}}</td></tr>
-</tbody></table>
-</div>
-</div>
-<div class="card">
-<div class="card-title">🧹 清底部账号 Top 50</div>
-<table><thead><tr><th>运营</th><th>区域</th><th>家顾</th><th>账号</th><th>2025业绩</th><th>2026签单</th><th>建议动作</th></tr></thead><tbody>
-<tr v-for="(r,i) in tierBottomRows.slice(0,50)" :key="i"><td>{{r.operator}}</td><td>{{r.region}}</td><td>{{r.advisor}}</td><td style="font-weight:600">{{r.account}}</td><td>{{fmtW(r.performance2025 || 0)}}</td><td>{{r.sign2026Total || 0}}</td><td style="color:var(--gray);font-weight:700">{{r.action}}</td></tr>
-</tbody></table>
 </div>
 </div><!-- /tier -->
 
@@ -3557,6 +3510,19 @@ const rawData = [
     "date": "2026-03-19",
     "month": "2026-03",
     "customer": "李成林",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "梅溪湖店",
+    "district": "长沙大区",
+    "advisor": "罗委乡",
+    "owner": "周国平",
+    "ownerRuleType": "default",
+    "amount": 196184,
+    "date": "2026-05-24",
+    "month": "2026-05",
+    "customer": "李鸿君",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -8607,15 +8573,15 @@ const rawData = [
 const newsData = [
   {
     "type": "施工",
-    "store": "湘府店",
+    "store": "梅溪湖店",
     "district": "长沙大区",
-    "advisor": "邓可思",
-    "owner": "向勇",
+    "advisor": "罗委乡",
+    "owner": "周国平",
     "ownerRuleType": "default",
-    "amount": 111341,
+    "amount": 196184,
     "date": "2026-05-24",
     "month": "2026-05",
-    "customer": "吴双",
+    "customer": "李鸿君",
     "customerSource": "营销/新媒体陪跑"
   }
 ];
@@ -8640,7 +8606,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:02:01 CST",
+      "updatedAt": "2026-05-24 10:29:12 CST",
       "members": [
         {
           "name": "周国平",
@@ -8679,7 +8645,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:02:01 CST",
+      "updatedAt": "2026-05-24 10:29:12 CST",
       "members": [
         {
           "name": "周国平",
@@ -8718,7 +8684,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:02:01 CST",
+      "updatedAt": "2026-05-24 10:29:12 CST",
       "members": [
         {
           "name": "周国平",
@@ -8757,7 +8723,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:02:01 CST",
+      "updatedAt": "2026-05-24 10:29:12 CST",
       "members": [
         {
           "name": "周国平",
@@ -8796,11 +8762,11 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:02:01 CST",
+      "updatedAt": "2026-05-24 10:29:12 CST",
       "members": [
         {
           "name": "周国平",
-          "constructionAmount": 1958301,
+          "constructionAmount": 2154485,
           "designCount": 16,
           "note": "自动生成"
         },
@@ -8836,11 +8802,11 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-24 10:02:01 CST",
+    "updatedAt": "2026-05-24 10:29:12 CST",
     "members": [
       {
         "name": "周国平",
-        "constructionAmount": 1958301,
+        "constructionAmount": 2154485,
         "designCount": 16,
         "note": "自动生成"
       },
@@ -13457,7 +13423,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-24T02:02:01.334Z",
+  "generatedAt": "2026-05-24T02:29:12.906Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 39.3,
@@ -13468,21 +13434,21 @@ const dashboardInsights = {
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 55.4% vs 时间进度 39.3%"
+      "basis": "短板完成率 55.7% vs 时间进度 39.3%"
     },
     {
       "title": "最大短板",
       "value": "施工兑现",
       "statusClass": "status-good",
       "desc": "施工金额完成率低于设计单数完成率。",
-      "basis": "施工55.4% · 设计62%"
+      "basis": "施工55.7% · 设计62%"
     },
     {
       "title": "转化兑现",
       "value": "67%",
       "statusClass": "status-good",
       "desc": "按年度累计施工单数 / 设计单数估算。",
-      "basis": "229施工 / 341设计"
+      "basis": "230施工 / 341设计"
     },
     {
       "title": "本月火力点",
@@ -13496,7 +13462,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10571.6万；设计单数预测预计 868单。",
+      "desc": "施工金额预测预计 10621.5万；设计单数预测预计 868单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -13521,11 +13487,11 @@ const dashboardInsights = {
   "targetForecast": [
     {
       "name": "施工金额预测",
-      "actual": "4154.6万",
+      "actual": "4174.2万",
       "target": "7500万",
-      "rate": 55.4,
-      "forecast": "10571.6万",
-      "gap": "+3071.6万",
+      "rate": 55.7,
+      "forecast": "10621.5万",
+      "gap": "+3121.5万",
       "status": "健康",
       "basis": "按当前 39.3% 时间进度线性外推"
     },
@@ -13561,15 +13527,15 @@ const dashboardInsights = {
       "score": 71,
       "status": "观察",
       "statusClass": "health-c",
-      "constructionAmount": 10661691,
-      "constructionAmountDisplay": "1066.2万",
-      "constructionRate": 62.7,
+      "constructionAmount": 10857875,
+      "constructionAmountDisplay": "1085.8万",
+      "constructionRate": 63.9,
       "designCount": 82,
       "designRate": 54.7,
-      "conversion": 73.2,
+      "conversion": 74.4,
       "storeCount": 10,
-      "latestCount": 26,
-      "basis": "施工62.7% · 设计54.7% · 本月26条"
+      "latestCount": 27,
+      "basis": "施工63.9% · 设计54.7% · 本月27条"
     },
     {
       "owner": "向勇",
@@ -13728,13 +13694,13 @@ const dashboardInsights = {
       "store": "梅溪湖店",
       "advisor": "罗委乡",
       "designCount": 20,
-      "constructionCount": 11,
-      "constructionAmount": 1775635,
-      "constructionAmountDisplay": "177.6万",
-      "conversion": 55,
+      "constructionCount": 12,
+      "constructionAmount": 1971819,
+      "constructionAmountDisplay": "197.2万",
+      "conversion": 60,
       "category": "均衡观察",
       "action": "继续观察设计到施工闭环。",
-      "priority": 48.75635
+      "priority": 51.71819
     },
     {
       "owner": "周国平",
@@ -13993,6 +13959,28 @@ const tierUngroupedAlertRows = computed(()=>tierOperatorStats.value.map(row=>{
   const rate = total ? Math.round(ungrouped / total * 100) : 0;
   return { operator: row.operator, ungrouped, ungroupedRate: rate, action: ungrouped >= 8 ? '本周优先集中补群' : (ungrouped > 0 ? '逐个补齐建群动作' : '保持闭环') };
 }).sort((a,b)=>b.ungrouped-a.ungrouped));
+const tierEntryAlerts = computed(()=>{
+  const topUngrouped = tierUngroupedAlertRows.value[0] || {};
+  const topPotential = [...tierOperatorStats.value].sort((a,b)=>(b.highPotential||0)-(a.highPotential||0))[0] || {};
+  const dCount = Number(tierHealthOverview.value.dCount || 0);
+  return [
+    {
+      priority: topUngrouped.ungrouped >= 8 ? 'P1' : 'P2',
+      title: '未拉群闭环',
+      desc: topUngrouped.operator ? topUngrouped.operator + ' 当前未拉群 ' + (topUngrouped.ungrouped || 0) + ' 个，占比 ' + (topUngrouped.ungroupedRate || 0) + '%，建议优先补齐过程闭环。' : '暂无未拉群压力数据。',
+    },
+    {
+      priority: Number(topPotential.highPotential || 0) >= 5 ? 'P1' : 'P2',
+      title: '高潜孵化池',
+      desc: topPotential.operator ? topPotential.operator + ' 高潜账号 ' + (topPotential.highPotential || 0) + ' 个，完整孵化名单请进入独立驾驶舱。' : '暂无高潜孵化池数据。',
+    },
+    {
+      priority: dCount >= Math.max(1, Math.round((tierHealthOverview.value.total || 0) * 0.4)) ? 'P1' : 'P2',
+      title: '底部账号压力',
+      desc: '当前 D 类账号 ' + dCount + ' 个，平均健康分 ' + (tierHealthOverview.value.avgScore || 0) + ' 分；清理/观察明细已移入独立驾驶舱。',
+    },
+  ];
+});
 const tierActionPlans = computed(()=>tierOperatorStats.value.map(row=>{
   const total = Number(row.total || 0);
   const head = Number(row.head || 0);
@@ -14678,7 +14666,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
