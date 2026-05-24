@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 07:03:07</div></div>
-<div style="display:none">数据更新时间: 2026/5/24 07:03:07</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 08:03:34</div></div>
+<div style="display:none">数据更新时间: 2026/5/24 08:03:34</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1004,7 +1004,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 07:03:07</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 08:03:34</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -8591,99 +8591,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "湘府店",
-    "district": "长沙大区",
-    "advisor": "吴远成",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 10000,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "史晟君",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "蒋志军",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 6800,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "宾晗",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "蒋志军",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 8800,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "陈敏",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "洋湖店",
-    "district": "长沙大区",
-    "advisor": "周维",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 119454,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "丁禹玄",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "益阳旗舰店",
-    "district": "地市二区",
-    "advisor": "谢严",
-    "owner": "",
-    "ownerRuleType": "unmatched",
-    "amount": 5800,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "郭诗迪",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "张家界店",
-    "district": "地市一区",
-    "advisor": "伍显微",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 5800,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "向成",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "吉首武陵店",
-    "district": "地市一区",
-    "advisor": "叶成芳",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 185310,
-    "date": "2026-05-23",
-    "month": "2026-05",
-    "customer": "向青林",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8705,7 +8613,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 07:03:07 CST",
+      "updatedAt": "2026-05-24 08:03:34 CST",
       "members": [
         {
           "name": "周国平",
@@ -8744,7 +8652,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 07:03:07 CST",
+      "updatedAt": "2026-05-24 08:03:34 CST",
       "members": [
         {
           "name": "周国平",
@@ -8783,7 +8691,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 07:03:07 CST",
+      "updatedAt": "2026-05-24 08:03:34 CST",
       "members": [
         {
           "name": "周国平",
@@ -8822,7 +8730,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 07:03:07 CST",
+      "updatedAt": "2026-05-24 08:03:34 CST",
       "members": [
         {
           "name": "周国平",
@@ -8861,7 +8769,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 07:03:07 CST",
+      "updatedAt": "2026-05-24 08:03:34 CST",
       "members": [
         {
           "name": "周国平",
@@ -8901,7 +8809,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-24 07:03:07 CST",
+    "updatedAt": "2026-05-24 08:03:34 CST",
     "members": [
       {
         "name": "周国平",
@@ -12676,8 +12584,8 @@ const tierAccountData = {
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年05月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-05-24T07:01:05+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260524_070105.md",
+  "syncedAt": "2026-05-24T08:00:01+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260524_080001.md",
   "operatorStats": [
     {
       "operator": "周国平",
@@ -13522,7 +13430,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-23T23:03:07.848Z",
+  "generatedAt": "2026-05-24T00:03:34.444Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 39.3,
