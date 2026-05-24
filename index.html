@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 14:17:26</div></div>
-<div style="display:none">数据更新时间: 2026/5/24 14:17:26</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 14:31:17</div></div>
+<div style="display:none">数据更新时间: 2026/5/24 14:31:17</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -850,7 +850,7 @@ th:last-child{border-top-right-radius:14px}
 </button>
 </div>
 </div>
-<div class="team-summary-grid">
+<div class="team-summary-grid" v-show="teamViewMode==='kpi'">
 <div class="team-summary-card">
 <div class="team-summary-head">
 <div>
@@ -895,7 +895,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-else class="status-inline-note">点击“查看数据状态”后，可展开查看本月更新情况与待补项。</div>
 </div>
 </div>
-<div class="metrics">
+<div class="metrics" v-show="teamViewMode==='kpi'">
 <div class="metric"><div class="label">施工累计</div><div id="teamConstructionActualMetric" class="val" style="color:var(--blue)">{{teamKpiSummary.constructionActualDisplay}}</div><div class="unit">万元</div></div>
 <div class="metric"><div class="label">施工 KPI</div><div class="val" style="color:var(--blue)">{{fmtW(teamKpiSummary.constructionTarget)}}</div><div class="unit">万元</div></div>
 <div class="metric"><div class="label">施工达成率</div><div class="val" style="color:var(--blue)">{{teamKpiSummary.constructionRateDisplay}}</div><div class="unit">目标完成</div></div>
@@ -1098,7 +1098,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 14:17:26</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 14:31:17</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -7241,7 +7241,7 @@ const rawData = [
     "advisor": "徐亚利",
     "owner": "向勇",
     "ownerRuleType": "default",
-    "amount": 179692,
+    "amount": 182392,
     "date": "2026-04-19",
     "month": "2026-04",
     "customer": "黄茜",
@@ -8678,7 +8678,21 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "施工",
+    "store": "衡阳万达店",
+    "district": "地市二区",
+    "advisor": "徐亚利",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 182392,
+    "date": "2026-04-19",
+    "month": "2026-04",
+    "customer": "黄茜",
+    "customerSource": "营销/新媒体陪跑"
+  }
+];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8700,7 +8714,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 14:17:26 CST",
+      "updatedAt": "2026-05-24 14:31:17 CST",
       "members": [
         {
           "name": "周国平",
@@ -8800,7 +8814,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 14:17:26 CST",
+      "updatedAt": "2026-05-24 14:31:17 CST",
       "members": [
         {
           "name": "周国平",
@@ -8900,7 +8914,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 14:17:26 CST",
+      "updatedAt": "2026-05-24 14:31:17 CST",
       "members": [
         {
           "name": "周国平",
@@ -9000,7 +9014,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 14:17:26 CST",
+      "updatedAt": "2026-05-24 14:31:17 CST",
       "members": [
         {
           "name": "周国平",
@@ -9010,7 +9024,7 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "向勇",
-          "constructionAmount": 3108793,
+          "constructionAmount": 3111493,
           "designCount": 16,
           "note": "自动生成"
         },
@@ -9100,7 +9114,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 14:17:26 CST",
+      "updatedAt": "2026-05-24 14:31:17 CST",
       "members": [
         {
           "name": "周国平",
@@ -11242,7 +11256,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-24 14:17:26 CST",
+    "updatedAt": "2026-05-24 14:31:17 CST",
     "members": [
       {
         "name": "周国平",
@@ -17965,7 +17979,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-24T06:17:26.887Z",
+  "generatedAt": "2026-05-24T06:31:17.613Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 39.3,
@@ -18005,7 +18019,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10621.5万；设计单数预测预计 870单。",
+      "desc": "施工金额预测预计 10622.2万；设计单数预测预计 870单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -18107,11 +18121,11 @@ const dashboardInsights = {
   "targetForecast": [
     {
       "name": "施工金额预测",
-      "actual": "4174.2万",
+      "actual": "4174.5万",
       "target": "7500万",
       "rate": 55.7,
-      "forecast": "10621.5万",
-      "gap": "+3121.5万",
+      "forecast": "10622.2万",
+      "gap": "+3122.2万",
       "status": "健康",
       "basis": "按当前 39.3% 时间进度线性外推"
     },
@@ -18162,8 +18176,8 @@ const dashboardInsights = {
       "score": 72,
       "status": "观察",
       "statusClass": "health-c",
-      "constructionAmount": 9439431,
-      "constructionAmountDisplay": "943.9万",
+      "constructionAmount": 9442131,
+      "constructionAmountDisplay": "944.2万",
       "constructionRate": 55.5,
       "designCount": 78,
       "designRate": 52,
@@ -18500,19 +18514,19 @@ const dashboardOpsStatus = {
   "pipeline": {
     "status": "running",
     "phase": "data_validated",
-    "publishStatus": "failed",
-    "updatedAt": "2026-05-24T06:17:26.707Z",
+    "publishStatus": "published",
+    "updatedAt": "2026-05-24T06:31:17.402Z",
     "totalRecords": 572,
     "designCount": 342,
     "constructionCount": 230
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-24T02:53:17.193Z",
+    "checkedAt": "2026-05-24T06:17:45.876Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 571,
+      "records": 572,
       "tierRecords": 128,
       "fusionRows": 184,
       "resourceRows": 54,
@@ -18521,7 +18535,7 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-24T02:53:17.193Z",
+    "checkedAt": "2026-05-24T06:17:45.876Z",
     "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.6% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
       "产值核心梯队：新第一梯队，施工金额占比 35.4%",
@@ -18532,7 +18546,7 @@ const dashboardOpsStatus = {
     "resourceShare": {
       "people": 54,
       "peopleShare": 29.3,
-      "designShare": 73.6,
+      "designShare": 73.7,
       "amountShare": 80.6,
       "monthlyEdits": 272,
       "monthlyCapacity": 272
@@ -18541,10 +18555,10 @@ const dashboardOpsStatus = {
       {
         "tier": "新第一梯队",
         "count": 10,
-        "design": 118,
+        "design": 119,
         "construction": 79,
         "amountWan": 1477,
-        "designShare": 34.6,
+        "designShare": 34.8,
         "amountShare": 35.4
       },
       {
@@ -18562,7 +18576,7 @@ const dashboardOpsStatus = {
         "design": 77,
         "construction": 54,
         "amountWan": 983.3,
-        "designShare": 22.6,
+        "designShare": 22.5,
         "amountShare": 23.6
       },
       {
@@ -18571,7 +18585,7 @@ const dashboardOpsStatus = {
         "design": 64,
         "construction": 34,
         "amountWan": 511.2,
-        "designShare": 18.8,
+        "designShare": 18.7,
         "amountShare": 12.2
       }
     ],
