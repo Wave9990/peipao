@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:45:02</div></div>
-<div style="display:none">数据更新时间: 2026/5/24 10:45:02</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:52:48</div></div>
+<div style="display:none">数据更新时间: 2026/5/24 10:52:48</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1055,7 +1055,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:45:02</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:52:48</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -1126,8 +1126,9 @@ th:last-child{border-top-right-radius:14px}
       <div class="tier-mini-metric" v-for="m in tierMiniMetrics" :key="m.label"><div class="label">{{m.label}}</div><div class="value" :style="{color:m.color}">{{m.value}}</div><div class="hint">{{m.hint}}</div></div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
-      <a class="control-chip" href="https://wave9990.github.io/peipao/advisor-fusion/" target="_blank" rel="noopener" style="text-decoration:none;background:#0F172A;color:#FFF;border-color:#0F172A">打开完整梯度名单驾驶舱</a>
+      <button type="button" class="control-chip" @click="openExternal('https://wave9990.github.io/peipao/advisor-fusion/')" style="background:#0F172A;color:#FFF;border-color:#0F172A">打开完整梯度名单驾驶舱 ↗</button>
       <span class="control-chip" style="cursor:default">完整页包含资源位、运营占比、健康分、未拉群、高潜孵化与底部清理</span>
+      <span class="team-note" style="width:100%">如果内置浏览器拦截新窗口，可复制地址：https://wave9990.github.io/peipao/advisor-fusion/</span>
     </div>
   </div>
   <div class="card">
@@ -8643,7 +8644,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:45:02 CST",
+      "updatedAt": "2026-05-24 10:52:48 CST",
       "members": [
         {
           "name": "周国平",
@@ -8682,7 +8683,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:45:02 CST",
+      "updatedAt": "2026-05-24 10:52:48 CST",
       "members": [
         {
           "name": "周国平",
@@ -8721,7 +8722,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:45:02 CST",
+      "updatedAt": "2026-05-24 10:52:48 CST",
       "members": [
         {
           "name": "周国平",
@@ -8760,7 +8761,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:45:02 CST",
+      "updatedAt": "2026-05-24 10:52:48 CST",
       "members": [
         {
           "name": "周国平",
@@ -8799,7 +8800,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:45:02 CST",
+      "updatedAt": "2026-05-24 10:52:48 CST",
       "members": [
         {
           "name": "周国平",
@@ -8839,7 +8840,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-24 10:45:02 CST",
+    "updatedAt": "2026-05-24 10:52:48 CST",
     "members": [
       {
         "name": "周国平",
@@ -13460,7 +13461,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-24T02:45:02.078Z",
+  "generatedAt": "2026-05-24T02:52:48.214Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 39.3,
@@ -13996,14 +13997,14 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-05-24T02:45:01.827Z",
+    "updatedAt": "2026-05-24T02:52:48.031Z",
     "totalRecords": 571,
     "designCount": 341,
     "constructionCount": 230
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-24T02:33:55.904Z",
+    "checkedAt": "2026-05-24T02:45:49.824Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
@@ -14016,7 +14017,7 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-24T02:33:55.904Z",
+    "checkedAt": "2026-05-24T02:45:49.824Z",
     "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.6% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
       "产值核心梯队：新第一梯队，施工金额占比 35.4%",
@@ -14787,6 +14788,14 @@ function jumpToSection(sectionId){
     target.scrollIntoView({ behavior:'smooth', block:'start' });
   }
 }
+function openExternal(url){
+  const targetUrl = String(url || '');
+  if(!targetUrl) return;
+  const opened = window.open(targetUrl, '_blank', 'noopener,noreferrer');
+  if(!opened){
+    window.location.href = targetUrl;
+  }
+}
 function safeLen(value){ return Array.isArray(value) ? value.length : 0; }
 function fmtW(v){return(v/10000).toFixed(1);}
 function distClass(d){return d==='长沙大区'?'tag-cs':d==='地市一区'?'tag-d1':'tag-d2';}
@@ -14914,7 +14923,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,openExternal,
 };
 }
 }).mount('#app');
