@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:29:12</div></div>
-<div style="display:none">数据更新时间: 2026/5/24 10:29:12</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/24 10:45:02</div></div>
+<div style="display:none">数据更新时间: 2026/5/24 10:45:02</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -280,6 +280,27 @@ th:last-child{border-top-right-radius:14px}
 <div><h2>经营判断台</h2><p>把结果、短板、风险和下一步动作收在首页，先判断再下钻。</p></div>
 <span class="inline-stat">最新月份 {{dashboardInsights.latestMonth || '-'}}</span>
 </div>
+<div class="section-pair">
+<div class="card">
+<div class="card-title">🧭 本月经营一句话</div>
+<div style="font-size:22px;font-weight:900;line-height:1.55;color:var(--ink)">{{bossOneLine}}</div>
+<div v-if="bossFocusItems.length" class="insight-list" style="margin-top:14px">
+<div class="insight-list-item" v-for="item in bossFocusItems" :key="item">
+<div>{{item}}</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">🛡️ 数据状态台</div>
+<div class="tier-compact-metrics">
+<div class="tier-mini-metric" v-for="item in dashboardDataStatusCards" :key="item.label">
+<div class="label">{{item.label}}</div>
+<div class="value" :style="{color:item.tone==='good'?'var(--green)':item.tone==='warn'?'var(--orange)':'var(--red)'}">{{item.value}}</div>
+<div class="hint">{{item.desc}}</div>
+</div>
+</div>
+</div>
+</div>
 <div class="insight-hero">
 <div class="insight-verdict">
 <div class="eyebrow">EXECUTIVE VERDICT</div>
@@ -300,6 +321,21 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 </div>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">🎯 本月重点盯防清单</div>
+<div class="helper-text" style="margin-bottom:12px">只列最值得优先盯的 P1/P2 对象：团队短板、低分运营、波动门店和家顾效率断点。</div>
+<div class="insight-list">
+<div v-for="item in dashboardInsights.watchList" :key="item.target + item.issue" class="insight-list-item">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+<strong>{{item.target}}</strong>
+<span class="priority-pill" :class="String(item.priority || '').toLowerCase()">{{item.priority}}</span>
+</div>
+<div>{{item.issue}}</div>
+<div>{{item.action}}</div>
+<div class="helper-text">依据：{{item.basis}}</div>
+</div>
+</div>
+</div>
 <div class="section-pair">
 <div class="card">
 <div class="card-title">🚦 风险优先级</div>
@@ -316,8 +352,24 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="card">
-<div class="card-title">✅ 本周行动建议</div>
-<div class="helper-text" style="margin-bottom:12px">建议只当经营提醒，不替代人工判断；适合拿去安排跟进动作。</div>
+<div class="card-title">✅ 分运营行动建议</div>
+<div class="helper-text" style="margin-bottom:12px">五位运营每人固定 1-2 条动作，适合周会直接分工。</div>
+<div class="insight-list">
+<div v-for="item in dashboardInsights.ownerActionPlans" :key="item.owner" class="insight-list-item">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+<strong>{{item.owner}}</strong>
+<span class="priority-pill" :class="String(item.priority || '').toLowerCase()">{{item.priority}}</span>
+</div>
+<div>{{item.primary}}</div>
+<div>{{item.secondary}}</div>
+<div class="helper-text">依据：{{item.basis}}</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card" style="margin-top:16px">
+<div class="card-title">📌 系统行动建议</div>
+<div class="helper-text" style="margin-bottom:12px">保留原规则引擎输出，作为分运营建议之外的补充提醒。</div>
 <div class="insight-list">
 <div v-for="item in dashboardInsights.actionItems" :key="item.owner + item.action" class="insight-list-item">
 <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
@@ -326,7 +378,6 @@ th:last-child{border-top-right-radius:14px}
 </div>
 <div>{{item.action}}</div>
 <div class="helper-text">依据：{{item.basis}}</div>
-</div>
 </div>
 </div>
 </div>
@@ -1004,7 +1055,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:29:12</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/24 10:45:02</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -8570,21 +8621,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "施工",
-    "store": "梅溪湖店",
-    "district": "长沙大区",
-    "advisor": "罗委乡",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 196184,
-    "date": "2026-05-24",
-    "month": "2026-05",
-    "customer": "李鸿君",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8606,7 +8643,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:29:12 CST",
+      "updatedAt": "2026-05-24 10:45:02 CST",
       "members": [
         {
           "name": "周国平",
@@ -8645,7 +8682,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:29:12 CST",
+      "updatedAt": "2026-05-24 10:45:02 CST",
       "members": [
         {
           "name": "周国平",
@@ -8684,7 +8721,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:29:12 CST",
+      "updatedAt": "2026-05-24 10:45:02 CST",
       "members": [
         {
           "name": "周国平",
@@ -8723,7 +8760,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:29:12 CST",
+      "updatedAt": "2026-05-24 10:45:02 CST",
       "members": [
         {
           "name": "周国平",
@@ -8762,7 +8799,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-24 10:29:12 CST",
+      "updatedAt": "2026-05-24 10:45:02 CST",
       "members": [
         {
           "name": "周国平",
@@ -8802,7 +8839,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-24 10:29:12 CST",
+    "updatedAt": "2026-05-24 10:45:02 CST",
     "members": [
       {
         "name": "周国平",
@@ -13423,11 +13460,12 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-24T02:29:12.906Z",
+  "generatedAt": "2026-05-24T02:45:02.078Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 39.3,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
+  "executiveOneLine": "当前施工兑现节奏高于时间进度 16.4 个点，重点从追量转为沉淀头部门店和家顾打法。",
   "executiveCards": [
     {
       "title": "经营结论",
@@ -13482,6 +13520,83 @@ const dashboardInsights = {
       "priority": "P1",
       "desc": "罗怀安：均衡观察，继续观察设计到施工闭环。",
       "basis": "按设计、施工、金额与转化综合排序"
+    }
+  ],
+  "watchList": [
+    {
+      "priority": "P2",
+      "target": "团队短板",
+      "issue": "施工兑现 55.7% vs 时间进度 39.3%",
+      "action": "维持当前节奏，同时提前补下一阶段蓄水。",
+      "basis": "短板偏差 16.4%"
+    },
+    {
+      "priority": "P1",
+      "target": "黄诗宇",
+      "issue": "运营观察分 38",
+      "action": "优先复盘负责区域里的低活跃门店和设计未转施工家顾。",
+      "basis": "施工13.7% · 设计42% · 本月5条"
+    },
+    {
+      "priority": "P2",
+      "target": "平江店",
+      "issue": "2026-04 → 2026-05 上升",
+      "action": "核查 平江店 波动原因，确认是入账节奏还是真实变化。",
+      "basis": "施工+14.2万 · 设计+9单"
+    },
+    {
+      "priority": "P2",
+      "target": "平江店 罗怀安",
+      "issue": "均衡观察",
+      "action": "继续观察设计到施工闭环。",
+      "basis": "19设计 / 11施工 / 227.8万"
+    }
+  ],
+  "ownerActionPlans": [
+    {
+      "owner": "周国平",
+      "priority": "P2",
+      "score": 71,
+      "status": "观察",
+      "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
+      "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
+      "basis": "施工63.9% · 设计54.7% · 本月27条"
+    },
+    {
+      "owner": "向勇",
+      "priority": "P2",
+      "score": 72,
+      "status": "观察",
+      "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
+      "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
+      "basis": "施工55.5% · 设计52% · 本月33条"
+    },
+    {
+      "owner": "钟海燕",
+      "priority": "P2",
+      "score": 73,
+      "status": "观察",
+      "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
+      "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
+      "basis": "施工59% · 设计69% · 本月24条"
+    },
+    {
+      "owner": "宁章娜",
+      "priority": "P2",
+      "score": 83,
+      "status": "健康",
+      "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
+      "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
+      "basis": "施工74% · 设计91% · 本月26条"
+    },
+    {
+      "owner": "黄诗宇",
+      "priority": "P1",
+      "score": 38,
+      "status": "优先跟进",
+      "primary": "优先追施工兑现，拉出设计已签但施工推进慢的家顾逐个跟进。",
+      "secondary": "本周至少复盘 2 个未转施工原因，区分客户犹豫、门店跟进、预算卡点。",
+      "basis": "施工13.7% · 设计42% · 本月5条"
     }
   ],
   "targetForecast": [
@@ -13876,6 +13991,123 @@ const dashboardInsights = {
     }
   ]
 };
+const dashboardOpsStatus = {
+  "pipeline": {
+    "status": "running",
+    "phase": "data_validated",
+    "publishStatus": "published",
+    "updatedAt": "2026-05-24T02:45:01.827Z",
+    "totalRecords": 571,
+    "designCount": 341,
+    "constructionCount": 230
+  },
+  "audit": {
+    "ok": true,
+    "checkedAt": "2026-05-24T02:33:55.904Z",
+    "warnings": [],
+    "hardFailures": [],
+    "counts": {
+      "records": 571,
+      "tierRecords": 128,
+      "fusionRows": 184,
+      "resourceRows": 54,
+      "duplicateLookupCount": 0,
+      "blankOwnerCount": 0
+    }
+  },
+  "boss": {
+    "checkedAt": "2026-05-24T02:33:55.904Z",
+    "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.6% 施工金额；资源建议仍按月度人工锁定。",
+    "focus": [
+      "产值核心梯队：新第一梯队，施工金额占比 35.4%",
+      "资源压力最高运营：宁章娜，月剪辑 78 条",
+      "施工金额最高运营：宁章娜，1109.6 万",
+      "当前无高优先级观察提醒"
+    ],
+    "resourceShare": {
+      "people": 54,
+      "peopleShare": 29.3,
+      "designShare": 73.6,
+      "amountShare": 80.6,
+      "monthlyEdits": 272,
+      "monthlyCapacity": 272
+    },
+    "tierStats": [
+      {
+        "tier": "新第一梯队",
+        "count": 10,
+        "design": 118,
+        "construction": 79,
+        "amountWan": 1477,
+        "designShare": 34.6,
+        "amountShare": 35.4
+      },
+      {
+        "tier": "新第二梯队",
+        "count": 20,
+        "design": 82,
+        "construction": 63,
+        "amountWan": 1202.6,
+        "designShare": 24,
+        "amountShare": 28.8
+      },
+      {
+        "tier": "新第三梯队",
+        "count": 40,
+        "design": 77,
+        "construction": 54,
+        "amountWan": 983.3,
+        "designShare": 22.6,
+        "amountShare": 23.6
+      },
+      {
+        "tier": "新第四梯队",
+        "count": 114,
+        "design": 64,
+        "construction": 34,
+        "amountWan": 511.2,
+        "designShare": 18.8,
+        "amountShare": 12.2
+      }
+    ],
+    "managementActions": [
+      {
+        "优先级": "P0",
+        "动作": "月度资源锁定确认",
+        "对象": "2026-05",
+        "原因": "页面是日更观察版，正式资源分配不能直接跟随每日排名波动。",
+        "建议": "确认 54 个资源位、272 条/月剪辑后，再执行 locked 锁定。",
+        "状态": "月度锁定草案待确认"
+      },
+      {
+        "优先级": "P1",
+        "动作": "资源压力复盘",
+        "对象": "宁章娜",
+        "原因": "当前最高资源压力为 78 条/月。",
+        "建议": "检查该运营 A/B 池是否过载，必要时把 D池轮转位改成模板化扶持。",
+        "状态": "待运营周会复盘"
+      },
+      {
+        "优先级": "P1",
+        "动作": "新增资源位人工确认",
+        "对象": "1 人",
+        "原因": "重点梯队外新增家顾进入资源位时，需要确认是否正式纳管。",
+        "建议": "确认账号主页、内容稳定性、成交归因后，再纳入正式月度资源位。",
+        "状态": "有新增则月度确认"
+      },
+      {
+        "优先级": "P2",
+        "动作": "高梯队待激活专项",
+        "对象": "0 人",
+        "原因": "原第一/第二梯队但当前暂无陪跑签单，继续占用注意力会稀释资源。",
+        "建议": "单独拉出激活名单，按账号停更、线索不足、内容不匹配三类复盘。",
+        "状态": "观察盘处理"
+      }
+    ],
+    "warnings": [],
+    "hardFailures": []
+  }
+};
 
 createApp({
 setup(){
@@ -13907,6 +14139,22 @@ const teamMonthOptions = (Array.isArray(manualTeamMonthlyData.monthOptions) && m
 const newsRecords = computed(()=>newsData);
 const newsDes = computed(()=>newsData.filter(r=>r.type==='设计'));
 const newsCon = computed(()=>newsData.filter(r=>r.type==='施工'));
+const bossOneLine = computed(()=>dashboardInsights.executiveOneLine || dashboardOpsStatus.boss?.oneLine || dashboardInsights.verdict || '暂无经营结论');
+const bossFocusItems = computed(()=>Array.isArray(dashboardOpsStatus.boss?.focus) ? dashboardOpsStatus.boss.focus.slice(0, 4) : []);
+const dashboardDataStatusCards = computed(()=>{
+  const pipeline = dashboardOpsStatus.pipeline || {};
+  const audit = dashboardOpsStatus.audit || {};
+  const tierRecords = Array.isArray(tierAccountData.records) ? tierAccountData.records.length : 0;
+  const hardFailures = Array.isArray(audit.hardFailures) ? audit.hardFailures.length : 0;
+  const warnings = Array.isArray(audit.warnings) ? audit.warnings.length : 0;
+  const publishStatus = pipeline.publishStatus || pipeline.status || 'unknown';
+  return [
+    {label:'发布状态', value:publishStatus, desc:pipeline.updatedAt ? '上次更新 ' + pipeline.updatedAt : '等待发布记录', tone:publishStatus==='published'?'good':'bad'},
+    {label:'异常审计', value:hardFailures ? hardFailures + '个P0' : warnings + '个提醒', desc:audit.checkedAt ? '审计时间 ' + audit.checkedAt : '等待审计记录', tone:hardFailures ? 'bad' : (warnings ? 'warn' : 'good')},
+    {label:'记录完整性', value:rawData.length + '条', desc:'设计 ' + rawData.filter(r=>r.type==='设计').length + ' / 施工 ' + rawData.filter(r=>r.type==='施工').length, tone:rawData.length >= 400 ? 'good' : 'bad'},
+    {label:'梯队真源', value:tierRecords + '人', desc:'腾讯文档重点梯队本地快照', tone:tierRecords >= 119 ? 'good' : 'bad'},
+  ];
+});
 const teamTimeProgress = (()=>{ const now=new Date(); const start=new Date(2026,0,1); const end=new Date(2026,11,31,23,59,59,999); const clamped=now<start?start:now>end?end:now; return Number((((clamped-start)/(end-start))*100).toFixed(1)); })();
 function calcRate(actual,target){ return target!==null && actual!==null ? Number(((actual/target)*100).toFixed(1)) : null; }
 function formatAmountOrPending(value){ return value===null ? '待补充' : fmtW(value) + '万'; }
@@ -14666,7 +14914,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,
 };
 }
 }).mount('#app');
