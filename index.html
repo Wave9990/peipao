@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/25 11:29:41</div></div>
-<div style="display:none">数据更新时间: 2026/5/25 11:29:41</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/26 00:02:22</div></div>
+<div style="display:none">数据更新时间: 2026/5/26 00:02:22</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1006,14 +1006,35 @@ th:last-child{border-top-right-radius:14px}
 <button type="button" class="control-chip" :class="{active:teamDetailFilter==='complete'}" @click="teamDetailFilter='complete'">仅看已有施工</button>
 </div>
 </div>
+<div class="team-summary-card" style="margin-bottom:16px">
+<div class="team-summary-head">
+<div>
+<h3>2026设计单转施工总览</h3>
+<p>核心口径：每个运营名下 2026 年设计单中，截止最新数据已有多少单匹配进入施工；不等同“运营全年施工总单”。</p>
+</div>
+<span class="team-status status-good">合计 {{teamConversionTotals.designCount}} 个设计单 · {{teamConversionTotals.convertedCount}} 个已进施工 · 转施工率 {{teamConversionTotals.conversionRateDisplay}}</span>
+</div>
+<div class="table-scroll" style="max-height:none">
+<table id="teamDesignConversionOverview"><thead><tr><th>运营</th><th>2026设计单</th><th>设计单已进施工</th><th>设计单待转施工</th><th>设计池转施工率</th><th>运营施工总单参考</th></tr></thead><tbody>
+<tr v-for="row in teamConversionSummary" :key="'design-conv-'+row.name">
+<td style="font-weight:800">{{row.name}}</td>
+<td style="color:var(--orange);font-weight:800">{{row.designCount}}单</td>
+<td style="color:var(--green);font-weight:800">{{row.convertedCount}}单</td>
+<td :style="{color:row.pendingDesignCount>0?'var(--red)':'var(--green)',fontWeight:'800'}">{{row.pendingDesignCount}}单</td>
+<td style="font-weight:800">{{row.conversionRateDisplay}}</td>
+<td style="color:var(--gray)">{{row.constructionCount}}单</td>
+</tr>
+</tbody></table>
+</div>
+</div>
 <div class="owner-card-grid" style="margin-bottom:16px">
   <div class="owner-result-card" v-for="row in teamConversionSummary" :key="row.name">
     <div class="name">{{row.name}}</div>
     <div class="kv">
-      <div class="metric-mini"><div class="label">年度设计</div><div class="value" style="color:var(--orange)">{{row.designCount}}单</div><div class="label">待推进 {{row.pendingDisplay}}</div></div>
-      <div class="metric-mini"><div class="label">年度施工</div><div class="value" style="color:var(--blue)">{{row.constructionCount}}单</div><div class="label">兑现率 {{row.conversionRateDisplay}}</div></div>
+      <div class="metric-mini"><div class="label">2026设计单</div><div class="value" style="color:var(--orange)">{{row.designCount}}单</div><div class="label">待转施工 {{row.pendingDisplay}}</div></div>
+      <div class="metric-mini"><div class="label">设计单已进施工</div><div class="value" style="color:var(--green)">{{row.convertedCount}}单</div><div class="label">转施工率 {{row.conversionRateDisplay}}</div></div>
     </div>
-    <div class="owner-judgement">当月设计 {{row.monthlyDesignCount}} 单 / 当月施工 {{row.monthlyConstructionCount}} 单 / 当月匹配 {{row.monthlyMatchedCustomerCount}} 个</div>
+    <div class="owner-judgement">运营施工总单参考 {{row.constructionCount}} 单；当月新增设计 {{row.monthlyDesignCount}} 单 / 当月已匹配进施工 {{row.monthlyMatchedCustomerCount}} 个。</div>
   </div>
 </div>
 <div class="table-scroll">
@@ -1097,7 +1118,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/25 11:29:41</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/26 00:02:22</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -5719,6 +5740,19 @@ const rawData = [
     "advisor": "刘紫薇",
     "owner": "宁章娜",
     "ownerRuleType": "default",
+    "amount": 11643,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "卜勇",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "owner": "宁章娜",
+    "ownerRuleType": "default",
     "amount": 9644,
     "date": "2026-03-14",
     "month": "2026-03",
@@ -8742,7 +8776,21 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [];
+const newsData = [
+  {
+    "type": "设计",
+    "store": "南宁店",
+    "district": "地市一区",
+    "advisor": "刘紫薇",
+    "owner": "宁章娜",
+    "ownerRuleType": "default",
+    "amount": 11643,
+    "date": "2026-05-05",
+    "month": "2026-05",
+    "customer": "卜勇",
+    "customerSource": "营销/新媒体陪跑"
+  }
+];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8764,7 +8812,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-25 11:29:41 CST",
+      "updatedAt": "2026-05-26 00:02:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -8864,7 +8912,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-25 11:29:41 CST",
+      "updatedAt": "2026-05-26 00:02:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -8964,7 +9012,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-25 11:29:41 CST",
+      "updatedAt": "2026-05-26 00:02:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -9064,7 +9112,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-25 11:29:41 CST",
+      "updatedAt": "2026-05-26 00:02:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -9164,7 +9212,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-25 11:29:41 CST",
+      "updatedAt": "2026-05-26 00:02:22 CST",
       "members": [
         {
           "name": "周国平",
@@ -9187,7 +9235,7 @@ const manualTeamMonthlyData = {
         {
           "name": "宁章娜",
           "constructionAmount": 2375083,
-          "designCount": 13,
+          "designCount": 14,
           "note": "自动生成"
         },
         {
@@ -9234,12 +9282,12 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 92,
+            "designCount": 93,
             "constructionCount": 63,
-            "pendingDesignCount": 51,
-            "conversionRate": 44.6,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.1,
             "matchedCustomerCount": 41,
-            "monthlyDesignCount": 13,
+            "monthlyDesignCount": 14,
             "monthlyConstructionCount": 14,
             "monthlyMatchedCustomerCount": 2
           },
@@ -11306,7 +11354,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-25 11:29:41 CST",
+    "updatedAt": "2026-05-26 00:02:22 CST",
     "members": [
       {
         "name": "周国平",
@@ -11329,7 +11377,7 @@ const manualTeamMonthlyData = {
       {
         "name": "宁章娜",
         "constructionAmount": 2375083,
-        "designCount": 13,
+        "designCount": 14,
         "note": "自动生成"
       },
       {
@@ -11376,12 +11424,12 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "宁章娜",
-          "designCount": 92,
+          "designCount": 93,
           "constructionCount": 63,
-          "pendingDesignCount": 51,
-          "conversionRate": 44.6,
+          "pendingDesignCount": 52,
+          "conversionRate": 44.1,
           "matchedCustomerCount": 41,
-          "monthlyDesignCount": 13,
+          "monthlyDesignCount": 14,
           "monthlyConstructionCount": 14,
           "monthlyMatchedCustomerCount": 2
         },
@@ -18029,33 +18077,33 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-25T03:29:41.732Z",
+  "generatedAt": "2026-05-25T16:02:22.218Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
-  "timeProgress": 39.6,
+  "timeProgress": 39.7,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-  "executiveOneLine": "当前施工兑现节奏高于时间进度 16.8 个点，重点从追量转为沉淀头部门店和家顾打法。",
+  "executiveOneLine": "当前施工兑现节奏高于时间进度 16.7 个点，重点从追量转为沉淀头部门店和家顾打法。",
   "executiveCards": [
     {
       "title": "经营结论",
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 56.4% vs 时间进度 39.6%"
+      "basis": "短板完成率 56.4% vs 时间进度 39.7%"
     },
     {
       "title": "最大短板",
       "value": "施工兑现",
       "statusClass": "status-good",
       "desc": "施工金额完成率低于设计单数完成率。",
-      "basis": "施工56.4% · 设计62.5%"
+      "basis": "施工56.4% · 设计62.7%"
     },
     {
       "title": "转化兑现",
       "value": "68%",
       "statusClass": "status-good",
       "desc": "按年度累计施工单数 / 设计单数估算。",
-      "basis": "233施工 / 344设计"
+      "basis": "233施工 / 345设计"
     },
     {
       "title": "本月火力点",
@@ -18069,7 +18117,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10689.6万；设计单数预测预计 869单。",
+      "desc": "施工金额预测预计 10662.6万；设计单数预测预计 869单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -18095,9 +18143,9 @@ const dashboardInsights = {
     {
       "priority": "P2",
       "target": "团队短板",
-      "issue": "施工兑现 56.4% vs 时间进度 39.6%",
+      "issue": "施工兑现 56.4% vs 时间进度 39.7%",
       "action": "维持当前节奏，同时提前补下一阶段蓄水。",
-      "basis": "短板偏差 16.8%"
+      "basis": "短板偏差 16.7%"
     },
     {
       "priority": "P1",
@@ -18156,7 +18204,7 @@ const dashboardInsights = {
       "status": "健康",
       "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
       "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
-      "basis": "施工74% · 设计92% · 本月27条"
+      "basis": "施工74% · 设计93% · 本月28条"
     },
     {
       "owner": "黄诗宇",
@@ -18174,20 +18222,20 @@ const dashboardInsights = {
       "actual": "4233.1万",
       "target": "7500万",
       "rate": 56.4,
-      "forecast": "10689.6万",
-      "gap": "+3189.6万",
+      "forecast": "10662.6万",
+      "gap": "+3162.6万",
       "status": "健康",
-      "basis": "按当前 39.6% 时间进度线性外推"
+      "basis": "按当前 39.7% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
-      "actual": "344单",
+      "actual": "345单",
       "target": "550单",
-      "rate": 62.5,
+      "rate": 62.7,
       "forecast": "869单",
       "gap": "+319单",
       "status": "健康",
-      "basis": "按当前 39.6% 时间进度线性外推"
+      "basis": "按当前 39.7% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
@@ -18259,12 +18307,12 @@ const dashboardInsights = {
       "constructionAmount": 11095963,
       "constructionAmountDisplay": "1109.6万",
       "constructionRate": 74,
-      "designCount": 92,
-      "designRate": 92,
-      "conversion": 68.5,
+      "designCount": 93,
+      "designRate": 93,
+      "conversion": 67.7,
       "storeCount": 9,
-      "latestCount": 27,
-      "basis": "施工74% · 设计92% · 本月27条"
+      "latestCount": 28,
+      "basis": "施工74% · 设计93% · 本月28条"
     }
   ],
   "monthlyAnomalies": [
@@ -18285,10 +18333,10 @@ const dashboardInsights = {
       "direction": "下降",
       "constructionDelta": 210663,
       "constructionDeltaDisplay": "+21.1万",
-      "designDelta": -7,
-      "designDeltaDisplay": "-7单",
+      "designDelta": -6,
+      "designDeltaDisplay": "-6单",
       "basis": "2026-04 → 2026-05",
-      "priority": 58.10663
+      "priority": 50.10663
     },
     {
       "district": "长沙大区",
@@ -18538,7 +18586,7 @@ const dashboardInsights = {
       "priority": "P1",
       "owner": "地市一区",
       "action": "核查 南宁店 环比下降原因，确认是入账节奏还是真实掉量。",
-      "basis": "施工+21.1万 · 设计-7单"
+      "basis": "施工+21.1万 · 设计-6单"
     },
     {
       "priority": "P1",
@@ -18565,14 +18613,14 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-05-25T03:29:41.519Z",
-    "totalRecords": 577,
-    "designCount": 344,
+    "updatedAt": "2026-05-25T16:02:22.016Z",
+    "totalRecords": 578,
+    "designCount": 345,
     "constructionCount": 233
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-25T00:04:35.438Z",
+    "checkedAt": "2026-05-25T03:29:54.195Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
@@ -18585,7 +18633,7 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-25T00:04:35.438Z",
+    "checkedAt": "2026-05-25T03:29:54.195Z",
     "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.4% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
       "产值核心梯队：新第一梯队，施工金额占比 35.3%",
@@ -19068,9 +19116,22 @@ const teamConversionSummary = computed(()=>{
   const rows = Array.isArray(activeTeamMonthData.value.conversionView?.annualSummary) ? activeTeamMonthData.value.conversionView.annualSummary : [];
   return rows.map(item=>({
     ...item,
+    convertedCount: Number(item.matchedCustomerCount || 0),
     conversionRateDisplay: (item.conversionRate || 0) + '%',
     pendingDisplay: String(item.pendingDesignCount || 0),
-  })).sort((a,b)=> (b.pendingDesignCount||0) - (a.pendingDesignCount||0) || (b.conversionRate||0) - (a.conversionRate||0) || a.name.localeCompare(b.name,'zh-CN'));
+  })).sort((a,b)=> (b.designCount||0) - (a.designCount||0) || (b.convertedCount||0) - (a.convertedCount||0) || a.name.localeCompare(b.name,'zh-CN'));
+});
+const teamConversionTotals = computed(()=>{
+  const rows = teamConversionSummary.value || [];
+  const designCount = rows.reduce((sum,row)=>sum + Number(row.designCount || 0), 0);
+  const convertedCount = rows.reduce((sum,row)=>sum + Number(row.convertedCount || 0), 0);
+  const pendingCount = rows.reduce((sum,row)=>sum + Number(row.pendingDesignCount || 0), 0);
+  return {
+    designCount,
+    convertedCount,
+    pendingCount,
+    conversionRateDisplay: designCount ? ((convertedCount / designCount) * 100).toFixed(1) + '%' : '0%',
+  };
 });
 const teamConversionRows = computed(()=>{
   const rows = Array.isArray(activeTeamMonthData.value.conversionView?.followupDetails) ? activeTeamMonthData.value.conversionView.followupDetails : [];
@@ -19515,7 +19576,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,teamConversionSummary,teamConversionRows,teamConversionNote,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,openExternal,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,teamConversionSummary,teamConversionTotals,teamConversionRows,teamConversionNote,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,openExternal,
 };
 }
 });
