@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/26 21:58:28</div></div>
-<div style="display:none">数据更新时间: 2026/5/26 21:58:28</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/26 22:07:03</div></div>
+<div style="display:none">数据更新时间: 2026/5/26 22:07:03</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1118,7 +1118,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/26 21:58:28</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/26 22:07:03</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -8828,47 +8828,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "城东店",
-    "district": "长沙大区",
-    "advisor": "关锐",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 9800,
-    "date": "2026-05-22",
-    "month": "2026-05",
-    "customer": "刘英",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "周学范",
-    "owner": "宁章娜",
-    "ownerRuleType": "override",
-    "amount": 6800,
-    "date": "2026-05-26",
-    "month": "2026-05",
-    "customer": "陈惠",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "衡阳常宁店",
-    "district": "地市二区",
-    "advisor": "陈婷",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 183841,
-    "date": "2026-05-26",
-    "month": "2026-05",
-    "customer": "周文兵",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -8890,7 +8850,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 21:58:28 CST",
+      "updatedAt": "2026-05-26 22:07:03 CST",
       "members": [
         {
           "name": "周国平",
@@ -10487,7 +10447,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 21:58:28 CST",
+      "updatedAt": "2026-05-26 22:07:03 CST",
       "members": [
         {
           "name": "周国平",
@@ -11421,7 +11381,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 21:58:28 CST",
+      "updatedAt": "2026-05-26 22:07:03 CST",
       "members": [
         {
           "name": "周国平",
@@ -13409,7 +13369,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 21:58:28 CST",
+      "updatedAt": "2026-05-26 22:07:03 CST",
       "members": [
         {
           "name": "周国平",
@@ -14870,7 +14830,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 21:58:28 CST",
+      "updatedAt": "2026-05-26 22:07:03 CST",
       "members": [
         {
           "name": "周国平",
@@ -16332,7 +16292,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-26 21:58:28 CST",
+    "updatedAt": "2026-05-26 22:07:03 CST",
     "members": [
       {
         "name": "周国平",
@@ -22375,7 +22335,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-26T13:58:28.128Z",
+  "generatedAt": "2026-05-26T14:07:03.733Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 40,
@@ -22911,18 +22871,18 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-05-26T13:58:27.913Z",
+    "updatedAt": "2026-05-26T14:07:03.511Z",
     "totalRecords": 582,
     "designCount": 347,
     "constructionCount": 235
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-26T02:54:20.326Z",
+    "checkedAt": "2026-05-26T13:58:39.755Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 579,
+      "records": 582,
       "tierRecords": 128,
       "fusionRows": 184,
       "resourceRows": 54,
@@ -22931,10 +22891,10 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-26T02:54:20.326Z",
-    "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.4% 施工金额；资源建议仍按月度人工锁定。",
+    "checkedAt": "2026-05-26T13:58:39.755Z",
+    "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.3% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
-      "产值核心梯队：新第一梯队，施工金额占比 35.2%",
+      "产值核心梯队：新第一梯队，施工金额占比 35%",
       "资源压力最高运营：宁章娜，月剪辑 78 条",
       "施工金额最高运营：宁章娜，1121.9 万",
       "当前无高优先级观察提醒"
@@ -22942,8 +22902,8 @@ const dashboardOpsStatus = {
     "resourceShare": {
       "people": 54,
       "peopleShare": 29.3,
-      "designShare": 73.9,
-      "amountShare": 80.4,
+      "designShare": 74.1,
+      "amountShare": 80.3,
       "monthlyEdits": 272,
       "monthlyCapacity": 272
     },
@@ -22954,8 +22914,8 @@ const dashboardOpsStatus = {
         "design": 120,
         "construction": 80,
         "amountWan": 1494.4,
-        "designShare": 34.8,
-        "amountShare": 35.2
+        "designShare": 34.6,
+        "amountShare": 35
       },
       {
         "tier": "新第二梯队",
@@ -22963,25 +22923,25 @@ const dashboardOpsStatus = {
         "design": 82,
         "construction": 64,
         "amountWan": 1215,
-        "designShare": 23.8,
-        "amountShare": 28.6
+        "designShare": 23.6,
+        "amountShare": 28.5
       },
       {
         "tier": "新第三梯队",
         "count": 40,
-        "design": 79,
-        "construction": 55,
-        "amountWan": 1008.9,
-        "designShare": 22.9,
-        "amountShare": 23.8
+        "design": 80,
+        "construction": 56,
+        "amountWan": 1027.3,
+        "designShare": 23.1,
+        "amountShare": 24.1
       },
       {
         "tier": "新第四梯队",
         "count": 114,
-        "design": 64,
+        "design": 65,
         "construction": 35,
         "amountWan": 527,
-        "designShare": 18.6,
+        "designShare": 18.7,
         "amountShare": 12.4
       }
     ],
@@ -23005,7 +22965,7 @@ const dashboardOpsStatus = {
       {
         "优先级": "P1",
         "动作": "新增资源位人工确认",
-        "对象": "1 人",
+        "对象": "2 人",
         "原因": "重点梯队外新增家顾进入资源位时，需要确认是否正式纳管。",
         "建议": "确认账号主页、内容稳定性、成交归因后，再纳入正式月度资源位。",
         "状态": "有新增则月度确认"
