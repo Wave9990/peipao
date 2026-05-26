@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/26 10:39:27</div></div>
-<div style="display:none">数据更新时间: 2026/5/26 10:39:27</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/26 21:58:28</div></div>
+<div style="display:none">数据更新时间: 2026/5/26 21:58:28</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1118,7 +1118,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/26 10:39:27</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/26 21:58:28</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -1388,6 +1388,19 @@ const rawData = [
     "date": "2026-01-04",
     "month": "2026-01",
     "customer": "李航",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "关锐",
+    "owner": "黄诗宇",
+    "ownerRuleType": "default",
+    "amount": 9800,
+    "date": "2026-05-22",
+    "month": "2026-05",
+    "customer": "刘英",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -2220,6 +2233,19 @@ const rawData = [
     "date": "2026-05-05",
     "month": "2026-05",
     "customer": "卜磊",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "周学范",
+    "owner": "宁章娜",
+    "ownerRuleType": "override",
+    "amount": 6800,
+    "date": "2026-05-26",
+    "month": "2026-05",
+    "customer": "陈惠",
     "customerSource": "营销/新媒体陪跑"
   },
   {
@@ -7256,6 +7282,19 @@ const rawData = [
   },
   {
     "type": "施工",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "陈婷",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 183841,
+    "date": "2026-05-26",
+    "month": "2026-05",
+    "customer": "周文兵",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
     "store": "衡阳万达店",
     "district": "地市二区",
     "advisor": "邓敏",
@@ -8791,16 +8830,42 @@ const rawData = [
 ];
 const newsData = [
   {
-    "type": "施工",
-    "store": "南宁店",
-    "district": "地市一区",
-    "advisor": "苏春梅",
-    "owner": "宁章娜",
+    "type": "设计",
+    "store": "城东店",
+    "district": "长沙大区",
+    "advisor": "关锐",
+    "owner": "黄诗宇",
     "ownerRuleType": "default",
-    "amount": 123388,
+    "amount": 9800,
+    "date": "2026-05-22",
+    "month": "2026-05",
+    "customer": "刘英",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "设计",
+    "store": "星沙店",
+    "district": "长沙大区",
+    "advisor": "周学范",
+    "owner": "宁章娜",
+    "ownerRuleType": "override",
+    "amount": 6800,
     "date": "2026-05-26",
     "month": "2026-05",
-    "customer": "马文迪",
+    "customer": "陈惠",
+    "customerSource": "营销/新媒体陪跑"
+  },
+  {
+    "type": "施工",
+    "store": "衡阳常宁店",
+    "district": "地市二区",
+    "advisor": "陈婷",
+    "owner": "向勇",
+    "ownerRuleType": "default",
+    "amount": 183841,
+    "date": "2026-05-26",
+    "month": "2026-05",
+    "customer": "周文兵",
     "customerSource": "营销/新媒体陪跑"
   }
 ];
@@ -8825,7 +8890,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 10:39:27 CST",
+      "updatedAt": "2026-05-26 21:58:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -8874,10 +8939,10 @@ const manualTeamMonthlyData = {
           {
             "name": "向勇",
             "designCount": 78,
-            "constructionCount": 51,
-            "pendingDesignCount": 33,
-            "conversionRate": 57.7,
-            "matchedCustomerCount": 45,
+            "constructionCount": 52,
+            "pendingDesignCount": 32,
+            "conversionRate": 59,
+            "matchedCustomerCount": 46,
             "monthlyDesignCount": 14,
             "monthlyConstructionCount": 1,
             "monthlyMatchedCustomerCount": 10
@@ -8895,10 +8960,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 93,
+            "designCount": 94,
             "constructionCount": 64,
-            "pendingDesignCount": 51,
-            "conversionRate": 45.2,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.7,
             "matchedCustomerCount": 42,
             "monthlyDesignCount": 13,
             "monthlyConstructionCount": 14,
@@ -8906,10 +8971,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "黄诗宇",
-            "designCount": 21,
+            "designCount": 22,
             "constructionCount": 10,
-            "pendingDesignCount": 14,
-            "conversionRate": 33.3,
+            "pendingDesignCount": 15,
+            "conversionRate": 31.8,
             "matchedCustomerCount": 7,
             "monthlyDesignCount": 4,
             "monthlyConstructionCount": 1,
@@ -10422,7 +10487,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 10:39:27 CST",
+      "updatedAt": "2026-05-26 21:58:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -10471,10 +10536,10 @@ const manualTeamMonthlyData = {
           {
             "name": "向勇",
             "designCount": 78,
-            "constructionCount": 51,
-            "pendingDesignCount": 33,
-            "conversionRate": 57.7,
-            "matchedCustomerCount": 45,
+            "constructionCount": 52,
+            "pendingDesignCount": 32,
+            "conversionRate": 59,
+            "matchedCustomerCount": 46,
             "monthlyDesignCount": 11,
             "monthlyConstructionCount": 1,
             "monthlyMatchedCustomerCount": 9
@@ -10492,10 +10557,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 93,
+            "designCount": 94,
             "constructionCount": 64,
-            "pendingDesignCount": 51,
-            "conversionRate": 45.2,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.7,
             "matchedCustomerCount": 42,
             "monthlyDesignCount": 11,
             "monthlyConstructionCount": 4,
@@ -10503,10 +10568,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "黄诗宇",
-            "designCount": 21,
+            "designCount": 22,
             "constructionCount": 10,
-            "pendingDesignCount": 14,
-            "conversionRate": 33.3,
+            "pendingDesignCount": 15,
+            "conversionRate": 31.8,
             "matchedCustomerCount": 7,
             "monthlyDesignCount": 3,
             "monthlyConstructionCount": 2,
@@ -11356,7 +11421,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 10:39:27 CST",
+      "updatedAt": "2026-05-26 21:58:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -11405,10 +11470,10 @@ const manualTeamMonthlyData = {
           {
             "name": "向勇",
             "designCount": 78,
-            "constructionCount": 51,
-            "pendingDesignCount": 33,
-            "conversionRate": 57.7,
-            "matchedCustomerCount": 45,
+            "constructionCount": 52,
+            "pendingDesignCount": 32,
+            "conversionRate": 59,
+            "matchedCustomerCount": 46,
             "monthlyDesignCount": 18,
             "monthlyConstructionCount": 19,
             "monthlyMatchedCustomerCount": 15
@@ -11426,10 +11491,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 93,
+            "designCount": 94,
             "constructionCount": 64,
-            "pendingDesignCount": 51,
-            "conversionRate": 45.2,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.7,
             "matchedCustomerCount": 42,
             "monthlyDesignCount": 30,
             "monthlyConstructionCount": 19,
@@ -11437,10 +11502,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "黄诗宇",
-            "designCount": 21,
+            "designCount": 22,
             "constructionCount": 10,
-            "pendingDesignCount": 14,
-            "conversionRate": 33.3,
+            "pendingDesignCount": 15,
+            "conversionRate": 31.8,
             "matchedCustomerCount": 7,
             "monthlyDesignCount": 2,
             "monthlyConstructionCount": 5,
@@ -13344,7 +13409,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 10:39:27 CST",
+      "updatedAt": "2026-05-26 21:58:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -13393,10 +13458,10 @@ const manualTeamMonthlyData = {
           {
             "name": "向勇",
             "designCount": 78,
-            "constructionCount": 51,
-            "pendingDesignCount": 33,
-            "conversionRate": 57.7,
-            "matchedCustomerCount": 45,
+            "constructionCount": 52,
+            "pendingDesignCount": 32,
+            "conversionRate": 59,
+            "matchedCustomerCount": 46,
             "monthlyDesignCount": 16,
             "monthlyConstructionCount": 15,
             "monthlyMatchedCustomerCount": 7
@@ -13414,10 +13479,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 93,
+            "designCount": 94,
             "constructionCount": 64,
-            "pendingDesignCount": 51,
-            "conversionRate": 45.2,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.7,
             "matchedCustomerCount": 42,
             "monthlyDesignCount": 25,
             "monthlyConstructionCount": 12,
@@ -13425,10 +13490,10 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "黄诗宇",
-            "designCount": 21,
+            "designCount": 22,
             "constructionCount": 10,
-            "pendingDesignCount": 14,
-            "conversionRate": 33.3,
+            "pendingDesignCount": 15,
+            "conversionRate": 31.8,
             "matchedCustomerCount": 7,
             "monthlyDesignCount": 7,
             "monthlyConstructionCount": 2,
@@ -14805,7 +14870,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-26 10:39:27 CST",
+      "updatedAt": "2026-05-26 21:58:28 CST",
       "members": [
         {
           "name": "周国平",
@@ -14815,7 +14880,7 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "向勇",
-          "constructionAmount": 2873472,
+          "constructionAmount": 3057313,
           "designCount": 19,
           "note": "自动生成"
         },
@@ -14828,13 +14893,13 @@ const manualTeamMonthlyData = {
         {
           "name": "宁章娜",
           "constructionAmount": 2498471,
-          "designCount": 14,
+          "designCount": 15,
           "note": "自动生成"
         },
         {
           "name": "黄诗宇",
           "constructionAmount": 0,
-          "designCount": 5,
+          "designCount": 6,
           "note": "自动生成"
         }
       ],
@@ -14854,13 +14919,13 @@ const manualTeamMonthlyData = {
           {
             "name": "向勇",
             "designCount": 78,
-            "constructionCount": 51,
-            "pendingDesignCount": 33,
-            "conversionRate": 57.7,
-            "matchedCustomerCount": 45,
+            "constructionCount": 52,
+            "pendingDesignCount": 32,
+            "conversionRate": 59,
+            "matchedCustomerCount": 46,
             "monthlyDesignCount": 19,
-            "monthlyConstructionCount": 15,
-            "monthlyMatchedCustomerCount": 4
+            "monthlyConstructionCount": 16,
+            "monthlyMatchedCustomerCount": 5
           },
           {
             "name": "钟海燕",
@@ -14875,23 +14940,23 @@ const manualTeamMonthlyData = {
           },
           {
             "name": "宁章娜",
-            "designCount": 93,
+            "designCount": 94,
             "constructionCount": 64,
-            "pendingDesignCount": 51,
-            "conversionRate": 45.2,
+            "pendingDesignCount": 52,
+            "conversionRate": 44.7,
             "matchedCustomerCount": 42,
-            "monthlyDesignCount": 14,
+            "monthlyDesignCount": 15,
             "monthlyConstructionCount": 15,
             "monthlyMatchedCustomerCount": 2
           },
           {
             "name": "黄诗宇",
-            "designCount": 21,
+            "designCount": 22,
             "constructionCount": 10,
-            "pendingDesignCount": 14,
-            "conversionRate": 33.3,
+            "pendingDesignCount": 15,
+            "conversionRate": 31.8,
             "matchedCustomerCount": 7,
-            "monthlyDesignCount": 5,
+            "monthlyDesignCount": 6,
             "monthlyConstructionCount": 0,
             "monthlyMatchedCustomerCount": 0
           }
@@ -15268,6 +15333,23 @@ const manualTeamMonthlyData = {
             "constructionDate": "",
             "constructionAmount": 0,
             "amount": 5800,
+            "note": "未匹配到同运营下施工客户，需人工推进。",
+            "isMonthlyFocus": true
+          },
+          {
+            "owner": "黄诗宇",
+            "month": "2026-05",
+            "type": "设计",
+            "status": "设计待推进",
+            "store": "城东店",
+            "district": "长沙大区",
+            "advisor": "关锐",
+            "customer": "刘英",
+            "customerKey": "刘英",
+            "designDate": "2026-05-22",
+            "constructionDate": "",
+            "constructionAmount": 0,
+            "amount": 9800,
             "note": "未匹配到同运营下施工客户，需人工推进。",
             "isMonthlyFocus": true
           },
@@ -15871,23 +15953,6 @@ const manualTeamMonthlyData = {
             "month": "2026-05",
             "type": "设计",
             "status": "设计待推进",
-            "store": "衡阳常宁店",
-            "district": "地市二区",
-            "advisor": "陈婷",
-            "customer": "周文兵",
-            "customerKey": "周文兵",
-            "designDate": "2026-05-03",
-            "constructionDate": "",
-            "constructionAmount": 0,
-            "amount": 9860,
-            "note": "未匹配到同运营下施工客户，需人工推进。",
-            "isMonthlyFocus": true
-          },
-          {
-            "owner": "向勇",
-            "month": "2026-05",
-            "type": "设计",
-            "status": "设计待推进",
             "store": "衡阳蒸湘店",
             "district": "地市二区",
             "advisor": "谢利婷",
@@ -15956,6 +16021,23 @@ const manualTeamMonthlyData = {
             "month": "2026-05",
             "type": "施工",
             "status": "已有施工结果",
+            "store": "衡阳常宁店",
+            "district": "地市二区",
+            "advisor": "陈婷",
+            "customer": "周文兵",
+            "customerKey": "周文兵",
+            "designDate": "2026-05-03",
+            "constructionDate": "2026-05-26",
+            "constructionAmount": 183841,
+            "amount": 183841,
+            "note": "本月设计客户已观察到施工结果。",
+            "isMonthlyFocus": true
+          },
+          {
+            "owner": "向勇",
+            "month": "2026-05",
+            "type": "施工",
+            "status": "已有施工结果",
             "store": "湘府店",
             "district": "长沙大区",
             "advisor": "邓可思",
@@ -15983,6 +16065,23 @@ const manualTeamMonthlyData = {
             "constructionAmount": 354718,
             "amount": 354718,
             "note": "本月有施工记录，但未匹配到 2026 设计池中的对应设计单，仅作为施工结果参考。",
+            "isMonthlyFocus": true
+          },
+          {
+            "owner": "宁章娜",
+            "month": "2026-05",
+            "type": "设计",
+            "status": "设计待推进",
+            "store": "星沙店",
+            "district": "长沙大区",
+            "advisor": "周学范",
+            "customer": "陈惠",
+            "customerKey": "陈惠",
+            "designDate": "2026-05-26",
+            "constructionDate": "",
+            "constructionAmount": 0,
+            "amount": 6800,
+            "note": "未匹配到同运营下施工客户，需人工推进。",
             "isMonthlyFocus": true
           },
           {
@@ -16233,7 +16332,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-26 10:39:27 CST",
+    "updatedAt": "2026-05-26 21:58:28 CST",
     "members": [
       {
         "name": "周国平",
@@ -16243,7 +16342,7 @@ const manualTeamMonthlyData = {
       },
       {
         "name": "向勇",
-        "constructionAmount": 2873472,
+        "constructionAmount": 3057313,
         "designCount": 19,
         "note": "自动生成"
       },
@@ -16256,13 +16355,13 @@ const manualTeamMonthlyData = {
       {
         "name": "宁章娜",
         "constructionAmount": 2498471,
-        "designCount": 14,
+        "designCount": 15,
         "note": "自动生成"
       },
       {
         "name": "黄诗宇",
         "constructionAmount": 0,
-        "designCount": 5,
+        "designCount": 6,
         "note": "自动生成"
       }
     ],
@@ -16282,13 +16381,13 @@ const manualTeamMonthlyData = {
         {
           "name": "向勇",
           "designCount": 78,
-          "constructionCount": 51,
-          "pendingDesignCount": 33,
-          "conversionRate": 57.7,
-          "matchedCustomerCount": 45,
+          "constructionCount": 52,
+          "pendingDesignCount": 32,
+          "conversionRate": 59,
+          "matchedCustomerCount": 46,
           "monthlyDesignCount": 19,
-          "monthlyConstructionCount": 15,
-          "monthlyMatchedCustomerCount": 4
+          "monthlyConstructionCount": 16,
+          "monthlyMatchedCustomerCount": 5
         },
         {
           "name": "钟海燕",
@@ -16303,23 +16402,23 @@ const manualTeamMonthlyData = {
         },
         {
           "name": "宁章娜",
-          "designCount": 93,
+          "designCount": 94,
           "constructionCount": 64,
-          "pendingDesignCount": 51,
-          "conversionRate": 45.2,
+          "pendingDesignCount": 52,
+          "conversionRate": 44.7,
           "matchedCustomerCount": 42,
-          "monthlyDesignCount": 14,
+          "monthlyDesignCount": 15,
           "monthlyConstructionCount": 15,
           "monthlyMatchedCustomerCount": 2
         },
         {
           "name": "黄诗宇",
-          "designCount": 21,
+          "designCount": 22,
           "constructionCount": 10,
-          "pendingDesignCount": 14,
-          "conversionRate": 33.3,
+          "pendingDesignCount": 15,
+          "conversionRate": 31.8,
           "matchedCustomerCount": 7,
-          "monthlyDesignCount": 5,
+          "monthlyDesignCount": 6,
           "monthlyConstructionCount": 0,
           "monthlyMatchedCustomerCount": 0
         }
@@ -16696,6 +16795,23 @@ const manualTeamMonthlyData = {
           "constructionDate": "",
           "constructionAmount": 0,
           "amount": 5800,
+          "note": "未匹配到同运营下施工客户，需人工推进。",
+          "isMonthlyFocus": true
+        },
+        {
+          "owner": "黄诗宇",
+          "month": "2026-05",
+          "type": "设计",
+          "status": "设计待推进",
+          "store": "城东店",
+          "district": "长沙大区",
+          "advisor": "关锐",
+          "customer": "刘英",
+          "customerKey": "刘英",
+          "designDate": "2026-05-22",
+          "constructionDate": "",
+          "constructionAmount": 0,
+          "amount": 9800,
           "note": "未匹配到同运营下施工客户，需人工推进。",
           "isMonthlyFocus": true
         },
@@ -17299,23 +17415,6 @@ const manualTeamMonthlyData = {
           "month": "2026-05",
           "type": "设计",
           "status": "设计待推进",
-          "store": "衡阳常宁店",
-          "district": "地市二区",
-          "advisor": "陈婷",
-          "customer": "周文兵",
-          "customerKey": "周文兵",
-          "designDate": "2026-05-03",
-          "constructionDate": "",
-          "constructionAmount": 0,
-          "amount": 9860,
-          "note": "未匹配到同运营下施工客户，需人工推进。",
-          "isMonthlyFocus": true
-        },
-        {
-          "owner": "向勇",
-          "month": "2026-05",
-          "type": "设计",
-          "status": "设计待推进",
           "store": "衡阳蒸湘店",
           "district": "地市二区",
           "advisor": "谢利婷",
@@ -17384,6 +17483,23 @@ const manualTeamMonthlyData = {
           "month": "2026-05",
           "type": "施工",
           "status": "已有施工结果",
+          "store": "衡阳常宁店",
+          "district": "地市二区",
+          "advisor": "陈婷",
+          "customer": "周文兵",
+          "customerKey": "周文兵",
+          "designDate": "2026-05-03",
+          "constructionDate": "2026-05-26",
+          "constructionAmount": 183841,
+          "amount": 183841,
+          "note": "本月设计客户已观察到施工结果。",
+          "isMonthlyFocus": true
+        },
+        {
+          "owner": "向勇",
+          "month": "2026-05",
+          "type": "施工",
+          "status": "已有施工结果",
           "store": "湘府店",
           "district": "长沙大区",
           "advisor": "邓可思",
@@ -17411,6 +17527,23 @@ const manualTeamMonthlyData = {
           "constructionAmount": 354718,
           "amount": 354718,
           "note": "本月有施工记录，但未匹配到 2026 设计池中的对应设计单，仅作为施工结果参考。",
+          "isMonthlyFocus": true
+        },
+        {
+          "owner": "宁章娜",
+          "month": "2026-05",
+          "type": "设计",
+          "status": "设计待推进",
+          "store": "星沙店",
+          "district": "长沙大区",
+          "advisor": "周学范",
+          "customer": "陈惠",
+          "customerKey": "陈惠",
+          "designDate": "2026-05-26",
+          "constructionDate": "",
+          "constructionAmount": 0,
+          "amount": 6800,
+          "note": "未匹配到同运营下施工客户，需人工推进。",
           "isMonthlyFocus": true
         },
         {
@@ -22242,39 +22375,39 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-26T02:39:27.889Z",
+  "generatedAt": "2026-05-26T13:58:28.128Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
-  "timeProgress": 39.8,
+  "timeProgress": 40,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-  "executiveOneLine": "当前施工兑现节奏高于时间进度 16.8 个点，重点从追量转为沉淀头部门店和家顾打法。",
+  "executiveOneLine": "当前施工兑现节奏高于时间进度 16.9 个点，重点从追量转为沉淀头部门店和家顾打法。",
   "executiveCards": [
     {
       "title": "经营结论",
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 56.6% vs 时间进度 39.8%"
+      "basis": "短板完成率 56.9% vs 时间进度 40%"
     },
     {
       "title": "最大短板",
       "value": "施工兑现",
       "statusClass": "status-good",
       "desc": "施工金额完成率低于设计单数完成率。",
-      "basis": "施工56.6% · 设计62.7%"
+      "basis": "施工56.9% · 设计63.1%"
     },
     {
       "title": "转化兑现",
       "value": "68%",
       "statusClass": "status-good",
       "desc": "按年度累计施工单数 / 设计单数估算。",
-      "basis": "234施工 / 345设计"
+      "basis": "235施工 / 347设计"
     },
     {
       "title": "本月火力点",
       "value": "向勇",
       "statusClass": "status-good",
-      "desc": "2026-05 施工金额 287.3万，记录 34 条。",
+      "desc": "2026-05 施工金额 305.7万，记录 35 条。",
       "basis": "按本月施工金额排序"
     }
   ],
@@ -22282,13 +22415,13 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 10666.9万；设计单数预测预计 867单。",
+      "desc": "施工金额预测预计 10659.5万；设计单数预测预计 868单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
       "title": "运营短板",
       "priority": "P1",
-      "desc": "黄诗宇 当前观察分 38，施工13.7% · 设计42% · 本月5条。",
+      "desc": "黄诗宇 当前观察分 40，施工13.7% · 设计44% · 本月6条。",
       "basis": "施工/设计/本月活跃/覆盖/转化综合评分"
     },
     {
@@ -22308,16 +22441,16 @@ const dashboardInsights = {
     {
       "priority": "P2",
       "target": "团队短板",
-      "issue": "施工兑现 56.6% vs 时间进度 39.8%",
+      "issue": "施工兑现 56.9% vs 时间进度 40%",
       "action": "维持当前节奏，同时提前补下一阶段蓄水。",
-      "basis": "短板偏差 16.8%"
+      "basis": "短板偏差 16.9%"
     },
     {
       "priority": "P1",
       "target": "黄诗宇",
-      "issue": "运营观察分 38",
+      "issue": "运营观察分 40",
       "action": "优先复盘负责区域里的低活跃门店和设计未转施工家顾。",
-      "basis": "施工13.7% · 设计42% · 本月5条"
+      "basis": "施工13.7% · 设计44% · 本月6条"
     },
     {
       "priority": "P2",
@@ -22347,11 +22480,11 @@ const dashboardInsights = {
     {
       "owner": "向勇",
       "priority": "P2",
-      "score": 72,
+      "score": 73,
       "status": "观察",
       "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
       "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
-      "basis": "施工56.9% · 设计52% · 本月34条"
+      "basis": "施工58% · 设计52% · 本月35条"
     },
     {
       "owner": "钟海燕",
@@ -22369,55 +22502,55 @@ const dashboardInsights = {
       "status": "健康",
       "primary": "保持当前节奏，沉淀可复用门店/家顾打法。",
       "secondary": "本周复盘 1 个有效案例，转成团队可复制动作。",
-      "basis": "施工74.8% · 设计93% · 本月29条"
+      "basis": "施工74.8% · 设计94% · 本月30条"
     },
     {
       "owner": "黄诗宇",
       "priority": "P1",
-      "score": 38,
+      "score": 40,
       "status": "优先跟进",
       "primary": "优先追施工兑现，拉出设计已签但施工推进慢的家顾逐个跟进。",
       "secondary": "本周至少复盘 2 个未转施工原因，区分客户犹豫、门店跟进、预算卡点。",
-      "basis": "施工13.7% · 设计42% · 本月5条"
+      "basis": "施工13.7% · 设计44% · 本月6条"
     }
   ],
   "targetForecast": [
     {
       "name": "施工金额预测",
-      "actual": "4245.4万",
+      "actual": "4263.8万",
       "target": "7500万",
-      "rate": 56.6,
-      "forecast": "10666.9万",
-      "gap": "+3166.9万",
+      "rate": 56.9,
+      "forecast": "10659.5万",
+      "gap": "+3159.5万",
       "status": "健康",
-      "basis": "按当前 39.8% 时间进度线性外推"
+      "basis": "按当前 40% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
-      "actual": "345单",
+      "actual": "347单",
       "target": "550单",
-      "rate": 62.7,
-      "forecast": "867单",
-      "gap": "+317单",
+      "rate": 63.1,
+      "forecast": "868单",
+      "gap": "+318单",
       "status": "健康",
-      "basis": "按当前 39.8% 时间进度线性外推"
+      "basis": "按当前 40% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
     {
       "owner": "黄诗宇",
-      "score": 38,
+      "score": 40,
       "status": "优先跟进",
       "statusClass": "health-d",
       "constructionAmount": 1504877,
       "constructionAmountDisplay": "150.5万",
       "constructionRate": 13.7,
-      "designCount": 21,
-      "designRate": 42,
-      "conversion": 47.6,
+      "designCount": 22,
+      "designRate": 44,
+      "conversion": 45.5,
       "storeCount": 7,
-      "latestCount": 5,
-      "basis": "施工13.7% · 设计42% · 本月5条"
+      "latestCount": 6,
+      "basis": "施工13.7% · 设计44% · 本月6条"
     },
     {
       "owner": "周国平",
@@ -22436,18 +22569,18 @@ const dashboardInsights = {
     },
     {
       "owner": "向勇",
-      "score": 72,
+      "score": 73,
       "status": "观察",
       "statusClass": "health-c",
-      "constructionAmount": 9669863,
-      "constructionAmountDisplay": "967万",
-      "constructionRate": 56.9,
+      "constructionAmount": 9853704,
+      "constructionAmountDisplay": "985.4万",
+      "constructionRate": 58,
       "designCount": 78,
       "designRate": 52,
-      "conversion": 65.4,
+      "conversion": 66.7,
       "storeCount": 15,
-      "latestCount": 34,
-      "basis": "施工56.9% · 设计52% · 本月34条"
+      "latestCount": 35,
+      "basis": "施工58% · 设计52% · 本月35条"
     },
     {
       "owner": "钟海燕",
@@ -22472,12 +22605,12 @@ const dashboardInsights = {
       "constructionAmount": 11219351,
       "constructionAmountDisplay": "1121.9万",
       "constructionRate": 74.8,
-      "designCount": 93,
-      "designRate": 93,
-      "conversion": 68.8,
+      "designCount": 94,
+      "designRate": 94,
+      "conversion": 68.1,
       "storeCount": 9,
-      "latestCount": 29,
-      "basis": "施工74.8% · 设计93% · 本月29条"
+      "latestCount": 30,
+      "basis": "施工74.8% · 设计94% · 本月30条"
     }
   ],
   "monthlyAnomalies": [
@@ -22504,17 +22637,6 @@ const dashboardInsights = {
       "priority": 51.34051
     },
     {
-      "district": "长沙大区",
-      "store": "城东店",
-      "direction": "下降",
-      "constructionDelta": 0,
-      "constructionDeltaDisplay": "+0万",
-      "designDelta": -4,
-      "designDeltaDisplay": "-4单",
-      "basis": "2026-04 → 2026-05",
-      "priority": 32
-    },
-    {
       "district": "地市二区",
       "store": "岳阳锦城店",
       "direction": "上升",
@@ -22524,6 +22646,17 @@ const dashboardInsights = {
       "designDeltaDisplay": "+3单",
       "basis": "2026-04 → 2026-05",
       "priority": 25.29404
+    },
+    {
+      "district": "长沙大区",
+      "store": "城东店",
+      "direction": "下降",
+      "constructionDelta": 0,
+      "constructionDeltaDisplay": "+0万",
+      "designDelta": -3,
+      "designDeltaDisplay": "-3单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 24
     },
     {
       "district": "长沙大区",
@@ -22548,17 +22681,6 @@ const dashboardInsights = {
       "priority": 19.868479999999998
     },
     {
-      "district": "长沙大区",
-      "store": "星沙店",
-      "direction": "下降",
-      "constructionDelta": -961440,
-      "constructionDeltaDisplay": "-96.1万",
-      "designDelta": -1,
-      "designDeltaDisplay": "-1单",
-      "basis": "2026-04 → 2026-05",
-      "priority": 17.6144
-    },
-    {
       "district": "地市二区",
       "store": "衡阳蒸湘店",
       "direction": "下降",
@@ -22568,6 +22690,17 @@ const dashboardInsights = {
       "designDeltaDisplay": "-1单",
       "basis": "2026-04 → 2026-05",
       "priority": 11.89451
+    },
+    {
+      "district": "长沙大区",
+      "store": "星沙店",
+      "direction": "下降",
+      "constructionDelta": -961440,
+      "constructionDeltaDisplay": "-96.1万",
+      "designDelta": 0,
+      "designDeltaDisplay": "+0单",
+      "basis": "2026-04 → 2026-05",
+      "priority": 9.6144
     }
   ],
   "advisorEfficiencyRows": [
@@ -22745,7 +22878,7 @@ const dashboardInsights = {
       "priority": "P1",
       "owner": "黄诗宇",
       "action": "本周优先复盘负责区域里的低活跃门店和设计未转施工家顾。",
-      "basis": "施工13.7% · 设计42% · 本月5条"
+      "basis": "施工13.7% · 设计44% · 本月6条"
     },
     {
       "priority": "P1",
@@ -22757,7 +22890,7 @@ const dashboardInsights = {
       "priority": "P1",
       "owner": "长沙大区",
       "action": "核查 城东店 环比下降原因，确认是入账节奏还是真实掉量。",
-      "basis": "施工+0万 · 设计-4单"
+      "basis": "施工+0万 · 设计-3单"
     },
     {
       "priority": "P2",
@@ -22778,18 +22911,18 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-05-26T02:39:27.697Z",
-    "totalRecords": 579,
-    "designCount": 345,
-    "constructionCount": 234
+    "updatedAt": "2026-05-26T13:58:27.913Z",
+    "totalRecords": 582,
+    "designCount": 347,
+    "constructionCount": 235
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-26T00:05:16.515Z",
+    "checkedAt": "2026-05-26T02:54:20.326Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 578,
+      "records": 579,
       "tierRecords": 128,
       "fusionRows": 184,
       "resourceRows": 54,
@@ -22798,12 +22931,12 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-26T00:05:16.515Z",
+    "checkedAt": "2026-05-26T02:54:20.326Z",
     "oneLine": "当前 184 名家顾中，54 个资源位贡献 80.4% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
-      "产值核心梯队：新第一梯队，施工金额占比 35.3%",
+      "产值核心梯队：新第一梯队，施工金额占比 35.2%",
       "资源压力最高运营：宁章娜，月剪辑 78 条",
-      "施工金额最高运营：周国平，1121.6 万",
+      "施工金额最高运营：宁章娜，1121.9 万",
       "当前无高优先级观察提醒"
     ],
     "resourceShare": {
@@ -22822,16 +22955,16 @@ const dashboardOpsStatus = {
         "construction": 80,
         "amountWan": 1494.4,
         "designShare": 34.8,
-        "amountShare": 35.3
+        "amountShare": 35.2
       },
       {
         "tier": "新第二梯队",
         "count": 20,
         "design": 82,
-        "construction": 63,
-        "amountWan": 1202.6,
+        "construction": 64,
+        "amountWan": 1215,
         "designShare": 23.8,
-        "amountShare": 28.4
+        "amountShare": 28.6
       },
       {
         "tier": "新第三梯队",
@@ -22849,7 +22982,7 @@ const dashboardOpsStatus = {
         "construction": 35,
         "amountWan": 527,
         "designShare": 18.6,
-        "amountShare": 12.5
+        "amountShare": 12.4
       }
     ],
     "managementActions": [
