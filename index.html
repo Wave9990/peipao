@@ -213,8 +213,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/30 22:00:05</div></div>
-<div style="display:none">数据更新时间: 2026/5/30 22:00:05</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/5/30 22:07:44</div></div>
+<div style="display:none">数据更新时间: 2026/5/30 22:07:44</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1118,7 +1118,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/5/30 22:00:05</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/5/30 22:07:44</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -9062,34 +9062,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "施工",
-    "store": "南宁店",
-    "district": "地市一区",
-    "advisor": "农显铄",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 275542,
-    "date": "2026-05-30",
-    "month": "2026-05",
-    "customer": "黄金凤",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "南宁店",
-    "district": "地市一区",
-    "advisor": "杨树朋",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 159561,
-    "date": "2026-05-30",
-    "month": "2026-05",
-    "customer": "梁晓红",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -9111,7 +9084,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-30 22:00:05 CST",
+      "updatedAt": "2026-05-30 22:07:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -10708,7 +10681,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-30 22:00:05 CST",
+      "updatedAt": "2026-05-30 22:07:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -11642,7 +11615,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-30 22:00:05 CST",
+      "updatedAt": "2026-05-30 22:07:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -13630,7 +13603,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-30 22:00:05 CST",
+      "updatedAt": "2026-05-30 22:07:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -15091,7 +15064,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-05-30 22:00:05 CST",
+      "updatedAt": "2026-05-30 22:07:44 CST",
       "members": [
         {
           "name": "周国平",
@@ -16706,7 +16679,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-05",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-05-30 22:00:05 CST",
+    "updatedAt": "2026-05-30 22:07:44 CST",
     "members": [
       {
         "name": "周国平",
@@ -22902,7 +22875,7 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-05-30T14:00:05.282Z",
+  "generatedAt": "2026-05-30T14:07:44.834Z",
   "latestMonth": "2026-05",
   "previousMonth": "2026-04",
   "timeProgress": 41.1,
@@ -23432,18 +23405,18 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-05-30T14:00:05.123Z",
+    "updatedAt": "2026-05-30T14:07:44.674Z",
     "totalRecords": 600,
     "designCount": 355,
     "constructionCount": 245
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-05-30T12:23:52.740Z",
+    "checkedAt": "2026-05-30T14:00:27.542Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 598,
+      "records": 600,
       "tierRecords": 128,
       "fusionRows": 185,
       "resourceRows": 54,
@@ -23452,19 +23425,19 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-05-30T12:23:52.740Z",
-    "oneLine": "当前 185 名家顾中，54 个资源位贡献 79.9% 施工金额；资源建议仍按月度人工锁定。",
+    "checkedAt": "2026-05-30T14:00:27.542Z",
+    "oneLine": "当前 185 名家顾中，54 个资源位贡献 80.4% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
-      "产值核心梯队：新第一梯队，施工金额占比 35.3%",
-      "资源压力最高运营：宁章娜，月剪辑 80 条",
-      "施工金额最高运营：宁章娜，1193.3 万",
+      "产值核心梯队：新第一梯队，施工金额占比 35%",
+      "资源压力最高运营：宁章娜，月剪辑 82 条",
+      "施工金额最高运营：宁章娜，1236.9 万",
       "当前无高优先级观察提醒"
     ],
     "resourceShare": {
       "people": 54,
       "peopleShare": 29.2,
-      "designShare": 73.5,
-      "amountShare": 79.9,
+      "designShare": 74.1,
+      "amountShare": 80.4,
       "monthlyEdits": 272,
       "monthlyCapacity": 272
     },
@@ -23476,25 +23449,25 @@ const dashboardOpsStatus = {
         "construction": 83,
         "amountWan": 1552.9,
         "designShare": 34.1,
-        "amountShare": 35.3
+        "amountShare": 35
       },
       {
         "tier": "新第二梯队",
         "count": 20,
         "design": 85,
-        "construction": 64,
-        "amountWan": 1218.1,
+        "construction": 65,
+        "amountWan": 1245.7,
         "designShare": 23.9,
-        "amountShare": 27.7
+        "amountShare": 28
       },
       {
         "tier": "新第三梯队",
         "count": 40,
         "design": 85,
-        "construction": 56,
-        "amountWan": 1009.3,
+        "construction": 57,
+        "amountWan": 1025.2,
         "designShare": 23.9,
-        "amountShare": 22.9
+        "amountShare": 23.1
       },
       {
         "tier": "新第四梯队",
@@ -23503,7 +23476,7 @@ const dashboardOpsStatus = {
         "construction": 40,
         "amountWan": 618.3,
         "designShare": 18,
-        "amountShare": 14.1
+        "amountShare": 13.9
       }
     ],
     "managementActions": [
@@ -23519,7 +23492,7 @@ const dashboardOpsStatus = {
         "优先级": "P1",
         "动作": "资源压力复盘",
         "对象": "宁章娜",
-        "原因": "当前最高资源压力为 80 条/月。",
+        "原因": "当前最高资源压力为 82 条/月。",
         "建议": "检查该运营 A/B 池是否过载，必要时把 D池轮转位改成模板化扶持。",
         "状态": "待运营周会复盘"
       },
