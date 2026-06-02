@@ -22883,7 +22883,8 @@ const mFiltered = computed(()=>{
   if(monthType.value!=='全部')items=items.filter(r=>r.type===monthType.value);
   return items;
 });
-const cityPrefixes = ['常德','衡阳','邵阳','郴州','怀化','湘潭','株洲','岳阳','益阳','娄底','吉首','南宁','柳州','永州','张家界','宁乡','浏阳','平江','惠州','耒阳'];
+const cityPrefixes = ['常德','衡阳','邵阳','郴州','怀化','湘潭','株洲','岳阳','益阳','娄底','吉首','南宁','柳州','永州','张家界','宁乡','浏阳','平江','惠州','耒阳','醴陵'];
+const districtRequiredUnits = {'地市二区': ['醴陵']};
 function normalizeAreaUnit(record){
   const rawStore = String(record.store || '').trim();
   if(record.district === '长沙大区') return rawStore || '未记录门店';
@@ -22897,6 +22898,10 @@ const districtStoreMap = computed(()=>{
   const map = {'长沙大区': new Set(), '地市一区': new Set(), '地市二区': new Set()};
   rawData.forEach(r=>{
     if(map[r.district]) map[r.district].add(normalizeAreaUnit(r));
+  });
+  Object.entries(districtRequiredUnits).forEach(([district, units])=>{
+    if(!map[district]) return;
+    units.forEach(unit=>map[district].add(unit));
   });
   return Object.fromEntries(Object.entries(map).map(([district, stores])=>[district, Array.from(stores).sort((a,b)=>a.localeCompare(b,'zh-CN'))]));
 });
