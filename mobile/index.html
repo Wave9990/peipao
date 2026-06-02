@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>陪跑家顾梯度名单驾驶舱 V2</title>
+  <title>陪跑家顾梯队名单驾驶舱 V2</title>
   <style>
     :root {
       --bg:#f4efe7;
@@ -274,8 +274,8 @@
     <section class="hero">
       <div class="panel hero-main">
         <div class="eyebrow">Advisor Fusion Ranking V2</div>
-        <h1>陪跑家顾梯度名单驾驶舱</h1>
-        <div class="hero-desc">这不是旧人数口径的补丁，而是把腾讯文档重点梯队家顾、主陪跑看板真实设计/施工签单、运营归属规则融合后生成的新家顾梯度名单。</div>
+        <h1>陪跑家顾梯队名单驾驶舱</h1>
+        <div class="hero-desc">融合腾讯文档重点梯队、主陪跑看板真实签单/施工数据和运营归属规则，生成可日更观察的新家顾梯队名单。</div>
         <div class="status-strip" id="statusStrip"></div>
       </div>
       <div class="panel hero-side">
@@ -286,7 +286,7 @@
     <nav class="tabs" id="tabs"></nav>
     <section class="governance-strip" id="governanceStrip"></section>
     <section class="toolbar">
-      <div class="control"><label>新梯度</label><select id="tierFilter"></select></div>
+      <div class="control"><label>新梯队</label><select id="tierFilter"></select></div>
       <div class="control"><label>归属运营</label><select id="ownerFilter"></select></div>
       <div class="control"><label>资源池</label><select id="resourceFilter"></select></div>
       <div class="control"><label>来源</label><select id="sourceFilter"></select></div>
@@ -313,7 +313,7 @@
       </section>
       <section class="view" id="view-ranking">
         <div class="section-title">
-          <div><h2>新梯度名单</h2><p>按新第一/第二/第三/第四梯队完整展示所有家顾。</p></div>
+          <div><h2>新梯队名单</h2><p>按新第一/第二/第三/第四梯队展示家顾与资源建议。</p></div>
           <div class="view-toggle">
             <button class="mode-btn active" data-rank-mode="cards">卡片视图</button>
             <button class="mode-btn" data-rank-mode="table">紧凑表格</button>
@@ -340,7 +340,7 @@
         <div class="cards" id="ownerCards"></div>
       </section>
       <section class="view" id="view-resource">
-        <div class="section-title"><div><h2>资源扶持方案</h2><p>独立资源层：只用于剪辑、投放和内容扶持，不替代新梯度名单。</p></div></div>
+        <div class="section-title"><div><h2>资源扶持方案</h2><p>资源层只用于剪辑、投放和内容扶持，不替代新梯队名单。</p></div></div>
         <div class="resource-hero">
           <div class="resource-hero-card" id="resourceHero"></div>
           <div class="info-card">
@@ -371,10 +371,10 @@
   "summary": {
     "generatedAt": "2026-06-02T20:05:00",
     "version": "advisor-fusion-v2",
-    "definition": "腾讯文档重点梯队家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯度名单",
+    "definition": "腾讯文档重点梯队家顾 + 主陪跑看板真实签单/施工数据 + 主看板运营归属规则融合后的新陪跑家顾梯队名单",
     "dataPeriod": "2026年累计",
     "releaseMode": "日更观察版",
-    "monthlySnapshotPolicy": "建议每月1号或月末人工确认后生成月度正式梯度名单快照；日常页面保持每日自动刷新。",
+    "monthlySnapshotPolicy": "建议每月1号或月末人工确认后生成月度正式梯队名单快照；日常页面保持每日自动刷新。",
     "scoringPolicy": "综合评分 = 腾讯文档原梯队基础权重 + 设计签单 + 施工签单 + 施工金额 + 原表签单/历史业绩 + 管理状态；无当期数据的重点梯队家顾会降权进入激活观察。",
     "scope": {
       "总家顾数": 185,
@@ -430,7 +430,7 @@
       "策略版本": "advisor-resource-v1-20260510",
       "策略名称": "陪跑家顾资源扶持策略",
       "策略模式": "全量展示 + 资源位精准扶持",
-      "资源原则": "新梯度名单用于全量经营观察；资源池只用于剪辑、投放和管理者扶持分配，不能替代新第一/第二/第三/第四梯队。",
+      "资源原则": "新梯队名单用于全量经营观察；资源池只用于剪辑、投放和管理者扶持分配，不能替代新第一/第二/第三/第四梯队。",
       "锁定规则": "页面日更仅供观察；正式资源池建议每月1号或月末人工确认后锁定。",
       "月剪辑产能": 272,
       "建议资源盘": "建议资源盘272条/月",
@@ -445,7 +445,7 @@
         "基础观察": 131
       },
       "规则": [
-        "A/B/C/D资源池只影响资源分配，不改变新梯度排行。",
+        "A/B/C/D资源池只影响资源分配，不改变新梯队排行。",
         "日更页面可以刷新资源建议，但正式资源调整建议每月1号或月末人工确认。",
         "重点梯队外新增家顾如果进入A/B/C池，必须进入新增强家顾确认清单。",
         "如果月剪辑产能不足，可临时切换为保守备用盘：A5/B10/C12/D16。"
@@ -11722,7 +11722,7 @@
     const tabs = [
       ['boss', '老板总览'],
       ['execution', '运营执行台'],
-      ['ranking', '新梯度名单'],
+      ['ranking', '新梯队名单'],
       ['original', '腾讯重点梯队复盘'],
       ['new', '新增家顾'],
       ['owner', '运营视角'],
@@ -11891,7 +11891,7 @@
       const anomalyCount = Object.values(anomalies).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
       const cards = [
         {
-          title: '新梯度结构',
+          title: '新梯队结构',
           rows: orderTiers.map(tier => [newTierLabel(tier), (tierCounts[tier] || 0) + '人'])
         },
         {
@@ -12013,7 +12013,7 @@
         const counts = orderTiers.map(tier => [tier, list.filter(row => row['新梯度'] === tier).length]);
         return '<div class="migration-card">'
           + '<strong>' + originalTierLabel(origin) + '</strong>'
-          + '<div class="migration-total">流入新梯度：' + total + '人</div>'
+          + '<div class="migration-total">流入新梯队：' + total + '人</div>'
           + counts.map(([tier, count]) => {
             const width = total ? Math.max(3, count / total * 100) : 0;
             return '<div class="migration-row"><span>' + tier.replace('新','') + '</span><div class="migration-bar"><span style="width:' + width + '%"></span></div><b>' + count + '</b></div>';
@@ -12207,14 +12207,14 @@
 
     function renderRankingTable(list) {
       const head = ['新排名','家顾姓名','新梯度','资源池建议','资源确认状态','归属运营','来源类型','设计签单','施工签单','施工金额(万)','推荐动作'];
-      byId('rankingTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
+      byId('rankingTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + displayHead(h) + '</th>').join('') + '</tr></thead><tbody>'
         + (list.length ? list.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('') : '<tr><td colspan="' + head.length + '">当前筛选下暂无异常人员</td></tr>')
         + '</tbody>';
     }
 
     function renderTable(id, list) {
       const head = ['新排名','家顾姓名','来源类型','原梯队','新梯度','资源池建议','资源确认状态','归属运营','设计签单','施工签单','施工金额(万)','当前月施工金额(万)','推荐动作'];
-      byId(id).innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
+      byId(id).innerHTML = '<thead><tr>' + head.map(h => '<th>' + displayHead(h) + '</th>').join('') + '</tr></thead><tbody>'
         + list.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('')
         + '</tbody>';
     }
@@ -12224,6 +12224,10 @@
       if (key === '新梯度') return newTierLabel(row[key]);
       if (key === '来源类型') return sourceLabel(row[key]);
       return row[key] ?? '';
+    }
+
+    function displayHead(key) {
+      return key === '新梯度' ? '新梯队' : key;
     }
 
     function renderOriginal(list) {
@@ -12317,7 +12321,7 @@
       const resourceRows = rows.filter(row => row['是否资源位'] === '是').sort((a,b) => a['新排名'] - b['新排名']);
       byId('resourceHero').innerHTML = '<div class="mini">Resource Command Center</div>'
         + '<div class="headline">' + (resourceSummary['资源位人数'] || 0) + '个资源位，' + (resourceSummary['月剪辑需求'] || 0) + '条建议盘</div>'
-        + '<p>' + (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。') + '</p>'
+        + '<p>' + (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯队名单。').replaceAll('新梯度', '新梯队') + '</p>'
         + '<p style="margin-top:8px">' + ((summary.monthlyLockSummary || {}).label || '月度锁定草案待确认') + '；日更观察版用于发现变化和预警。' + (resourceSummary['锁定规则'] || '页面日更仅供观察，正式资源池建议按月确认。') + '</p>';
 
       renderResourceContribution(resourceRows);
@@ -12338,11 +12342,11 @@
       byId('resourcePendingWrap').innerHTML = pendingNew.length ? '<div class="section-title"><div><h2>新增家顾确认池</h2><p>这些人已进入资源位，但因为不在腾讯文档重点梯队里，建议先人工确认再锁定资源。</p></div></div>'
         + '<div class="pending-grid">' + pendingNew.map(item => '<div class="pending-card">'
           + '<strong>#' + item['新排名'] + ' ' + item['家顾姓名'] + '｜' + item['资源池建议'] + '</strong>'
-          + '<p>' + item['归属运营'] + '｜' + item['新梯度'] + '｜设计' + item['设计签单'] + '｜施工' + item['施工签单'] + '｜金额' + fmtWan(item['施工金额(万)']) + '</p>'
+          + '<p>' + item['归属运营'] + '｜' + newTierLabel(item['新梯度']) + '｜设计' + item['设计签单'] + '｜施工' + item['施工签单'] + '｜金额' + fmtWan(item['施工金额(万)']) + '</p>'
           + '<p>' + item['建议动作'] + '</p>'
           + '</div>').join('') + '</div>' : '';
 
-      byId('resourceNote').innerHTML = (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯度名单。')
+      byId('resourceNote').innerHTML = (resourceSummary['资源原则'] || '资源池只用于扶持分配，不替代新梯队名单。').replaceAll('新梯度', '新梯队')
         + ' 当前策略：' + (resourceSummary['策略模式'] || '未配置')
         + '；' + (resourceSummary['建议资源盘'] || '建议资源盘未配置')
         + '；资源位 ' + (resourceSummary['资源位人数'] || 0) + ' 人，月剪辑需求 ' + (resourceSummary['月剪辑需求'] || 0) + ' 条。'
@@ -12363,7 +12367,7 @@
       }).join('');
 
       const head = ['新排名','资源池建议','资源确认状态','家顾姓名','归属运营','新梯度','来源类型','设计签单','施工签单','施工金额(万)','剪辑资源建议','投放资源建议','内容资源建议'];
-      byId('resourceTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>'
+      byId('resourceTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + displayHead(h) + '</th>').join('') + '</tr></thead><tbody>'
         + resourceRows.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('')
         + '</tbody>';
 

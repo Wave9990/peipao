@@ -10,7 +10,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--blue:#2563EB;--orange:#F59E0B;--green:#059669;--red:#DC2626;--purple:#7C3AED;--gray:#64748B;--bg:#F8FAFC;--card:#FFFFFF;--ink:#0F172A;--line:#CBD5E1;--line-soft:#E2E8F0;--card-shadow:0 18px 48px rgba(15,23,42,.08);--card-shadow-soft:0 8px 24px rgba(15,23,42,.06);--navy:#0F172A;--slate:#1E293B;--panel:#F8FAFC;--panel-strong:#E2E8F0;--warm:#FFF7ED;--warm-line:#FDBA74;--success-soft:rgba(5,150,105,.12);--warning-soft:rgba(245,158,11,.12);--danger-soft:rgba(220,38,38,.12)}
 body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:radial-gradient(circle at top left,rgba(37,99,235,.08),transparent 32%),linear-gradient(180deg,#F8FAFC 0%,#EEF2FF 48%,#F8FAFC 100%);color:var(--ink);padding:20px;line-height:1.5}
-h1,h2,h3,h4{font-family:'Caveat',cursive;font-weight:600}
+h1,h2,h3,h4{font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-weight:800;letter-spacing:-.02em}
 .tabs{position:sticky;top:0;z-index:20;display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;padding:12px 14px;background:rgba(248,250,252,.9);backdrop-filter:blur(14px);border:1px solid rgba(203,213,225,.9);border-radius:18px;box-shadow:var(--card-shadow-soft)}
 .tab{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 16px;background:#FFF;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;color:var(--gray);transition:all .2s ease;box-shadow:0 2px 8px rgba(15,23,42,.04)}
 .tab.active{border-color:rgba(37,99,235,.2);background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(124,58,237,.12));color:var(--blue);box-shadow:0 8px 18px rgba(37,99,235,.12)}
@@ -47,6 +47,14 @@ select,button.filter{padding:9px 12px;border:1px solid var(--line);border-radius
 .timestamp{background:#F3F4F6;padding:8px 16px;border-radius:8px;font-size:13px;color:var(--gray);text-align:center;margin-bottom:16px}
 .total-row{background:#EFF6FF;font-weight:700}
 .team-note{font-size:12px;color:var(--gray);line-height:1.6}
+.section-kicker{font-weight:800;color:#334155;margin-bottom:4px}
+.rank-mini-title{font-size:17px;font-weight:900;margin-bottom:10px}
+.rank-mini-title.good{color:var(--green)}
+.rank-mini-title.warn{color:var(--red)}
+.zero-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 12px}
+.zero-chip{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#F8FAFC;border:1px solid var(--line-soft);font-size:12px;color:#334155;font-weight:800}
+.zero-chip.warn{background:var(--warning-soft);color:#C2410C;border-color:#FDBA74}
+.zero-chip.bad{background:var(--danger-soft);color:var(--red);border-color:#FCA5A5}
 .tier-insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:0 0 18px}
 .tier-insight{border:1px solid var(--line-soft);border-radius:16px;padding:14px;background:linear-gradient(180deg,#FFF 0%,#F8FAFC 100%);box-shadow:0 4px 14px rgba(15,23,42,.04)}
 .tier-insight .k{font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:700}.tier-insight .v{font-size:22px;font-weight:800;margin-bottom:4px}.tier-insight .d{font-size:12px;color:var(--gray);line-height:1.55}
@@ -205,11 +213,9 @@ th:last-child{border-top-right-radius:14px}
 <div class="hero-title">📊 点石家装 · 陪跑经营驾驶舱</div>
 <div class="hero-subtitle">从年度累计结果判断经营节奏：先看签约、转化与施工兑现，再快速定位区域结构、门店贡献与团队达成短板。</div>
 <div class="hero-status-row">
-<span class="hero-pill">🟢 经营状态：<strong>年度结果已汇总</strong></span>
-<span class="hero-pill">📍 判断重点：<strong>区域结构 + 门店贡献</strong></span>
-<span class="hero-pill">⏱️ 当前进度：<strong>{{teamKpiSummary.timeProgress}}%</strong></span>
-<span class="hero-pill">🧭 数据真源：<strong>SAAS 抓取 + 腾讯文档梯队快照</strong></span>
-<span class="hero-pill">🛡️ 发布守卫：<strong>TOP15 / 契约 / 异常审计</strong></span>
+<span class="hero-pill">经营状态：<strong>年度结果 {{teamKpiSummary.timeProgress}}%</strong></span>
+<span class="hero-pill">数据口径：<strong>SAAS + 梯队快照</strong></span>
+<span class="hero-pill">发布守卫：<strong>TOP15 / 契约 / 异常审计</strong></span>
 </div>
 </div>
 <div class="hero-meta">
@@ -646,23 +652,32 @@ th:last-child{border-top-right-radius:14px}
 </tbody></table>
 </div>
 <div class="card" style="margin-top:16px">
-<div class="card-title">🏬 {{monthSel}} 各大区门店月榜单</div>
-<div class="helper-text">按当前月份拆分长沙大区、地市一区、地市二区，若门店当月无数据则按 0 展示。</div>
+<div class="card-title">{{monthSel}} 当月区域底盘扫描</div>
+<div class="helper-text">长沙按门店看，地市按城市合并看，重点标出 0 设计 / 0 施工对象。</div>
 <div class="monthly-district-rank-grid">
 <div class="monthly-district-rank-card" v-for="item in monthlyDistrictStoreRankings" :key="item.district">
 <h3>{{item.district}}</h3>
-<div class="helper-text">门店全集按历史数据固定，月度无数据门店补零展示。</div>
+<div class="helper-text">{{item.unitLabel}}全集按年度数据固定，当月无数据补 0。</div>
+<div class="region-metric-grid" style="margin:10px 0 4px">
+<div class="region-metric"><div class="label">{{item.unitLabel}}数</div><div class="value">{{item.unitCount}}</div></div>
+<div class="region-metric"><div class="label">双 0 {{item.unitLabel}}</div><div class="value" :style="{color:item.zeroBothCount?'var(--red)':'var(--green)'}">{{item.zeroBothCount}}</div></div>
+</div>
+<div class="zero-chip-row">
+<span class="zero-chip warn">0设计 {{item.zeroDesignCount}}</span>
+<span class="zero-chip bad">0施工 {{item.zeroConstructionCount}}</span>
+<span class="zero-chip">施工 {{fmtW(item.constructionAmount)}}万</span>
+</div>
 <div class="monthly-rank-dual">
 <div class="rank-mini-table">
-<div class="rank-mini-head"><strong>🎨 设计单数榜</strong><span>当月签约</span></div>
-<table><thead><tr><th>排名</th><th>门店</th><th>设计单数</th></tr></thead><tbody>
-<tr v-for="(row,idx) in item.designRank" :key="item.district + '-design-' + row.store"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.store}}</td><td style="font-weight:700;color:var(--orange)">{{row.value}}</td></tr>
+<div class="rank-mini-head"><strong>设计单数榜</strong><span>当月签约</span></div>
+<table><thead><tr><th>排名</th><th>{{item.unitLabel}}</th><th>设计单数</th></tr></thead><tbody>
+<tr v-for="(row,idx) in item.designRank" :key="item.district + '-design-' + row.unit"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.unit}}</td><td style="font-weight:700;color:var(--orange)">{{row.value}}</td></tr>
 </tbody></table>
 </div>
 <div class="rank-mini-table">
-<div class="rank-mini-head"><strong>🔨 施工金额榜</strong><span>当月施工金额</span></div>
-<table><thead><tr><th>排名</th><th>门店</th><th>施工金额(万)</th></tr></thead><tbody>
-<tr v-for="(row,idx) in item.constructionRank" :key="item.district + '-construction-' + row.store"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.store}}</td><td style="font-weight:700;color:var(--blue)">{{fmtW(row.value)}}</td></tr>
+<div class="rank-mini-head"><strong>施工金额榜</strong><span>当月施工金额</span></div>
+<table><thead><tr><th>排名</th><th>{{item.unitLabel}}</th><th>施工金额(万)</th></tr></thead><tbody>
+<tr v-for="(row,idx) in item.constructionRank" :key="item.district + '-construction-' + row.unit"><td><span class="rank-badge" :class="idx<3?'rank-'+(idx+1):'rank-other'">{{idx+1}}</span></td><td>{{row.unit}}</td><td style="font-weight:700;color:var(--blue)">{{fmtW(row.value)}}</td></tr>
 </tbody></table>
 </div>
 </div>
@@ -765,7 +780,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="card-title">🏆 TOP5 vs 需关注门店（施工金额）</div>
 <div class="grid2">
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 5 门店</div>
+<div class="rank-mini-title good">TOP 5 门店</div>
 <div v-for="(s,i) in storeConTop5" :key="'con-top-'+s.store" class="pk-card">
 <div class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'" style="min-width:30px">{{i+1}}</div>
 <div class="pk-side">
@@ -776,7 +791,7 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（金额末5）</div>
+<div class="rank-mini-title warn">需关注（金额末5）</div>
 <div v-for="(s,i) in storeConBottom5" :key="'con-bottom-'+s.store" class="pk-card">
 <div class="rank-badge rank-other" style="min-width:30px">{{((storeConAll || []).length)-4+i}}</div>
 <div class="pk-side">
@@ -792,7 +807,7 @@ th:last-child{border-top-right-radius:14px}
 <div class="card-title">🎨 TOP5 vs 需关注门店（设计单数）</div>
 <div class="grid2">
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--green);margin-bottom:10px">🌟 TOP 5 门店</div>
+<div class="rank-mini-title good">TOP 5 门店</div>
 <div v-for="(s,i) in storeDesTop5" :key="'des-top-'+s.store" class="pk-card">
 <div class="rank-badge" :class="i<3?'rank-'+(i+1):'rank-other'" style="min-width:30px">{{i+1}}</div>
 <div class="pk-side">
@@ -803,7 +818,7 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div>
-<div style="font-family:'Caveat',cursive;font-size:20px;color:var(--red);margin-bottom:10px">⚠️ 需关注（设计末5）</div>
+<div class="rank-mini-title warn">需关注（设计末5）</div>
 <div v-for="(s,i) in storeDesBottom5" :key="'des-bottom-'+s.store" class="pk-card">
 <div class="rank-badge rank-other" style="min-width:30px">{{((storeDesAll || []).length)-4+i}}</div>
 <div class="pk-side">
@@ -835,8 +850,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 <div class="team-hero-actions">
 <div class="toolbar-group">
-<button type="button" class="control-chip" :class="{active:teamViewMode==='kpi'}" @click="teamViewMode='kpi'; teamDetailFilter='all'; $nextTick(()=>initTeamCharts())">KPI完成视角</button>
-<button type="button" class="control-chip" :class="{active:teamViewMode==='conversion'}" @click="teamViewMode='conversion'; teamDetailFilter='all'">设计施工推进视角</button>
+<button type="button" class="control-chip" :class="{active:teamViewMode==='kpi'}" @click="teamViewMode='kpi'; teamDetailFilter='all'; $nextTick(()=>initTeamCharts())">KPI 完成视角</button>
+<button type="button" class="control-chip" :class="{active:teamViewMode==='conversion'}" @click="teamViewMode='conversion'; teamDetailFilter='all'">设计→施工推进视角</button>
 </div>
 <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray)">
 <span>{{teamViewMode==='kpi' ? '查看当月明细' : '查看观察月份'}}</span>
@@ -997,7 +1012,7 @@ th:last-child{border-top-right-radius:14px}
 <div id="teamConversionPanel" v-show="teamViewMode==='conversion'" class="card member-table-card">
 <div class="monthly-detail-head">
 <div>
-<div style="font-weight:700;color:#334155;margin-bottom:4px">🔁 {{teamMonthSel}} 设计施工推进视角</div>
+<div class="section-kicker">{{teamMonthSel}} 设计→施工推进视角</div>
 <div class="team-note">{{teamConversionNote}}</div>
 </div>
 <div class="toolbar-group">
@@ -22868,38 +22883,60 @@ const mFiltered = computed(()=>{
   if(monthType.value!=='全部')items=items.filter(r=>r.type===monthType.value);
   return items;
 });
+const cityPrefixes = ['常德','衡阳','邵阳','郴州','怀化','湘潭','株洲','岳阳','益阳','娄底','吉首','南宁','柳州','永州','张家界','宁乡','浏阳','平江','惠州','耒阳'];
+function normalizeAreaUnit(record){
+  const rawStore = String(record.store || '').trim();
+  if(record.district === '长沙大区') return rawStore || '未记录门店';
+  const normalized = rawStore.replace(/^地市[一二]区/, '').replace(/^湖南/, '').trim();
+  const prefix = cityPrefixes.find(city => normalized.startsWith(city));
+  if(prefix) return prefix;
+  const cityMatch = normalized.match(/^(.{2,4}?)(?:店|分公司|市|县|区|[-－—_]|\\s)/);
+  return (cityMatch ? cityMatch[1] : normalized) || '未记录城市';
+}
 const districtStoreMap = computed(()=>{
   const map = {'长沙大区': new Set(), '地市一区': new Set(), '地市二区': new Set()};
   rawData.forEach(r=>{
-    if(map[r.district] && r.store) map[r.district].add(r.store);
+    if(map[r.district]) map[r.district].add(normalizeAreaUnit(r));
   });
   return Object.fromEntries(Object.entries(map).map(([district, stores])=>[district, Array.from(stores).sort((a,b)=>a.localeCompare(b,'zh-CN'))]));
 });
 const monthlyDistrictStoreRankings = computed(()=>['长沙大区','地市一区','地市二区'].map(district=>{
-  const stores = districtStoreMap.value[district] || [];
+  const units = districtStoreMap.value[district] || [];
   const monthItems = rawData.filter(r=>r.month===monthSel.value && r.district===district);
   const designMap = {};
   const constructionMap = {};
-  stores.forEach(store=>{
-    designMap[store] = { store, value: 0 };
-    constructionMap[store] = { store, value: 0 };
+  units.forEach(unit=>{
+    designMap[unit] = { unit, value: 0 };
+    constructionMap[unit] = { unit, value: 0 };
   });
   monthItems.forEach(r=>{
-    if(!r.store) return;
+    const unit = normalizeAreaUnit(r);
     if(r.type==='设计'){
-      if(!designMap[r.store]) designMap[r.store] = { store:r.store, value:0 };
-      designMap[r.store].value += 1;
+      if(!designMap[unit]) designMap[unit] = { unit, value:0 };
+      designMap[unit].value += 1;
     }
     if(r.type==='施工'){
-      if(!constructionMap[r.store]) constructionMap[r.store] = { store:r.store, value:0 };
-      constructionMap[r.store].value += r.amount;
+      if(!constructionMap[unit]) constructionMap[unit] = { unit, value:0 };
+      constructionMap[unit].value += r.amount;
     }
   });
-  const sorter = (a,b)=>b.value-a.value || a.store.localeCompare(b.store,'zh-CN');
+  const designRows = Object.values(designMap);
+  const constructionRows = Object.values(constructionMap);
+  const sorter = (a,b)=>b.value-a.value || a.unit.localeCompare(b.unit,'zh-CN');
+  const zeroDesign = designRows.filter(row=>row.value===0).map(row=>row.unit);
+  const zeroConstruction = constructionRows.filter(row=>row.value===0).map(row=>row.unit);
   return {
     district,
-    designRank: Object.values(designMap).sort(sorter),
-    constructionRank: Object.values(constructionMap).sort(sorter),
+    unitLabel: district === '长沙大区' ? '门店' : '城市',
+    unitCount: units.length,
+    zeroDesign,
+    zeroConstruction,
+    zeroDesignCount: zeroDesign.length,
+    zeroConstructionCount: zeroConstruction.length,
+    zeroBothCount: units.filter(unit=>(designMap[unit]?.value || 0)===0 && (constructionMap[unit]?.value || 0)===0).length,
+    constructionAmount: constructionRows.reduce((sum,row)=>sum + row.value, 0),
+    designRank: designRows.sort(sorter),
+    constructionRank: constructionRows.sort(sorter),
   };
 }));
 const mConCount = computed(()=>mFiltered.value.filter(r=>r.type==='施工').length);
