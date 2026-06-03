@@ -219,8 +219,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/6/4 00:05:39</div></div>
-<div style="display:none">数据更新时间: 2026/6/4 00:05:39</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/6/4 07:02:49</div></div>
+<div style="display:none">数据更新时间: 2026/6/4 07:02:49</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1133,7 +1133,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/6/4 00:05:39</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/6/4 07:02:49</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -9285,34 +9285,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "张家界店",
-    "district": "地市一区",
-    "advisor": "伍显微",
-    "owner": "宁章娜",
-    "ownerRuleType": "default",
-    "amount": 14600,
-    "date": "2026-06-03",
-    "month": "2026-06",
-    "customer": "颜勇",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "永州潇湘店",
-    "district": "地市二区",
-    "advisor": "唐奥州",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 129477,
-    "date": "2026-05-31",
-    "month": "2026-05",
-    "customer": "黄银銮",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -9335,7 +9308,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -10932,7 +10905,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -11866,7 +11839,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -13854,7 +13827,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -15315,7 +15288,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -16980,7 +16953,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-06",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-04 00:05:39 CST",
+      "updatedAt": "2026-06-04 07:02:49 CST",
       "members": [
         {
           "name": "周国平",
@@ -17167,7 +17140,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-06",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-06-04 00:05:39 CST",
+    "updatedAt": "2026-06-04 07:02:49 CST",
     "members": [
       {
         "name": "周国平",
@@ -21089,8 +21062,8 @@ const tierAccountData = {
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年06月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-06-03T08:00:11+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260603_080011.md",
+  "syncedAt": "2026-06-04T07:00:32+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260604_070032.md",
   "operatorStats": [
     {
       "operator": "周国平",
@@ -21927,19 +21900,19 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-06-03T16:05:39.479Z",
+  "generatedAt": "2026-06-03T23:02:49.921Z",
   "latestMonth": "2026-06",
   "previousMonth": "2026-05",
-  "timeProgress": 42.2,
+  "timeProgress": 42.3,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-  "executiveOneLine": "当前施工兑现节奏高于时间进度 19.9 个点，重点从追量转为沉淀头部门店和家顾打法。",
+  "executiveOneLine": "当前施工兑现节奏高于时间进度 19.8 个点，重点从追量转为沉淀头部门店和家顾打法。",
   "executiveCards": [
     {
       "title": "经营结论",
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 62.1% vs 时间进度 42.2%"
+      "basis": "短板完成率 62.1% vs 时间进度 42.3%"
     },
     {
       "title": "最大短板",
@@ -21967,7 +21940,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 11036.6万；设计单数预测预计 853单。",
+      "desc": "施工金额预测预计 11010.5万；设计单数预测预计 851单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -21993,9 +21966,9 @@ const dashboardInsights = {
     {
       "priority": "P2",
       "target": "团队短板",
-      "issue": "施工兑现 62.1% vs 时间进度 42.2%",
+      "issue": "施工兑现 62.1% vs 时间进度 42.3%",
       "action": "维持当前节奏，同时提前补下一阶段蓄水。",
-      "basis": "短板偏差 19.9%"
+      "basis": "短板偏差 19.8%"
     },
     {
       "priority": "P1",
@@ -22072,20 +22045,20 @@ const dashboardInsights = {
       "actual": "4657.4万",
       "target": "7500万",
       "rate": 62.1,
-      "forecast": "11036.6万",
-      "gap": "+3536.6万",
+      "forecast": "11010.5万",
+      "gap": "+3510.5万",
       "status": "健康",
-      "basis": "按当前 42.2% 时间进度线性外推"
+      "basis": "按当前 42.3% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
       "actual": "360单",
       "target": "550单",
       "rate": 65.5,
-      "forecast": "853单",
-      "gap": "+303单",
+      "forecast": "851单",
+      "gap": "+301单",
       "status": "健康",
-      "basis": "按当前 42.2% 时间进度线性外推"
+      "basis": "按当前 42.3% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
@@ -22457,18 +22430,18 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-06-03T16:05:39.170Z",
+    "updatedAt": "2026-06-03T23:02:49.679Z",
     "totalRecords": 616,
     "designCount": 360,
     "constructionCount": 256
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-06-03T00:05:47.285Z",
+    "checkedAt": "2026-06-03T16:05:53.199Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 615,
+      "records": 616,
       "tierRecords": 128,
       "fusionRows": 185,
       "resourceRows": 54,
@@ -22477,7 +22450,7 @@ const dashboardOpsStatus = {
     }
   },
   "boss": {
-    "checkedAt": "2026-06-03T00:05:47.285Z",
+    "checkedAt": "2026-06-03T16:05:53.199Z",
     "oneLine": "当前 185 名家顾中，54 个资源位贡献 80.5% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
       "产值核心梯队：新第一梯队，施工金额占比 35.3%",
@@ -22488,7 +22461,7 @@ const dashboardOpsStatus = {
     "resourceShare": {
       "people": 54,
       "peopleShare": 29.2,
-      "designShare": 74.1,
+      "designShare": 74.2,
       "amountShare": 80.5,
       "monthlyEdits": 272,
       "monthlyCapacity": 272
@@ -22497,10 +22470,10 @@ const dashboardOpsStatus = {
       {
         "tier": "新第一梯队",
         "count": 10,
-        "design": 121,
+        "design": 122,
         "construction": 88,
         "amountWan": 1642.4,
-        "designShare": 33.7,
+        "designShare": 33.9,
         "amountShare": 35.3
       },
       {
