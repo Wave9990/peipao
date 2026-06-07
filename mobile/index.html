@@ -65,6 +65,7 @@ h1{font-family:"Songti SC","STSong","PingFang SC",serif;font-size:30px;letter-sp
           <section class="glass card"><div class="head"><div class="title">梯队分布概览</div><button class="link" data-go="task">资源动作 ›</button></div><div class="tier-grid" id="mobileTierGrid"></div></section>
           <section class="glass card"><div class="head"><div class="title">运营归属（五位运营）</div><div class="link" id="ownerMonthLabel">本月</div></div><div class="owner-row" id="mobileOwners"></div></section>
           <section class="glass card"><div class="head"><div class="title">资源扶持进度</div><div class="link" id="resourceDaysLeft">本月剩余 -- 天</div></div><div class="res-grid" id="mobileResources"></div></section>
+          <section class="glass card"><div class="head"><div class="title">重点账号周监管</div><button class="link" data-go="task">看异常 ›</button></div><div class="mini-list" id="mobileDouyinSummary"></div></section>
         </section>
 
         <section class="view" data-view="task">
@@ -94,7 +95,7 @@ const fixedUnits={
   '地市一区':['常德','衡阳','邵阳','郴州','怀化','岳阳','益阳','娄底','永州','张家界'],
   '地市二区':['湘潭','株洲','醴陵','耒阳','吉首','南宁','柳州','惠州','平江']
 };
-let rawData=[], payload={}, activeMonth='', selectedDistrict='长沙大区';
+let rawData=[], payload={}, douyinData=null, activeMonth='', selectedDistrict='长沙大区';
 
 function evalLit(s){return Function('"use strict";return ('+s+');')()}
 function extract(src,name,ch){const i=src.indexOf('const '+name+' = ');if(i<0)throw Error(name);const st=src.indexOf(ch,i),end={"{":"}","[":"]"}[ch];let d=0,q='',str=false,esc=false;for(let p=st;p<src.length;p++){const c=src[p];if(str){if(esc)esc=false;else if(c==='\\')esc=true;else if(c===q)str=false;continue}if(c==='"'||c==="'"||c==='`'){str=true;q=c;continue}if(c===ch)d++;if(c===end){d--;if(!d)return src.slice(st,p+1)}}throw Error(name)}
@@ -163,11 +164,23 @@ function renderTier(){
     ['内容合作',`${res['月剪辑需求']||0}条`,35,'blue'],
     ['确认池',`${(sum.resourcePendingNew||[]).length||0}人`,62,'purple']
   ].map(x=>`<button class="res ${x[3]}" data-go="task"><b>${x[0]}</b><div class="big">${x[1]}</div><span>进度 ${x[2]}%</span><div class="bar"><i style="width:${x[2]}%"></i></div></button>`).join('');
+  renderDouyinMobile();
+}
+
+function renderDouyinMobile(){
+  const data=douyinData||{}, scope=data.scope||{}, top=Array.isArray(data.top_works)?data.top_works[0]:null;
+  document.getElementById('mobileDouyinSummary').innerHTML=mini([
+    ['监管账号',`本周作品 ${scope.works||0} 条`,`${scope.accounts||0}个`,'low'],
+    ['0更新/低频',`0更新 ${scope.zero||0} · 低频 ${scope.low||0}`,scope.zero||scope.low?'关注':'正常',scope.zero||scope.low?'risk':'low'],
+    ['互动最高',top?`${top.account_name||'-'} · ${top.digg_count||0}赞`:'等待数据',top?'Top1':'--','mid']
+  ]);
 }
 
 function renderTask(){
   const rows=currentMonthRows(), byOwner=group(rows,r=>r.owner||'未归属').map(([owner,rs])=>({owner,...metric(rs)})).sort((a,b)=>b.a-a.a).slice(0,5);
-  document.getElementById('taskList').innerHTML=mini(byOwner.map(x=>[x.owner,`设计 ${x.d.length} 单 · 施工 ${x.c.length} 单 · ${wan(x.a)}万`,x.rate<40?'盯防':'正常',x.rate<40?'risk':'low']));
+  const data=douyinData||{}, zero=Array.isArray(data.zero_accounts)?data.zero_accounts:[], low=Array.isArray(data.low_accounts)?data.low_accounts:[];
+  const douyinRisks=[...zero.slice(0,3).map(x=>[`抖音0更新｜${x.account?.name||'-'}`,`${x.account?.owner||'-'} · ${x.account?.tier||'-'}`,`${x.count||0}条`,'risk']),...low.slice(0,3).map(x=>[`抖音低频｜${x.account?.name||'-'}`,`${x.account?.owner||'-'} · ${x.account?.tier||'-'}`,`${x.count||0}条`,'mid'])];
+  document.getElementById('taskList').innerHTML=mini([...byOwner.map(x=>[x.owner,`设计 ${x.d.length} 单 · 施工 ${x.c.length} 单 · ${wan(x.a)}万`,x.rate<40?'盯防':'正常',x.rate<40?'risk':'low']),...douyinRisks]);
 }
 
 function renderMine(){
@@ -191,6 +204,8 @@ document.addEventListener('click',e=>{
     fetch('../data/dashboard_v2_standalone.html',{cache:'no-store'}).then(r=>r.text()),
     fetch('../data/peipao_advisor_fusion_dashboard.html',{cache:'no-store'}).then(r=>r.text())
   ]);
+  const douyinUrl=location.pathname.includes('/mobile/')?'../data/douyin_weekly_summary.json':'data/douyin_weekly_summary.json';
+  douyinData=await fetch(douyinUrl,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
   rawData=evalLit(extract(main,'rawData','['));
   payload=evalLit(extract(fusion,'payload','{'));
   activeMonth=(payload.summary&&payload.summary.activeMonth)||rawData.map(r=>r.month).sort().at(-1)||'2026-06';

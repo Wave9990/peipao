@@ -1223,6 +1223,31 @@ th:last-child{border-top-right-radius:14px}
 
 <div class="section">
 <div class="card">
+<div class="tier-table-title"><div class="card-title" style="margin-bottom:0">🎬 重点账号周监管</div><div class="sub">{{douyinWeeklySummary.periodText}}</div></div>
+<div v-if="!douyinWeeklySummary.ready" class="team-note">暂未接入本周抖音监管数据。后续每周任务完成后，会自动读取 data/douyin_weekly_summary.json。</div>
+<template v-else>
+  <div class="tier-insight-grid">
+    <div class="tier-insight"><div class="k">监管账号</div><div class="v" style="color:var(--blue)">{{douyinWeeklySummary.accounts}}</div><div class="d">当前先覆盖新第一/第二梯队，后续扩展到 70 个核心账号。</div></div>
+    <div class="tier-insight"><div class="k">本周作品</div><div class="v" style="color:var(--green)">{{douyinWeeklySummary.works}}</div><div class="d">本周已抓取作品数，按账号主页最近作品过滤周一到周日。</div></div>
+    <div class="tier-insight"><div class="k">0 更新账号</div><div class="v" :style="{color:douyinWeeklySummary.zero ? 'var(--red)' : 'var(--green)'}">{{douyinWeeklySummary.zero}}</div><div class="d">完全停更账号会进入周会重点提醒。</div></div>
+    <div class="tier-insight"><div class="k">低于 2 条</div><div class="v" :style="{color:douyinWeeklySummary.low ? 'var(--orange)' : 'var(--green)'}">{{douyinWeeklySummary.low}}</div><div class="d">用于判断账号内容节奏是否低于陪跑要求。</div></div>
+  </div>
+  <div class="team-note" style="margin-bottom:10px">播放量本轮返回为 0，系统已按点赞数作为 Top10 排名兜底；点赞、评论、收藏、转发已可抓取。</div>
+  <table>
+    <thead><tr><th>排名</th><th>家顾</th><th>梯队</th><th>运营</th><th>主题</th><th>赞</th><th>评</th><th>藏</th><th>转</th></tr></thead>
+    <tbody>
+      <tr v-for="(work,i) in douyinWeeklySummary.topWorks" :key="work.aweme_id || i">
+        <td>{{i+1}}</td><td style="font-weight:700">{{work.account_name}}</td><td>{{work.tier}}</td><td>{{work.owner}}</td><td>{{work.theme || work.desc || '-'}}</td>
+        <td>{{work.digg_count || 0}}</td><td>{{work.comment_count || 0}}</td><td>{{work.collect_count || 0}}</td><td>{{work.share_count || 0}}</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+</div>
+</div>
+
+<div class="section">
+<div class="card">
 <div class="card-title">🚨 当前最该关注的 3 条提醒</div>
 <div class="insight-list">
   <div class="insight-list-item" v-for="row in tierEntryAlerts" :key="row.title">
@@ -22832,6 +22857,7 @@ const dashboardOpsStatus = {
 const app = createApp({
 setup(){
 const tab = ref('overview');
+const douyinWeeklyData = ref(null);
 const storeRankTab = ref('con');
 const quarterSel = ref('Q1');
 const qStoreRankTab = ref('con');
@@ -22910,6 +22936,33 @@ const tierMatrixRows = computed(()=>Array.isArray(tierAccountData.tierMatrix) ? 
 const tierUngroupedRows = computed(()=>Array.isArray(tierAccountData.ungroupedAccounts) ? tierAccountData.ungroupedAccounts : []);
 const tierHighPotentialRows = computed(()=>Array.isArray(tierAccountData.highPotentialAccounts) ? tierAccountData.highPotentialAccounts : []);
 const tierBottomRows = computed(()=>Array.isArray(tierAccountData.bottomCleanupAccounts) ? tierAccountData.bottomCleanupAccounts : []);
+async function loadDouyinWeeklySummary(){
+  try{
+    const res = await fetch('data/douyin_weekly_summary.json',{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    douyinWeeklyData.value = await res.json();
+  }catch(err){
+    douyinWeeklyData.value = null;
+    console.warn('[douyin-weekly] summary unavailable', err);
+  }
+}
+const douyinWeeklySummary = computed(()=>{
+  const data = douyinWeeklyData.value || {};
+  const scope = data.scope || {};
+  const period = data.period || {};
+  const topWorks = Array.isArray(data.top_works) ? data.top_works.slice(0,10) : [];
+  return {
+    ready: !!douyinWeeklyData.value,
+    periodText: period.start && period.end ? period.start + ' 至 ' + period.end : '等待本周监管数据',
+    generatedAt: data.generated_at || '',
+    accounts: Number(scope.accounts || 0),
+    works: Number(scope.works || 0),
+    zero: Number(scope.zero || 0),
+    low: Number(scope.low || 0),
+    errors: Number(scope.errors || 0),
+    topWorks,
+  };
+});
 const tierDecisionInsights = computed(()=>{
   const total = Number(tierSummary.totalAccounts || 0);
   const head = Number(tierSummary.tier1 || 0) + Number(tierSummary.tier2 || 0);
@@ -23707,7 +23760,7 @@ function initMonthlyDistChart(){
   });
 }
 
-onMounted(()=>nextTick(()=>{initTrendChart();initRegionCharts();initQCharts();initMonthlyDistChart();initTeamCharts();}));
+onMounted(()=>{loadDouyinWeeklySummary();nextTick(()=>{initTrendChart();initRegionCharts();initQCharts();initMonthlyDistChart();initTeamCharts();});});
 watch(teamViewMode,()=>nextTick(()=>initTeamCharts()));
 watch(teamMonthSel,()=>nextTick(()=>initTeamCharts()));
 watch(teamRankMode,()=>nextTick(()=>initTeamCharts()));
@@ -23723,7 +23776,7 @@ return {
   conversionRate,avgConValue,totalStores,
   csDesign,dsDesign,ds2Design,csConstr,dsConstr,ds2Constr,csConAmount,dsConAmount,ds2ConAmount,
   storeConAll,storeConTop15,storeConTop5,storeConBottom5,storeDesAll,storeDesTop15,storeDesTop5,storeDesBottom5,monthlyDistrictStoreRankings,advisorConTop15,advisorDesTop15,
-  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,teamConversionSummary,teamConversionTotals,teamConversionRows,teamConversionNote,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,openExternal,
+  qStats,qStoreTop,mFiltered,mConCount,mConAmount,distPKList,teamMembers,teamSyncedCount,teamSourceInfo,teamMonthlyStatus,teamDataStatusTips,teamKpiSummary,memberPerformanceRanked,teamConversionSummary,teamConversionTotals,teamConversionRows,teamConversionNote,monthlyMemberDetail,filteredMonthlyMemberDetail,monthlyMemberStats,monthlyOwnerMeta,monthlyOwnerSummary,monthlyOwnerDetailRows,ownerDetailFilterOptions,filteredMonthlyOwnerDetailRows,monthlyOwnerFollowTips,tableDensityClass,teamRiskTips,regionSummaryList,regionRankTab,regionStoreRanking,tierSummary,tierSourceLabel,tierUpdatedAt,tierOperatorStats,tierMatrixRows,tierUngroupedRows,tierHighPotentialRows,tierBottomRows,tierDecisionInsights,tierUngroupedAlertRows,tierEntryAlerts,tierActionPlans,tierHealthSummaryCards,tierHealthBuckets,tierHealthTopRows,tierHealthOverview,tierHealthBarSegments,tierMiniMetrics,tierPriorityPotentialRows,douyinWeeklySummary,bossOneLine,bossFocusItems,dashboardDataStatusCards,newsRecords,newsDes,newsCon,safeLen,fmtW,distClass,resetOwnerDetailFilters,resetMonthlyFilters,jumpToSection,openExternal,
 };
 }
 });

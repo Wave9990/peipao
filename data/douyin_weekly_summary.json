@@ -1,0 +1,486 @@
+{
+  "period": {
+    "start": "2026-06-01",
+    "end": "2026-06-07"
+  },
+  "generated_at": "2026-06-07 14:12:35",
+  "scope": {
+    "accounts": 31,
+    "ok": 31,
+    "zero": 3,
+    "low": 3,
+    "errors": 0,
+    "works": 145
+  },
+  "by_tier": [
+    {
+      "name": "新第一梯队",
+      "accounts": 10,
+      "works": 61,
+      "zero": 0,
+      "low": 0,
+      "errors": 0
+    },
+    {
+      "name": "新第二梯队",
+      "accounts": 21,
+      "works": 84,
+      "zero": 3,
+      "low": 3,
+      "errors": 0
+    }
+  ],
+  "by_owner": [
+    {
+      "name": "向勇",
+      "accounts": 6,
+      "works": 19,
+      "zero": 0,
+      "low": 1,
+      "errors": 0
+    },
+    {
+      "name": "周国平",
+      "accounts": 8,
+      "works": 25,
+      "zero": 1,
+      "low": 2,
+      "errors": 0
+    },
+    {
+      "name": "宁章娜",
+      "accounts": 8,
+      "works": 63,
+      "zero": 0,
+      "low": 0,
+      "errors": 0
+    },
+    {
+      "name": "钟海燕",
+      "accounts": 7,
+      "works": 25,
+      "zero": 2,
+      "low": 0,
+      "errors": 0
+    },
+    {
+      "name": "黄诗宇",
+      "accounts": 2,
+      "works": 13,
+      "zero": 0,
+      "low": 0,
+      "errors": 0
+    }
+  ],
+  "zero_accounts": [
+    {
+      "account": {
+        "name": "张嘉辉",
+        "tier": "新第二梯队",
+        "owner": "钟海燕",
+        "store": "马王堆大宅店",
+        "url": "https://v.douyin.com/vn63CEWuR8I/",
+        "expected_nickname": "长沙大宅装修嘉辉",
+        "expected_id": "84098992518",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAA9va7tJvsWpbu-j5_XL5gqGwg_h1_WZZBHo45yxUzAtZ2WRda03Q1AIb-QFQ8fdL6"
+      },
+      "status": "ok",
+      "count": 0,
+      "profile": {
+        "nickname": "长沙大宅装修嘉辉",
+        "unique_id": "84098992518",
+        "short_id": "0",
+        "aweme_count": 75,
+        "follower_count": 377,
+        "following_count": 97,
+        "total_favorited": 2058
+      },
+      "works": [],
+      "error": ""
+    },
+    {
+      "account": {
+        "name": "徐利民",
+        "tier": "新第二梯队",
+        "owner": "周国平",
+        "store": "梅溪湖店",
+        "url": "https://v.douyin.com/OSJnFu7Qvyg/",
+        "expected_nickname": "长沙装修徐涂涂",
+        "expected_id": "XLM010721",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAALYz7CY3o1QxuaFSn73oJhTATFKtCWbdbE6smUgh82S93n3yDfGhiO4CnYMODwMMb"
+      },
+      "status": "ok",
+      "count": 0,
+      "profile": {
+        "nickname": "长沙装修徐涂涂",
+        "unique_id": "XLM010721",
+        "short_id": "0",
+        "aweme_count": 190,
+        "follower_count": 1120,
+        "following_count": 70,
+        "total_favorited": 5611
+      },
+      "works": [],
+      "error": ""
+    },
+    {
+      "account": {
+        "name": "许鸿",
+        "tier": "新第二梯队",
+        "owner": "钟海燕",
+        "store": "柳州店",
+        "url": "https://v.douyin.com/DiWXEMaW1Xg/",
+        "expected_nickname": "柳州装修老许",
+        "expected_id": "lengkudeyim",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAAJMQo0R5WbbrKE0fF4cIEO1G85kmQYANychn3RauVGTKJBRDoPZVvF7bcnrSHRH56"
+      },
+      "status": "ok",
+      "count": 0,
+      "profile": {
+        "nickname": "柳州装修老许",
+        "unique_id": "lengkudeyimi",
+        "short_id": "0",
+        "aweme_count": 291,
+        "follower_count": 615,
+        "following_count": 493,
+        "total_favorited": 1943
+      },
+      "works": [],
+      "error": ""
+    }
+  ],
+  "low_accounts": [
+    {
+      "account": {
+        "name": "陈文波",
+        "tier": "新第二梯队",
+        "owner": "向勇",
+        "store": "洋湖店",
+        "url": "https://v.douyin.com/oz5rPUO3Qi0/",
+        "expected_nickname": "点石家装 陈文波",
+        "expected_id": "CWB18670792041",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAA4A96vQEMYXclF36fYAUoGAidJD9HAqZj9DL4JIxUT3Ype6bz-p-goiwtRC-DuusR"
+      },
+      "status": "ok",
+      "count": 1,
+      "profile": {
+        "nickname": "点石家装_陈文波",
+        "unique_id": "CWB18670792041",
+        "short_id": "0",
+        "aweme_count": 463,
+        "follower_count": 741,
+        "following_count": 3205,
+        "total_favorited": 4311
+      },
+      "works": [
+        {
+          "aweme_id": "7646741922203633768",
+          "create_time": "2026-06-02 18:24:04",
+          "desc": "洋湖锦玺16栋04户型封窗位置#工地实地讲解 #工地验收检查 #新房装修封阳台窗户",
+          "theme": "洋湖锦玺16栋04户型封窗位置",
+          "url": "https://www.douyin.com/video/7646741922203633768",
+          "digg_count": 3,
+          "comment_count": 1,
+          "collect_count": 0,
+          "share_count": 2,
+          "play_count": 0,
+          "engagement_score": 10,
+          "ranking_score": 3,
+          "ranking_basis": "digg_count"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "account": {
+        "name": "卢泽川",
+        "tier": "新第二梯队",
+        "owner": "周国平",
+        "store": "星沙店",
+        "url": "https://v.douyin.com/C5vB6gnU_LY/",
+        "expected_nickname": "叫我点石搞装修的阿川",
+        "expected_id": "858566719",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAAXptJjpRJU-qgT8E1ejHL2LpXx0PM1CQmVTIpOzl-ZSo"
+      },
+      "status": "ok",
+      "count": 1,
+      "profile": {
+        "nickname": "叫我点石搞装修的阿川",
+        "unique_id": "",
+        "short_id": "858566719",
+        "aweme_count": 627,
+        "follower_count": 1508,
+        "following_count": 2291,
+        "total_favorited": 15040
+      },
+      "works": [
+        {
+          "aweme_id": "7647552261536027835",
+          "create_time": "2026-06-04 22:48:37",
+          "desc": "视频有点长，全户型都有，希望对你有所帮助，每周工地服务日#长沙装修 #三一云谷 #三一云谷二期 #上热门 #万象汇",
+          "theme": "视频有点长，全户型都有，希望对你有所帮助，每周工地服务日",
+          "url": "https://www.douyin.com/video/7647552261536027835",
+          "digg_count": 13,
+          "comment_count": 1,
+          "collect_count": 1,
+          "share_count": 0,
+          "play_count": 0,
+          "engagement_score": 18,
+          "ranking_score": 13,
+          "ranking_basis": "digg_count"
+        }
+      ],
+      "error": ""
+    },
+    {
+      "account": {
+        "name": "杨磊",
+        "tier": "新第二梯队",
+        "owner": "周国平",
+        "store": "梅溪湖店",
+        "url": "https://v.douyin.com/BIdgg0psRq4/",
+        "expected_nickname": "长沙装修小磊哥",
+        "expected_id": "35597057905",
+        "note": "",
+        "sec_uid": "MS4wLjABAAAAqHz8HnR0KABMIz86z5QOVzCuMbChV3pkh8G9VqXbpHl8gDrQr-kSBgniZJ4OBerp"
+      },
+      "status": "ok",
+      "count": 1,
+      "profile": {
+        "nickname": "长沙装修小磊哥",
+        "unique_id": "35597057905",
+        "short_id": "0",
+        "aweme_count": 136,
+        "follower_count": 402,
+        "following_count": 194,
+        "total_favorited": 1812
+      },
+      "works": [
+        {
+          "aweme_id": "7646419015690718315",
+          "create_time": "2026-06-01 21:31:02",
+          "desc": "天青府装修 天青府129平完工实景案例分享  需要考察装修的朋友欢迎咨询了解#长沙装修 #招商蛇口天青府 #全案一体化 #长沙装修小磊哥",
+          "theme": "天青府装修 天青府129平完工实景案例分享 需要考察装修的朋友欢迎咨询了解",
+          "url": "https://www.douyin.com/video/7646419015690718315",
+          "digg_count": 15,
+          "comment_count": 2,
+          "collect_count": 2,
+          "share_count": 10,
+          "play_count": 0,
+          "engagement_score": 45,
+          "ranking_score": 15,
+          "ranking_basis": "digg_count"
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "error_accounts": [],
+  "top_works": [
+    {
+      "account_name": "唐奥州",
+      "tier": "新第二梯队",
+      "owner": "黄诗宇",
+      "store": "永州潇湘店",
+      "nickname": "永州做装修奥哥",
+      "aweme_id": "7646747561420280761",
+      "create_time": "2026-06-02 18:45:57",
+      "desc": "#永州装修 #湘超冠军 #开工仪式 #冠军之家 🏆感谢谷队一家信任",
+      "theme": "🏆感谢谷队一家信任",
+      "url": "https://www.douyin.com/video/7646747561420280761",
+      "digg_count": 317,
+      "comment_count": 39,
+      "collect_count": 17,
+      "share_count": 40,
+      "play_count": 0,
+      "engagement_score": 548,
+      "ranking_score": 317,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "伍显微",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "张家界店",
+      "nickname": "张家界装修界的伍显微",
+      "aweme_id": "7646358880691675338",
+      "create_time": "2026-06-01 17:37:40",
+      "desc": "这个能吃不#野生香蕉#农村生活#芭蕉#点石家装伍显微",
+      "theme": "这个能吃不",
+      "url": "https://www.douyin.com/video/7646358880691675338",
+      "digg_count": 85,
+      "comment_count": 209,
+      "collect_count": 2,
+      "share_count": 10,
+      "play_count": 0,
+      "engagement_score": 736,
+      "ranking_score": 85,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "伍显微",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "张家界店",
+      "nickname": "张家界装修界的伍显微",
+      "aweme_id": "7647910024064575987",
+      "create_time": "2026-06-05 21:56:54",
+      "desc": "晚风夜话#青华府#凤凰城 #夜晚感慨 #点石家装伍显微",
+      "theme": "晚风夜话",
+      "url": "https://www.douyin.com/video/7647910024064575987",
+      "digg_count": 40,
+      "comment_count": 1,
+      "collect_count": 2,
+      "share_count": 0,
+      "play_count": 0,
+      "engagement_score": 47,
+      "ranking_score": 40,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "伍显微",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "张家界店",
+      "nickname": "张家界装修界的伍显微",
+      "aweme_id": "7647468236540074203",
+      "create_time": "2026-06-04 17:22:32",
+      "desc": "能打满分的法式中古长什么样，一起来看看【山水澜庭】134户型一镜到底#澜庭#山水澜庭#法式中古#一镜到底#点石家装伍显微",
+      "theme": "能打满分的法式中古长什么样，一起来看看【山水澜庭】134户型一镜到底",
+      "url": "https://www.douyin.com/video/7647468236540074203",
+      "digg_count": 40,
+      "comment_count": 7,
+      "collect_count": 7,
+      "share_count": 10,
+      "play_count": 0,
+      "engagement_score": 95,
+      "ranking_score": 40,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "陈湘",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "星沙店",
+      "nickname": "长沙点石家装陈湘",
+      "aweme_id": "7646770957394201883",
+      "create_time": "2026-06-02 20:16:55",
+      "desc": "五矿万境松雅33栋143平户型开工大吉 信任难得，认可珍贵。感恩业主择优选择，陈湘签单前和施工中服务和热情不会打折。#星沙点石家装陈湘 #五矿万境松雅 #五矿万境松雅143平户型装修 #正商松湖上境 #松湖上境",
+      "theme": "五矿万境松雅33栋143平户型开工大吉 信任难得，认可珍贵。感恩业主择优选择，陈湘签单前和施工中服务和热情不会打折。",
+      "url": "https://www.douyin.com/video/7646770957394201883",
+      "digg_count": 38,
+      "comment_count": 3,
+      "collect_count": 1,
+      "share_count": 0,
+      "play_count": 0,
+      "engagement_score": 49,
+      "ranking_score": 38,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "蒋志军",
+      "tier": "新第一梯队",
+      "owner": "周国平",
+      "store": "星沙店",
+      "nickname": "长沙点石装修老蒋小蒋",
+      "aweme_id": "7647207902361158770",
+      "create_time": "2026-06-04 00:32:20",
+      "desc": "线上找老蒋小蒋俩口子装修，这些问题可以先咨询清楚，会更有效率#长沙点石装修老蒋小蒋 #长沙点石装修蒋志军 #保利和光尘樾装修  #中建桃李九章装修 #湘林熙水豪庭装修",
+      "theme": "线上找老蒋小蒋俩口子装修，这些问题可以先咨询清楚，会更有效率",
+      "url": "https://www.douyin.com/video/7647207902361158770",
+      "digg_count": 37,
+      "comment_count": 4,
+      "collect_count": 2,
+      "share_count": 0,
+      "play_count": 0,
+      "engagement_score": 53,
+      "ranking_score": 37,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "王奇",
+      "tier": "新第一梯队",
+      "owner": "周国平",
+      "store": "怀化湖天店",
+      "nickname": "点石家装王奇",
+      "aweme_id": "7646748592536142150",
+      "create_time": "2026-06-02 18:49:58",
+      "desc": "靖州《大美飞山里》第一套短视频高标准样板房正式开工，没有过多的仪式，有的只是业主最最最真实的反馈，感谢叔叔阿姨信任，老王的团队没有过多的营销，只有最真诚最踏实的服务#怀化装修#靖州装修#大美飞山里#点石家装#点石家装王奇",
+      "theme": "靖州《大美飞山里》第一套短视频高标准样板房正式开工，没有过多的仪式，有的只是业主最最最真实的反馈，感谢叔叔阿姨信任，老王的团队没有过多的营销，只有最真诚最踏实的服务",
+      "url": "https://www.douyin.com/video/7646748592536142150",
+      "digg_count": 35,
+      "comment_count": 4,
+      "collect_count": 4,
+      "share_count": 6,
+      "play_count": 0,
+      "engagement_score": 67,
+      "ranking_score": 35,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "陈湘",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "星沙店",
+      "nickname": "长沙点石家装陈湘",
+      "aweme_id": "7647098905531944219",
+      "create_time": "2026-06-03 17:29:26",
+      "desc": "又是陈湘在五矿万境松雅二期6月3日工地服务日 专心驻守五矿万境松雅一二期3年多，服务上百业主的装修，和很多业主处成朋友，感谢这么客户支持信任。#星沙店点石家装陈湘 #五矿万境松雅 #万境松雅 #正商松湖上境 #松湖上境",
+      "theme": "又是陈湘在五矿万境松雅二期6月3日工地服务日 专心驻守五矿万境松雅一二期3年多，服务上百业主的装修，和很多业主处成朋友，感谢这么客户支持信任。",
+      "url": "https://www.douyin.com/video/7647098905531944219",
+      "digg_count": 30,
+      "comment_count": 4,
+      "collect_count": 0,
+      "share_count": 3,
+      "play_count": 0,
+      "engagement_score": 48,
+      "ranking_score": 30,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "伍显微",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "张家界店",
+      "nickname": "张家界装修界的伍显微",
+      "aweme_id": "7646777682138550921",
+      "create_time": "2026-06-02 20:42:51",
+      "desc": "【凤凰城云璟】193户型解析#云璟#凤凰城#交房#户型设计#点石家装伍显微",
+      "theme": "【凤凰城云璟】193户型解析",
+      "url": "https://www.douyin.com/video/7646777682138550921",
+      "digg_count": 29,
+      "comment_count": 2,
+      "collect_count": 1,
+      "share_count": 5,
+      "play_count": 0,
+      "engagement_score": 47,
+      "ranking_score": 29,
+      "ranking_basis": "digg_count"
+    },
+    {
+      "account_name": "伍显微",
+      "tier": "新第一梯队",
+      "owner": "宁章娜",
+      "store": "张家界店",
+      "nickname": "张家界装修界的伍显微",
+      "aweme_id": "7646275967984545627",
+      "create_time": "2026-06-01 12:15:55",
+      "desc": "80 90的你们，就问你们吃过这么大的麻辣豆皮吗#8090后 #经典怀旧 #麻辣豆皮 #小时候味道 #点石家装伍显微",
+      "theme": "80 90的你们，就问你们吃过这么大的麻辣豆皮吗",
+      "url": "https://www.douyin.com/video/7646275967984545627",
+      "digg_count": 29,
+      "comment_count": 6,
+      "collect_count": 0,
+      "share_count": 0,
+      "play_count": 0,
+      "engagement_score": 47,
+      "ranking_score": 29,
+      "ranking_basis": "digg_count"
+    }
+  ]
+}

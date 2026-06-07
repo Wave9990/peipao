@@ -260,9 +260,15 @@
     .execution-list{display:grid;gap:8px;margin:0 0 14px}
     .execution-item{display:grid;grid-template-columns:110px minmax(0,1fr) 160px;gap:10px;align-items:center;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.74);border:1px solid rgba(23,32,51,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     .execution-item strong{font-size:13px}.execution-item span{font-size:12px;color:var(--muted);line-height:1.55}.execution-item em{font-style:normal;font-size:12px;font-weight:900;text-align:right;color:#334155}
+    .douyin-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:14px}
+    .douyin-card{padding:17px;border-radius:22px;background:rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:0 12px 34px rgba(65,47,25,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .douyin-card strong{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}.douyin-card .num{font-size:30px;font-weight:950;letter-spacing:-.04em}.douyin-card p{margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+    .douyin-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}
+    .douyin-list{display:grid;gap:8px}.douyin-item{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.74);border:1px solid rgba(23,32,51,.08);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+    .douyin-item strong{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:5px}.douyin-item p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
     .empty{padding:22px;text-align:center;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
     @media(max-width:980px){
-      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.action-grid,.owner-warzone,.owner-tier-share,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip,.mode-dashboard,.mode-kpis,.roi-grid{grid-template-columns:1fr}
+      .app{padding:14px 12px 24px}.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.tier-grid,.cards,.anomaly,.summary-grid,.explain-grid,.boss-grid,.action-grid,.owner-warzone,.owner-tier-share,.decision-strip,.migration-grid,.business-share,.pressure-matrix,.governance-strip,.mode-dashboard,.mode-kpis,.roi-grid,.douyin-grid,.douyin-layout{grid-template-columns:1fr}
       .resource-grid,.resource-layout,.resource-hero,.resource-contribution,.action-grid,.pending-grid,.execution-item{grid-template-columns:1fr}
       .execution-item em{text-align:left}.view-toggle{justify-content:flex-start}
       .hero-main{padding:22px}.metric .v{font-size:25px}.person{grid-template-columns:38px minmax(0,1fr)}.score{grid-column:2;text-align:left}.rank{width:38px;height:38px}
@@ -322,6 +328,17 @@
         </div>
         <div class="tier-grid" id="tierGrid"></div>
         <div class="table-wrap" id="rankingTableWrap" style="display:none;margin-top:12px"><table id="rankingTable"></table></div>
+      </section>
+      <section class="view" id="view-douyin">
+        <div class="section-title"><div><h2>重点账号周监管</h2><p>先覆盖新第一/第二梯队账号；后续 70 个账号补齐主页链接后，每周自动更新作品节奏和互动排行。</p></div></div>
+        <div class="douyin-grid" id="douyinMetricGrid"></div>
+        <div class="douyin-layout">
+          <div class="table-wrap"><table id="douyinTopTable"></table></div>
+          <div class="cards">
+            <div class="info-card"><strong>按运营汇总</strong><div id="douyinOwnerList"></div></div>
+            <div class="info-card"><strong>0 更新 / 低频更新</strong><div id="douyinRiskList"></div></div>
+          </div>
+        </div>
       </section>
       <section class="view" id="view-original">
         <div class="section-title"><div><h2>腾讯文档重点梯队复盘</h2><p>看腾讯文档重点梯队名单在新排名里的位置、升降和待激活对象。</p></div></div>
@@ -11723,6 +11740,7 @@
       ['boss', '老板总览'],
       ['execution', '运营执行台'],
       ['ranking', '新梯队名单'],
+      ['douyin', '账号周监管'],
       ['original', '腾讯重点梯队复盘'],
       ['new', '新增家顾'],
       ['owner', '运营视角'],
@@ -11751,9 +11769,11 @@
     const originalTierLabel = tier => originalTierDescriptions[tier] ? tier + '（' + originalTierDescriptions[tier] + '）' : (tier || '-');
     const sourceLabel = source => source || '';
     const isOriginalAdvisor = row => row['是否重点梯队体系'] === '是';
+    const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 
     let activeTab = 'boss';
     let rankingMode = 'cards';
+    let douyinWeeklyData = null;
     const filters = { tier:'全部', owner:'全部', resource:'全部', source:'全部', status:'全部', keyword:'' };
 
     function init() {
@@ -11773,6 +11793,19 @@
       fillSelect('statusFilter', ['全部', ...uniq(rows.map(r => r['当期陪跑状态']))], 'status');
       byId('keywordFilter').addEventListener('input', e => { filters.keyword = e.target.value.trim().toLowerCase(); render(); });
       render();
+      loadDouyinWeeklyData();
+    }
+
+    async function loadDouyinWeeklyData() {
+      try {
+        const res = await fetch('data/douyin_weekly_summary.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        douyinWeeklyData = await res.json();
+      } catch (err) {
+        douyinWeeklyData = null;
+        console.warn('[douyin-weekly] summary unavailable', err);
+      }
+      renderDouyinWeekly();
     }
 
     function fillSelect(id, options, key, labeler = item => item) {
@@ -11816,6 +11849,7 @@
       renderExecutionModeDashboard();
       const list = filteredRows();
       renderRanking(list);
+      renderDouyinWeekly();
       renderOriginal(list);
       renderNew(list);
       renderOwners();
@@ -12210,6 +12244,54 @@
       byId('rankingTable').innerHTML = '<thead><tr>' + head.map(h => '<th>' + displayHead(h) + '</th>').join('') + '</tr></thead><tbody>'
         + (list.length ? list.map(row => '<tr>' + head.map(h => '<td>' + formatCell(h, row) + '</td>').join('') + '</tr>').join('') : '<tr><td colspan="' + head.length + '">当前筛选下暂无异常人员</td></tr>')
         + '</tbody>';
+    }
+
+    function renderDouyinWeekly() {
+      if (!byId('douyinMetricGrid')) return;
+      const data = douyinWeeklyData || {};
+      const scope = data.scope || {};
+      const period = data.period || {};
+      const topWorks = Array.isArray(data.top_works) ? data.top_works.slice(0, 10) : [];
+      const byOwner = Array.isArray(data.by_owner) ? data.by_owner : [];
+      const zero = Array.isArray(data.zero_accounts) ? data.zero_accounts : [];
+      const low = Array.isArray(data.low_accounts) ? data.low_accounts : [];
+      const periodText = period.start && period.end ? period.start + ' 至 ' + period.end : '等待本周数据';
+      const metrics = [
+        ['监管账号', scope.accounts || 0, '当前先跑新第一/第二梯队'],
+        ['本周作品', scope.works || 0, periodText],
+        ['0更新账号', scope.zero || 0, '周报重点提醒'],
+        ['低于2条', scope.low || 0, '节奏偏弱账号'],
+        ['抓取错误', scope.errors || 0, '失败不影响业绩看板']
+      ];
+      byId('douyinMetricGrid').innerHTML = metrics.map(([k,v,desc]) => '<div class="douyin-card"><strong>' + k + '</strong><div class="num">' + v + '</div><p>' + desc + '</p></div>').join('');
+      byId('douyinTopTable').innerHTML = '<thead><tr><th>排名</th><th>家顾</th><th>梯队</th><th>运营</th><th>作品主题</th><th>发布时间</th><th>赞</th><th>评</th><th>藏</th><th>转</th><th>播放</th></tr></thead><tbody>'
+        + (topWorks.length ? topWorks.map((work, index) => '<tr>'
+          + '<td>' + (index + 1) + '</td>'
+          + '<td>' + escapeHtml(work.account_name || '-') + '</td>'
+          + '<td>' + escapeHtml(work.tier || '-') + '</td>'
+          + '<td>' + escapeHtml(work.owner || '-') + '</td>'
+          + '<td>' + escapeHtml(work.theme || work.desc || '-') + '</td>'
+          + '<td>' + escapeHtml(work.create_time || '-') + '</td>'
+          + '<td>' + (work.digg_count || 0) + '</td>'
+          + '<td>' + (work.comment_count || 0) + '</td>'
+          + '<td>' + (work.collect_count || 0) + '</td>'
+          + '<td>' + (work.share_count || 0) + '</td>'
+          + '<td>' + (work.play_count || 0) + '</td>'
+          + '</tr>').join('') : '<tr><td colspan="11">尚未生成周监管数据；运行脚本后会自动读取 data/douyin_weekly_summary.json。</td></tr>')
+        + '</tbody>';
+      byId('douyinOwnerList').innerHTML = byOwner.length ? '<div class="douyin-list">' + byOwner.map(item => '<div class="douyin-item">'
+        + '<strong><span>' + escapeHtml(item.name || '-') + '</span><span>' + (item.works || 0) + '条</span></strong>'
+        + '<p>账号 ' + (item.accounts || 0) + '｜0更新 ' + (item.zero || 0) + '｜低频 ' + (item.low || 0) + '｜错误 ' + (item.errors || 0) + '</p>'
+        + '</div>').join('') + '</div>' : '<p>暂无运营汇总。</p>';
+      const riskRows = [
+        ...zero.map(item => ({type:'0更新', item})),
+        ...low.map(item => ({type:'低于2条', item}))
+      ];
+      byId('douyinRiskList').innerHTML = riskRows.length ? '<div class="douyin-list">' + riskRows.slice(0, 12).map(row => {
+        const account = row.item.account || {};
+        return '<div class="douyin-item"><strong><span>' + escapeHtml(row.type + '｜' + (account.name || '-')) + '</span><span>' + (row.item.count || 0) + '条</span></strong>'
+          + '<p>' + escapeHtml((account.tier || '-') + '｜' + (account.owner || '-') + '｜' + (account.store || '-')) + '</p></div>';
+      }).join('') + '</div>' : '<p>本周没有 0 更新或低频账号。</p>';
     }
 
     function renderTable(id, list) {
