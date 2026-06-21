@@ -219,8 +219,8 @@ th:last-child{border-top-right-radius:14px}
 </div>
 </div>
 <div class="hero-meta">
-<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/6/21 23:50:14</div></div>
-<div style="display:none">数据更新时间: 2026/6/21 23:50:14</div>
+<div class="hero-chip"><div class="label">数据更新时间</div><div class="value" style="font-size:18px">2026/6/22 07:04:51</div></div>
+<div style="display:none">数据更新时间: 2026/6/22 07:04:51</div>
 <div class="hero-chip"><div class="label">当前年度</div><div class="value">2026</div></div>
 <div class="hero-chip"><div class="label">当前进度</div><div class="value">{{teamKpiSummary.timeProgress}}%</div></div>
 </div>
@@ -1133,7 +1133,7 @@ th:last-child{border-top-right-radius:14px}
 <div v-show="tab==='news'" class="fade-in">
 <div class="card" style="margin-bottom:16px">
 <div class="card-title">📋 今日新增 {{safeLen(newsRecords)}} 条记录</div>
-<div style="color:var(--gray);font-size:14px">更新: 2026/6/21 23:50:14</div>
+<div style="color:var(--gray);font-size:14px">更新: 2026/6/22 07:04:51</div>
 </div>
 <div v-if="safeLen(newsRecords)===0" class="card" style="text-align:center;padding:36px 20px">
 <div class="card-title">🗂️ 今日暂无新增</div>
@@ -10455,190 +10455,7 @@ const rawData = [
     "customerSource": "营销/新媒体陪跑"
   }
 ];
-const newsData = [
-  {
-    "type": "设计",
-    "store": "城北店",
-    "district": "长沙大区",
-    "advisor": "朱莉",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 6800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "向明胜",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "城东店",
-    "district": "长沙大区",
-    "advisor": "汤军",
-    "owner": "黄诗宇",
-    "ownerRuleType": "default",
-    "amount": 9700,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "王文瑞",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "陈湘",
-    "owner": "宁章娜",
-    "ownerRuleType": "override",
-    "amount": 6800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "毕小叶",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "蒋志军",
-    "owner": "周国平",
-    "ownerRuleType": "default",
-    "amount": 7700,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "黎虹",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "星沙店",
-    "district": "长沙大区",
-    "advisor": "陈湘",
-    "owner": "宁章娜",
-    "ownerRuleType": "override",
-    "amount": 6800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "倪佳欣",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "洋湖店",
-    "district": "长沙大区",
-    "advisor": "冯淑燕",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 9900,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "刘瑜",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "洋湖店",
-    "district": "长沙大区",
-    "advisor": "陈文波",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 8800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "汤致远",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "平江店",
-    "district": "长沙大区",
-    "advisor": "罗怀安",
-    "owner": "钟海燕",
-    "ownerRuleType": "default",
-    "amount": 10600,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "梁恒敏",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "湘府店",
-    "district": "长沙大区",
-    "advisor": "龙浇苗",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 230617,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "周宁",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "施工",
-    "store": "洋湖店",
-    "district": "长沙大区",
-    "advisor": "许进才",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 135864,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "李婷",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "郴州城东店",
-    "district": "地市一区",
-    "advisor": "陈丹",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 15600,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "李建林",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "郴州城东店",
-    "district": "地市一区",
-    "advisor": "谢百莲",
-    "owner": "向勇",
-    "ownerRuleType": "override",
-    "amount": 7000,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "唐书婷",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "贺英",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 6800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "胡建云",
-    "customerSource": "营销/新媒体陪跑"
-  },
-  {
-    "type": "设计",
-    "store": "衡阳万达店",
-    "district": "地市二区",
-    "advisor": "谢军军",
-    "owner": "向勇",
-    "ownerRuleType": "default",
-    "amount": 6800,
-    "date": "2026-06-21",
-    "month": "2026-06",
-    "customer": "尹煜榕",
-    "customerSource": "营销/新媒体陪跑"
-  }
-];
+const newsData = [];
 const canonicalCorrectionsNote = [
   "原始 SAAS 数据可能把“城北店 张晓”误写为“城东店 张晓”；看板展示和团队归属统一校正为城北店张晓，归属钟海燕。"
 ];
@@ -10661,7 +10478,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-01",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -12258,7 +12075,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-02",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -13192,7 +13009,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-03",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -15180,7 +14997,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-04",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -16641,7 +16458,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-05",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -18323,7 +18140,7 @@ const manualTeamMonthlyData = {
     {
       "month": "2026-06",
       "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-      "updatedAt": "2026-06-21 23:50:14 CST",
+      "updatedAt": "2026-06-22 07:04:51 CST",
       "members": [
         {
           "name": "周国平",
@@ -19564,7 +19381,7 @@ const manualTeamMonthlyData = {
   "activeData": {
     "month": "2026-06",
     "source": "SAAS 原始 JSON + Excel 门店归属 + override 规则",
-    "updatedAt": "2026-06-21 23:50:14 CST",
+    "updatedAt": "2026-06-22 07:04:51 CST",
     "members": [
       {
         "name": "周国平",
@@ -24569,8 +24386,8 @@ const tierAccountData = {
   "source": "腾讯文档：2026-新媒体陪跑梯队产值人员名单",
   "sourceUrl": "https://docs.qq.com/sheet/DQkhKYmpvcmJrYUlD?tab=BB08J2",
   "snapshotFile": "/Users/wave/Desktop/hm陪跑文件/2026年/梯队名单/2026年06月-新媒体陪跑梯队产值人员名单.json",
-  "syncedAt": "2026-06-21T09:04:36+08:00",
-  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260621_090437.md",
+  "syncedAt": "2026-06-22T07:02:37+08:00",
+  "changeReport": "/Users/wave/dashboard/tmp/tier_sync_reports/tier_sync_20260622_070237.md",
   "operatorStats": [
     {
       "operator": "周国平",
@@ -25389,19 +25206,19 @@ const tierAccountData = {
 };
 const dashboardInsights = {
   "version": 1,
-  "generatedAt": "2026-06-21T15:50:14.546Z",
+  "generatedAt": "2026-06-21T23:04:51.840Z",
   "latestMonth": "2026-06",
   "previousMonth": "2026-05",
-  "timeProgress": 47.1,
+  "timeProgress": 47.2,
   "verdict": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-  "executiveOneLine": "当前施工兑现节奏高于时间进度 22.9 个点，重点从追量转为沉淀头部门店和家顾打法。",
+  "executiveOneLine": "当前施工兑现节奏高于时间进度 22.8 个点，重点从追量转为沉淀头部门店和家顾打法。",
   "executiveCards": [
     {
       "title": "经营结论",
       "value": "健康",
       "statusClass": "status-good",
       "desc": "整体节奏健康，优先沉淀高产门店与家顾打法。",
-      "basis": "短板完成率 70% vs 时间进度 47.1%"
+      "basis": "短板完成率 70% vs 时间进度 47.2%"
     },
     {
       "title": "最大短板",
@@ -25429,7 +25246,7 @@ const dashboardInsights = {
     {
       "title": "目标预测",
       "priority": "P2",
-      "desc": "施工金额预测预计 11145.2万；设计单数预测预计 896单。",
+      "desc": "施工金额预测预计 11121.6万；设计单数预测预计 894单。",
       "basis": "线性外推，仅作经营预警"
     },
     {
@@ -25455,9 +25272,9 @@ const dashboardInsights = {
     {
       "priority": "P2",
       "target": "团队短板",
-      "issue": "施工兑现 70% vs 时间进度 47.1%",
+      "issue": "施工兑现 70% vs 时间进度 47.2%",
       "action": "维持当前节奏，同时提前补下一阶段蓄水。",
-      "basis": "短板偏差 22.9%"
+      "basis": "短板偏差 22.8%"
     },
     {
       "priority": "P1",
@@ -25534,20 +25351,20 @@ const dashboardInsights = {
       "actual": "5249.4万",
       "target": "7500万",
       "rate": 70,
-      "forecast": "11145.2万",
-      "gap": "+3645.2万",
+      "forecast": "11121.6万",
+      "gap": "+3621.6万",
       "status": "健康",
-      "basis": "按当前 47.1% 时间进度线性外推"
+      "basis": "按当前 47.2% 时间进度线性外推"
     },
     {
       "name": "设计单数预测",
       "actual": "422单",
       "target": "550单",
       "rate": 76.7,
-      "forecast": "896单",
-      "gap": "+346单",
+      "forecast": "894单",
+      "gap": "+344单",
       "status": "健康",
-      "basis": "按当前 47.1% 时间进度线性外推"
+      "basis": "按当前 47.2% 时间进度线性外推"
     }
   ],
   "ownerHealth": [
@@ -25925,39 +25742,39 @@ const dashboardOpsStatus = {
     "status": "running",
     "phase": "data_validated",
     "publishStatus": "published",
-    "updatedAt": "2026-06-21T15:50:14.253Z",
+    "updatedAt": "2026-06-21T23:04:51.649Z",
     "totalRecords": 706,
     "designCount": 422,
     "constructionCount": 284
   },
   "audit": {
     "ok": true,
-    "checkedAt": "2026-06-21T14:44:52.634Z",
+    "checkedAt": "2026-06-21T16:24:31.508Z",
     "warnings": [],
     "hardFailures": [],
     "counts": {
-      "records": 692,
+      "records": 706,
       "tierRecords": 129,
-      "fusionRows": 193,
+      "fusionRows": 195,
       "resourceRows": 54,
       "duplicateLookupCount": 0,
       "blankOwnerCount": 0
     }
   },
   "boss": {
-    "checkedAt": "2026-06-21T14:44:52.634Z",
-    "oneLine": "当前 193 名家顾中，54 个资源位贡献 80% 施工金额；资源建议仍按月度人工锁定。",
+    "checkedAt": "2026-06-21T16:24:31.508Z",
+    "oneLine": "当前 195 名家顾中，54 个资源位贡献 79.9% 施工金额；资源建议仍按月度人工锁定。",
     "focus": [
-      "产值核心梯队：新第一梯队，施工金额占比 36.2%",
+      "产值核心梯队：新第一梯队，施工金额占比 35.9%",
       "资源压力最高运营：宁章娜，月剪辑 78 条",
       "施工金额最高运营：宁章娜，1450.1 万",
       "当前无高优先级观察提醒"
     ],
     "resourceShare": {
       "people": 54,
-      "peopleShare": 28,
-      "designShare": 72.4,
-      "amountShare": 80,
+      "peopleShare": 27.7,
+      "designShare": 72.5,
+      "amountShare": 79.9,
       "monthlyEdits": 272,
       "monthlyCapacity": 272
     },
@@ -25965,38 +25782,38 @@ const dashboardOpsStatus = {
       {
         "tier": "新第一梯队",
         "count": 10,
-        "design": 132,
-        "construction": 96,
-        "amountWan": 1885.8,
-        "designShare": 32.2,
-        "amountShare": 36.2
+        "design": 140,
+        "construction": 98,
+        "amountWan": 1883.2,
+        "designShare": 33.2,
+        "amountShare": 35.9
       },
       {
         "tier": "新第二梯队",
         "count": 20,
         "design": 102,
-        "construction": 74,
-        "amountWan": 1404.8,
-        "designShare": 24.9,
-        "amountShare": 26.9
+        "construction": 73,
+        "amountWan": 1430.4,
+        "designShare": 24.2,
+        "amountShare": 27.2
       },
       {
         "tier": "新第三梯队",
         "count": 40,
-        "design": 97,
+        "design": 99,
         "construction": 68,
         "amountWan": 1215.9,
-        "designShare": 23.7,
-        "amountShare": 23.3
+        "designShare": 23.5,
+        "amountShare": 23.2
       },
       {
         "tier": "新第四梯队",
-        "count": 123,
-        "design": 79,
-        "construction": 44,
-        "amountWan": 706.3,
-        "designShare": 19.3,
-        "amountShare": 13.5
+        "count": 125,
+        "design": 81,
+        "construction": 45,
+        "amountWan": 719.9,
+        "designShare": 19.2,
+        "amountShare": 13.7
       }
     ],
     "managementActions": [
