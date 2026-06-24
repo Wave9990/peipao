@@ -1,216 +1,29 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>陪跑移动端 · 老板速览</title>
-<style>
-:root{--glass:rgba(255,255,255,.105);--line:rgba(255,255,255,.15);--text:#f8fafc;--muted:rgba(248,250,252,.62);--blue:#65a7ff;--amber:#e7ad5a;--green:#67d49c;--red:#ff7b7b;--purple:#a78bfa;--bg:#0d141a}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;min-height:100vh;background:linear-gradient(135deg,#d7d9dc,#8f969d);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;color:var(--text);padding:28px;touch-action:manipulation}
-button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-.stage{display:flex;align-items:flex-start;justify-content:center}
-.phone{width:414px;height:896px;border-radius:48px;background:#05080b;padding:12px;box-shadow:0 35px 100px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.16)}
-.screen{height:100%;border-radius:38px;overflow:hidden;position:relative;background:radial-gradient(circle at 25% 0,rgba(101,167,255,.18),transparent 32%),linear-gradient(145deg,#202831 0%,#0d141a 62%,#182028 100%)}
-.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:34px;border-radius:999px;background:#05070a;z-index:4}
-.status{height:48px;padding:14px 24px 0;display:flex;justify-content:space-between;font-weight:800;position:relative;z-index:2}
-.sys{display:flex;gap:5px}.sys i{display:block;width:18px;height:10px;border:2px solid #fff;border-radius:3px}
-.content{height:calc(100% - 92px);overflow:auto;padding:18px 18px 94px;scrollbar-width:none}.content::-webkit-scrollbar{display:none}
-.view{display:none}.view.active{display:block}
-.top{display:flex;align-items:flex-start;justify-content:space-between;margin:10px 0 16px}
-h1{font-family:"Songti SC","STSong","PingFang SC",serif;font-size:30px;letter-spacing:-.06em;margin:0}.plain-title{font-family:inherit;letter-spacing:0;font-size:22px;text-align:center;flex:1}
-.sub{font-size:12px;color:var(--muted);margin-top:5px}.ico{width:42px;height:42px;border-radius:16px;background:var(--glass);border:1px solid var(--line);display:grid;place-items:center;position:relative}.badge{position:absolute;right:-3px;top:-4px;background:#ff6363;border-radius:999px;font-size:10px;padding:2px 5px}
-.glass{border-radius:21px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.065));border:1px solid var(--line);box-shadow:0 18px 45px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(24px);position:relative;overflow:hidden}
-.glass:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 42%);pointer-events:none}
-.card{padding:14px;margin-bottom:12px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title{font-size:15px;font-weight:900}.link{font-size:12px;color:rgba(255,255,255,.72)}
-.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{min-height:142px;border-radius:16px;padding:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.metric .k{font-size:13px}.metric .v{font-size:31px;font-weight:950;margin-top:18px}.unit{font-size:13px;color:var(--muted);margin-left:2px}.hint{font-size:11px;color:var(--muted);margin-top:8px}.spark{width:100%;height:28px;margin-top:8px}.spark path{fill:none;stroke-width:3;stroke-linecap:round}
-.status-line{display:flex;justify-content:space-between;padding:13px 16px;margin-bottom:12px;font-size:12px}.dot{width:8px;height:8px;background:#62df91;border-radius:50%;display:inline-block;margin-right:5px}
-.health{display:grid;grid-template-columns:112px 1fr;align-items:center;padding:16px}.ring{width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--blue) 0 82%,rgba(255,255,255,.15) 82%);display:grid;place-items:center}.ring:after{content:attr(data-score);width:70px;height:70px;border-radius:50%;background:#151e27;display:grid;place-items:center;font-size:28px;font-weight:950}
-.tabs{display:flex;padding:4px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid var(--line);margin-bottom:12px;gap:4px}.tabs button{flex:1;text-align:center;padding:9px 0;border-radius:999px;color:var(--muted);font-size:13px}.tabs .on{background:rgba(255,255,255,.2);color:#fff}
-.triple{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.triple div{border-right:1px solid rgba(255,255,255,.12);padding-right:8px}.triple div:last-child{border:0}.triple span{display:block;color:var(--muted);font-size:11px}.triple b{font-size:24px}
-.map{height:240px;border-radius:20px;background:radial-gradient(circle at 54% 42%,rgba(255,255,255,.35),transparent 20%),linear-gradient(145deg,rgba(255,255,255,.08),rgba(0,0,0,.18));position:relative;margin-top:8px}.city{position:absolute;padding:6px 9px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);font-size:12px}.c1{left:145px;top:76px}.c2{left:68px;top:142px}.c3{left:222px;top:158px}.c4{left:150px;top:190px}
-.zero{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px}.risk{border-radius:999px;padding:4px 7px;background:rgba(255,123,123,.18);color:#ffc7c7}.mid{background:rgba(231,173,90,.18);color:#ffe0b7}.low{background:rgba(103,212,156,.16);color:#c3f6dc}
-.tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tier{border-radius:17px;padding:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}.tier.gold{background:linear-gradient(145deg,rgba(245,210,173,.22),rgba(255,255,255,.08))}.tier .num{font-size:29px;font-weight:950;margin-top:12px}
-.owner-row{display:flex;gap:12px;overflow:auto;padding-bottom:2px}.person{text-align:center;min-width:58px}.avatar{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;background:linear-gradient(145deg,#f5d2ad,#65707c)}.person b{display:block;font-size:12px}.person span{font-size:11px;color:var(--muted)}
-.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.res{border-radius:14px;padding:10px;background:rgba(255,255,255,.08);font-size:11px}.res .big{font-size:16px;font-weight:900;margin:8px 0}.bar{height:6px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--amber);border-radius:inherit}.blue i{background:var(--blue)}.purple i{background:var(--purple)}
-.mini-list{display:grid;gap:8px}.mini-item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px}.mini-item b{font-size:13px}.mini-item span{color:var(--muted)}
-.bottom{position:absolute;left:0;right:0;bottom:0;height:76px;background:rgba(20,29,37,.82);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 10px 12px;z-index:5}.bottom button{text-align:center;color:var(--muted);font-size:11px}.bottom b{display:block;font-size:18px;margin-bottom:3px}.bottom .on{color:#fff}
-@media(max-width:900px){body{padding:0;background:#05080b}.phone{width:100vw;height:100dvh;border-radius:0;padding:0;box-shadow:none}.screen{border-radius:0}.content{padding-left:16px;padding-right:16px}.island{top:8px}.status{padding-top:13px}.phone-frame-note{display:none}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>陪跑移动看板｜已迁移到受保护入口</title>
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8fafc; color: #0f172a; }
+    main { width: min(720px, calc(100vw - 40px)); background: #fff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 36px; box-shadow: 0 24px 60px rgba(15,23,42,.08); }
+    .eyebrow { color: #2563eb; font-weight: 700; letter-spacing: .08em; font-size: 13px; }
+    h1 { margin: 12px 0 14px; font-size: clamp(28px, 4vw, 42px); line-height: 1.08; }
+    p { margin: 0 0 14px; color: #475569; line-height: 1.75; font-size: 16px; }
+    a.button { display: inline-flex; margin-top: 18px; padding: 13px 18px; border-radius: 999px; background: #0f172a; color: #fff; text-decoration: none; font-weight: 700; }
+    .meta { margin-top: 24px; padding-top: 18px; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b; }
+  </style>
 </head>
 <body>
-<div class="stage">
-  <section class="phone">
-    <div class="screen">
-      <div class="island"></div>
-      <div class="status"><span>9:41</span><div class="sys"><i></i></div></div>
-      <main class="content">
-        <section class="view active" data-view="overview">
-          <div class="top"><div><h1>陪跑数据看板</h1><div class="sub">精准决策 · 高效协同 · 业绩增长</div></div><div class="ico">♧<i class="badge">2</i></div></div>
-          <section class="glass card"><div class="head"><div class="title">经营总览</div><button class="link" data-go="region">查看区域 ›</button></div><div class="metric-grid" id="mobileOverviewKpis"></div></section>
-          <section class="glass status-line"><span id="mobileUpdate">数据更新：读取中</span><span><i class="dot"></i>数据正常</span></section>
-          <section class="glass health"><div class="ring" id="healthRing" data-score="--"></div><div><div class="title">经营健康度</div><p id="healthText">读取中</p><p id="healthSub">较昨日 --</p></div></section>
-          <section class="glass card"><div class="head"><div class="title">今日重点</div><button class="link" data-go="task">查看任务 ›</button></div><div class="mini-list" id="overviewFocus"></div></section>
-        </section>
-
-        <section class="view" data-view="region">
-          <div class="top"><div class="ico">⌖</div><h1 class="plain-title">区域经营</h1><div class="ico">▽</div></div>
-          <div class="tabs" id="regionTabs"><button class="on" data-district="长沙大区">长沙大区</button><button data-district="地市一区">地市一区</button><button data-district="地市二区">地市二区</button></div>
-          <section class="glass card"><div class="triple" id="mobileRegionKpis"></div><div class="head"><div class="title" id="regionMapTitle">门店业绩热力图</div><div class="link" id="regionMonthLabel">本月</div></div><div class="map"><div class="city c1" id="city1">--<br><b>--</b></div><div class="city c2" id="city2">--<br><b>--</b></div><div class="city c3" id="city3">--<br><b>--</b></div><div class="city c4" id="city4">--<br><b>--</b></div></div></section>
-          <section class="glass card"><div class="head"><div class="title" id="zeroTitle">零签单预警</div><div class="link" id="zeroTotal">--</div></div><div id="mobileZeroList"></div></section>
-        </section>
-
-        <section class="view" data-view="tier">
-          <div class="top"><div><h1>梯队驾驶舱</h1><div class="sub">重点名单 · 梯队管理 · 资源扶持</div></div><div class="ico">▽</div></div>
-          <section class="glass card"><div class="head"><div class="title">梯队分布概览</div><button class="link" data-go="task">资源动作 ›</button></div><div class="tier-grid" id="mobileTierGrid"></div></section>
-          <section class="glass card"><div class="head"><div class="title">运营归属（五位运营）</div><div class="link" id="ownerMonthLabel">本月</div></div><div class="owner-row" id="mobileOwners"></div></section>
-          <section class="glass card"><div class="head"><div class="title">资源扶持进度</div><div class="link" id="resourceDaysLeft">本月剩余 -- 天</div></div><div class="res-grid" id="mobileResources"></div></section>
-          <section class="glass card"><div class="head"><div class="title">重点账号周监管</div><button class="link" data-go="task">看异常 ›</button></div><div class="mini-list" id="mobileDouyinSummary"></div></section>
-        </section>
-
-        <section class="view" data-view="task">
-          <div class="top"><div><h1>任务看板</h1><div class="sub">待转施工 · 零签单 · 资源跟进</div></div><div class="ico">□</div></div>
-          <section class="glass card"><div class="head"><div class="title">本月经营动作</div><button class="link" data-go="overview">回总览 ›</button></div><div class="mini-list" id="taskList"></div></section>
-        </section>
-
-        <section class="view" data-view="mine">
-          <div class="top"><div><h1>我的</h1><div class="sub">数据状态 · 更新口径 · 发布守卫</div></div><div class="ico">♧</div></div>
-          <section class="glass card"><div class="head"><div class="title">数据状态</div><button class="link" data-go="overview">回总览 ›</button></div><div class="mini-list" id="mineStatus"></div></section>
-        </section>
-      </main>
-      <nav class="bottom" id="bottomNav">
-        <button class="on" data-go="overview"><b>⌂</b>总览</button>
-        <button data-go="region"><b>▭</b>区域</button>
-        <button data-go="tier"><b>★</b>重点名单</button>
-        <button data-go="task"><b>□</b>任务</button>
-        <button data-go="mine"><b>♧</b>我的</button>
-      </nav>
-    </div>
-  </section>
-</div>
-<script>
-const fmt=n=>Number(n||0).toLocaleString('zh-CN'), wan=n=>(Number(n||0)/10000).toFixed(1), pct=n=>Number.isFinite(n)?n.toFixed(1)+'%':'0.0%';
-const fixedUnits={
-  '长沙大区':['城北店','梅溪湖店','洋湖店','星沙店','浏阳店','宁乡店','望城店','河西店','省府店'],
-  '地市一区':['常德','衡阳','邵阳','郴州','怀化','岳阳','益阳','娄底','永州','张家界'],
-  '地市二区':['湘潭','株洲','醴陵','耒阳','吉首','南宁','柳州','惠州','平江']
-};
-let rawData=[], payload={}, douyinData=null, activeMonth='', selectedDistrict='长沙大区';
-
-function evalLit(s){return Function('"use strict";return ('+s+');')()}
-function extract(src,name,ch){const i=src.indexOf('const '+name+' = ');if(i<0)throw Error(name);const st=src.indexOf(ch,i),end={"{":"}","[":"]"}[ch];let d=0,q='',str=false,esc=false;for(let p=st;p<src.length;p++){const c=src[p];if(str){if(esc)esc=false;else if(c==='\\')esc=true;else if(c===q)str=false;continue}if(c==='"'||c==="'"||c==='`'){str=true;q=c;continue}if(c===ch)d++;if(c===end){d--;if(!d)return src.slice(st,p+1)}}throw Error(name)}
-function unitOf(r){const s=String(r.store||'').trim();if(r.district==='长沙大区')return s||'未记录门店';const raw=s.replace(/^地市[一二]区/,'').replace(/^湖南/,'').trim();const cities=[...new Set(Object.values(fixedUnits).flat())];return cities.find(c=>raw.startsWith(c))||raw||'未记录城市'}
-function group(rs,fn){const m=new Map();rs.forEach(r=>{const k=fn(r);if(!m.has(k))m.set(k,[]);m.get(k).push(r)});return[...m.entries()]}
-function metric(rs){const d=rs.filter(r=>r.type==='设计'),c=rs.filter(r=>r.type==='施工'),a=c.reduce((s,r)=>s+Number(r.amount||0),0);return{d,c,a,rate:d.length?c.length/d.length*100:0}}
-function currentMonthRows(){return rawData.filter(r=>r.month===activeMonth)}
-function spark(color){return `<svg class="spark" viewBox="0 0 140 34"><path d="M2 28 C18 22,26 29,42 18 S65 26,80 12 S105 23,138 8" stroke="${color}"/></svg>`}
-function mini(items){return items.map(x=>`<div class="mini-item"><div><b>${x[0]}</b><br><span>${x[1]}</span></div><em class="${x[3]||''}">${x[2]}</em></div>`).join('')}
-
-function switchView(view){
-  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.dataset.view===view));
-  document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.toggle('on',b.dataset.go===view));
-  document.querySelector('.content').scrollTo({top:0,behavior:'smooth'});
-}
-
-function renderOverview(){
-  const monthRows=currentMonthRows(), all=metric(rawData), month=metric(monthRows);
-  document.getElementById('mobileOverviewKpis').innerHTML=[
-    ['本月施工',wan(month.a),'万','var(--blue)'],
-    ['本月设计',month.d.length,'单','var(--amber)'],
-    ['本月转施工率',pct(month.rate),'','var(--blue)'],
-    ['累计记录',rawData.length,'条','var(--amber)']
-  ].map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v">${x[1]}<span class="unit">${x[2]}</span></div><div class="hint">全年施工 ${wan(all.a)}万 · 设计 ${all.d.length}单</div>${spark(x[3])}</div>`).join('');
-  const sum=payload.summary||{}, score=Math.min(99,Math.round(month.rate*.7+20));
-  document.getElementById('mobileUpdate').textContent=`数据更新：${activeMonth} · 累计${rawData.length}条`;
-  document.getElementById('healthRing').setAttribute('data-score',score);
-  document.getElementById('healthText').textContent=score>=80?'健康度良好':'需要盯防';
-  document.getElementById('healthSub').textContent=`全年转施工率 ${pct(all.rate)}`;
-  document.getElementById('overviewFocus').innerHTML=mini([
-    ['区域经营',`当前默认 ${activeMonth}，支持三大区域切换`,'可点击','low'],
-    ['重点名单',`重点覆盖 ${sum.originalTierCounts?.['第一梯队']||0}+ 梯队数据`,'已接入','low'],
-    ['资源扶持',`资源位 ${sum.resourceSummary?.['资源位人数']||54} 人，跟进动作可看`,'待跟进','mid']
-  ]);
-}
-
-function renderRegion(){
-  const rows=currentMonthRows().filter(r=>r.district===selectedDistrict), m=metric(rows), label=selectedDistrict==='长沙大区'?'门店':'城市';
-  document.getElementById('regionMapTitle').textContent=`${label}业绩热力图`;
-  document.getElementById('regionMonthLabel').textContent=activeMonth;
-  document.getElementById('mobileRegionKpis').innerHTML=[
-    ['施工金额',wan(m.a),'万'],['设计单',m.d.length,'单'],['转施工率',pct(m.rate),'']
-  ].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b><small>${x[2]}</small></div>`).join('');
-  const base=new Set([...(fixedUnits[selectedDistrict]||[]),...rawData.filter(r=>r.district===selectedDistrict).map(unitOf)]);
-  const unitRows=[...base].map(u=>{
-    const rs=rows.filter(r=>unitOf(r)===u), mm=metric(rs);
-    return {unit:u, design:mm.d.length, cons:mm.c.length, amount:mm.a};
-  }).sort((a,b)=>b.amount-a.amount||b.design-a.design);
-  ['city1','city2','city3','city4'].forEach((id,i)=>{const item=unitRows[i]||{unit:'--',amount:0};document.getElementById(id).innerHTML=`${item.unit}<br><b>${wan(item.amount)}万</b>`});
-  const zero=unitRows.filter(x=>!x.design||!x.cons).slice(0,6);
-  document.getElementById('zeroTitle').textContent=`${selectedDistrict}零签单预警`;
-  document.getElementById('zeroTotal').textContent=`共 ${zero.length} 个`;
-  document.getElementById('mobileZeroList').innerHTML=zero.map((x,i)=>`<div class="zero"><b>${x.unit}</b><span>设计${x.design} · 施工${x.cons}</span><em class="risk ${i>1?'mid':''}">${i?'中风险':'高风险'}</em></div>`).join('') || '<div class="hint">当前区域暂无零签单预警</div>';
-}
-
-function renderTier(){
-  const sum=payload.summary||{}, tiers=sum.newTierCounts||{}, total=Object.values(tiers).reduce((s,v)=>s+Number(v||0),0)||1;
-  document.getElementById('mobileTierGrid').innerHTML=Object.entries(tiers).map(([k,v],i)=>`<button class="tier ${i===0?'gold':''}" data-go="task"><div>${['♛','⚔','◉','✦'][i]||'•'} ${k.replace('新','')}</div><div class="sub">${['500W+账号','300W+账号','100W+账号','潜力账号'][i]||''}</div><div class="num">${v}<span class="unit">个</span></div><div class="hint">占比 ${pct(v/total*100)}</div></button>`).join('');
-  document.getElementById('ownerMonthLabel').textContent=activeMonth;
-  const ownerList=sum.ownerSummary||[];
-  document.getElementById('mobileOwners').innerHTML=ownerList.slice(0,5).map(o=>`<button class="person" data-go="task"><div class="avatar"></div><b>${o['运营']}</b><span>${Number(o['施工金额(万)']||0).toFixed(0)}万</span></button>`).join('');
-  const res=sum.resourceSummary||{}, days=Math.max(0, new Date(2026, Number(activeMonth.slice(5,7)), 0).getDate() - new Date().getDate());
-  document.getElementById('resourceDaysLeft').textContent=`本月剩余 ${Number.isFinite(days)?days:'--'} 天`;
-  document.getElementById('mobileResources').innerHTML=[
-    ['资源位',`${res['资源位人数']||54}人`,42,''],
-    ['内容合作',`${res['月剪辑需求']||0}条`,35,'blue'],
-    ['确认池',`${(sum.resourcePendingNew||[]).length||0}人`,62,'purple']
-  ].map(x=>`<button class="res ${x[3]}" data-go="task"><b>${x[0]}</b><div class="big">${x[1]}</div><span>进度 ${x[2]}%</span><div class="bar"><i style="width:${x[2]}%"></i></div></button>`).join('');
-  renderDouyinMobile();
-}
-
-function renderDouyinMobile(){
-  const data=douyinData||{}, scope=data.scope||{}, top=Array.isArray(data.top_works)?data.top_works[0]:null;
-  document.getElementById('mobileDouyinSummary').innerHTML=mini([
-    ['监管账号',`本周作品 ${scope.works||0} 条`,`${scope.accounts||0}个`,'low'],
-    ['0更新/低频',`0更新 ${scope.zero||0} · 低频 ${scope.low||0}`,scope.zero||scope.low?'关注':'正常',scope.zero||scope.low?'risk':'low'],
-    ['互动最高',top?`${top.account_name||'-'} · ${top.digg_count||0}赞`:'等待数据',top?'Top1':'--','mid']
-  ]);
-}
-
-function renderTask(){
-  const rows=currentMonthRows(), byOwner=group(rows,r=>r.owner||'未归属').map(([owner,rs])=>({owner,...metric(rs)})).sort((a,b)=>b.a-a.a).slice(0,5);
-  const data=douyinData||{}, zero=Array.isArray(data.zero_accounts)?data.zero_accounts:[], low=Array.isArray(data.low_accounts)?data.low_accounts:[];
-  const douyinRisks=[...zero.slice(0,3).map(x=>[`抖音0更新｜${x.account?.name||'-'}`,`${x.account?.owner||'-'} · ${x.account?.tier||'-'}`,`${x.count||0}条`,'risk']),...low.slice(0,3).map(x=>[`抖音低频｜${x.account?.name||'-'}`,`${x.account?.owner||'-'} · ${x.account?.tier||'-'}`,`${x.count||0}条`,'mid'])];
-  document.getElementById('taskList').innerHTML=mini([...byOwner.map(x=>[x.owner,`设计 ${x.d.length} 单 · 施工 ${x.c.length} 单 · ${wan(x.a)}万`,x.rate<40?'盯防':'正常',x.rate<40?'risk':'low']),...douyinRisks]);
-}
-
-function renderMine(){
-  const sum=payload.summary||{};
-  document.getElementById('mineStatus').innerHTML=mini([
-    ['数据真源',`主看板 ${rawData.length} 条，梯队 ${payload.rows?.length||0} 人`,'正常','low'],
-    ['当前月份',activeMonth,'自动识别','low'],
-    ['移动交互',`底部 Tab、区域 Tab、卡片入口已绑定`,'已修复','low']
-  ]);
-}
-
-function renderAll(){renderOverview();renderRegion();renderTier();renderTask();renderMine()}
-
-document.addEventListener('click',e=>{
-  const go=e.target.closest('[data-go]'); if(go){switchView(go.dataset.go); return}
-  const region=e.target.closest('[data-district]'); if(region){selectedDistrict=region.dataset.district;document.querySelectorAll('#regionTabs button').forEach(b=>b.classList.toggle('on',b===region));renderRegion()}
-});
-
-(async()=>{
-  const [main,fusion]=await Promise.all([
-    fetch('../data/dashboard_v2_standalone.html',{cache:'no-store'}).then(r=>r.text()),
-    fetch('../data/peipao_advisor_fusion_dashboard.html',{cache:'no-store'}).then(r=>r.text())
-  ]);
-  const douyinUrl=location.pathname.includes('/mobile/')?'../data/douyin_weekly_summary.json':'data/douyin_weekly_summary.json';
-  douyinData=await fetch(douyinUrl,{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
-  rawData=evalLit(extract(main,'rawData','['));
-  payload=evalLit(extract(fusion,'payload','{'));
-  activeMonth=(payload.summary&&payload.summary.activeMonth)||rawData.map(r=>r.month).sort().at(-1)||'2026-06';
-  renderAll();
-})();
-</script>
+  <main>
+    <div class="eyebrow">PRIVATE DASHBOARD</div>
+    <h1>陪跑移动看板 已迁移到受保护入口</h1>
+    <p>为避免内部经营数据、客户字段和团队明细继续公开暴露，GitHub Pages 现在只保留说明页，不再承载看板数据文件。</p>
+    <p>每日自动更新仍会继续执行，最新数据会发布到 Cloudflare Pages 的密码保护入口。</p>
+    <a class="button" href="https://peipao-dashboard-internal.pages.dev/mobile/" rel="nofollow">打开受保护看板</a>
+    <p class="meta">更新时间：2026-06-24 09:00:21<br>如浏览器仍显示旧页面，请强制刷新或清理缓存。</p>
+  </main>
 </body>
 </html>
