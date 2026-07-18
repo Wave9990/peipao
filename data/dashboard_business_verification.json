@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "checkedAt": "2026-07-17T23:08:19.365Z",
+  "checks": 8,
+  "sourceRecordCount": 824,
+  "teamRecordCount": 824,
+  "fusionDesignCount": 468,
+  "fusionConstructionCount": 356,
+  "constructionAmountWan": 6462.4,
+  "advisorEntityCount": 199,
+  "trustedAsOf": "2026-07-17T23:08:11.620Z",
+  "timeProgress": 54.3,
+  "constructionForecastWan": 11901
+}
